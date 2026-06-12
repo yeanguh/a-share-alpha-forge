@@ -9,10 +9,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from threshold_config import get_number, load_thresholds
+
 DEFAULT_ROOT = Path("local")
 DEFAULT_REVIEW_ROOT = DEFAULT_ROOT / "reviews"
-DEFAULT_MIN_MARKET_CAP_BILLION = 100.0
-DEFAULT_MAX_MARKET_CAP_BILLION = 2000.0
+DEFAULT_THRESHOLDS = load_thresholds()
+DEFAULT_MIN_MARKET_CAP_BILLION = get_number(DEFAULT_THRESHOLDS, "market_cap_billion", "min")
+DEFAULT_MAX_MARKET_CAP_BILLION = get_number(DEFAULT_THRESHOLDS, "market_cap_billion", "max")
 VALID_ROLE_SCOPES = {"all", "beneficiary", "pressure"}
 RESOURCE_MARKERS = ("有色", "金属", "稀土", "钨", "锡", "铝", "煤", "钢铁")
 OBSERVATION_PRESSURE_MARKERS = ("高位", "拥挤", "过热", "追涨", "证伪", "传闻落空", "澄清", "辟谣")
@@ -434,25 +437,31 @@ def report_coverage_penalty(report_count: int) -> float:
 
 
 def current_production_profile() -> ThresholdProfile:
+    config = load_thresholds()
     return ThresholdProfile(
         name="current_production_gate",
-        beneficiary_trend=3.0,
-        beneficiary_volume=3.4,
-        beneficiary_capital=3.6,
-        beneficiary_event=3.5,
+        beneficiary_trend=get_number(config, "stock_gates", "beneficiary", "trend_min"),
+        beneficiary_volume=get_number(config, "stock_gates", "beneficiary", "volume_min"),
+        beneficiary_capital=get_number(config, "stock_gates", "beneficiary", "capital_recognition_min"),
+        beneficiary_event=get_number(config, "stock_gates", "beneficiary", "event_alignment_min"),
         beneficiary_quality_min=0.0,
-        beneficiary_risk_max=3.8,
-        resource_trend=3.6,
-        resource_volume=3.6,
-        resource_capital=3.6,
-        beneficiary_sector_impact=4.0,
-        beneficiary_sector_price_volume=4.0,
-        beneficiary_sector_liquidity=4.0,
-        pressure_trend_max=2.4,
-        pressure_capital_max=2.6,
-        pressure_volume_min=3.2,
-        observation_pressure_trend_max=2.2,
-        observation_pressure_capital_max=2.5,
+        beneficiary_risk_max=get_number(config, "stock_gates", "beneficiary", "risk_max"),
+        resource_trend=get_number(config, "stock_gates", "resource_beneficiary", "trend_min"),
+        resource_volume=get_number(config, "stock_gates", "resource_beneficiary", "volume_min"),
+        resource_capital=get_number(config, "stock_gates", "resource_beneficiary", "capital_recognition_min"),
+        beneficiary_sector_impact=get_number(config, "sector_gates", "beneficiary", "impact_score_min"),
+        beneficiary_sector_price_volume=get_number(config, "sector_gates", "beneficiary", "price_volume_min"),
+        beneficiary_sector_liquidity=get_number(config, "sector_gates", "beneficiary", "liquidity_min"),
+        pressure_trend_max=get_number(config, "stock_gates", "pressure", "trend_max"),
+        pressure_capital_max=get_number(config, "stock_gates", "pressure", "capital_recognition_max"),
+        pressure_volume_min=get_number(config, "stock_gates", "pressure", "volume_min"),
+        observation_pressure_trend_max=get_number(config, "stock_gates", "observation_pressure", "trend_max"),
+        observation_pressure_capital_max=get_number(
+            config,
+            "stock_gates",
+            "observation_pressure",
+            "capital_recognition_max",
+        ),
     )
 
 

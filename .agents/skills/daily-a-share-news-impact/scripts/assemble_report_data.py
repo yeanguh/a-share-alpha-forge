@@ -17,6 +17,7 @@ from score_stocks import (
     StockObservation,
     load_observations,
 )
+from threshold_config import get_int, get_number, load_thresholds, threshold_version
 
 VALID_FUND_DIRECTIONS = {"净流入扩散", "结构性流入", "缩量观望", "净流出扩散", "拥挤分化"}
 VALID_DATA_QUALITY = {"full", "partial", "limited"}
@@ -66,11 +67,15 @@ def load_bundle_sector_candidates(bundle: dict[str, Any]) -> list[Candidate]:
     return load_from_bundle_array(sector_candidates, "a_share_sector_candidates_bundle", load_candidates)
 
 
-def load_bundle_stocks(bundle: dict[str, Any], market_cap_range: MarketCapRange) -> list[StockObservation]:
+def load_bundle_stocks(
+    bundle: dict[str, Any],
+    market_cap_range: MarketCapRange,
+    threshold_config: dict[str, Any] | None = None,
+) -> list[StockObservation]:
     return load_from_bundle_array(
         bundle.get("stocks", []),
         "a_share_stocks_bundle",
-        lambda path: load_observations(path, market_cap_range),
+        lambda path: load_observations(path, market_cap_range, threshold_config),
     )
 
 
@@ -197,16 +202,17 @@ def leading_stock_output(stock: StockObservation, mainline_sector_names: set[str
 
 
 def is_leader_quality_candidate(stock: StockObservation) -> bool:
+    threshold = stock.threshold
     if stock.eligible_for_recommendation:
         return True
     return (
         not stock.market_cap_in_range
-        and stock.trend_score >= 3.2
-        and stock.volume_score >= 3.0
-        and stock.capital_recognition >= 3.2
-        and stock.institutional_trend_score >= 3.2
-        and stock.event_alignment >= 3.8
-        and stock.risk_score <= 4.0
+        and stock.trend_score >= threshold("stock_gates", "leader_watch", "trend_min")
+        and stock.volume_score >= threshold("stock_gates", "leader_watch", "volume_min")
+        and stock.capital_recognition >= threshold("stock_gates", "leader_watch", "capital_recognition_min")
+        and stock.institutional_trend_score >= threshold("stock_gates", "leader_watch", "institutional_trend_min")
+        and stock.event_alignment >= threshold("stock_gates", "leader_watch", "event_alignment_min")
+        and stock.risk_score <= threshold("stock_gates", "leader_watch", "risk_max")
         and stock.research_rating != "风险回避"
     )
 
@@ -248,23 +254,75 @@ def ranked_leading_stocks(
 
 
 def assemble_command(args: argparse.Namespace) -> None:
-    market_cap_range = MarketCapRange(args.min_market_cap_billion, args.max_market_cap_billion)
+    threshold_config = load_thresholds(getattr(args, "threshold_config", None))
+    min_market_cap = (
+        args.min_market_cap_billion
+        if args.min_market_cap_billion is not None
+        else get_number(threshold_config, "market_cap_billion", "min")
+    )
+    max_market_cap = (
+        args.max_market_cap_billion
+        if args.max_market_cap_billion is not None
+        else get_number(threshold_config, "market_cap_billion", "max")
+    )
+    market_cap_range = MarketCapRange(min_market_cap, max_market_cap)
     bundle = load_bundle(Path(args.input))
     candidates = load_bundle_candidates(bundle)
     sector_candidates = load_bundle_sector_candidates(bundle)
-    stocks = load_bundle_stocks(bundle, market_cap_range)
+    stocks = load_bundle_stocks(bundle, market_cap_range, threshold_config)
     fund_flow, fund_warnings = validate_fund_flow(bundle)
     scored_stocks = sorted(stocks, key=lambda stock: stock.research_score, reverse=True)
+    top_positive_sectors = (
+        args.top_positive_sectors
+        if args.top_positive_sectors is not None
+        else get_int(threshold_config, "top_limits", "positive_sectors")
+    )
+    top_negative_sectors = (
+        args.top_negative_sectors
+        if args.top_negative_sectors is not None
+        else get_int(threshold_config, "top_limits", "negative_sectors")
+    )
+    top_positive = (
+        args.top_positive if args.top_positive is not None else get_int(threshold_config, "top_limits", "positive_candidates")
+    )
+    top_negative = (
+        args.top_negative if args.top_negative is not None else get_int(threshold_config, "top_limits", "negative_candidates")
+    )
+    top_mainline_sectors = (
+        args.top_mainline_sectors
+        if args.top_mainline_sectors is not None
+        else get_int(threshold_config, "top_limits", "mainline_sectors")
+    )
+    top_leading_stocks = (
+        args.top_leading_stocks
+        if args.top_leading_stocks is not None
+        else get_int(threshold_config, "top_limits", "leading_stocks")
+    )
+    min_beneficiary_sector_impact = (
+        args.min_beneficiary_sector_impact
+        if args.min_beneficiary_sector_impact is not None
+        else get_number(threshold_config, "sector_gates", "beneficiary", "impact_score_min")
+    )
+    min_beneficiary_sector_price_volume = (
+        args.min_beneficiary_sector_price_volume
+        if args.min_beneficiary_sector_price_volume is not None
+        else get_number(threshold_config, "sector_gates", "beneficiary", "price_volume_min")
+    )
+    min_beneficiary_sector_liquidity = (
+        args.min_beneficiary_sector_liquidity
+        if args.min_beneficiary_sector_liquidity is not None
+        else get_number(threshold_config, "sector_gates", "beneficiary", "liquidity_min")
+    )
     positive_sectors = selected_sector_names(
         sector_candidates,
         "positive",
-        args.top_positive_sectors,
-        args.min_beneficiary_sector_impact,
-        args.min_beneficiary_sector_price_volume,
-        args.min_beneficiary_sector_liquidity,
+        top_positive_sectors,
+        min_beneficiary_sector_impact,
+        min_beneficiary_sector_price_volume,
+        min_beneficiary_sector_liquidity,
     )
-    negative_sectors = selected_sector_names(sector_candidates, "negative", args.top_negative_sectors)
-    mainline_sectors = ranked_mainline_sectors(sector_candidates, args.top_mainline_sectors)
+    negative_sectors = selected_sector_names(sector_candidates, "negative", top_negative_sectors)
+    mainline_sectors = ranked_mainline_sectors(sector_candidates, top_mainline_sectors)
     mainline_sector_names = {str(sector["title"]) for sector in mainline_sectors}
 
     output = {
@@ -274,16 +332,25 @@ def assemble_command(args: argparse.Namespace) -> None:
             "max_billion": market_cap_range.maximum_billion,
             "description": market_cap_range.description,
         },
+        "threshold_config": {
+            "version": threshold_version(threshold_config),
+            "path": str(getattr(args, "threshold_config", None) or "default"),
+            "beneficiary_sector_gate": {
+                "impact_score_min": min_beneficiary_sector_impact,
+                "price_volume_min": min_beneficiary_sector_price_volume,
+                "liquidity_min": min_beneficiary_sector_liquidity,
+            },
+        },
         "fund_flow": fund_flow,
         "sector_rankings": {
-            "positive": rank_candidates(sector_candidates, "positive", args.top_positive_sectors),
-            "negative": rank_candidates(sector_candidates, "negative", args.top_negative_sectors),
+            "positive": rank_candidates(sector_candidates, "positive", top_positive_sectors),
+            "negative": rank_candidates(sector_candidates, "negative", top_negative_sectors),
         },
         "daily_mainlines": mainline_sectors,
-        "leading_stocks": ranked_leading_stocks(scored_stocks, mainline_sector_names, args.top_leading_stocks),
+        "leading_stocks": ranked_leading_stocks(scored_stocks, mainline_sector_names, top_leading_stocks),
         "rankings": {
-            "positive": rank_candidates(candidates, "positive", args.top_positive),
-            "negative": rank_candidates(candidates, "negative", args.top_negative),
+            "positive": rank_candidates(candidates, "positive", top_positive),
+            "negative": rank_candidates(candidates, "negative", top_negative),
         },
         "stocks": [
             stock_output(
@@ -334,50 +401,51 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Assemble A-share brief scoring data.")
     parser.add_argument("--input", required=True, help="Path to a report bundle JSON object.")
     parser.add_argument("--output", help="Optional path to write assembled scoring JSON.")
-    parser.add_argument("--top-positive-sectors", type=int, default=10, help="Number of positive sectors to emit.")
-    parser.add_argument("--top-negative-sectors", type=int, default=10, help="Number of negative sectors to emit.")
-    parser.add_argument("--top-positive", type=int, default=10, help="Number of positive candidates to emit.")
-    parser.add_argument("--top-negative", type=int, default=10, help="Number of negative candidates to emit.")
+    parser.add_argument("--threshold-config", help="Optional threshold config JSON. Defaults to skill config.")
+    parser.add_argument("--top-positive-sectors", type=int, default=None, help="Number of positive sectors to emit.")
+    parser.add_argument("--top-negative-sectors", type=int, default=None, help="Number of negative sectors to emit.")
+    parser.add_argument("--top-positive", type=int, default=None, help="Number of positive candidates to emit.")
+    parser.add_argument("--top-negative", type=int, default=None, help="Number of negative candidates to emit.")
     parser.add_argument(
         "--min-beneficiary-sector-impact",
         type=float,
-        default=4.0,
+        default=None,
         help="Minimum sector impact score required before beneficiary stocks can enter the opportunity list.",
     )
     parser.add_argument(
         "--min-beneficiary-sector-price-volume",
         type=float,
-        default=4.0,
+        default=None,
         help="Minimum sector price/volume confirmation required for beneficiary opportunity eligibility.",
     )
     parser.add_argument(
         "--min-beneficiary-sector-liquidity",
         type=float,
-        default=4.0,
+        default=None,
         help="Minimum sector liquidity confirmation required for beneficiary opportunity eligibility.",
     )
     parser.add_argument(
         "--top-mainline-sectors",
         type=int,
-        default=5,
+        default=None,
         help="Number of daily mainline sectors or concepts to emit.",
     )
     parser.add_argument(
         "--top-leading-stocks",
         type=int,
-        default=10,
+        default=None,
         help="Number of leading stocks from daily mainline sectors to emit.",
     )
     parser.add_argument(
         "--min-market-cap-billion",
         type=float,
-        default=MIN_MARKET_CAP_BILLION,
+        default=None,
         help="Minimum market cap in CNY billions for stock recommendation eligibility.",
     )
     parser.add_argument(
         "--max-market-cap-billion",
         type=float,
-        default=MAX_MARKET_CAP_BILLION,
+        default=None,
         help="Maximum market cap in CNY billions for stock recommendation eligibility.",
     )
     parser.set_defaults(func=assemble_command)

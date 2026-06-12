@@ -106,7 +106,9 @@ user explicitly asks for them.
    `scripts/assemble_report_data.py --input bundle.json` to produce ranked
    sector data, the daily top 5 mainline sectors or concepts, up to 10
    quality-gated leading stocks from those mainlines, ranked candidate data,
-   scored stock data, and warnings about missing evidence. Do not fill weakly
+   scored stock data, and warnings about missing evidence. Production threshold
+   defaults live in `config/default_thresholds.json`; pass `--threshold-config`
+   only when testing an explicit alternative profile. Do not fill weakly
    confirmed stocks into the leader table just to reach 10 rows.
 15. Rank positive and negative candidates separately. Keep top 10 positive and
    top 10 negative items. Use
@@ -120,11 +122,16 @@ user explicitly asks for them.
     buy, sell, hold, add, reduce, price-target, stop-loss, or position-size
     instructions.
     Stocks that fail eligibility must be listed under excluded/observation notes,
-    not in the recommended beneficiary or pressure company columns.
+    not in the recommended beneficiary or pressure company columns. Use
+    `scripts/render_report.py --assembled assembled.json` when the structured
+    assembled output is available and a deterministic Markdown skeleton is
+    preferred.
 17. Persist every daily run using `references/persistence-and-review.md` and
     `scripts/persist_report.py`. Save the input bundle, assembled scoring data,
     and final Markdown report under `local/YYYY-MM-DD/`. Do not create an
-    extra skill-name directory below `local/`.
+    extra skill-name directory below `local/`. When starting from an existing
+    `input_bundle.json`, use `scripts/run_daily_report.py --bundle ...` to run
+    assemble, render, and persist in one repeatable command.
 18. After 15:00 China time, use closing broad-index, sector, and selected-stock
     data to create `close_review.json`. Use `scripts/review_archive.py` for
     daily or weekly review aggregation. Store weekly, intraday, backtest,
@@ -218,9 +225,11 @@ user explicitly asks for them.
 - `references/report-template.md`: Chinese output structure and table columns.
 - `references/retail-voc.md`: public or authorized retail VOC collection,
   scoring, and contrarian interpretation rules.
+- `config/default_thresholds.json`: production threshold defaults for market-cap
+  range, sector gates, stock gates, score weights, and default Top-N limits.
 - `scripts/assemble_report_data.py`: helper that validates the report input
   bundle, ranks sectors and candidates, scores stocks, applies sector-first
-  gating, and emits evidence-gap warnings.
+  gating, reads threshold config, and emits evidence-gap warnings.
 - `scripts/backtest_archived_reports.py`: helper that reads persisted
   `assembled.json` files and compares selected beneficiaries, pressure
   candidates, and optional mainline leaders with free realtime Tencent quote and
@@ -236,10 +245,14 @@ user explicitly asks for them.
   output, reports, and post-close review files by date.
 - `scripts/rank_news.py`: deterministic helper for China-time windows and
   structured candidate ranking.
+- `scripts/render_report.py`: deterministic helper that renders assembled
+  scoring JSON into the fixed Chinese Markdown report structure.
 - `scripts/review_archive.py`: helper that aggregates persisted post-close
   daily or weekly review records.
+- `scripts/run_daily_report.py`: one-command helper for existing input bundles;
+  assembles scoring data, renders Markdown, and persists the run.
 - `scripts/score_stocks.py`: deterministic helper for stock-level research
-  scoring and non-personalized operation tendencies.
+  scoring, threshold-configured gates, and non-personalized operation tendencies.
 - `sources.md`: audit trail for the skill-design references.
 
 ## Candidate JSON
@@ -314,6 +327,14 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/assemble_report_data.py
   --output tmp/a-share-brief-assembled.json \
   --min-market-cap-billion 100 \
   --max-market-cap-billion 2000
+
+python3 .agents/skills/daily-a-share-news-impact/scripts/render_report.py \
+  --assembled tmp/a-share-brief-assembled.json \
+  --output tmp/a-share-brief-report.md
+
+python3 .agents/skills/daily-a-share-news-impact/scripts/run_daily_report.py \
+  --bundle tmp/a-share-brief-bundle.json \
+  --run-id 093000
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/check_optional_data_sources.py \
   --akshare-code 300750 \

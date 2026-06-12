@@ -11,8 +11,11 @@ import assemble_report_data
 import check_optional_data_sources
 import persist_report
 import rank_news
+import render_report
 import review_archive
+import run_daily_report
 from score_stocks import MarketCapRange, load_observations
+from threshold_config import load_thresholds
 
 
 def write_json(path: Path, payload: object) -> Path:
@@ -146,6 +149,107 @@ def test_assemble_report_writes_output_preserves_evidence_and_cleans_temp(tmp_pa
     assert beneficiary["retail_voc_summary"] == "公开讨论热度中性偏高"
     assert beneficiary["external_data"]["quote_snapshot"]["source"] == "tencent_public_quote"
     assert not list(tmp_path.glob("a_share_*_bundle_*.json"))
+
+
+def test_assemble_report_uses_threshold_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("TMPDIR", str(tmp_path))
+    config = load_thresholds()
+    config["version"] = "test-tight-capital"
+    config["stock_gates"]["beneficiary"]["capital_recognition_min"] = 4.2
+    config_path = write_json(tmp_path / "thresholds.json", config)
+    input_path = write_json(tmp_path / "bundle.json", bundle())
+    output_path = tmp_path / "assembled.json"
+
+    assemble_report_data.assemble_command(
+        argparse.Namespace(
+            input=str(input_path),
+            output=str(output_path),
+            threshold_config=str(config_path),
+            top_positive_sectors=None,
+            top_negative_sectors=None,
+            top_positive=None,
+            top_negative=None,
+            min_beneficiary_sector_impact=None,
+            min_beneficiary_sector_price_volume=None,
+            min_beneficiary_sector_liquidity=None,
+            top_mainline_sectors=None,
+            top_leading_stocks=None,
+            min_market_cap_billion=None,
+            max_market_cap_billion=None,
+        )
+    )
+
+    payload = json.loads(output_path.read_text(encoding="utf-8"))
+    assert payload["threshold_config"]["version"] == "test-tight-capital"
+    assert payload["eligible_beneficiaries"] == []
+    assert "资金认可度不足" in payload["excluded_stocks"][0]["exclusion_reason"]
+
+
+def test_render_report_outputs_fixed_sections(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("TMPDIR", str(tmp_path))
+    input_path = write_json(tmp_path / "bundle.json", bundle())
+    output_path = tmp_path / "assembled.json"
+    assemble_report_data.assemble_command(
+        argparse.Namespace(
+            input=str(input_path),
+            output=str(output_path),
+            threshold_config=None,
+            top_positive_sectors=None,
+            top_negative_sectors=None,
+            top_positive=None,
+            top_negative=None,
+            min_beneficiary_sector_impact=None,
+            min_beneficiary_sector_price_volume=None,
+            min_beneficiary_sector_liquidity=None,
+            top_mainline_sectors=None,
+            top_leading_stocks=None,
+            min_market_cap_billion=None,
+            max_market_cap_billion=None,
+        )
+    )
+
+    report = render_report.render_report(json.loads(output_path.read_text(encoding="utf-8")))
+
+    assert "# A股投资资讯影响简报" in report
+    assert "## 每日主线板块/概念与龙头个股" in report
+    assert "## 正向负向事件Top" in report
+    assert "## 数据留痕与复盘" in report
+    assert "阈值版本：2026-06-default-v1" in report
+
+
+def test_run_daily_report_assembles_renders_and_persists(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("TMPDIR", str(tmp_path))
+    bundle_path = write_json(tmp_path / "bundle.json", bundle())
+
+    run_daily_report.run_command(
+        argparse.Namespace(
+            bundle=str(bundle_path),
+            work_dir=str(tmp_path / "work"),
+            assembled_output=None,
+            report_output=None,
+            output_root=str(tmp_path / "archive"),
+            run_id="run1",
+            date=None,
+            threshold_config=None,
+            top_positive_sectors=None,
+            top_negative_sectors=None,
+            top_positive=None,
+            top_negative=None,
+            min_beneficiary_sector_impact=None,
+            min_beneficiary_sector_price_volume=None,
+            min_beneficiary_sector_liquidity=None,
+            top_mainline_sectors=None,
+            top_leading_stocks=None,
+            min_market_cap_billion=None,
+            max_market_cap_billion=None,
+        )
+    )
+
+    day_dir = tmp_path / "archive" / "2026-06-12"
+    assert (day_dir / "input_bundle.json").exists()
+    assert (day_dir / "assembled.json").exists()
+    assert (day_dir / "report.md").exists()
+    assert "## 短期市场判断" in (day_dir / "report.md").read_text(encoding="utf-8")
 
 
 def test_assemble_warns_when_pbc_summary_missing(tmp_path: Path) -> None:

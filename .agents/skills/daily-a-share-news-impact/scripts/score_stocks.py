@@ -4,13 +4,16 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from threshold_config import get_number, load_thresholds
+
 DirectionalRole = str
-MIN_MARKET_CAP_BILLION = 100.0
-MAX_MARKET_CAP_BILLION = 2000.0
+DEFAULT_THRESHOLDS = load_thresholds()
+MIN_MARKET_CAP_BILLION = get_number(DEFAULT_THRESHOLDS, "market_cap_billion", "min")
+MAX_MARKET_CAP_BILLION = get_number(DEFAULT_THRESHOLDS, "market_cap_billion", "max")
 
 
 @dataclass(frozen=True)
@@ -51,6 +54,10 @@ class StockObservation:
     retail_voc_summary: str = ""
     external_data: dict[str, Any] | None = None
     market_cap_range: MarketCapRange = MarketCapRange()
+    threshold_config: dict[str, Any] = field(default_factory=load_thresholds)
+
+    def threshold(self, *path: str) -> float:
+        return get_number(self.threshold_config, *path)
 
     @property
     def crowding_risk_sector(self) -> bool:
@@ -77,27 +84,29 @@ class StockObservation:
 
     @property
     def research_score(self) -> float:
+        weights = self.threshold_config["scoring_weights"]["research_score"]
         return round(
-            0.16 * self.trend_score
-            + 0.12 * self.volume_score
-            + 0.08 * self.retail_voc_quality_score
-            + 0.32 * self.capital_recognition
-            + 0.19 * self.event_alignment
-            + 0.08 * self.institutional_trend_score
-            - 0.15 * self.risk_score,
+            weights["trend"] * self.trend_score
+            + weights["volume"] * self.volume_score
+            + weights["retail_voc_quality"] * self.retail_voc_quality_score
+            + weights["capital_recognition"] * self.capital_recognition
+            + weights["event_alignment"] * self.event_alignment
+            + weights["institutional_trend"] * self.institutional_trend_score
+            + weights["risk"] * self.risk_score,
             2,
         )
 
     @property
     def beneficiary_quality_score(self) -> float:
+        weights = self.threshold_config["scoring_weights"]["beneficiary_quality_score"]
         return round(
-            0.23 * self.trend_score
-            + 0.18 * self.volume_score
-            + 0.24 * self.capital_recognition
-            + 0.16 * self.event_alignment
-            + 0.13 * self.institutional_trend_score
-            + 0.06 * self.retail_voc_quality_score
-            - 0.20 * self.risk_score,
+            weights["trend"] * self.trend_score
+            + weights["volume"] * self.volume_score
+            + weights["capital_recognition"] * self.capital_recognition
+            + weights["event_alignment"] * self.event_alignment
+            + weights["institutional_trend"] * self.institutional_trend_score
+            + weights["retail_voc_quality"] * self.retail_voc_quality_score
+            + weights["risk"] * self.risk_score,
             2,
         )
 
@@ -145,28 +154,48 @@ class StockObservation:
             return False
         if self.directional_role == "beneficiary":
             return (
-                self.event_alignment >= 3.5
-                and self.trend_score >= 3.0
-                and self.volume_score >= 3.4
-                and self.capital_recognition >= 3.6
-                and self.institutional_trend_score >= 3.5
+                self.event_alignment >= self.threshold("stock_gates", "beneficiary", "event_alignment_min")
+                and self.trend_score >= self.threshold("stock_gates", "beneficiary", "trend_min")
+                and self.volume_score >= self.threshold("stock_gates", "beneficiary", "volume_min")
+                and self.capital_recognition >= self.threshold("stock_gates", "beneficiary", "capital_recognition_min")
+                and self.institutional_trend_score
+                >= self.threshold("stock_gates", "beneficiary", "institutional_trend_min")
                 and (
                     not self.cyclical_resource_sector
-                    or (self.trend_score >= 3.6 and self.volume_score >= 3.6 and self.capital_recognition >= 3.6)
+                    or (
+                        self.trend_score >= self.threshold("stock_gates", "resource_beneficiary", "trend_min")
+                        and self.volume_score >= self.threshold("stock_gates", "resource_beneficiary", "volume_min")
+                        and self.capital_recognition
+                        >= self.threshold("stock_gates", "resource_beneficiary", "capital_recognition_min")
+                    )
                 )
-                and (self.retail_sentiment < 4.5 or (self.capital_recognition >= 3.8 and self.volume_score >= 3.4))
-                and self.risk_score <= 3.8
+                and (
+                    self.retail_sentiment < self.threshold("stock_gates", "beneficiary", "retail_hot_min")
+                    or (
+                        self.capital_recognition
+                        >= self.threshold("stock_gates", "beneficiary", "retail_hot_capital_min")
+                        and self.volume_score >= self.threshold("stock_gates", "beneficiary", "retail_hot_volume_min")
+                    )
+                )
+                and self.risk_score <= self.threshold("stock_gates", "beneficiary", "risk_max")
                 and self.research_rating != "风险回避"
             )
         if self.directional_role == "pressure":
             return (
-                self.event_alignment >= 3.5
-                and self.trend_score <= 2.4
-                and self.capital_recognition <= 2.6
-                and (self.volume_score >= 3.2 or self.risk_score >= 3.8)
+                self.event_alignment >= self.threshold("stock_gates", "pressure", "event_alignment_min")
+                and self.trend_score <= self.threshold("stock_gates", "pressure", "trend_max")
+                and self.capital_recognition <= self.threshold("stock_gates", "pressure", "capital_recognition_max")
+                and (
+                    self.volume_score >= self.threshold("stock_gates", "pressure", "volume_min")
+                    or self.risk_score >= self.threshold("stock_gates", "pressure", "risk_min")
+                )
                 and (
                     not self.observation_only_pressure_sector
-                    or (self.trend_score <= 2.2 and self.capital_recognition <= 2.5)
+                    or (
+                        self.trend_score <= self.threshold("stock_gates", "observation_pressure", "trend_max")
+                        and self.capital_recognition
+                        <= self.threshold("stock_gates", "observation_pressure", "capital_recognition_max")
+                    )
                 )
                 and self.research_rating in {"风险回避", "谨慎观察", "中性观察"}
             )
@@ -187,39 +216,60 @@ class StockObservation:
             reasons.append(f"市值不在{self.market_cap_range.description}区间")
         if self.directional_role not in {"beneficiary", "pressure"}:
             reasons.append("未设置受益/承压角色")
-        if self.event_alignment < 3.5:
+        if self.event_alignment < self.threshold("stock_gates", "beneficiary", "event_alignment_min"):
             reasons.append("事件关联不足")
         if self.directional_role == "beneficiary":
-            if self.trend_score < 3.0:
+            if self.trend_score < self.threshold("stock_gates", "beneficiary", "trend_min"):
                 reasons.append("14日走势不足")
-            if self.volume_score < 3.4:
+            if self.volume_score < self.threshold("stock_gates", "beneficiary", "volume_min"):
                 reasons.append("量能确认不足")
-            if self.capital_recognition < 3.6:
+            if self.capital_recognition < self.threshold("stock_gates", "beneficiary", "capital_recognition_min"):
                 reasons.append("资金认可度不足")
-            if self.institutional_trend_score < 3.5:
+            if self.institutional_trend_score < self.threshold("stock_gates", "beneficiary", "institutional_trend_min"):
                 reasons.append("机构趋势确认不足")
             if self.cyclical_resource_sector and (
-                self.trend_score < 3.6 or self.volume_score < 3.6 or self.capital_recognition < 3.6
+                self.trend_score < self.threshold("stock_gates", "resource_beneficiary", "trend_min")
+                or self.volume_score < self.threshold("stock_gates", "resource_beneficiary", "volume_min")
+                or self.capital_recognition
+                < self.threshold("stock_gates", "resource_beneficiary", "capital_recognition_min")
             ):
                 reasons.append("周期资源需更强量价/资金确认")
-            if self.retail_sentiment >= 4.5 and (self.capital_recognition < 3.8 or self.volume_score < 3.4):
+            if self.retail_sentiment >= self.threshold("stock_gates", "beneficiary", "retail_hot_min") and (
+                self.capital_recognition < self.threshold("stock_gates", "beneficiary", "retail_hot_capital_min")
+                or self.volume_score < self.threshold("stock_gates", "beneficiary", "retail_hot_volume_min")
+            ):
                 reasons.append("散户情绪过热但主力/量能确认不足")
-            if self.risk_score > 3.8:
+            if self.risk_score > self.threshold("stock_gates", "beneficiary", "risk_max"):
                 reasons.append("风险过高")
             if self.research_rating == "风险回避":
                 reasons.append("综合评级为风险回避")
         if self.directional_role == "pressure":
-            if self.trend_score > 2.4:
+            if self.trend_score > self.threshold("stock_gates", "pressure", "trend_max"):
                 reasons.append("14日承压走势不足")
-            if self.capital_recognition > 2.6:
+            if self.capital_recognition > self.threshold("stock_gates", "pressure", "capital_recognition_max"):
                 reasons.append("资金弱化不足")
-            if self.volume_score < 3.2 and self.risk_score < 3.8:
+            if (
+                self.volume_score < self.threshold("stock_gates", "pressure", "volume_min")
+                and self.risk_score < self.threshold("stock_gates", "pressure", "risk_min")
+            ):
                 reasons.append("承压量能/风险确认不足")
-            if self.trend_score >= 3.2 and self.capital_recognition >= 3.0:
+            if (
+                self.trend_score >= self.threshold("stock_gates", "pressure", "strong_mainline_trend_min")
+                and self.capital_recognition
+                >= self.threshold("stock_gates", "pressure", "strong_mainline_capital_min")
+            ):
                 reasons.append("强主线反向风险，转观察")
-            if self.crowding_risk_sector and (self.trend_score > 2.2 or self.capital_recognition > 2.5):
+            if self.crowding_risk_sector and (
+                self.trend_score > self.threshold("stock_gates", "observation_pressure", "trend_max")
+                or self.capital_recognition
+                > self.threshold("stock_gates", "observation_pressure", "capital_recognition_max")
+            ):
                 reasons.append("高位拥挤仅作风险观察")
-            if self.disconfirmation_risk_sector and (self.trend_score > 2.2 or self.capital_recognition > 2.5):
+            if self.disconfirmation_risk_sector and (
+                self.trend_score > self.threshold("stock_gates", "observation_pressure", "trend_max")
+                or self.capital_recognition
+                > self.threshold("stock_gates", "observation_pressure", "capital_recognition_max")
+            ):
                 reasons.append("题材证伪需破位确认")
             if self.research_rating not in {"风险回避", "谨慎观察", "中性观察"}:
                 reasons.append("综合评级未支持承压")
@@ -295,13 +345,18 @@ def require_directional_role(value: object) -> DirectionalRole:
     return role
 
 
-def load_observations(path: Path, market_cap_range: MarketCapRange | None = None) -> list[StockObservation]:
+def load_observations(
+    path: Path,
+    market_cap_range: MarketCapRange | None = None,
+    threshold_config: dict[str, Any] | None = None,
+) -> list[StockObservation]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, list):
         raise ValueError("Stock observation file must contain a JSON array")
 
     observations: list[StockObservation] = []
     active_range = market_cap_range or MarketCapRange()
+    active_threshold_config = threshold_config or load_thresholds()
     for index, item in enumerate(payload, start=1):
         if not isinstance(item, dict):
             raise ValueError(f"Stock observation #{index} must be an object")
@@ -325,6 +380,7 @@ def load_observations(path: Path, market_cap_range: MarketCapRange | None = None
                 retail_voc_summary=require_optional_text(item.get("retail_voc_summary"), "retail_voc_summary"),
                 external_data=item.get("external_data") if isinstance(item.get("external_data"), dict) else None,
                 market_cap_range=active_range,
+                threshold_config=active_threshold_config,
             )
         )
     return observations
@@ -348,8 +404,19 @@ def ranking_key(observation: StockObservation) -> tuple[float, ...]:
 
 
 def score_command(args: argparse.Namespace) -> None:
-    market_cap_range = MarketCapRange(args.min_market_cap_billion, args.max_market_cap_billion)
-    observations = load_observations(Path(args.input), market_cap_range)
+    threshold_config = load_thresholds(getattr(args, "threshold_config", None))
+    min_market_cap = (
+        args.min_market_cap_billion
+        if args.min_market_cap_billion is not None
+        else get_number(threshold_config, "market_cap_billion", "min")
+    )
+    max_market_cap = (
+        args.max_market_cap_billion
+        if args.max_market_cap_billion is not None
+        else get_number(threshold_config, "market_cap_billion", "max")
+    )
+    market_cap_range = MarketCapRange(min_market_cap, max_market_cap)
+    observations = load_observations(Path(args.input), market_cap_range, threshold_config)
     ranked = sorted(observations, key=ranking_key, reverse=True)
     write_json([observation.to_dict() for observation in ranked])
 
@@ -365,15 +432,16 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--min-market-cap-billion",
         type=float,
-        default=MIN_MARKET_CAP_BILLION,
+        default=None,
         help="Minimum market cap in CNY billions for recommendation eligibility.",
     )
     parser.add_argument(
         "--max-market-cap-billion",
         type=float,
-        default=MAX_MARKET_CAP_BILLION,
+        default=None,
         help="Maximum market cap in CNY billions for recommendation eligibility.",
     )
+    parser.add_argument("--threshold-config", help="Optional threshold config JSON. Defaults to skill config.")
     parser.set_defaults(func=score_command)
     return parser
 

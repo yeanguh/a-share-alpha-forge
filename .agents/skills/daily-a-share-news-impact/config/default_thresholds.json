@@ -1,0 +1,81 @@
+{
+  "version": "2026-06-default-v1",
+  "market_cap_billion": {
+    "min": 100.0,
+    "max": 2000.0
+  },
+  "sector_gates": {
+    "beneficiary": {
+      "impact_score_min": 4.0,
+      "price_volume_min": 4.0,
+      "liquidity_min": 4.0
+    }
+  },
+  "stock_gates": {
+    "beneficiary": {
+      "event_alignment_min": 3.5,
+      "trend_min": 3.0,
+      "volume_min": 3.4,
+      "capital_recognition_min": 3.6,
+      "institutional_trend_min": 3.5,
+      "retail_hot_min": 4.5,
+      "retail_hot_capital_min": 3.8,
+      "retail_hot_volume_min": 3.4,
+      "risk_max": 3.8
+    },
+    "resource_beneficiary": {
+      "trend_min": 3.6,
+      "volume_min": 3.6,
+      "capital_recognition_min": 3.6
+    },
+    "pressure": {
+      "event_alignment_min": 3.5,
+      "trend_max": 2.4,
+      "capital_recognition_max": 2.6,
+      "volume_min": 3.2,
+      "risk_min": 3.8,
+      "strong_mainline_trend_min": 3.2,
+      "strong_mainline_capital_min": 3.0
+    },
+    "observation_pressure": {
+      "trend_max": 2.2,
+      "capital_recognition_max": 2.5
+    },
+    "leader_watch": {
+      "trend_min": 3.2,
+      "volume_min": 3.0,
+      "capital_recognition_min": 3.2,
+      "institutional_trend_min": 3.2,
+      "event_alignment_min": 3.8,
+      "risk_max": 4.0
+    }
+  },
+  "scoring_weights": {
+    "research_score": {
+      "trend": 0.16,
+      "volume": 0.12,
+      "retail_voc_quality": 0.08,
+      "capital_recognition": 0.32,
+      "event_alignment": 0.19,
+      "institutional_trend": 0.08,
+      "risk": -0.15
+    },
+    "beneficiary_quality_score": {
+      "trend": 0.23,
+      "volume": 0.18,
+      "capital_recognition": 0.24,
+      "event_alignment": 0.16,
+      "institutional_trend": 0.13,
+      "retail_voc_quality": 0.06,
+      "risk": -0.20
+    }
+  },
+  "top_limits": {
+    "positive_sectors": 10,
+    "negative_sectors": 10,
+    "positive_candidates": 10,
+    "negative_candidates": 10,
+    "mainline_sectors": 5,
+    "leading_stocks": 10
+  }
+}

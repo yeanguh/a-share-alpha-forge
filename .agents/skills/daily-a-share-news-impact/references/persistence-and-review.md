@@ -58,6 +58,19 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/persist_report.py \
   --run-id 093000
 ```
 
+When an `input_bundle.json` already exists, the repeatable one-command path is:
+
+```bash
+python3 .agents/skills/daily-a-share-news-impact/scripts/run_daily_report.py \
+  --bundle tmp/a-share-brief-bundle.json \
+  --run-id 093000
+```
+
+The helper writes working files under `tmp/daily-a-share-news-impact/<run-id>/`
+by default, renders the fixed Markdown report with `render_report.py`, and then
+persists the input bundle, assembled JSON, report, and metadata under
+`local/YYYY-MM-DD/`.
+
 ## Post-Close Review
 
 After 15:00 China time, collect closing data for broad indices, selected sectors,
