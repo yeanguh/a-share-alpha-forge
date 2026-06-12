@@ -48,6 +48,7 @@ Set `sector` to one selected sector candidate title:
   "retail_sentiment": 4.4,
   "capital_recognition": 3.9,
   "event_alignment": 4.3,
+  "institutional_trend_score": 3.6,
   "risk_score": 3.8
 }
 ```

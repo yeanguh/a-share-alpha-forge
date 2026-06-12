@@ -45,14 +45,43 @@ Score every stock from 0 to 5 on these dimensions:
 | `retail_voc_quality_score` | Derived by `scripts/score_stocks.py`; balanced VOC scores better than extreme chasing or panic. |
 | `capital_recognition` | Institutional/main-money recognition inferred from main capital flow, block trades, ETF/foreign/margin flow, and sustained volume quality. |
 | `event_alignment` | Whether the event's impact channel is directly tied to the company. |
+| `institutional_trend_score` | Trend-following institutional setup score. Use 14-day K-line structure, MA5/MA10/MA20/MA50 alignment, small-candle grind-up behavior, healthy pullback volume, and broad-market institutional trend context. |
 | `risk_score` | Valuation, event uncertainty, crowded trade, disclosure risk, liquidity risk, or sharp abnormal volatility. Higher means higher risk. |
 
 Use `scripts/score_stocks.py` to calculate `research_score`,
 `beneficiary_quality_score`, `research_rating`, and `operation_tendency` when
 structured observations are available. `research_score` is a general research
 score for both opportunity and pressure rows. `beneficiary_quality_score`
-prioritizes 14-day trend, volume, main-capital recognition, event alignment, and
-risk control; use it to rank stocks that already passed the opportunity gate.
+prioritizes 14-day trend, volume, main-capital recognition, institutional trend
+setup, event alignment, and risk control; use it to rank stocks that already
+passed the opportunity gate.
+
+## Institutional Trend Setup
+
+Use `institutional_trend_score` as an internal confirmation factor for the
+so-called trend-following slow-grind setup. This is not an independent trading
+strategy and must not bypass sector-first or main-capital gates.
+
+Score higher when:
+
+- Recent K-line shows a controlled launch or continuation pattern, such as at
+  least 3 positive closes in 5 sessions, or a positive 10-session trend with
+  closes above short moving averages.
+- Price is above MA5 and MA10, MA20 is flat or rising, and strong setups also
+  have MA50 rising or recovering.
+- The rise is mostly small positive and small negative candles rather than
+  consecutive limit-ups, one-word boards, or single-day speculative spikes.
+- Pullbacks hold MA10 or MA20 with lower volume than breakout/uptrend days.
+- Volume expands on valid breakouts and contracts normally on pullbacks, without
+  three consecutive sessions below about 65% of 20-day average turnover.
+- Whole-market context supports institutional trend trading: turnover is in the
+  recent high percentile or above the configured absolute threshold, active
+  sectors keep rotating, and broad risk appetite has not entered a clear
+  retreat phase.
+
+Score lower when the move is driven mainly by hot-money limit-up chains,
+sharp gap-up-and-fade candles, persistent volume starvation, a break below MA20
+without repair, or when market turnover and sector relay have weakened.
 
 ## Company Recommendation Gate
 
@@ -82,6 +111,7 @@ For a positive beneficiary list, require all conditions:
 - `trend_score >= 3.0`.
 - `volume_score >= 3.4`.
 - `capital_recognition >= 3.6`.
+- `institutional_trend_score >= 3.5`.
 - If `retail_sentiment >= 4.5`, require `capital_recognition >= 3.8` and
   `volume_score >= 3.4`; otherwise treat it as retail crowding and exclude the
   stock from the beneficiary column.
@@ -148,7 +178,7 @@ If a company fails the gate:
 - Do not list it in the positive or negative Top 10 company column.
 - Put it in the stock detail section as `未入选推荐列`.
 - Explain the exclusion reason, such as `量能不足`, `散户情绪过热`,
-  `资金认可度不足`, `风险过高`, or `事件关联不足`.
+  `资金认可度不足`, `机构趋势确认不足`, `风险过高`, or `事件关联不足`.
 
 ## Research Rating
 
@@ -168,6 +198,8 @@ Use these informational operation tendencies only:
 
 - `等待放量确认`: catalyst is promising but volume/price confirmation is not
   enough.
+- `等待机构趋势确认`: catalyst, sector, or capital recognition is positive, but
+  the controlled institutional trend setup is not confirmed.
 - `趋势跟踪观察`: trend and capital recognition are supportive; continue
   monitoring confirmation.
 - `回撤后再评估`: catalyst is valid but short-term crowding or overheating is

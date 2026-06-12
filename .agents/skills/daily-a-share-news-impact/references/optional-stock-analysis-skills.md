@@ -58,10 +58,10 @@ run is no longer free-only.
 
 ## `china-stock-analysis`
 
-Path:
+Optional local path:
 
 ```text
-/Users/bytedance/.agents/skills/china-stock-analysis
+Set ASHARE_DATA_FETCHER=/path/to/china-stock-analysis/scripts/data_fetcher.py
 ```
 
 Use when the brief needs slower fundamental context for selected stocks,
@@ -84,21 +84,21 @@ pip install akshare pandas numpy
 Data acquisition commands:
 
 ```bash
-python /Users/bytedance/.agents/skills/china-stock-analysis/scripts/data_fetcher.py \
+python "$ASHARE_DATA_FETCHER" \
   --code "600519" \
   --data-type all \
   --no-cache \
   --years 5 \
-  --output /tmp/stock_data_600519.json
+  --output tmp/stock_data_600519.json
 
-python /Users/bytedance/.agents/skills/china-stock-analysis/scripts/data_fetcher.py \
+python "$ASHARE_DATA_FETCHER" \
   --codes "600519,000858,002304" \
   --data-type basic \
-  --output /tmp/stock_compare_basic.json
+  --output tmp/stock_compare_basic.json
 
-python /Users/bytedance/.agents/skills/china-stock-analysis/scripts/data_fetcher.py \
+python "$ASHARE_DATA_FETCHER" \
   --scope hs300 \
-  --output /tmp/hs300_constituents.json
+  --output tmp/hs300_constituents.json
 ```
 
 Supported `data_type` values:
@@ -137,9 +137,9 @@ daily brief. Convert them into non-personalized research context, such as
 
 Integration rules:
 
-- Use `--no-cache` when running from this repository unless the external skill
-  directory is writable. The installed script otherwise tries to write
-  `.cache` under `/Users/bytedance/.agents/skills/china-stock-analysis/scripts`.
+- Use `--no-cache` when running from this repository unless the external
+  data-fetcher directory is writable. The installed script may otherwise try to
+  write `.cache` next to the fetcher implementation.
 - Use `valuation.price.price_data` as a fallback 30-day daily K-line source
   when direct 14-trading-day market data APIs are unavailable. Derive the latest
   14 trading days from the tail of this array.

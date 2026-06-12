@@ -11,6 +11,7 @@ from typing import Any
 from urllib import request
 
 DEFAULT_ROOT = Path(".local/daily-a-share-news-impact")
+DEFAULT_REVIEW_ROOT = DEFAULT_ROOT / "reviews"
 DEFAULT_TIMEOUT_SECONDS = 10
 
 
@@ -437,17 +438,28 @@ def backtest_command(args: argparse.Namespace) -> None:
         "worst_misses": worst_misses(rows, args.extreme_limit),
         "rows": rows,
     }
-    write_json(payload)
+    write_json(payload, Path(args.output) if args.output else None)
 
 
-def write_json(payload: object) -> None:
-    sys.stdout.write(json.dumps(payload, ensure_ascii=False, indent=2))
+def write_json(payload: object, output_path: Path | None = None) -> None:
+    encoded = json.dumps(payload, ensure_ascii=False, indent=2)
+    if output_path is not None:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(f"{encoded}\n", encoding="utf-8")
+        sys.stdout.write(json.dumps({"output": str(output_path)}, ensure_ascii=False, indent=2))
+        sys.stdout.write("\n")
+        return
+    sys.stdout.write(encoded)
     sys.stdout.write("\n")
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Backtest archived A-share reports against free realtime quotes.")
     parser.add_argument("--output-root", default=str(DEFAULT_ROOT), help="Archive root directory.")
+    parser.add_argument(
+        "--output",
+        help=f"Optional path for backtest JSON. Recommended root: {DEFAULT_REVIEW_ROOT}/backtests/.",
+    )
     parser.add_argument("--start", help="Start report date in YYYY-MM-DD format.")
     parser.add_argument("--end", help="End report date in YYYY-MM-DD format.")
     parser.add_argument("--kline-days", type=int, default=30, help="Number of daily bars to fetch per ticker.")

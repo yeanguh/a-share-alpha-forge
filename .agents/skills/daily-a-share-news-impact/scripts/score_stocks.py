@@ -6,6 +6,7 @@ import json
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 DirectionalRole = str
 MIN_MARKET_CAP_BILLION = 100.0
@@ -46,6 +47,9 @@ class StockObservation:
     capital_recognition: float
     event_alignment: float
     risk_score: float
+    institutional_trend_score: float = 0.0
+    retail_voc_summary: str = ""
+    external_data: dict[str, Any] | None = None
     market_cap_range: MarketCapRange = MarketCapRange()
 
     @property
@@ -74,11 +78,12 @@ class StockObservation:
     @property
     def research_score(self) -> float:
         return round(
-            0.18 * self.trend_score
-            + 0.14 * self.volume_score
+            0.16 * self.trend_score
+            + 0.12 * self.volume_score
             + 0.08 * self.retail_voc_quality_score
-            + 0.34 * self.capital_recognition
-            + 0.21 * self.event_alignment
+            + 0.32 * self.capital_recognition
+            + 0.19 * self.event_alignment
+            + 0.08 * self.institutional_trend_score
             - 0.15 * self.risk_score,
             2,
         )
@@ -86,10 +91,11 @@ class StockObservation:
     @property
     def beneficiary_quality_score(self) -> float:
         return round(
-            0.27 * self.trend_score
-            + 0.22 * self.volume_score
-            + 0.27 * self.capital_recognition
-            + 0.18 * self.event_alignment
+            0.23 * self.trend_score
+            + 0.18 * self.volume_score
+            + 0.24 * self.capital_recognition
+            + 0.16 * self.event_alignment
+            + 0.13 * self.institutional_trend_score
             + 0.06 * self.retail_voc_quality_score
             - 0.20 * self.risk_score,
             2,
@@ -127,6 +133,8 @@ class StockObservation:
             return "回撤后再评估"
         if self.volume_score < 3:
             return "等待放量确认"
+        if self.institutional_trend_score < 3.5:
+            return "等待机构趋势确认"
         if self.capital_recognition >= 3.8 and self.trend_score >= 3.5:
             return "趋势跟踪观察"
         return "事件落地后再评估"
@@ -141,6 +149,7 @@ class StockObservation:
                 and self.trend_score >= 3.0
                 and self.volume_score >= 3.4
                 and self.capital_recognition >= 3.6
+                and self.institutional_trend_score >= 3.5
                 and (
                     not self.cyclical_resource_sector
                     or (self.trend_score >= 3.6 and self.volume_score >= 3.6 and self.capital_recognition >= 3.6)
@@ -187,6 +196,8 @@ class StockObservation:
                 reasons.append("量能确认不足")
             if self.capital_recognition < 3.6:
                 reasons.append("资金认可度不足")
+            if self.institutional_trend_score < 3.5:
+                reasons.append("机构趋势确认不足")
             if self.cyclical_resource_sector and (
                 self.trend_score < 3.6 or self.volume_score < 3.6 or self.capital_recognition < 3.6
             ):
@@ -214,8 +225,8 @@ class StockObservation:
                 reasons.append("综合评级未支持承压")
         return "、".join(reasons)
 
-    def to_dict(self) -> dict[str, float | str]:
-        return {
+    def to_dict(self) -> dict[str, Any]:
+        payload: dict[str, Any] = {
             "ticker": self.ticker,
             "name": self.name,
             "sector": self.sector,
@@ -233,8 +244,14 @@ class StockObservation:
             "retail_voc_quality_score": self.retail_voc_quality_score,
             "capital_recognition": self.capital_recognition,
             "event_alignment": self.event_alignment,
+            "institutional_trend_score": self.institutional_trend_score,
             "risk_score": self.risk_score,
         }
+        if self.retail_voc_summary:
+            payload["retail_voc_summary"] = self.retail_voc_summary
+        if self.external_data:
+            payload["external_data"] = self.external_data
+        return payload
 
 
 def require_score(value: object, field_name: str) -> float:
@@ -301,16 +318,23 @@ def load_observations(path: Path, market_cap_range: MarketCapRange | None = None
                 capital_recognition=require_score(item.get("capital_recognition"), "capital_recognition"),
                 event_alignment=require_score(item.get("event_alignment"), "event_alignment"),
                 risk_score=require_score(item.get("risk_score"), "risk_score"),
+                institutional_trend_score=require_score(
+                    item.get("institutional_trend_score", 0),
+                    "institutional_trend_score",
+                ),
+                retail_voc_summary=require_optional_text(item.get("retail_voc_summary"), "retail_voc_summary"),
+                external_data=item.get("external_data") if isinstance(item.get("external_data"), dict) else None,
                 market_cap_range=active_range,
             )
         )
     return observations
 
 
-def ranking_key(observation: StockObservation) -> tuple[float, float, float, float]:
+def ranking_key(observation: StockObservation) -> tuple[float, ...]:
     if observation.directional_role == "beneficiary":
         return (
             observation.beneficiary_quality_score,
+            observation.institutional_trend_score,
             observation.capital_recognition,
             observation.trend_score,
             -observation.risk_score,

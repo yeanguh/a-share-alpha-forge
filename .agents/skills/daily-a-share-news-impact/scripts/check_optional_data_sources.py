@@ -10,7 +10,6 @@ from importlib import metadata
 from pathlib import Path
 from urllib import error, request
 
-DATA_FETCHER = Path("/Users/bytedance/.agents/skills/china-stock-analysis/scripts/data_fetcher.py")
 DEFAULT_TIMEOUT_SECONDS = 10
 
 
@@ -69,7 +68,14 @@ def akshare_dependency_status() -> dict[str, str]:
     }
 
 
-def akshare_fetch_status(code: str | None, data_type: str) -> dict[str, object]:
+def default_data_fetcher() -> Path | None:
+    configured = os.getenv("ASHARE_DATA_FETCHER")
+    if configured:
+        return Path(configured).expanduser()
+    return None
+
+
+def akshare_fetch_status(code: str | None, data_type: str, data_fetcher: Path | None = None) -> dict[str, object]:
     dependency = akshare_dependency_status()
     if dependency["status"] != "installed":
         return {
@@ -78,15 +84,21 @@ def akshare_fetch_status(code: str | None, data_type: str) -> dict[str, object]:
         }
     if not code:
         return {"status": "not_checked", "detail": "No probe code provided."}
-    if not DATA_FETCHER.exists():
-        return {"status": "missing_script", "detail": f"`{DATA_FETCHER}` does not exist."}
+    fetcher = data_fetcher or default_data_fetcher()
+    if fetcher is None:
+        return {
+            "status": "not_checked",
+            "detail": "No data fetcher configured; set `ASHARE_DATA_FETCHER` or pass `--data-fetcher`.",
+        }
+    if not fetcher.exists():
+        return {"status": "missing_script", "detail": f"`{fetcher}` does not exist."}
 
     output_dir = Path(os.getenv("TMPDIR") or "tmp")
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / f"a_share_optional_probe_{code}_{data_type}.json"
     command = [
         sys.executable,
-        str(DATA_FETCHER),
+        str(fetcher),
         "--code",
         code,
         "--data-type",
@@ -240,9 +252,10 @@ def collect_error_messages(value: object) -> list[str]:
 
 def check_command(args: argparse.Namespace) -> None:
     quote_code = args.quote_code or args.akshare_code
+    data_fetcher = Path(args.data_fetcher).expanduser() if args.data_fetcher else None
     result = {
         "akshare_dependency": akshare_dependency_status(),
-        "akshare_fetch": akshare_fetch_status(args.akshare_code, args.akshare_data_type),
+        "akshare_fetch": akshare_fetch_status(args.akshare_code, args.akshare_data_type, data_fetcher),
         "sina_quote": sina_quote_status(quote_code),
         "tencent_quote": tencent_quote_status(quote_code),
         "eastmoney_quote": eastmoney_quote_status(quote_code),
@@ -278,6 +291,10 @@ def build_parser() -> argparse.ArgumentParser:
         default="basic",
         choices=["all", "basic", "financial", "valuation", "holder"],
         help="akshare data type to probe.",
+    )
+    parser.add_argument(
+        "--data-fetcher",
+        help="Optional path to a compatible akshare data_fetcher.py. Overrides ASHARE_DATA_FETCHER.",
     )
     parser.set_defaults(func=check_command)
     return parser

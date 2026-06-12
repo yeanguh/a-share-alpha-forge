@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 DEFAULT_ROOT = Path(".local/daily-a-share-news-impact")
+DEFAULT_REVIEW_ROOT = DEFAULT_ROOT / "reviews"
 DEFAULT_MIN_MARKET_CAP_BILLION = 100.0
 DEFAULT_MAX_MARKET_CAP_BILLION = 2000.0
 VALID_ROLE_SCOPES = {"all", "beneficiary", "pressure"}
@@ -795,11 +796,18 @@ def scan_command(args: argparse.Namespace) -> None:
         "top_promotable_profiles": promotable[: args.top],
         "top_deployable_profiles": deployable[: args.top],
     }
-    write_json(payload)
+    write_json(payload, Path(args.output) if args.output else None)
 
 
-def write_json(payload: object) -> None:
-    sys.stdout.write(json.dumps(payload, ensure_ascii=False, indent=2))
+def write_json(payload: object, output_path: Path | None = None) -> None:
+    encoded = json.dumps(payload, ensure_ascii=False, indent=2)
+    if output_path is not None:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(f"{encoded}\n", encoding="utf-8")
+        sys.stdout.write(json.dumps({"output": str(output_path)}, ensure_ascii=False, indent=2))
+        sys.stdout.write("\n")
+        return
+    sys.stdout.write(encoded)
     sys.stdout.write("\n")
 
 
@@ -809,6 +817,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--output-root", default=str(DEFAULT_ROOT), help="Archive root containing input bundles.")
     parser.add_argument("--backtest", required=True, help="Backtest JSON containing evaluated rows.")
+    parser.add_argument(
+        "--output",
+        help=f"Optional path for threshold-scan JSON. Recommended root: {DEFAULT_REVIEW_ROOT}/threshold_scans/.",
+    )
     parser.add_argument("--top", type=int, default=10, help="Number of top profiles to emit.")
     parser.add_argument(
         "--role-scope",

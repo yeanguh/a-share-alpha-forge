@@ -76,11 +76,14 @@ user explicitly asks for them.
    first.
 12. For each affected stock that appears in the report, analyze the latest 14
    trading days of K-line and volume. Score retail sentiment, capital
-   recognition, trend, volume, event alignment, and risk. Use
+   recognition, trend, volume, institutional trend setup, event alignment, and
+   risk. Use
    `scripts/score_stocks.py` when structured stock observations are available;
    rank opportunity rows by `beneficiary_quality_score` after they pass the
-   gate so stronger 14-day trend, volume, main-capital recognition, event
-   alignment, and risk control appear first.
+   gate so stronger 14-day trend, volume, main-capital recognition,
+   institution-led slow-grind setup, event alignment, and risk control appear
+   first. Treat the institutional trend setup as an internal confirmation
+   factor only, not as a standalone trading method.
    Only stocks that pass the eligibility gate in
    `references/fund-flow-and-stock-scoring.md` may appear in the
    `可能受益A股公司` or `可能承压A股公司` columns. Stocks must also pass the
@@ -88,8 +91,8 @@ user explicitly asks for them.
 13. Enrich selected stocks only with free available data sources using
     `references/optional-stock-analysis-skills.md`. Treat valuation and
     fundamental outputs as supporting context only; they must not bypass the
-    sector-first, market-cap, price/volume, retail VOC, or
-    capital-recognition gates. Prefer akshare, Sina, Tencent, Eastmoney,
+    sector-first, market-cap, price/volume, retail VOC, capital-recognition, or
+    institutional-trend gates. Prefer akshare, Sina, Tencent, Eastmoney,
     Baostock, or free-token providers when available. Run
     `scripts/check_optional_data_sources.py` before reporting optional-source
     gaps so the report distinguishes missing dependencies, provider fetch
@@ -123,8 +126,11 @@ user explicitly asks for them.
     and final Markdown report under a date-marked directory.
 18. After 15:00 China time, use closing broad-index, sector, and selected-stock
     data to create `close_review.json`. Use `scripts/review_archive.py` for
-    daily or weekly review aggregation. Adjust future strategy notes only from
-    repeated review evidence, not one-day noise.
+    daily or weekly review aggregation. Store weekly, intraday, backtest,
+    threshold-scan, and calibration summary outputs under
+    `.local/daily-a-share-news-impact/reviews/`, not in the daily archive root.
+    Adjust future strategy notes only from repeated review evidence, not
+    one-day noise.
     Current post-review calibration: require stricter evidence before placing a
     strong mainline stock into the pressure list. Crowded positioning, high
     retail heat, or valuation risk alone should usually become a leader-table
@@ -206,8 +212,8 @@ user explicitly asks for them.
 - `references/market-data-checklist.md`: K-line and volume confirmation rules.
 - `references/optional-stock-analysis-skills.md`: optional bridge to installed
   stock price, public quote, and fundamental analysis sources.
-- `references/persistence-and-review.md`: dated archive layout and post-close
-  daily/weekly review loop.
+- `references/persistence-and-review.md`: dated archive layout, dedicated
+  `reviews/` directory, and post-close daily/weekly review loop.
 - `references/report-template.md`: Chinese output structure and table columns.
 - `references/retail-voc.md`: public or authorized retail VOC collection,
   scoring, and contrarian interpretation rules.
@@ -279,6 +285,7 @@ beneficiary or pressure-company column:
     "capital_recognition": 4,
     "retail_voc_summary": "股吧/评论热度高，追涨情绪升温",
     "event_alignment": 4.2,
+    "institutional_trend_score": 3.8,
     "risk_score": 3.2
   }
 ]
@@ -288,20 +295,22 @@ beneficiary or pressure-company column:
 
 ```bash
 python3 .agents/skills/daily-a-share-news-impact/scripts/rank_news.py window
+  # Optional: --trading-calendar tmp/a-share-trading-calendar.json
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/rank_news.py rank \
-  --input /tmp/a-share-news-candidates.json \
+  --input tmp/a-share-news-candidates.json \
   --by-direction \
   --top-positive 10 \
   --top-negative 10
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/score_stocks.py \
-  --input /tmp/a-share-stock-observations.json \
+  --input tmp/a-share-stock-observations.json \
   --min-market-cap-billion 100 \
   --max-market-cap-billion 2000
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/assemble_report_data.py \
-  --input /tmp/a-share-brief-bundle.json \
+  --input tmp/a-share-brief-bundle.json \
+  --output tmp/a-share-brief-assembled.json \
   --min-market-cap-billion 100 \
   --max-market-cap-billion 2000
 
@@ -309,16 +318,19 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/check_optional_data_sou
   --akshare-code 300750 \
   --akshare-data-type basic \
   --quote-code 300750
+  # Optional: --data-fetcher /path/to/data_fetcher.py or ASHARE_DATA_FETCHER=/path/to/data_fetcher.py
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/enrich_stock_observations.py \
-  --input /tmp/a-share-brief-bundle.json \
-  --output /tmp/a-share-brief-bundle-enriched.json
+  --input tmp/a-share-brief-bundle.json \
+  --output tmp/a-share-brief-bundle-enriched.json
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/persist_report.py \
-  --bundle /tmp/a-share-brief-bundle.json \
-  --assembled /tmp/a-share-brief-assembled.json \
-  --report /tmp/a-share-brief-report.md
+  --bundle tmp/a-share-brief-bundle.json \
+  --assembled tmp/a-share-brief-assembled.json \
+  --report tmp/a-share-brief-report.md \
+  --run-id 093000
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/review_archive.py \
-  --frequency weekly
+  --frequency weekly \
+  --output .local/daily-a-share-news-impact/reviews/weekly/weekly_review_YYYY-MM-DD_YYYY-MM-DD.json
 ```

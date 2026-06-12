@@ -15,12 +15,35 @@ Default root:
     report.md
     close_review.json
     metadata.json
+    runs/
+      HHMMSSffffff/
+        input_bundle.json
+        assembled.json
+        report.md
+        close_review.json
+  reviews/
+    weekly/
+      weekly_review_YYYY-MM-DD_YYYY-MM-DD.{json,md}
+    intraday/
+      intraday_review_YYYY-MM-DD_HHMM.{json,md}
+    backtests/
+      backtest_*.json
+    threshold_scans/
+      threshold_scan_*.json
+    summaries/
+      *_summary_YYYY-MM-DD_YYYY-MM-DD.md
 ```
 
-`YYYY-MM-DD` is the report date from `window.end`.
+`YYYY-MM-DD` is the report date from `window.end`. The date-level files are the
+latest copy for quick reading. Every execution is also stored under `runs/` so
+same-day reruns do not overwrite the audit trail. Pass `--run-id` when a stable
+run identifier is needed.
 
 Use `.local/` because it is local working data and is already ignored by this
-repository.
+repository. Keep date directories for daily report artifacts only. Store
+multi-day review, intraday review, backtest, threshold-scan, and calibration
+summary outputs under `reviews/`; do not place periodic review files in the
+daily archive root.
 
 ## Daily Run Persistence
 
@@ -29,9 +52,10 @@ persist the artifacts:
 
 ```bash
 python3 .agents/skills/daily-a-share-news-impact/scripts/persist_report.py \
-  --bundle /tmp/a-share-brief-bundle.json \
-  --assembled /tmp/a-share-brief-assembled.json \
-  --report /tmp/a-share-brief-report.md
+  --bundle tmp/a-share-brief-bundle.json \
+  --assembled tmp/a-share-brief-assembled.json \
+  --report tmp/a-share-brief-report.md \
+  --run-id 093000
 ```
 
 ## Post-Close Review
@@ -65,7 +89,8 @@ Aggregate stored daily reviews:
 python3 .agents/skills/daily-a-share-news-impact/scripts/review_archive.py \
   --frequency weekly \
   --start 2026-06-01 \
-  --end 2026-06-05
+  --end 2026-06-05 \
+  --output .local/daily-a-share-news-impact/reviews/weekly/weekly_review_2026-06-01_2026-06-05.json
 ```
 
 Use review results to adjust future scoring only when the same pattern repeats
@@ -83,7 +108,8 @@ examples:
 python3 .agents/skills/daily-a-share-news-impact/scripts/backtest_archived_reports.py \
   --start 2026-06-01 \
   --end 2026-06-05 \
-  --include-leaders
+  --include-leaders \
+  --output .local/daily-a-share-news-impact/reviews/backtests/backtest_2026-06-01_2026-06-05.json
 ```
 
 The helper reads each persisted `assembled.json`, fetches free Tencent quote and
@@ -107,7 +133,8 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/backtest_archived_repor
   --start 2026-06-01 \
   --end 2026-06-05 \
   --horizon-trading-days 1 \
-  --min-hit-return-pct 0.5
+  --min-hit-return-pct 0.5 \
+  --output .local/daily-a-share-news-impact/reviews/backtests/backtest_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json
 ```
 
 `--horizon-trading-days 1` evaluates from the report-date open to the same-day
@@ -143,7 +170,8 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/backtest_archived_repor
   --end 2026-06-05 \
   --include-candidates \
   --horizon-trading-days 1 \
-  --min-hit-return-pct 0.5
+  --min-hit-return-pct 0.5 \
+  --output .local/daily-a-share-news-impact/reviews/backtests/backtest_candidate_pool_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json
 ```
 
 `--include-candidates` reads every beneficiary or pressure stock observation
@@ -154,8 +182,9 @@ When calibrating the opportunity pool, scan beneficiary rows only:
 
 ```bash
 python3 .agents/skills/daily-a-share-news-impact/scripts/scan_selection_thresholds.py \
-  --backtest .local/daily-a-share-news-impact/backtest_candidate_pool_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json \
-  --role-scope beneficiary
+  --backtest .local/daily-a-share-news-impact/reviews/backtests/backtest_candidate_pool_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json \
+  --role-scope beneficiary \
+  --output .local/daily-a-share-news-impact/reviews/threshold_scans/threshold_scan_beneficiary_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json
 ```
 
 Use `--role-scope all` only for mixed strategy-quality readouts. The
@@ -215,20 +244,22 @@ the scoring gate:
 
 ```bash
 python3 .agents/skills/daily-a-share-news-impact/scripts/scan_selection_thresholds.py \
-  --backtest .local/daily-a-share-news-impact/backtest_recalibrated_v3_2026-06-01_2026-06-05.json
+  --backtest .local/daily-a-share-news-impact/reviews/backtests/backtest_recalibrated_v3_2026-06-01_2026-06-05.json \
+  --output .local/daily-a-share-news-impact/reviews/threshold_scans/threshold_scan_2026-06-01_2026-06-05.json
 ```
 
 The helper joins archived `input_bundle.json` scoring dimensions with backtest
 outcomes after applying the active market-cap range. Use it to compare hit
 rate, average return, and sample count. The scanner also evaluates
 `beneficiary_quality_min`, which applies the opportunity-specific score that
-prioritizes 14-day trend, volume, main-capital recognition, event alignment, and
-risk control. Treat quality-score floors as deployable only when they pass the
-same promotion and production-baseline gates as every other threshold. The
-current June 2026 candidate-pool calibration first filters out samples outside
-the default `100-2000` billion CNY range, then scans stock and sector
-thresholds. Beneficiary-only scans are the primary evidence for the opportunity
-pool. The production gate keeps a conservative `capital_recognition >= 3.6` and
+prioritizes 14-day trend, volume, main-capital recognition, institutional trend
+setup, event alignment, and risk control. Treat quality-score floors as
+deployable only when they pass the same promotion and production-baseline gates
+as every other threshold. The current June 2026 candidate-pool calibration first
+filters out samples outside the default `100-2000` billion CNY range, then scans
+stock and sector thresholds. Beneficiary-only scans are the primary evidence for
+the opportunity pool. The production gate keeps a conservative
+`capital_recognition >= 3.6`, `institutional_trend_score >= 3.5`, and
 `risk_score <= 3.8` overlay because it controlled average return and
 worst-return quality better than the slightly looser best scan on the small June
 sample. It also requires a

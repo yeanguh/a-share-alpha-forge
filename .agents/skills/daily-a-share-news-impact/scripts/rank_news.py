@@ -12,6 +12,7 @@ from zoneinfo import ZoneInfo
 
 CHINA_TZ = ZoneInfo("Asia/Shanghai")
 Direction = Literal["positive", "negative", "mixed"]
+TradingCalendar = set[date]
 
 
 @dataclass(frozen=True)
@@ -68,7 +69,29 @@ class Candidate:
         }
 
 
-def previous_trading_date(current: date) -> date:
+def load_trading_calendar(path: Path | None) -> TradingCalendar | None:
+    if path is None:
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    values = payload.get("trading_dates") if isinstance(payload, dict) else payload
+    if not isinstance(values, list):
+        raise ValueError("Trading calendar must be a JSON array or object with `trading_dates` array")
+    calendar: set[date] = set()
+    for index, value in enumerate(values, start=1):
+        if not isinstance(value, str):
+            raise ValueError(f"Trading calendar date #{index} must be a YYYY-MM-DD string")
+        calendar.add(date.fromisoformat(value))
+    if not calendar:
+        raise ValueError("Trading calendar must not be empty")
+    return calendar
+
+
+def previous_trading_date(current: date, calendar: TradingCalendar | None = None) -> date:
+    if calendar is not None:
+        candidate = current - timedelta(days=1)
+        while candidate not in calendar:
+            candidate -= timedelta(days=1)
+        return candidate
     if current.weekday() == 0:
         return current - timedelta(days=3)
     if current.weekday() == 6:
@@ -78,11 +101,16 @@ def previous_trading_date(current: date) -> date:
     return current - timedelta(days=1)
 
 
-def latest_report_anchor(now: datetime | None = None) -> datetime:
+def latest_report_anchor(now: datetime | None = None, calendar: TradingCalendar | None = None) -> datetime:
     current = now.astimezone(CHINA_TZ) if now else datetime.now(CHINA_TZ)
     report_time = time(hour=9, minute=30)
     today_anchor = datetime.combine(current.date(), report_time, CHINA_TZ)
-    if current.weekday() >= 5:
+    if calendar is not None:
+        if current.date() in calendar and current >= today_anchor:
+            anchor_date = current.date()
+        else:
+            anchor_date = previous_trading_date(current.date(), calendar)
+    elif current.weekday() >= 5:
         anchor_date = previous_trading_date(current.date())
     elif current >= today_anchor:
         anchor_date = current.date()
@@ -91,9 +119,9 @@ def latest_report_anchor(now: datetime | None = None) -> datetime:
     return datetime.combine(anchor_date, report_time, CHINA_TZ)
 
 
-def latest_completed_window(now: datetime | None = None) -> Window:
-    end = latest_report_anchor(now)
-    start = datetime.combine(previous_trading_date(end.date()), time(hour=9, minute=30), CHINA_TZ)
+def latest_completed_window(now: datetime | None = None, calendar: TradingCalendar | None = None) -> Window:
+    end = latest_report_anchor(now, calendar)
+    start = datetime.combine(previous_trading_date(end.date(), calendar), time(hour=9, minute=30), CHINA_TZ)
     return Window(start=start, end=end)
 
 
@@ -150,7 +178,8 @@ def load_candidates(path: Path) -> list[Candidate]:
 
 
 def window_command(args: argparse.Namespace) -> None:
-    window = latest_completed_window(parse_now(args.now))
+    calendar = load_trading_calendar(Path(args.trading_calendar)) if args.trading_calendar else None
+    window = latest_completed_window(parse_now(args.now), calendar)
     write_json(window.to_dict())
 
 
@@ -193,6 +222,10 @@ def build_parser() -> argparse.ArgumentParser:
 
     window_parser = subparsers.add_parser("window", help="Print the latest completed 09:30 report window.")
     window_parser.add_argument("--now", help="Optional ISO datetime, interpreted as China time when naive.")
+    window_parser.add_argument(
+        "--trading-calendar",
+        help="Optional JSON array of A-share trading dates, or object with `trading_dates`.",
+    )
     window_parser.set_defaults(func=window_command)
 
     rank_parser = subparsers.add_parser("rank", help="Rank structured news candidates.")

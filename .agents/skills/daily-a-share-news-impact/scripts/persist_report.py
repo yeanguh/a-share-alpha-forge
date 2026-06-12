@@ -39,17 +39,43 @@ def copy_if_present(source: Path | None, target: Path) -> None:
     shutil.copyfile(source, target)
 
 
+def safe_run_id(value: str | None = None) -> str:
+    run_id = value or datetime.now().strftime("%H%M%S%f")
+    normalized = run_id.replace(":", "").replace("/", "-").strip()
+    if not normalized:
+        raise ValueError("`run_id` must not be empty")
+    if normalized in {".", ".."} or any(part == ".." for part in Path(normalized).parts):
+        raise ValueError("`run_id` must not contain path traversal")
+    return normalized
+
+
+def mirror_latest_file(source: Path, output_dir: Path, target_name: str) -> None:
+    latest_target = output_dir / target_name
+    if source.resolve() != latest_target.resolve():
+        shutil.copyfile(source, latest_target)
+
+
 def persist_command(args: argparse.Namespace) -> None:
     bundle_path = Path(args.bundle)
     bundle = load_json(bundle_path)
     report_date = args.date or report_date_from_bundle(bundle)
     output_dir = Path(args.output_root) / report_date
+    run_id = safe_run_id(args.run_id)
+    run_dir = output_dir / "runs" / run_id
     output_dir.mkdir(parents=True, exist_ok=True)
+    run_dir.mkdir(parents=True, exist_ok=False)
 
-    copy_if_present(bundle_path, output_dir / "input_bundle.json")
-    copy_if_present(Path(args.assembled) if args.assembled else None, output_dir / "assembled.json")
-    copy_if_present(Path(args.report) if args.report else None, output_dir / "report.md")
-    copy_if_present(Path(args.close_review) if args.close_review else None, output_dir / "close_review.json")
+    run_files = {
+        "input_bundle.json": bundle_path,
+        "assembled.json": Path(args.assembled) if args.assembled else None,
+        "report.md": Path(args.report) if args.report else None,
+        "close_review.json": Path(args.close_review) if args.close_review else None,
+    }
+    for file_name, source in run_files.items():
+        target = run_dir / file_name
+        copy_if_present(source, target)
+        if source is not None:
+            mirror_latest_file(target, output_dir, file_name)
 
     files = sorted(path.name for path in output_dir.iterdir() if path.is_file())
     if "metadata.json" not in files:
@@ -57,6 +83,8 @@ def persist_command(args: argparse.Namespace) -> None:
         files.sort()
     metadata = {
         "report_date": report_date,
+        "run_id": run_id,
+        "run_dir": str(run_dir),
         "window": bundle.get("window", {}),
         "files": files,
     }
@@ -77,6 +105,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--close-review", help="Path to post-close review JSON created after 15:00 China time.")
     parser.add_argument("--date", help="Override report date in YYYY-MM-DD format.")
     parser.add_argument("--output-root", default=str(DEFAULT_ROOT), help="Archive root directory.")
+    parser.add_argument("--run-id", help="Archive run identifier. Defaults to current HHMMSS.")
     parser.set_defaults(func=persist_command)
     return parser
 

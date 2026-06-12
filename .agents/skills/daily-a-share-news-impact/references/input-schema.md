@@ -58,6 +58,7 @@ facts, scoring inputs, and data-quality notes in one place.
       "retail_voc_summary": "公开讨论热度较高，但未出现极端追涨",
       "capital_recognition": 4,
       "event_alignment": 4.2,
+      "institutional_trend_score": 3.8,
       "risk_score": 3.2,
       "external_data": {
         "source": "public_free_quote",
@@ -86,7 +87,7 @@ facts, scoring inputs, and data-quality notes in one place.
     "akshare_fetch": {
       "status": "fetch_failed",
       "detail": "Provider request failed or returned an error.",
-      "output_path": "/tmp/a_share_optional_probe_300750_basic.json"
+      "output_path": "tmp/a_share_optional_probe_300750_basic.json"
     },
     "sina_quote": {
       "status": "available",
@@ -157,10 +158,10 @@ mainlines are available. `leading_stocks` contains up to 10 beneficiary-role
 stocks from those mainlines. These rows are a market-readout list, not the
 stricter recommendation list. Watch-only leaders can fail the market-cap gate,
 but they still need confirmed trend, volume, capital recognition, event
-alignment, and acceptable risk. Do not fill weakly confirmed stocks into the
-leader table just to reach 10 rows. Rows that fail the opportunity gate must
-keep `eligible_for_recommendation` as `no` with an explicit
-`exclusion_reason`.
+alignment, institutional trend setup, and acceptable risk. Do not fill weakly
+confirmed stocks into the leader table just to reach 10 rows. Rows that fail
+the opportunity gate must keep `eligible_for_recommendation` as `no` with an
+explicit `exclusion_reason`.
 
 The assembled output fields have this shape:
 
@@ -200,6 +201,7 @@ The assembled output fields have this shape:
       "retail_voc_quality_score": 2.56,
       "capital_recognition": 4,
       "event_alignment": 4.2,
+      "institutional_trend_score": 3.8,
       "risk_score": 3.2
     }
   ]
@@ -240,6 +242,16 @@ from installed stock-analysis skills:
 External data may explain or lower confidence, but it must not bypass the
 sector-first gate, 14-trading-day price/volume gate, retail VOC gate, capital
 recognition gate, event-alignment gate, or risk gate.
+
+## Institutional Trend Score
+
+Use `institutional_trend_score` for beneficiary candidates only. It measures
+whether the stock fits an institution-led trend continuation setup: controlled
+positive K-line structure, MA5/MA10/MA20/MA50 alignment, small-candle grind-up
+behavior, healthy pullback volume, and no persistent volume starvation. The
+opportunity gate requires `institutional_trend_score >= 3.5`. Missing values
+default to `0` in `scripts/score_stocks.py`, which excludes the stock from
+`可能受益A股公司` and records `机构趋势确认不足`.
 
 ## Optional Data Sources
 

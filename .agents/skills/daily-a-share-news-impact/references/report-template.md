@@ -127,8 +127,8 @@ active range must be placed under excluded/observation notes.
 
 ### 可能受益A股公司
 
-| 股票 | 市值(亿元) | 板块 | 入选状态 | 14日K线 | 14日量能 | 散户VOC/情绪 | 资金认可度 | 机会 | 风险 | 综合评级 | 操作倾向 |
-| --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 股票 | 市值(亿元) | 板块 | 入选状态 | 14日K线 | 14日量能 | 机构趋势 | 散户VOC/情绪 | 资金认可度 | 机会 | 风险 | 综合评级 | 操作倾向 |
+| --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 ### 可能承压A股公司
 
@@ -143,13 +143,15 @@ active range must be placed under excluded/observation notes.
 
 Add `入选状态` or explanatory wording when a stock fails the gate, such as
 `未入选推荐列：市值不在当前参数区间`, `未入选推荐列：未通过资讯板块筛选`,
-or `未入选推荐列：散户情绪过热且风险高`. When retail VOC is unavailable, write
-`VOC数据不足` and lower the confidence of the retail sentiment score.
+`未入选推荐列：机构趋势确认不足`, or `未入选推荐列：散户情绪过热且风险高`.
+When retail VOC is unavailable, write `VOC数据不足` and lower the confidence of
+the retail sentiment score.
 
 Use `高关注`, `关注`, `中性观察`, `谨慎观察`, or `风险回避` for `综合评级`.
 Use non-personalized tendencies such as `等待放量确认`, `趋势跟踪观察`,
-`回撤后再评估`, `事件落地后再评估`, `风险回避观察`, or `仅作主题跟踪`.
-For pressure candidates that fail the gate, use `仅作风险跟踪`.
+`等待机构趋势确认`, `回撤后再评估`, `事件落地后再评估`, `风险回避观察`, or
+`仅作主题跟踪`. For pressure candidates that fail the gate, use
+`仅作风险跟踪`.
 
 ## 短期市场判断
 
@@ -179,5 +181,5 @@ End with a brief note:
 
 - 日报归档：.local/daily-a-share-news-impact/YYYY-MM-DD/
 - 收盘复盘：15:00后补充 close_review.json，校准板块命中、个股命中和策略偏差。
-- 周复盘：聚合本周日复盘，不因单日噪音调整策略。
+- 周期复盘：聚合结果保存到 .local/daily-a-share-news-impact/reviews/，不因单日噪音调整策略。
 ```

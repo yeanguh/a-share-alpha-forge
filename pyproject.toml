@@ -8,3 +8,12 @@ dependencies = [
     "numpy>=2.4.6",
     "pandas>=3.0.3",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = [".venv", ".local", "tmp", "__pycache__"]

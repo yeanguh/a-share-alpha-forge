@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -31,32 +32,46 @@ def load_bundle(path: Path) -> dict[str, Any]:
 def write_temp_array(items: object, prefix: str) -> Path:
     if not isinstance(items, list):
         raise ValueError(f"`{prefix}` must be a JSON array")
-    with tempfile.NamedTemporaryFile(
+
+    temp_root = Path(os.getenv("TMPDIR") or "tmp")
+    temp_root.mkdir(parents=True, exist_ok=True)
+    handle = tempfile.NamedTemporaryFile(
         mode="w",
         encoding="utf-8",
         prefix=f"{prefix}_",
         suffix=".json",
+        dir=temp_root,
         delete=False,
-    ) as temporary_file:
+    )
+    with handle as temporary_file:
         path = Path(temporary_file.name)
         json.dump(items, temporary_file, ensure_ascii=False)
-        return path
+    return path
+
+
+def load_from_bundle_array(items: object, prefix: str, loader: Any) -> Any:
+    path = write_temp_array(items, prefix)
+    try:
+        return loader(path)
+    finally:
+        path.unlink(missing_ok=True)
 
 
 def load_bundle_candidates(bundle: dict[str, Any]) -> list[Candidate]:
-    path = write_temp_array(bundle.get("candidates"), "a_share_candidates_bundle")
-    return load_candidates(path)
+    return load_from_bundle_array(bundle.get("candidates"), "a_share_candidates_bundle", load_candidates)
 
 
 def load_bundle_sector_candidates(bundle: dict[str, Any]) -> list[Candidate]:
     sector_candidates = bundle.get("sector_candidates", [])
-    path = write_temp_array(sector_candidates, "a_share_sector_candidates_bundle")
-    return load_candidates(path)
+    return load_from_bundle_array(sector_candidates, "a_share_sector_candidates_bundle", load_candidates)
 
 
 def load_bundle_stocks(bundle: dict[str, Any], market_cap_range: MarketCapRange) -> list[StockObservation]:
-    path = write_temp_array(bundle.get("stocks", []), "a_share_stocks_bundle")
-    return load_observations(path, market_cap_range)
+    return load_from_bundle_array(
+        bundle.get("stocks", []),
+        "a_share_stocks_bundle",
+        lambda path: load_observations(path, market_cap_range),
+    )
 
 
 def validate_fund_flow(bundle: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
@@ -74,6 +89,12 @@ def validate_fund_flow(bundle: dict[str, Any]) -> tuple[dict[str, Any], list[str
         warnings.append("Invalid or missing `fund_flow.data_quality`; use full, partial, or limited.")
     elif quality != "full":
         warnings.append(f"Fund-flow data quality is `{quality}`; lower confidence in market-direction judgment.")
+    if not isinstance(fund_flow.get("pbc_open_market_operation_summary"), str) or not fund_flow[
+        "pbc_open_market_operation_summary"
+    ].strip():
+        warnings.append(
+            "Missing `fund_flow.pbc_open_market_operation_summary`; disclose the PBOC open-market operation gap."
+        )
 
     return fund_flow, warnings
 
@@ -137,7 +158,7 @@ def is_stock_from_selected_sector(stock: StockObservation, sector_names: set[str
     return stock.sector in sector_names
 
 
-def stock_output(stock: StockObservation, sector_names: set[str]) -> dict[str, float | str]:
+def stock_output(stock: StockObservation, sector_names: set[str]) -> dict[str, Any]:
     output = stock.to_dict()
     if not is_stock_from_selected_sector(stock, sector_names):
         reason = "未通过资讯板块筛选" if stock.sector else "未标注资讯板块"
@@ -169,7 +190,7 @@ def ranked_mainline_sectors(
     return [candidate.to_ranked_dict(rank) for rank, candidate in enumerate(ranked, start=1)]
 
 
-def leading_stock_output(stock: StockObservation, mainline_sector_names: set[str]) -> dict[str, float | str]:
+def leading_stock_output(stock: StockObservation, mainline_sector_names: set[str]) -> dict[str, Any]:
     output = stock_output(stock, mainline_sector_names)
     output["leader_role"] = "eligible_leader" if output["eligible_for_recommendation"] == "yes" else "watch_leader"
     return output
@@ -183,15 +204,17 @@ def is_leader_quality_candidate(stock: StockObservation) -> bool:
         and stock.trend_score >= 3.2
         and stock.volume_score >= 3.0
         and stock.capital_recognition >= 3.2
+        and stock.institutional_trend_score >= 3.2
         and stock.event_alignment >= 3.8
         and stock.risk_score <= 4.0
         and stock.research_rating != "风险回避"
     )
 
 
-def beneficiary_sort_key(stock: StockObservation) -> tuple[float, float, float, float, float]:
+def beneficiary_sort_key(stock: StockObservation) -> tuple[float, float, float, float, float, float]:
     return (
         stock.beneficiary_quality_score,
+        stock.institutional_trend_score,
         stock.capital_recognition,
         stock.trend_score,
         stock.volume_score,
@@ -203,7 +226,7 @@ def ranked_leading_stocks(
     stocks: list[StockObservation],
     mainline_sector_names: set[str],
     limit: int,
-) -> list[dict[str, float | str]]:
+) -> list[dict[str, Any]]:
     mainline_stocks = [
         stock
         for stock in stocks
@@ -292,17 +315,25 @@ def assemble_command(args: argparse.Namespace) -> None:
         ],
         "warnings": collect_warnings(bundle, candidates, sector_candidates, stocks, fund_warnings),
     }
-    write_json(output)
+    write_json(output, Path(args.output) if args.output else None)
 
 
-def write_json(payload: object) -> None:
-    sys.stdout.write(json.dumps(payload, ensure_ascii=False, indent=2))
+def write_json(payload: object, output_path: Path | None = None) -> None:
+    encoded = json.dumps(payload, ensure_ascii=False, indent=2)
+    if output_path is not None:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(f"{encoded}\n", encoding="utf-8")
+        sys.stdout.write(json.dumps({"output": str(output_path)}, ensure_ascii=False, indent=2))
+        sys.stdout.write("\n")
+        return
+    sys.stdout.write(encoded)
     sys.stdout.write("\n")
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Assemble A-share brief scoring data.")
     parser.add_argument("--input", required=True, help="Path to a report bundle JSON object.")
+    parser.add_argument("--output", help="Optional path to write assembled scoring JSON.")
     parser.add_argument("--top-positive-sectors", type=int, default=10, help="Number of positive sectors to emit.")
     parser.add_argument("--top-negative-sectors", type=int, default=10, help="Number of negative sectors to emit.")
     parser.add_argument("--top-positive", type=int, default=10, help="Number of positive candidates to emit.")
