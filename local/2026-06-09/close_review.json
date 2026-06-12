@@ -1,0 +1,308 @@
+{
+  "report_date": "2026-06-09",
+  "review_time": "2026-06-10T10:39:30+08:00",
+  "review_type": "daily_post_close",
+  "morning_archive_status": {
+    "found": true,
+    "archive_dir": "local/2026-06-09/",
+    "files_checked": [
+      "report.md",
+      "assembled.json",
+      "input_bundle.json",
+      "metadata.json"
+    ],
+    "gaps": []
+  },
+  "morning_call": {
+    "short_term_direction": "震荡偏弱",
+    "fund_flow_direction": "拥挤分化",
+    "top_5_mainlines": [
+      {
+        "rank": 1,
+        "sector": "机器人/物理AI",
+        "direction": "positive"
+      },
+      {
+        "rank": 2,
+        "sector": "工程机械/智能装备",
+        "direction": "positive"
+      },
+      {
+        "rank": 3,
+        "sector": "石油天然气/油服",
+        "direction": "positive"
+      },
+      {
+        "rank": 4,
+        "sector": "银行/高股息防御",
+        "direction": "positive"
+      },
+      {
+        "rank": 5,
+        "sector": "半导体/AI硬件去杠杆",
+        "direction": "negative"
+      }
+    ],
+    "selected_beneficiaries": [
+      "三一重工",
+      "拓普集团",
+      "徐工机械",
+      "汇川技术",
+      "南京银行",
+      "三花智控"
+    ],
+    "pressure_candidates": []
+  },
+  "closing_market_snapshot": {
+    "date": "2026-06-09",
+    "broad_indices": [
+      {
+        "name": "上证指数",
+        "change_pct": 1.28
+      },
+      {
+        "name": "深证成指",
+        "change_pct": 3.02
+      },
+      {
+        "name": "创业板指",
+        "change_pct": 3.93
+      },
+      {
+        "name": "沪深300",
+        "change_pct": 1.87
+      }
+    ],
+    "breadth": "可交易A股约3321只上涨、2049只下跌，上涨占比约60.23%。",
+    "turnover_summary": "市场显著放量修复，公开收评口径显示两市成交处于2.6万亿元以上区间。",
+    "main_fund_flow": "主力资金全天净流入约485.20亿元，资金集中回流科技成长方向。",
+    "dominant_sectors": [
+      "半导体",
+      "通信设备",
+      "AI硬件",
+      "PCB",
+      "光模块"
+    ],
+    "weak_sectors": [
+      "石油石化",
+      "油气服务",
+      "煤炭",
+      "部分高股息防御"
+    ],
+    "data_quality": "public_web_cross_check"
+  },
+  "direction_hit": false,
+  "average_stock_error": -0.7617,
+  "direction_review": {
+    "actual_direction": "放量强修复，科技成长主导",
+    "hit_status": "miss",
+    "reason": "早盘报告依据前一日弱宽度、半导体去杠杆和外部风险偏好收缩判断震荡偏弱；收盘实际为指数集体上涨、创业板和科创方向领涨、主力资金大幅净流入，属于方向级别未命中。"
+  },
+  "sector_hits": [
+    {
+      "sector": "机器人/物理AI",
+      "expected": "正向主线",
+      "actual": "主题仍有分化表现，但主线资金焦点转向半导体、PCB、光模块等AI硬件；拓普集团下跌，中控技术大幅上涨。",
+      "hit": false,
+      "hit_status": "partial_miss",
+      "reason": "方向逻辑没有完全失效，但早盘将其列为第一主线，收盘并未成为最强资金聚集方向。"
+    },
+    {
+      "sector": "工程机械/智能装备",
+      "expected": "正向主线",
+      "actual": "三一重工上涨2.10%，徐工机械上涨0.30%，但相对创业板和硬科技板块偏弱。",
+      "hit": true,
+      "hit_status": "partial_hit",
+      "reason": "基本面修复逻辑得到个股正反馈，但板块弹性低于市场主线切换后的科技成长。"
+    },
+    {
+      "sector": "石油天然气/油服",
+      "expected": "正向主线",
+      "actual": "油气主题转弱，海油工程下跌4.55%。",
+      "hit": false,
+      "hit_status": "miss",
+      "reason": "中东风险交易未延续，油气从避险映射转为资金兑现方向。"
+    },
+    {
+      "sector": "银行/高股息防御",
+      "expected": "正向防御",
+      "actual": "南京银行上涨0.88%，但高股息防御整体相对科技成长明显落后。",
+      "hit": true,
+      "hit_status": "defensive_partial_hit",
+      "reason": "个股韧性存在，但市场风险偏好回升后防御资产不是当日资金主线。"
+    },
+    {
+      "sector": "半导体/AI硬件去杠杆",
+      "expected": "负向风险观察",
+      "actual": "半导体、AI硬件、PCB、光模块成为当日最强方向之一。",
+      "hit": false,
+      "hit_status": "major_miss",
+      "reason": "早盘将前一日去杠杆趋势线性外推，低估了超跌科技在放量市场中的反身性修复。"
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "600031",
+      "name": "三一重工",
+      "role": "beneficiary",
+      "sector": "工程机械/智能装备",
+      "expected": "受益",
+      "close_price": 19.92,
+      "actual_return_pct": 2.10,
+      "hit": true,
+      "effective_hit": true,
+      "actual_move": "上涨并跑赢上证指数，验证工程机械景气修复逻辑。"
+    },
+    {
+      "ticker": "601689",
+      "name": "拓普集团",
+      "role": "beneficiary",
+      "sector": "机器人/物理AI",
+      "expected": "受益",
+      "close_price": 67.75,
+      "actual_return_pct": -0.51,
+      "hit": false,
+      "effective_hit": false,
+      "actual_move": "下跌且主力资金净流出，显著弱于机器人和科技成长预期。"
+    },
+    {
+      "ticker": "000425",
+      "name": "徐工机械",
+      "role": "beneficiary",
+      "sector": "工程机械/智能装备",
+      "expected": "受益",
+      "close_price": 9.96,
+      "actual_return_pct": 0.30,
+      "hit": true,
+      "effective_hit": false,
+      "actual_move": "小幅上涨，但未达到0.5%的有效命中阈值，也弱于成长指数。"
+    },
+    {
+      "ticker": "300124",
+      "name": "汇川技术",
+      "role": "beneficiary",
+      "sector": "机器人/物理AI",
+      "expected": "受益",
+      "close_price": 74.60,
+      "actual_return_pct": 0.11,
+      "hit": true,
+      "effective_hit": false,
+      "actual_move": "微涨，平台型中军未跟随强科技行情放大弹性。"
+    },
+    {
+      "ticker": "601009",
+      "name": "南京银行",
+      "role": "beneficiary",
+      "sector": "银行/高股息防御",
+      "expected": "受益",
+      "close_price": 11.46,
+      "actual_return_pct": 0.88,
+      "hit": true,
+      "effective_hit": true,
+      "actual_move": "小幅上涨，防御韧性命中，但不是当日主线。"
+    },
+    {
+      "ticker": "002050",
+      "name": "三花智控",
+      "role": "beneficiary",
+      "sector": "机器人/物理AI",
+      "expected": "受益",
+      "close_price": 47.49,
+      "actual_return_pct": 0.23,
+      "hit": true,
+      "effective_hit": false,
+      "actual_move": "微涨但主力资金净流出，未形成强势验证。"
+    }
+  ],
+  "stock_hit_summary": {
+    "selected_beneficiary_count": 6,
+    "raw_positive_hit_count": 5,
+    "raw_positive_hit_rate": 0.8333,
+    "effective_hit_count_min_0p5pct": 2,
+    "effective_hit_rate_min_0p5pct": 0.3333,
+    "average_selected_return_pct": 0.5183,
+    "average_stock_error": -0.7617,
+    "average_stock_error_definition": "selected beneficiary average return minus Shanghai Composite return, percentage points",
+    "pressure_candidate_count": 0,
+    "pressure_review": "早盘未列可能承压A股公司，因此无个股承压命中样本。"
+  },
+  "observation_bias": [
+    {
+      "ticker": "688777",
+      "name": "中控技术",
+      "morning_status": "未入选/观察",
+      "reason_for_exclusion": "市值低于当前1000亿元门槛，仅作机器人/工业自动化主题跟踪。",
+      "actual_return_pct": 6.28,
+      "bias_type": "missed_upside_observation",
+      "explanation": "工业AI和自动化弹性在科技风格修复中被资金放大，刚性市值门槛避免了小市值波动暴露，但也错过了强趋势观察股。"
+    },
+    {
+      "ticker": "600583",
+      "name": "海油工程",
+      "morning_status": "未入选/观察",
+      "reason_for_exclusion": "油价映射直接但市值低于门槛，且事件驱动稳定性不足。",
+      "actual_return_pct": -4.55,
+      "bias_type": "observation_risk_confirmed",
+      "explanation": "油气事件映射没有延续，观察而不进入受益列是有效约束。"
+    }
+  ],
+  "fund_flow_bias": {
+    "morning_judgment": "拥挤分化，弱市中抱团机器人、工程机械、银行和油气",
+    "actual": "放量强修复，主力资金转向半导体、通信设备、AI硬件、PCB和光模块；高股息和油气相对走弱。",
+    "hit_status": "miss",
+    "bias_level": "high",
+    "reason": "早盘资金判断过度依赖前一日存量博弈和弱宽度，对科技成长超跌后的资金回补、硬科技消息扩散和市场风险偏好修复估计不足。"
+  },
+  "major_bias_reasons": [
+    "大盘从前一日弱宽度快速切换为放量风险偏好修复，原先的震荡偏弱假设失效。",
+    "半导体/AI硬件负向逻辑没有等待当日盘中资金确认，导致把旧主线去杠杆误判为延续下跌。",
+    "油气和高股息的防御逻辑在风险偏好回升日天然降权，早盘没有设置足够强的风格切换惩罚。",
+    "机器人方向内部出现强弱分化，资金更偏工业AI和硬科技弹性，未必选择拓普、三花这类高关注度零部件中军。",
+    "对未入选观察股的弹性约束偏刚性，中控技术这类接近门槛、趋势持续加速的观察股需要额外的资金确认跟踪条件。"
+  ],
+  "significant_deviation_analysis": [
+    {
+      "ticker": "601689",
+      "name": "拓普集团",
+      "deviation": "早盘列为机器人/物理AI第一主线龙头之一，收盘下跌0.51%。",
+      "fundamental_context": "公司主营汽车零部件，机器人映射更多来自执行器、轻量化和热管理等产业链预期；2026年一季报收入同比增长但归母净利润小幅下降，说明短期利润兑现仍慢于主题预期。",
+      "valuation_context": "早盘归档相对估值约PE 34.68、PB 4.28、PS 4.24，估值需要机器人主线持续验证才能消化。",
+      "price_volume_context": "当日开盘68.70元、最高68.70元、最低65.80元、收盘67.75元，成交量4880万股；量价上不是强势放量上攻，而是高关注主题中军的开高走弱。",
+      "review_conclusion": "偏差主要来自拥挤度和估值消化压力，而非基本面单日恶化；后续需要把高散户热度叠加主力净流出列为机器人中军降权条件。"
+    },
+    {
+      "ticker": "688777",
+      "name": "中控技术",
+      "deviation": "早盘因市值门槛仅列观察，收盘上涨6.28%，为未入选观察股中的主要错失样本。",
+      "fundamental_context": "公司主营流程工业自动化、数字化、智能化，工业AI叙事与机器人/智能装备主线存在交集。",
+      "valuation_context": "早盘归档相对估值约PE 45.50、PB 4.90、PS 7.72，且外部页面显示估值分歧较大，属于高弹性高估值观察样本。",
+      "price_volume_context": "6月9日收盘110.00元，日内最高114.00元，成交量3514.29万股；此前6月5日和6月8日已连续强势，说明趋势加速早于收盘复盘。",
+      "review_conclusion": "市值门槛保护了组合质量，但对接近门槛且14日趋势连续强化的观察股，应在次日观察清单中提高盘中资金确认权重，而不是直接放宽入选门槛。"
+    },
+    {
+      "ticker": "600583",
+      "name": "海油工程",
+      "deviation": "早盘作为油服主题观察样本，收盘下跌4.55%，验证油气事件驱动不稳定。",
+      "fundamental_context": "油服订单和盈利弹性依赖油价、上游资本开支与地缘事件持续性。",
+      "valuation_context": "早盘归档相对估值约PE 15.44、PB 1.11、PS 0.73，低估值不足以抵消事件交易退潮。",
+      "price_volume_context": "6月9日开盘5.62元、收盘5.45元，低点5.44元，跌幅4.55%，成交量高于前一日，体现事件冲高后的资金撤退。",
+      "review_conclusion": "油气映射需要商品价格和A股板块资金同步确认；单一地缘事件不应提升到强主线权重。"
+    }
+  ],
+  "next_day_weight_conditions": {
+    "increase_weight": [
+      "半导体/AI硬件若继续满足科创或创业成长指数强于沪指、行业主力净流入居前、板块成交额放大，应从负向观察切换为正向主线复核。",
+      "中控技术这类接近市值门槛的观察股，若继续出现强趋势、成交量高于近14日均量且主力资金持续流入，可提高观察权重，但仍不直接绕过市值和估值风险门槛。",
+      "工程机械若三一重工、徐工机械继续放量跑赢且行业销量/提价逻辑有新确认，可维持基本面修复权重。"
+    ],
+    "decrease_weight": [
+      "油气/油服若油价回落、地缘风险缓和或A股油气板块资金净流出，应降低事件映射权重。",
+      "机器人中军若高散户热度叠加主力资金净流出、开高走低或弱于同属科技主线，应降低候选股权重。",
+      "银行/高股息在市场放量转向成长时只保留防御韧性标签，不提高为进攻主线。"
+    ],
+    "hold_weight": [
+      "不因单日复盘直接改变生产阈值；需要等待至少多日或周复盘验证，再考虑回测与阈值扫描。"
+    ]
+  },
+  "lesson": "本日最大误差来自方向判断和半导体负向外推。次日应更重视盘中资金对旧主线的反身性修复确认，降低单日弱宽度对次日方向的绝对权重，同时对油气事件和高热机器人中军增加资金确认要求。"
+}

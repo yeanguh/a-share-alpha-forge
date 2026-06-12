@@ -123,12 +123,13 @@ user explicitly asks for them.
     not in the recommended beneficiary or pressure company columns.
 17. Persist every daily run using `references/persistence-and-review.md` and
     `scripts/persist_report.py`. Save the input bundle, assembled scoring data,
-    and final Markdown report under a date-marked directory.
+    and final Markdown report under `local/YYYY-MM-DD/`. Do not create an
+    extra skill-name directory below `local/`.
 18. After 15:00 China time, use closing broad-index, sector, and selected-stock
     data to create `close_review.json`. Use `scripts/review_archive.py` for
     daily or weekly review aggregation. Store weekly, intraday, backtest,
     threshold-scan, and calibration summary outputs under
-    `.local/daily-a-share-news-impact/reviews/`, not in the daily archive root.
+    `local/reviews/`, not in the daily archive root.
     Adjust future strategy notes only from repeated review evidence, not
     one-day noise.
     Current post-review calibration: require stricter evidence before placing a
@@ -332,5 +333,5 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/persist_report.py \
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/review_archive.py \
   --frequency weekly \
-  --output .local/daily-a-share-news-impact/reviews/weekly/weekly_review_YYYY-MM-DD_YYYY-MM-DD.json
+  --output local/reviews/weekly/weekly_review_YYYY-MM-DD_YYYY-MM-DD.json
 ```

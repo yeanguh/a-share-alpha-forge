@@ -1,0 +1,76 @@
+{
+  "window": {
+    "start": "2026-06-04T09:30:00+08:00",
+    "end": "2026-06-05T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "fund_flow": {
+    "direction": "拥挤分化",
+    "turnover_summary": "6月4日两市成交额约2.75万亿元，较上一交易日缩量超3700亿元，指数回调但科技细分仍有承接。",
+    "main_flow_summary": "电子板块主力净流入109.94亿元，电力设备净流出127.88亿元，有色金属净流出96.63亿元。",
+    "sector_flow_summary": "半导体、存储芯片、工业气体、玻璃基板与MLCC逆势活跃；电力设备、有色、计算机、通信和食品饮料承压。",
+    "breadth_summary": "6月4日全市场超4100只个股收跌，赚钱效应集中在少数科技链和资源细分。",
+    "data_quality": "partial"
+  },
+  "candidates": [
+    {"title": "工信部组织开展6G创新发展部省协同试点专项行动，提出到2029年形成一批自主创新6G技术方案和终端产品", "direction": "positive", "magnitude": 4.6, "breadth": 4.1, "immediacy": 4.3, "confidence": 4.8, "novelty": 4.2, "liquidity": 4.1, "price_volume": 4.2},
+    {"title": "高端A2类光纤预制棒报价由2025年初22-30元/等效芯公里升至160元，短期供给紧缺阶段性固化", "direction": "positive", "magnitude": 4.7, "breadth": 4.0, "immediacy": 4.5, "confidence": 4.5, "novelty": 4.2, "liquidity": 4.5, "price_volume": 4.6},
+    {"title": "央行公告6月5日开展5000亿元3个月期买断式逆回购，保持银行体系流动性充裕", "direction": "positive", "magnitude": 3.8, "breadth": 4.3, "immediacy": 4.1, "confidence": 4.8, "novelty": 3.1, "liquidity": 4.6, "price_volume": 3.5},
+    {"title": "商务部6月4日就美国封堵AI芯片监管漏洞表态，国产算力和半导体自主可控预期升温", "direction": "positive", "magnitude": 4.1, "breadth": 4.0, "immediacy": 4.0, "confidence": 4.5, "novelty": 3.9, "liquidity": 4.1, "price_volume": 4.3},
+    {"title": "6月4日24时起国内汽柴油价格每吨分别下调525元和505元，航空物流和出行链成本压力缓解", "direction": "positive", "magnitude": 3.6, "breadth": 3.4, "immediacy": 4.4, "confidence": 4.9, "novelty": 3.2, "liquidity": 3.7, "price_volume": 2.9},
+    {"title": "6月4日电子行业主力资金净流入109.94亿元，为当日净流入金额最大的行业", "direction": "positive", "magnitude": 4.0, "breadth": 4.1, "immediacy": 4.2, "confidence": 4.8, "novelty": 3.4, "liquidity": 4.5, "price_volume": 4.4},
+    {"title": "6月4日半导体芯片产业链逆势活跃，工业气体、存储芯片涨幅居前", "direction": "positive", "magnitude": 4.2, "breadth": 4.0, "immediacy": 4.1, "confidence": 4.6, "novelty": 3.6, "liquidity": 4.4, "price_volume": 4.5},
+    {"title": "6月4日AI产业链内部玻璃基板、MLCC方向表现亮眼，体现材料端景气扩散", "direction": "positive", "magnitude": 4.0, "breadth": 3.8, "immediacy": 4.0, "confidence": 4.3, "novelty": 4.1, "liquidity": 4.2, "price_volume": 4.2},
+    {"title": "钨价6月4日继续探高，供给端惜售与下游刚需补库共振", "direction": "positive", "magnitude": 3.9, "breadth": 3.5, "immediacy": 4.0, "confidence": 4.0, "novelty": 3.8, "liquidity": 4.1, "price_volume": 4.0},
+    {"title": "国际油价6月4日单日回落约3%，有助于压低运输和制造链短期成本预期", "direction": "positive", "magnitude": 3.5, "breadth": 3.6, "immediacy": 4.0, "confidence": 4.2, "novelty": 3.0, "liquidity": 3.8, "price_volume": 2.8},
+    {"title": "博通财报未达到市场对AI芯片业务的高预期，6月4日股价一度跌超14%并拖累全球芯片股", "direction": "negative", "magnitude": 4.5, "breadth": 4.0, "immediacy": 4.6, "confidence": 4.8, "novelty": 3.7, "liquidity": 4.4, "price_volume": 4.0},
+    {"title": "美国收紧AI芯片出口口径，将禁令适用于中国企业境外子公司，海外算力采购链进一步受限", "direction": "negative", "magnitude": 4.6, "breadth": 4.1, "immediacy": 4.4, "confidence": 4.7, "novelty": 4.0, "liquidity": 4.1, "price_volume": 3.8},
+    {"title": "6月4日A股三大指数缩量整理全线收跌，全市场超4100只个股飘绿", "direction": "negative", "magnitude": 4.1, "breadth": 4.7, "immediacy": 4.5, "confidence": 4.9, "novelty": 2.9, "liquidity": 4.2, "price_volume": 4.3},
+    {"title": "6月4日电力设备行业主力资金净流出127.88亿元，为当日流出最多行业", "direction": "negative", "magnitude": 4.1, "breadth": 3.8, "immediacy": 4.2, "confidence": 4.8, "novelty": 3.2, "liquidity": 4.2, "price_volume": 4.2},
+    {"title": "6月4日有色金属行业主力资金净流出96.63亿元，板块跌幅达2.84%", "direction": "negative", "magnitude": 4.0, "breadth": 3.7, "immediacy": 4.2, "confidence": 4.8, "novelty": 3.1, "liquidity": 4.2, "price_volume": 4.1},
+    {"title": "6月4日通信行业主力资金净流出64.77亿元，外部芯片消息对高位海外链形成压制", "direction": "negative", "magnitude": 3.8, "breadth": 3.5, "immediacy": 4.1, "confidence": 4.4, "novelty": 3.6, "liquidity": 4.0, "price_volume": 3.6},
+    {"title": "6月4日计算机行业主力资金净流出57.74亿元，科技主线内部出现高低切换", "direction": "negative", "magnitude": 3.7, "breadth": 3.8, "immediacy": 4.0, "confidence": 4.7, "novelty": 3.2, "liquidity": 4.0, "price_volume": 3.8},
+    {"title": "6月4日非银金融行业主力资金净流出33.62亿元，风险偏好并未扩散到券商", "direction": "negative", "magnitude": 3.2, "breadth": 3.3, "immediacy": 3.9, "confidence": 4.5, "novelty": 2.8, "liquidity": 3.9, "price_volume": 3.4},
+    {"title": "6月4日医药生物行业主力资金净流出29.25亿元，防御方向承接不足", "direction": "negative", "magnitude": 3.1, "breadth": 3.2, "immediacy": 3.8, "confidence": 4.4, "novelty": 2.7, "liquidity": 3.7, "price_volume": 3.3},
+    {"title": "6月4日食品饮料行业主力资金净流出17.59亿元，白酒等传统消费方向走弱", "direction": "negative", "magnitude": 3.0, "breadth": 3.1, "immediacy": 3.7, "confidence": 4.4, "novelty": 2.7, "liquidity": 3.7, "price_volume": 3.2}
+  ],
+  "sector_candidates": [
+    {"title": "光纤光通信/光纤预制棒", "direction": "positive", "magnitude": 4.7, "breadth": 4.1, "immediacy": 4.5, "confidence": 4.6, "novelty": 4.3, "liquidity": 4.5, "price_volume": 4.6},
+    {"title": "6G通信/卫星互联网", "direction": "positive", "magnitude": 4.5, "breadth": 4.1, "immediacy": 4.3, "confidence": 4.8, "novelty": 4.2, "liquidity": 4.1, "price_volume": 4.2},
+    {"title": "半导体国产替代/存储", "direction": "positive", "magnitude": 4.4, "breadth": 4.1, "immediacy": 4.1, "confidence": 4.6, "novelty": 4.0, "liquidity": 4.5, "price_volume": 4.5},
+    {"title": "AI硬件-MLCC/玻璃基板", "direction": "positive", "magnitude": 4.2, "breadth": 4.0, "immediacy": 4.0, "confidence": 4.3, "novelty": 4.2, "liquidity": 4.2, "price_volume": 4.2},
+    {"title": "钨/小金属", "direction": "positive", "magnitude": 3.9, "breadth": 3.4, "immediacy": 4.0, "confidence": 4.0, "novelty": 3.8, "liquidity": 4.1, "price_volume": 4.0},
+    {"title": "电力设备/新能源", "direction": "negative", "magnitude": 4.2, "breadth": 3.8, "immediacy": 4.2, "confidence": 4.8, "novelty": 3.1, "liquidity": 4.2, "price_volume": 4.1},
+    {"title": "有色金属", "direction": "negative", "magnitude": 4.1, "breadth": 3.7, "immediacy": 4.2, "confidence": 4.8, "novelty": 3.0, "liquidity": 4.2, "price_volume": 4.0},
+    {"title": "海外AI算力链高位分歧", "direction": "negative", "magnitude": 4.0, "breadth": 3.6, "immediacy": 4.4, "confidence": 4.6, "novelty": 3.8, "liquidity": 4.1, "price_volume": 3.7},
+    {"title": "食品饮料/白酒", "direction": "negative", "magnitude": 3.2, "breadth": 3.1, "immediacy": 3.7, "confidence": 4.4, "novelty": 2.7, "liquidity": 3.8, "price_volume": 3.2},
+    {"title": "商贸零售/传统消费", "direction": "negative", "magnitude": 3.0, "breadth": 3.0, "immediacy": 3.7, "confidence": 4.1, "novelty": 2.6, "liquidity": 3.6, "price_volume": 3.1}
+  ],
+  "stocks": [
+    {"ticker": "603986", "name": "兆易创新", "sector": "半导体国产替代/存储", "directional_role": "beneficiary", "market_cap_billion": 370.78, "trend_score": 4.2, "volume_score": 4.3, "retail_sentiment": 4.4, "capital_recognition": 4.2, "event_alignment": 4.4, "risk_score": 3.6},
+    {"ticker": "300408", "name": "三环集团", "sector": "AI硬件-MLCC/玻璃基板", "directional_role": "beneficiary", "market_cap_billion": 258.15, "trend_score": 4.0, "volume_score": 4.2, "retail_sentiment": 4.4, "capital_recognition": 4.0, "event_alignment": 4.3, "risk_score": 3.7},
+    {"ticker": "600522", "name": "中天科技", "sector": "光纤光通信/光纤预制棒", "directional_role": "beneficiary", "market_cap_billion": 166.46, "trend_score": 4.0, "volume_score": 4.1, "retail_sentiment": 4.0, "capital_recognition": 4.0, "event_alignment": 4.2, "risk_score": 3.2},
+    {"ticker": "002281", "name": "光迅科技", "sector": "光纤光通信/光纤预制棒", "directional_role": "beneficiary", "market_cap_billion": 183.58, "trend_score": 4.2, "volume_score": 4.4, "retail_sentiment": 4.5, "capital_recognition": 4.1, "event_alignment": 4.4, "risk_score": 3.8},
+    {"ticker": "000725", "name": "京东方A", "sector": "AI硬件-MLCC/玻璃基板", "directional_role": "beneficiary", "market_cap_billion": 250.42, "trend_score": 3.8, "volume_score": 4.1, "retail_sentiment": 3.8, "capital_recognition": 4.0, "event_alignment": 3.9, "risk_score": 3.1},
+    {"ticker": "002384", "name": "东山精密", "sector": "AI硬件-MLCC/玻璃基板", "directional_role": "beneficiary", "market_cap_billion": 405.54, "trend_score": 4.1, "volume_score": 4.2, "retail_sentiment": 4.7, "capital_recognition": 4.0, "event_alignment": 4.2, "risk_score": 3.9},
+    {"ticker": "600498", "name": "烽火通信", "sector": "6G通信/卫星互联网", "directional_role": "beneficiary", "market_cap_billion": 77.18, "trend_score": 4.2, "volume_score": 4.4, "retail_sentiment": 4.2, "capital_recognition": 4.1, "event_alignment": 4.4, "risk_score": 3.4},
+    {"ticker": "600549", "name": "厦门钨业", "sector": "钨/小金属", "directional_role": "beneficiary", "market_cap_billion": 97.97, "trend_score": 3.8, "volume_score": 3.8, "retail_sentiment": 3.9, "capital_recognition": 3.7, "event_alignment": 4.3, "risk_score": 3.7},
+    {"ticker": "601869", "name": "长飞光纤", "sector": "光纤光通信/光纤预制棒", "directional_role": "beneficiary", "market_cap_billion": 377.43, "trend_score": 4.3, "volume_score": 4.4, "retail_sentiment": 4.8, "capital_recognition": 4.2, "event_alignment": 4.5, "risk_score": 4.0},
+    {"ticker": "300308", "name": "中际旭创", "sector": "光纤光通信/光纤预制棒", "directional_role": "beneficiary", "market_cap_billion": 1344.97, "trend_score": 4.3, "volume_score": 4.5, "retail_sentiment": 4.9, "capital_recognition": 4.3, "event_alignment": 4.4, "risk_score": 4.1}
+  ],
+  "evidence_gaps": [
+    "本地终端无外网DNS，akshare与Sina/Tencent/Eastmoney公开接口健康检查均为fetch_failed，实时数据改由web检索补齐。",
+    "北向资金、融资融券与ETF分项流向未获取到统一免费直连源，本日报仅做partial级别判断。",
+    "个股14日量价为公开行情与市场综述交叉确认，未使用付费终端。"
+  ],
+  "optional_data_sources": {
+    "akshare_dependency": {"status": "installed", "detail": "akshare=1.18.64, pandas=3.0.0, numpy=2.4.1"},
+    "akshare_fetch": {"status": "fetch_failed", "detail": "provider fetch failed because terminal DNS/network access is unavailable"},
+    "sina_quote": {"status": "fetch_failed", "detail": "terminal DNS/network access unavailable"},
+    "tencent_quote": {"status": "fetch_failed", "detail": "terminal DNS/network access unavailable"},
+    "eastmoney_quote": {"status": "fetch_failed", "detail": "terminal DNS/network access unavailable"},
+    "itick": {"status": "missing_credentials", "detail": "ITICK_API_TOKEN is not set"},
+    "zhitu": {"status": "fetch_failed", "detail": "terminal DNS/network access unavailable"},
+    "baostock": {"status": "missing_dependency", "detail": "baostock is not installed"}
+  }
+}

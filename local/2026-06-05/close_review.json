@@ -1,0 +1,162 @@
+{
+  "review_time": "2026-06-05T16:45:00+08:00",
+  "review_type": "post_close_review",
+  "data_sources": [
+    "Tencent public quote snapshot via qt.gtimg.cn at 2026-06-05 16:14 China time",
+    "Investing.com index historical pages crawled 2026-06-06",
+    "Sina/Eastmoney/每日经济新闻 intraday and post-close sector reports crawled 2026-06-06",
+    "Archived 2026-06-05 assembled.json and report.md"
+  ],
+  "direction_hit": false,
+  "average_stock_error": 1.12,
+  "market_close": {
+    "indices": [
+      {
+        "name": "上证指数",
+        "close": 4027.74,
+        "pct_change": -0.74
+      },
+      {
+        "name": "深证成指",
+        "close": 15314.70,
+        "pct_change": -2.21
+      },
+      {
+        "name": "创业板指",
+        "close": 3957.94,
+        "pct_change": -3.20
+      },
+      {
+        "name": "科创50",
+        "close": 1668.33,
+        "pct_change": -4.01
+      }
+    ],
+    "fund_flow_readout": "宽基指数收盘偏弱，半导体和高位算力链明显回撤；玻璃基板、6G和光纤分支仍有局部资金承接，但没有扩散成全市场风险偏好上行。",
+    "data_quality": "partial"
+  },
+  "sector_hits": [
+    {
+      "sector": "光纤光通信/光纤预制棒",
+      "hit": true,
+      "reason": "光迅科技和中天科技均从开盘到收盘上涨，且明显强于宽基指数；但长飞光纤等高风险观察样本下跌，说明主线有效但内部拥挤分化。"
+    },
+    {
+      "sector": "6G通信/卫星互联网",
+      "hit": true,
+      "reason": "烽火通信收盘涨幅显著，验证政策主题热度；但其因市值不在参数区间，仅能作为主题跟踪样本。"
+    },
+    {
+      "sector": "半导体国产替代/存储",
+      "hit": false,
+      "reason": "兆易创新收盘-7.80%，未能抵抗高位科技回撤；消息方向正确但估值和拥挤度压过主线逻辑。"
+    },
+    {
+      "sector": "AI硬件-MLCC/玻璃基板",
+      "hit": true,
+      "reason": "京东方A收盘+4.55%，验证玻璃基板分支；三环集团收盘-3.02%，显示MLCC高估值样本承接不足。"
+    },
+    {
+      "sector": "钨/小金属",
+      "hit": false,
+      "reason": "厦门钨业作为观察样本收盘-3.14%，验证该主题强度不足、未进入强主线门槛的处理是必要的。"
+    },
+    {
+      "sector": "流动性与科技成长",
+      "hit": false,
+      "reason": "央行流动性背景没有抵消创业板、科创50和高位科技股的估值回撤。"
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "role": "beneficiary",
+      "hit": false,
+      "actual_move": "收盘488.00元，较前收盘-7.80%，开盘到收盘约-3.75%；半导体国产替代逻辑被高位科技回撤压制。"
+    },
+    {
+      "ticker": "002281",
+      "name": "光迅科技",
+      "role": "beneficiary",
+      "hit": true,
+      "actual_move": "收盘227.58元，较前收盘+3.18%，开盘到收盘约+3.46%；光纤光通信主线得到价格验证。"
+    },
+    {
+      "ticker": "600522",
+      "name": "中天科技",
+      "role": "beneficiary",
+      "hit": true,
+      "actual_move": "收盘46.07元，较前收盘+0.02%，开盘到收盘约+2.20%；绝对涨幅一般但相对宽基有效。"
+    },
+    {
+      "ticker": "000725",
+      "name": "京东方A",
+      "role": "beneficiary",
+      "hit": true,
+      "actual_move": "收盘6.43元，较前收盘+4.55%，开盘到收盘约+5.24%；玻璃基板分支和中军低估值属性共振。"
+    },
+    {
+      "ticker": "300408",
+      "name": "三环集团",
+      "role": "beneficiary",
+      "hit": false,
+      "actual_move": "收盘134.83元，较前收盘-3.02%，开盘到收盘约-0.86%；MLCC景气映射未能抵消估值和成长股回撤。"
+    }
+  ],
+  "observation_stock_readout": [
+    {
+      "ticker": "600498",
+      "name": "烽火通信",
+      "role": "excluded_leader",
+      "actual_move": "收盘56.48元，较前收盘+7.07%，验证6G主题强度；但市值低于100亿元参数区间，仍不应回填推荐列。"
+    },
+    {
+      "ticker": "601869",
+      "name": "长飞光纤",
+      "role": "excluded_risk",
+      "actual_move": "收盘441.67元，较前收盘-3.12%；高风险分数排除起到保护作用。"
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "role": "excluded_risk",
+      "actual_move": "收盘1179.99元，较前收盘-7.81%；高热度和高风险排除有效。"
+    },
+    {
+      "ticker": "002384",
+      "name": "东山精密",
+      "role": "excluded_risk",
+      "actual_move": "收盘221.41元，较前收盘-6.89%；AI硬件高估值观察样本回撤，说明风险门槛不能放松。"
+    },
+    {
+      "ticker": "600549",
+      "name": "厦门钨业",
+      "role": "excluded_market_cap_and_sector_gate",
+      "actual_move": "收盘61.73元，较前收盘-3.14%；钨/小金属未过强主线门槛的处理有效。"
+    }
+  ],
+  "deviation_notes": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "reason": "按 china-stock-analysis 的基本面框架，公司质量不差，但 china-stock-price-analysis 的相对估值框架显示 PE/PB/PS 已处高位；在科创50和高位半导体回撤时，估值弹性成为负反馈。"
+    },
+    {
+      "ticker": "300408",
+      "name": "三环集团",
+      "reason": "MLCC景气逻辑仍在，但估值水平和成长股风险偏好下降导致资金承接不足；后续应对高估值材料股提高收盘强度和换手承接要求。"
+    },
+    {
+      "ticker": "000725",
+      "name": "京东方A",
+      "reason": "同属AI硬件扩散方向，但低PB和中军属性使其在玻璃基板行情中更容易获得防御型资金承接。"
+    },
+    {
+      "ticker": "601869/300308/002384",
+      "name": "长飞光纤/中际旭创/东山精密",
+      "reason": "这些观察样本主线相关性强，但风险分数过高；6月5日收盘大幅回撤证明风险分数对高拥挤交易有保护作用。"
+    }
+  ],
+  "lesson": "6月5日宽基方向偏强判断未命中，且高位半导体和AI硬件部分入选股失效；但光纤光通信、6G主题和玻璃基板中军仍有结构性验证。下周应把指数方向判断与结构主线判断分开评分，继续保留强主线、强量价、强主力资金门槛，并对高估值/高风险成长股增加收盘承接与估值拥挤惩罚。"
+}

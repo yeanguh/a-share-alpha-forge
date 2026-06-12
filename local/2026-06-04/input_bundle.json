@@ -1,0 +1,700 @@
+{
+  "window": {
+    "start": "2026-06-03T09:30:00+08:00",
+    "end": "2026-06-04T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "fund_flow": {
+    "direction": "拥挤分化",
+    "turnover_summary": "2026-06-04 12:05附近，上证指数、深成指和创业板指下跌，科创50小幅上涨；成长权重内部分化明显。",
+    "main_flow_summary": "完整全A主力资金未稳定取得；用腾讯/新浪/东方财富公开行情、换手率和候选股票量价评分代理判断。",
+    "sector_flow_summary": "AI PC、AI应用、部分半导体设备和电力方向相对抗跌；CPO/高位PCB、消费电子和部分AI应用个股承压。",
+    "breadth_summary": "指数偏弱但题材仍有局部活跃，资金从前期光通信强势方向向低位或事件驱动方向轮动。",
+    "data_quality": "partial"
+  },
+  "sector_candidates": [
+    {
+      "title": "AI PC与端侧AI",
+      "direction": "positive",
+      "magnitude": 3.9,
+      "breadth": 3.3,
+      "immediacy": 3.8,
+      "confidence": 3.6,
+      "novelty": 3.2,
+      "liquidity": 3.5,
+      "price_volume": 3.0
+    },
+    {
+      "title": "半导体设备",
+      "direction": "positive",
+      "magnitude": 3.8,
+      "breadth": 3.2,
+      "immediacy": 3.6,
+      "confidence": 3.8,
+      "novelty": 3.2,
+      "liquidity": 3.8,
+      "price_volume": 3.4
+    },
+    {
+      "title": "电力防御与公用事业",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.1,
+      "immediacy": 3.4,
+      "confidence": 3.4,
+      "novelty": 3.0,
+      "liquidity": 3.3,
+      "price_volume": 3.1
+    },
+    {
+      "title": "数据中心冷却",
+      "direction": "positive",
+      "magnitude": 3.3,
+      "breadth": 2.8,
+      "immediacy": 3.1,
+      "confidence": 3.3,
+      "novelty": 3.0,
+      "liquidity": 3.0,
+      "price_volume": 2.7
+    },
+    {
+      "title": "创新药",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.1,
+      "immediacy": 3.0,
+      "confidence": 4.0,
+      "novelty": 3.4,
+      "liquidity": 3.0,
+      "price_volume": 2.6
+    },
+    {
+      "title": "CPO高位拥挤",
+      "direction": "negative",
+      "magnitude": 4.4,
+      "breadth": 4.0,
+      "immediacy": 4.5,
+      "confidence": 4.1,
+      "novelty": 3.4,
+      "liquidity": 4.6,
+      "price_volume": 4.5
+    },
+    {
+      "title": "AI应用回撤",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.1,
+      "immediacy": 3.8,
+      "confidence": 3.6,
+      "novelty": 3.1,
+      "liquidity": 3.5,
+      "price_volume": 3.6
+    },
+    {
+      "title": "消费电子承压",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.4,
+      "immediacy": 3.7,
+      "confidence": 3.6,
+      "novelty": 3.1,
+      "liquidity": 3.7,
+      "price_volume": 3.6
+    },
+    {
+      "title": "PMI弱需求周期链",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 4.2,
+      "immediacy": 3.4,
+      "confidence": 4.8,
+      "novelty": 3.0,
+      "liquidity": 3.8,
+      "price_volume": 3.1
+    },
+    {
+      "title": "航空景气偏低",
+      "direction": "negative",
+      "magnitude": 3.5,
+      "breadth": 2.7,
+      "immediacy": 3.2,
+      "confidence": 4.4,
+      "novelty": 3.0,
+      "liquidity": 3.0,
+      "price_volume": 2.9
+    },
+    {
+      "title": "投机题材高换手",
+      "direction": "negative",
+      "magnitude": 3.6,
+      "breadth": 2.8,
+      "immediacy": 3.5,
+      "confidence": 3.8,
+      "novelty": 3.0,
+      "liquidity": 3.6,
+      "price_volume": 3.8
+    }
+  ],
+  "candidates": [
+    {
+      "title": "三大指数午前下挫，CPO和半导体方向分化调整",
+      "direction": "negative",
+      "magnitude": 4.3,
+      "breadth": 4.0,
+      "immediacy": 4.4,
+      "confidence": 4.0,
+      "novelty": 3.2,
+      "liquidity": 4.5,
+      "price_volume": 4.3
+    },
+    {
+      "title": "CPO强势股出现分化，光库科技等高弹性标的回撤",
+      "direction": "negative",
+      "magnitude": 4.4,
+      "breadth": 3.7,
+      "immediacy": 4.5,
+      "confidence": 4.0,
+      "novelty": 3.3,
+      "liquidity": 4.5,
+      "price_volume": 4.5
+    },
+    {
+      "title": "AI PC和端侧AI在弱市中维持局部热度",
+      "direction": "positive",
+      "magnitude": 3.9,
+      "breadth": 3.3,
+      "immediacy": 3.8,
+      "confidence": 3.6,
+      "novelty": 3.2,
+      "liquidity": 3.5,
+      "price_volume": 3.0
+    },
+    {
+      "title": "半导体设备方向相对抗跌，科创50仍保持小幅上涨",
+      "direction": "positive",
+      "magnitude": 3.8,
+      "breadth": 3.2,
+      "immediacy": 3.6,
+      "confidence": 3.8,
+      "novelty": 3.2,
+      "liquidity": 3.8,
+      "price_volume": 3.4
+    },
+    {
+      "title": "电力和公用事业方向在指数走弱时具备防御属性",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.1,
+      "immediacy": 3.4,
+      "confidence": 3.4,
+      "novelty": 3.0,
+      "liquidity": 3.3,
+      "price_volume": 3.1
+    },
+    {
+      "title": "医保和商保创新药目录调整窗口继续提供政策支撑",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.1,
+      "immediacy": 3.0,
+      "confidence": 4.0,
+      "novelty": 3.4,
+      "liquidity": 3.0,
+      "price_volume": 2.6
+    },
+    {
+      "title": "数据中心冷却方向仍有结构催化但量价确认偏弱",
+      "direction": "positive",
+      "magnitude": 3.3,
+      "breadth": 2.8,
+      "immediacy": 3.1,
+      "confidence": 3.3,
+      "novelty": 3.0,
+      "liquidity": 3.0,
+      "price_volume": 2.7
+    },
+    {
+      "title": "AI应用代表个股午前回撤，短线热度承压",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.1,
+      "immediacy": 3.8,
+      "confidence": 3.6,
+      "novelty": 3.1,
+      "liquidity": 3.5,
+      "price_volume": 3.6
+    },
+    {
+      "title": "消费电子链弱于指数，AI PC映射未全面扩散",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.4,
+      "immediacy": 3.7,
+      "confidence": 3.6,
+      "novelty": 3.1,
+      "liquidity": 3.7,
+      "price_volume": 3.6
+    },
+    {
+      "title": "制造业PMI新订单仍低于临界点，周期链需求承压",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 4.2,
+      "immediacy": 3.4,
+      "confidence": 4.8,
+      "novelty": 3.0,
+      "liquidity": 3.8,
+      "price_volume": 3.1
+    },
+    {
+      "title": "航空运输景气低于临界点，航空链继续弱势",
+      "direction": "negative",
+      "magnitude": 3.5,
+      "breadth": 2.7,
+      "immediacy": 3.2,
+      "confidence": 4.4,
+      "novelty": 3.0,
+      "liquidity": 3.0,
+      "price_volume": 2.9
+    },
+    {
+      "title": "投机题材高换手仍未充分降温",
+      "direction": "negative",
+      "magnitude": 3.6,
+      "breadth": 2.8,
+      "immediacy": 3.5,
+      "confidence": 3.8,
+      "novelty": 3.0,
+      "liquidity": 3.6,
+      "price_volume": 3.8
+    }
+  ],
+  "stocks": [
+    {
+      "ticker": "603893",
+      "name": "瑞芯微",
+      "sector": "AI PC与端侧AI",
+      "directional_role": "beneficiary",
+      "trend_score": 3.4,
+      "volume_score": 3.0,
+      "retail_sentiment": 3.6,
+      "capital_recognition": 3.2,
+      "event_alignment": 3.8,
+      "risk_score": 3.4,
+      "market_cap_billion": 740.45,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh603893",
+          "name": "瑞芯微",
+          "ticker": "603893",
+          "last_price": 175.88,
+          "previous_close": 176.15,
+          "pct_change": -0.15,
+          "turnover_rate": 1.52,
+          "float_market_cap_billion": 740.3,
+          "total_market_cap_billion": 740.45,
+          "timestamp": "20260604120514"
+        }
+      }
+    },
+    {
+      "ticker": "688072",
+      "name": "拓荆科技",
+      "sector": "半导体设备",
+      "directional_role": "beneficiary",
+      "trend_score": 3.5,
+      "volume_score": 3.3,
+      "retail_sentiment": 3.8,
+      "capital_recognition": 3.4,
+      "event_alignment": 3.8,
+      "risk_score": 3.5,
+      "market_cap_billion": 1749.22,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh688072",
+          "name": "XD拓荆科",
+          "ticker": "688072",
+          "last_price": 618.77,
+          "previous_close": 615.16,
+          "pct_change": 0.59,
+          "turnover_rate": 2.18,
+          "float_market_cap_billion": 1749.22,
+          "total_market_cap_billion": 1749.22,
+          "timestamp": "20260604120555"
+        }
+      }
+    },
+    {
+      "ticker": "600021",
+      "name": "上海电力",
+      "sector": "电力防御与公用事业",
+      "directional_role": "beneficiary",
+      "trend_score": 3.0,
+      "volume_score": 3.0,
+      "retail_sentiment": 3.4,
+      "capital_recognition": 3.0,
+      "event_alignment": 3.5,
+      "risk_score": 3.3,
+      "market_cap_billion": 576.94,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh600021",
+          "name": "上海电力",
+          "ticker": "600021",
+          "last_price": 20.45,
+          "previous_close": 20.86,
+          "pct_change": -1.97,
+          "turnover_rate": 2.38,
+          "float_market_cap_billion": 576.94,
+          "total_market_cap_billion": 576.94,
+          "timestamp": "20260604120527"
+        }
+      }
+    },
+    {
+      "ticker": "002126",
+      "name": "银轮股份",
+      "sector": "数据中心冷却",
+      "directional_role": "beneficiary",
+      "trend_score": 2.8,
+      "volume_score": 2.8,
+      "retail_sentiment": 3.3,
+      "capital_recognition": 2.8,
+      "event_alignment": 3.5,
+      "risk_score": 3.5,
+      "market_cap_billion": 419.76,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz002126",
+          "name": "银轮股份",
+          "ticker": "002126",
+          "last_price": 49.57,
+          "previous_close": 48.85,
+          "pct_change": 1.47,
+          "turnover_rate": 2.22,
+          "float_market_cap_billion": 393.69,
+          "total_market_cap_billion": 419.76,
+          "timestamp": "20260604120551"
+        }
+      }
+    },
+    {
+      "ticker": "300620",
+      "name": "光库科技",
+      "sector": "CPO高位拥挤",
+      "directional_role": "pressure",
+      "trend_score": 2.6,
+      "volume_score": 4.0,
+      "retail_sentiment": 4.8,
+      "capital_recognition": 2.5,
+      "event_alignment": 4.4,
+      "risk_score": 4.4,
+      "market_cap_billion": 799.87,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz300620",
+          "name": "光库科技",
+          "ticker": "300620",
+          "last_price": 321.0,
+          "previous_close": 337.06,
+          "pct_change": -4.76,
+          "turnover_rate": 4.84,
+          "float_market_cap_billion": 793.2,
+          "total_market_cap_billion": 799.87,
+          "timestamp": "20260604120503"
+        }
+      }
+    },
+    {
+      "ticker": "600522",
+      "name": "中天科技",
+      "sector": "CPO高位拥挤",
+      "directional_role": "pressure",
+      "trend_score": 3.0,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.5,
+      "capital_recognition": 2.8,
+      "event_alignment": 4.1,
+      "risk_score": 4.0,
+      "market_cap_billion": 1565.52,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh600522",
+          "name": "中天科技",
+          "ticker": "600522",
+          "last_price": 45.87,
+          "previous_close": 44.98,
+          "pct_change": 1.98,
+          "turnover_rate": 6.94,
+          "float_market_cap_billion": 1565.52,
+          "total_market_cap_billion": 1565.52,
+          "timestamp": "20260604120521"
+        }
+      }
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "CPO高位拥挤",
+      "directional_role": "pressure",
+      "trend_score": 2.8,
+      "volume_score": 3.5,
+      "retail_sentiment": 4.4,
+      "capital_recognition": 2.8,
+      "event_alignment": 4.0,
+      "risk_score": 3.9,
+      "market_cap_billion": 14146.09,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz300308",
+          "name": "中际旭创",
+          "ticker": "300308",
+          "last_price": 1268.81,
+          "previous_close": 1275.0,
+          "pct_change": -0.49,
+          "turnover_rate": 1.18,
+          "float_market_cap_billion": 14078.91,
+          "total_market_cap_billion": 14146.09,
+          "timestamp": "20260604120512"
+        }
+      }
+    },
+    {
+      "ticker": "300502",
+      "name": "新易盛",
+      "sector": "CPO高位拥挤",
+      "directional_role": "pressure",
+      "trend_score": 2.8,
+      "volume_score": 3.4,
+      "retail_sentiment": 4.3,
+      "capital_recognition": 2.8,
+      "event_alignment": 4.0,
+      "risk_score": 3.8,
+      "market_cap_billion": 7688.33,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz300502",
+          "name": "新易盛",
+          "ticker": "300502",
+          "last_price": 772.0,
+          "previous_close": 782.25,
+          "pct_change": -1.31,
+          "turnover_rate": 1.87,
+          "float_market_cap_billion": 6849.8,
+          "total_market_cap_billion": 7688.33,
+          "timestamp": "20260604120509"
+        }
+      }
+    },
+    {
+      "ticker": "300496",
+      "name": "中科创达",
+      "sector": "AI应用回撤",
+      "directional_role": "pressure",
+      "trend_score": 2.6,
+      "volume_score": 3.2,
+      "retail_sentiment": 3.9,
+      "capital_recognition": 2.6,
+      "event_alignment": 3.7,
+      "risk_score": 3.9,
+      "market_cap_billion": 282.66,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz300496",
+          "name": "中科创达",
+          "ticker": "300496",
+          "last_price": 61.22,
+          "previous_close": 63.19,
+          "pct_change": -3.12,
+          "turnover_rate": 3.09,
+          "float_market_cap_billion": 226.25,
+          "total_market_cap_billion": 282.66,
+          "timestamp": "20260604120545"
+        }
+      }
+    },
+    {
+      "ticker": "300624",
+      "name": "万兴科技",
+      "sector": "AI应用回撤",
+      "directional_role": "pressure",
+      "trend_score": 2.4,
+      "volume_score": 3.3,
+      "retail_sentiment": 4.0,
+      "capital_recognition": 2.4,
+      "event_alignment": 3.8,
+      "risk_score": 4.1,
+      "market_cap_billion": 107.73,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz300624",
+          "name": "万兴科技",
+          "ticker": "300624",
+          "last_price": 55.72,
+          "previous_close": 58.02,
+          "pct_change": -3.96,
+          "turnover_rate": 3.28,
+          "float_market_cap_billion": 95.41,
+          "total_market_cap_billion": 107.73,
+          "timestamp": "20260604120506"
+        }
+      }
+    },
+    {
+      "ticker": "002241",
+      "name": "歌尔股份",
+      "sector": "消费电子承压",
+      "directional_role": "pressure",
+      "trend_score": 2.5,
+      "volume_score": 3.5,
+      "retail_sentiment": 3.8,
+      "capital_recognition": 2.5,
+      "event_alignment": 3.7,
+      "risk_score": 3.9,
+      "market_cap_billion": 905.35,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz002241",
+          "name": "歌尔股份",
+          "ticker": "002241",
+          "last_price": 25.5,
+          "previous_close": 26.81,
+          "pct_change": -4.89,
+          "turnover_rate": 4.16,
+          "float_market_cap_billion": 801.52,
+          "total_market_cap_billion": 905.35,
+          "timestamp": "20260604120527"
+        }
+      }
+    },
+    {
+      "ticker": "300433",
+      "name": "蓝思科技",
+      "sector": "消费电子承压",
+      "directional_role": "pressure",
+      "trend_score": 2.7,
+      "volume_score": 3.2,
+      "retail_sentiment": 3.6,
+      "capital_recognition": 2.7,
+      "event_alignment": 3.6,
+      "risk_score": 3.7,
+      "market_cap_billion": 2285.69,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz300433",
+          "name": "蓝思科技",
+          "ticker": "300433",
+          "last_price": 43.3,
+          "previous_close": 44.39,
+          "pct_change": -2.46,
+          "turnover_rate": 2.34,
+          "float_market_cap_billion": 2151.88,
+          "total_market_cap_billion": 2285.69,
+          "timestamp": "20260604120521"
+        }
+      }
+    },
+    {
+      "ticker": "600019",
+      "name": "宝钢股份",
+      "sector": "PMI弱需求周期链",
+      "directional_role": "pressure",
+      "trend_score": 2.5,
+      "volume_score": 3.0,
+      "retail_sentiment": 2.9,
+      "capital_recognition": 2.6,
+      "event_alignment": 3.8,
+      "risk_score": 3.8,
+      "market_cap_billion": 1259.0,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh600019",
+          "name": "宝钢股份",
+          "ticker": "600019",
+          "last_price": 5.78,
+          "previous_close": 5.83,
+          "pct_change": -0.86,
+          "turnover_rate": 0.21,
+          "float_market_cap_billion": 1259.0,
+          "total_market_cap_billion": 1259.0,
+          "timestamp": "20260604120510"
+        }
+      }
+    },
+    {
+      "ticker": "600029",
+      "name": "南方航空",
+      "sector": "航空景气偏低",
+      "directional_role": "pressure",
+      "trend_score": 2.5,
+      "volume_score": 3.0,
+      "retail_sentiment": 3.2,
+      "capital_recognition": 2.6,
+      "event_alignment": 3.7,
+      "risk_score": 3.8,
+      "market_cap_billion": 944.1,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh600029",
+          "name": "南方航空",
+          "ticker": "600029",
+          "last_price": 5.21,
+          "previous_close": 5.2,
+          "pct_change": 0.19,
+          "turnover_rate": 0.37,
+          "float_market_cap_billion": 702.15,
+          "total_market_cap_billion": 944.1,
+          "timestamp": "20260604120525"
+        }
+      }
+    },
+    {
+      "ticker": "000539",
+      "name": "粤电力A",
+      "sector": "投机题材高换手",
+      "directional_role": "pressure",
+      "trend_score": 2.6,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.4,
+      "capital_recognition": 2.3,
+      "event_alignment": 3.8,
+      "risk_score": 4.2,
+      "market_cap_billion": 481.98,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz000539",
+          "name": "粤电力Ａ",
+          "ticker": "000539",
+          "last_price": 9.18,
+          "previous_close": 9.4,
+          "pct_change": -2.34,
+          "turnover_rate": 7.02,
+          "float_market_cap_billion": 234.58,
+          "total_market_cap_billion": 481.98,
+          "timestamp": "20260604120554"
+        }
+      }
+    }
+  ],
+  "evidence_gaps": [
+    "akshare已安装但当前探测抓取被远端断开，个股市值降级使用腾讯无密钥公开行情补全。",
+    "Sina/Tencent/Eastmoney公开行情可用；iTick未配置免费token；Zhitu仅demo可用；baostock未安装。",
+    "散户VOC使用公开行情页热度、涨跌幅、换手率和异常波动代理，未使用个人级数据。",
+    "未稳定获取完整全A主力净流入、北向资金和逐日14交易日K线；量价使用公开行情、成交额和脚本评分近似。"
+  ]
+}

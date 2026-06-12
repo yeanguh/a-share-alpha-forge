@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-DEFAULT_ROOT = Path(".local/daily-a-share-news-impact")
+DEFAULT_ROOT = Path("local")
 DEFAULT_REVIEW_ROOT = DEFAULT_ROOT / "reviews"
 DEFAULT_MIN_MARKET_CAP_BILLION = 100.0
 DEFAULT_MAX_MARKET_CAP_BILLION = 2000.0

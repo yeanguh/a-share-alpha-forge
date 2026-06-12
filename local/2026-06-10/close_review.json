@@ -1,0 +1,281 @@
+{
+  "review_time": "2026-06-10T23:18:54+08:00",
+  "report_date": "2026-06-10",
+  "review_type": "post_close_daily_review",
+  "archive_status": {
+    "morning_archive_complete": true,
+    "files_read": [
+      "report.md",
+      "assembled.json",
+      "input_bundle.json",
+      "metadata.json"
+    ],
+    "missing_files": []
+  },
+  "data_quality": {
+    "market_data": "partial",
+    "stock_price_data": "partial",
+    "limitations": [
+      "本地沙箱 DNS 受限，技能自带腾讯公开行情脚本无法直接联网抓取。",
+      "收盘行情改用公开网页检索与早盘归档中的公开报价字段交叉核对。",
+      "板块资金流使用公开收评与板块表现描述，缺少统一免费主力净流入口径。"
+    ],
+    "sources": [
+      "早盘归档：local/2026-06-10/report.md",
+      "早盘结构化数据：local/2026-06-10/assembled.json",
+      "早盘输入包：local/2026-06-10/input_bundle.json",
+      "中国经济网/财联社/证券时报等公开收评",
+      "Investing.com、搜狐证券、新浪财经等公开个股历史行情页"
+    ]
+  },
+  "morning_direction": "震荡偏强",
+  "actual_market": {
+    "summary": "6月10日A股三大指数低开后震荡走弱，科技成长从前一日普涨转为明显分化，半导体材料、光刻胶和部分PCB方向局部活跃，但CPO、人形机器人、煤炭等方向承压，保险和部分大消费防御方向走强。",
+    "direction": "震荡偏弱",
+    "turnover_and_breadth": "成交额约2万亿元上方但较前一日高位降温，结构从高弹性科技普涨切换为局部材料与防御修复。",
+    "major_indices": [
+      {
+        "name": "上证指数",
+        "close": 3993.23,
+        "pct_change": -0.42
+      },
+      {
+        "name": "深证成指",
+        "close": 14954.10,
+        "pct_change": -2.06
+      },
+      {
+        "name": "创业板指",
+        "close": 3854.79,
+        "pct_change": -2.70
+      }
+    ]
+  },
+  "direction_hit": false,
+  "direction_review": {
+    "hit_level": "miss",
+    "reason": "早盘判断把6月9日科技成长放量修复外推为震荡偏强，但6月10日科技主线只保留半导体材料和光刻胶局部强度，CPO、机器人和工程机械候选股普遍从开盘走弱，指数层面也转为偏弱。"
+  },
+  "average_stock_error": -2.18,
+  "stock_hit_threshold_pct": 0.5,
+  "sector_hits": [
+    {
+      "rank": 1,
+      "sector": "半导体/芯片设备材料",
+      "expected_direction": "positive",
+      "hit": true,
+      "hit_level": "partial_hit",
+      "reason": "光刻胶、半导体材料和芯片设备仍有局部承接，北方华创同日开盘到收盘收益约+0.68%，中芯国际约+0.27%；但板块不是全面强势，更多是材料与国产替代局部扩散。"
+    },
+    {
+      "rank": 2,
+      "sector": "PCB/CPO/AI硬件互连",
+      "expected_direction": "positive",
+      "hit": false,
+      "hit_level": "miss_with_internal_split",
+      "reason": "PCB局部仍活跃，但CPO和AI硬件核心候选明显回落：中际旭创约-0.26%，沪电股份约-3.99%，工业富联约-2.43%，说明前一日强势链条存在获利回吐和高拥挤压力。"
+    },
+    {
+      "rank": 3,
+      "sector": "机器人/物理AI",
+      "expected_direction": "positive",
+      "hit": false,
+      "hit_level": "miss",
+      "reason": "人形机器人方向未能延续，拓普集团约-4.92%，汇川技术约-4.63%，早盘对机器人第二梯队主线的延续性估计过高。"
+    },
+    {
+      "rank": 4,
+      "sector": "工程机械/智能装备",
+      "expected_direction": "positive_observation",
+      "hit": false,
+      "hit_level": "miss_but_exclusion_helped",
+      "reason": "工程机械景气逻辑没有转化为当天股价强度，三一重工约-5.37%，徐工机械约-6.74%；早盘未放入受益列是正确约束，但主题跟踪权重仍偏高。"
+    },
+    {
+      "rank": 5,
+      "sector": "油气/煤炭/传统防御回落",
+      "expected_direction": "negative",
+      "hit": true,
+      "hit_level": "partial_hit",
+      "reason": "煤炭等资源方向继续承压，负向观察方向部分兑现；但保险、大消费等防御方向反而获得资金回流，说明不能把传统防御整体统一降权。"
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "PCB/CPO/AI硬件互连",
+      "role": "beneficiary",
+      "open": 1150.0,
+      "close": 1147.0,
+      "actual_return_pct": -0.26,
+      "hit": false,
+      "actual_move": "高位震荡回落，未达到有效正收益阈值。"
+    },
+    {
+      "ticker": "002371",
+      "name": "北方华创",
+      "sector": "半导体/芯片设备材料",
+      "role": "beneficiary",
+      "open": 615.0,
+      "close": 619.2,
+      "actual_return_pct": 0.68,
+      "hit": true,
+      "actual_move": "半导体设备主线中少数有效命中样本。"
+    },
+    {
+      "ticker": "688981",
+      "name": "中芯国际",
+      "sector": "半导体/芯片设备材料",
+      "role": "beneficiary",
+      "open": 125.0,
+      "close": 125.34,
+      "actual_return_pct": 0.27,
+      "hit": false,
+      "actual_move": "小幅正收益但低于+0.5%有效命中阈值。"
+    },
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "sector": "PCB/CPO/AI硬件互连",
+      "role": "beneficiary",
+      "open": 136.0,
+      "close": 130.6,
+      "actual_return_pct": -3.97,
+      "hit": false,
+      "actual_move": "高位AI互连核心股明显回撤，是主要负偏差来源之一。"
+    },
+    {
+      "ticker": "601138",
+      "name": "工业富联",
+      "sector": "PCB/CPO/AI硬件互连",
+      "role": "beneficiary",
+      "open": 72.9,
+      "close": 71.13,
+      "actual_return_pct": -2.43,
+      "hit": false,
+      "actual_move": "AI服务器中军未能承接前一日强势。"
+    },
+    {
+      "ticker": "601689",
+      "name": "拓普集团",
+      "sector": "机器人/物理AI",
+      "role": "beneficiary",
+      "open": 66.48,
+      "close": 63.21,
+      "actual_return_pct": -4.92,
+      "hit": false,
+      "actual_move": "机器人映射股大幅弱于预期。"
+    },
+    {
+      "ticker": "300124",
+      "name": "汇川技术",
+      "sector": "机器人/物理AI",
+      "role": "beneficiary",
+      "open": 73.5,
+      "close": 70.1,
+      "actual_return_pct": -4.63,
+      "hit": false,
+      "actual_move": "平台型自动化中军同样转弱，说明机器人链不是单一高弹性股问题。"
+    }
+  ],
+  "stock_summary": {
+    "eligible_beneficiary_count": 7,
+    "effective_hit_count": 1,
+    "effective_hit_rate": 0.143,
+    "raw_positive_count": 2,
+    "raw_positive_rate": 0.286,
+    "average_return_pct": -2.18,
+    "worst_miss": "拓普集团",
+    "best_hit": "北方华创"
+  },
+  "unselected_observation_review": [
+    {
+      "ticker": "600031",
+      "name": "三一重工",
+      "sector": "工程机械/智能装备",
+      "open": 19.92,
+      "close": 18.85,
+      "actual_return_pct": -5.37,
+      "review": "早盘未进入受益列是正确的，量能和资金认可度不足的过滤保护了机会池；但把工程机械列为Top 5主线观察仍偏乐观。"
+    },
+    {
+      "ticker": "000425",
+      "name": "徐工机械",
+      "sector": "工程机械/智能装备",
+      "open": 9.94,
+      "close": 9.27,
+      "actual_return_pct": -6.74,
+      "review": "未入选判断正确，基本面修复不能替代当天资金确认；后续工程机械权重需等待放量和相对强度同步修复。"
+    }
+  ],
+  "fund_flow_bias": {
+    "morning_assumption": "结构性流入，资金从旧抱团方向切向科技成长与高端制造。",
+    "post_close_assessment": "判断方向过于乐观。实际为科技内部快速分化，资金保留半导体材料、光刻胶和部分PCB局部强度，同时回流保险与消费等防御方向；CPO、机器人、煤炭和工程机械承压。",
+    "bias": "把前一日科技成长放量修复视作可持续主线，低估了高位拥挤股的兑现压力和防御资金回流。"
+  },
+  "main_bias_causes": [
+    "对6月9日科技成长普涨的持续性外推过强，缺少对次日低开、缩量和高位兑现风险的惩罚。",
+    "PCB/CPO和机器人候选股散户热度偏高、估值不低，但早盘权重仍主要由产业逻辑和前一日量价确认驱动。",
+    "Top 5主线里把工程机械基本面修复与短线资金主线混合，导致观察权重偏高。",
+    "负向方向把传统防御作为整体处理，忽略了保险、大消费等非资源防御在指数转弱时的回流属性。",
+    "板块判断缺少同日开盘后相对强弱二次确认，尤其是高位CPO、机器人和工程机械。"
+  ],
+  "significant_deviation_analysis": [
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "fundamental_context": "高端PCB和AI服务器互连需求仍是核心逻辑，2025年营收和利润增长质量较强。",
+      "valuation_context": "早盘归档显示PE/PB/PS约58.42/14.97/13.26，属于高景气高估值并存，股价更依赖主线持续放量。",
+      "price_volume_explanation": "从开盘到收盘约-3.97%，说明前一日放量强势后出现高位兑现；基本面逻辑没有失效，但短线资金确认显著弱于早盘预期。"
+    },
+    {
+      "ticker": "601689",
+      "name": "拓普集团",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "fundamental_context": "汽车零部件与机器人零部件映射清晰，2025年营收和利润质量仍稳。",
+      "valuation_context": "早盘归档显示PE/PB/PS约39.72/4.47/3.61，估值需要机器人量产预期继续支撑。",
+      "price_volume_explanation": "从开盘到收盘约-4.92%，偏差主要来自机器人主题拥挤度和题材延续性不足；应提高机器人候选的同日资金确认权重。"
+    },
+    {
+      "ticker": "300124",
+      "name": "汇川技术",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "fundamental_context": "工业自动化平台型龙头，业绩兑现度高于纯题材公司。",
+      "valuation_context": "早盘归档显示PE/PB约40.81/5.32，平台龙头可解释但并不低。",
+      "price_volume_explanation": "从开盘到收盘约-4.63%，说明即使基本面更稳，也难以抵消机器人和自动化主题当天资金退潮。"
+    },
+    {
+      "ticker": "600031",
+      "name": "三一重工",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "fundamental_context": "工程机械销量修复和盈利恢复逻辑成立，属于基本面修复型样本。",
+      "valuation_context": "早盘归档显示PE/PB约20.59/1.91，估值低于科技主线但仍需要周期修复确认。",
+      "price_volume_explanation": "从开盘到收盘约-5.37%，说明传统制造估值相对便宜不足以抵消当天资金撤离；早盘过滤为观察股是有效的。"
+    },
+    {
+      "ticker": "000425",
+      "name": "徐工机械",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "fundamental_context": "设备更新、出口和行业销量修复支持中期景气逻辑。",
+      "valuation_context": "早盘归档显示PE/PB约16.47/1.74，偏传统制造修复型定价。",
+      "price_volume_explanation": "从开盘到收盘约-6.74%，显示工程机械当日资金确认显著不足；后续应把该类样本留在观察列，直到量能和相对强度改善。"
+    }
+  ],
+  "next_day_weight_conditions": {
+    "increase_weight_if": [
+      "半导体材料、光刻胶和设备链继续跑赢大盘，且北方华创、中芯国际等中军维持放量或抗跌。",
+      "PCB/CPO只有在中际旭创、沪电股份、工业富联等核心股重新站回日内均线并同步放量时，才恢复为强主线权重。",
+      "机器人方向需要拓普集团、汇川技术或更高辨识度中军出现主动修复，且散户热度不再继续升温，才提高权重。",
+      "工程机械需要三一重工、徐工机械至少出现相对大盘抗跌和成交额放大，才能从观察列升级。"
+    ],
+    "decrease_weight_if": [
+      "科技成长成交继续收缩，且强势只集中在少数小分支而非中军扩散。",
+      "CPO、AI硬件互连和机器人候选股继续高开低走或放量下跌。",
+      "保险、消费和其他防御方向继续获得资金回流，说明风险偏好并未维持在高弹性成长。",
+      "早盘资讯强但缺少同日开盘后资金确认的板块，应降为观察而不是直接进入受益列。"
+    ]
+  },
+  "lesson": "6月10日早盘震荡偏强判断未命中，主要问题是过度外推前一日科技成长放量修复；后续对CPO、机器人和工程机械这类高拥挤或基本面修复主线，必须增加同日资金确认和防御回流惩罚。"
+}

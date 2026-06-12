@@ -179,7 +179,7 @@ End with a brief note:
 ```markdown
 ## 数据留痕与复盘
 
-- 日报归档：.local/daily-a-share-news-impact/YYYY-MM-DD/
+- 日报归档：local/YYYY-MM-DD/
 - 收盘复盘：15:00后补充 close_review.json，校准板块命中、个股命中和策略偏差。
-- 周期复盘：聚合结果保存到 .local/daily-a-share-news-impact/reviews/，不因单日噪音调整策略。
+- 周期复盘：聚合结果保存到 local/reviews/，不因单日噪音调整策略。
 ```

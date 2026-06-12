@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-DEFAULT_ROOT = Path(".local/daily-a-share-news-impact")
+DEFAULT_ROOT = Path("local")
 
 
 def load_json(path: Path) -> dict[str, Any]:

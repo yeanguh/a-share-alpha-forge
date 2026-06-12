@@ -8,7 +8,7 @@ selected sectors, selected stocks, and post-close outcomes.
 Default root:
 
 ```text
-.local/daily-a-share-news-impact/
+local/
   YYYY-MM-DD/
     input_bundle.json
     assembled.json
@@ -39,11 +39,11 @@ latest copy for quick reading. Every execution is also stored under `runs/` so
 same-day reruns do not overwrite the audit trail. Pass `--run-id` when a stable
 run identifier is needed.
 
-Use `.local/` because it is local working data and is already ignored by this
-repository. Keep date directories for daily report artifacts only. Store
-multi-day review, intraday review, backtest, threshold-scan, and calibration
-summary outputs under `reviews/`; do not place periodic review files in the
-daily archive root.
+Use `local/` because it stores reproducible report and review data that should
+remain visible to git. Keep date directories for daily report artifacts only.
+Store multi-day review, intraday review, backtest, threshold-scan, and
+calibration summary outputs under `reviews/`; do not place periodic review
+files in the daily archive root.
 
 ## Daily Run Persistence
 
@@ -90,7 +90,7 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/review_archive.py \
   --frequency weekly \
   --start 2026-06-01 \
   --end 2026-06-05 \
-  --output .local/daily-a-share-news-impact/reviews/weekly/weekly_review_2026-06-01_2026-06-05.json
+  --output local/reviews/weekly/weekly_review_2026-06-01_2026-06-05.json
 ```
 
 Use review results to adjust future scoring only when the same pattern repeats
@@ -109,7 +109,7 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/backtest_archived_repor
   --start 2026-06-01 \
   --end 2026-06-05 \
   --include-leaders \
-  --output .local/daily-a-share-news-impact/reviews/backtests/backtest_2026-06-01_2026-06-05.json
+  --output local/reviews/backtests/backtest_2026-06-01_2026-06-05.json
 ```
 
 The helper reads each persisted `assembled.json`, fetches free Tencent quote and
@@ -134,7 +134,7 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/backtest_archived_repor
   --end 2026-06-05 \
   --horizon-trading-days 1 \
   --min-hit-return-pct 0.5 \
-  --output .local/daily-a-share-news-impact/reviews/backtests/backtest_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json
+  --output local/reviews/backtests/backtest_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json
 ```
 
 `--horizon-trading-days 1` evaluates from the report-date open to the same-day
@@ -171,7 +171,7 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/backtest_archived_repor
   --include-candidates \
   --horizon-trading-days 1 \
   --min-hit-return-pct 0.5 \
-  --output .local/daily-a-share-news-impact/reviews/backtests/backtest_candidate_pool_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json
+  --output local/reviews/backtests/backtest_candidate_pool_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json
 ```
 
 `--include-candidates` reads every beneficiary or pressure stock observation
@@ -182,9 +182,9 @@ When calibrating the opportunity pool, scan beneficiary rows only:
 
 ```bash
 python3 .agents/skills/daily-a-share-news-impact/scripts/scan_selection_thresholds.py \
-  --backtest .local/daily-a-share-news-impact/reviews/backtests/backtest_candidate_pool_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json \
+  --backtest local/reviews/backtests/backtest_candidate_pool_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json \
   --role-scope beneficiary \
-  --output .local/daily-a-share-news-impact/reviews/threshold_scans/threshold_scan_beneficiary_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json
+  --output local/reviews/threshold_scans/threshold_scan_beneficiary_horizon1_min_hit_0p5_2026-06-01_2026-06-05.json
 ```
 
 Use `--role-scope all` only for mixed strategy-quality readouts. The
@@ -244,8 +244,8 @@ the scoring gate:
 
 ```bash
 python3 .agents/skills/daily-a-share-news-impact/scripts/scan_selection_thresholds.py \
-  --backtest .local/daily-a-share-news-impact/reviews/backtests/backtest_recalibrated_v3_2026-06-01_2026-06-05.json \
-  --output .local/daily-a-share-news-impact/reviews/threshold_scans/threshold_scan_2026-06-01_2026-06-05.json
+  --backtest local/reviews/backtests/backtest_recalibrated_v3_2026-06-01_2026-06-05.json \
+  --output local/reviews/threshold_scans/threshold_scan_2026-06-01_2026-06-05.json
 ```
 
 The helper joins archived `input_bundle.json` scoring dimensions with backtest

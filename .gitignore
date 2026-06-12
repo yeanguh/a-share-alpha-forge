@@ -12,5 +12,4 @@ __pycache__/
 .uv-cache/
 
 # Local generated data
-.local/
 tmp/

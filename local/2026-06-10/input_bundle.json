@@ -1,0 +1,586 @@
+{
+  "window": {
+    "start": "2026-06-09T09:30:00+08:00",
+    "end": "2026-06-10T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "fund_flow": {
+    "direction": "结构性流入",
+    "turnover_summary": "6月9日两市成交额约2.64万亿元，较前一交易日明显放大，科技成长方向获得集中放量承接，说明风险偏好从防御和避险方向回流到高弹性主题。",
+    "main_flow_summary": "半导体设备、芯片、PCB/CPO、光模块、机器人等方向获得主力承接；油气、白酒、煤炭、地产等传统防御或低弹性方向回落。",
+    "sector_flow_summary": "资金从前期防御抱团切回科技成长与高端制造，成交和涨停家数同步扩散，但分化依旧明显，工程机械强于传统周期，苹果链和服务消费仍受外部与需求预期压制。",
+    "breadth_summary": "6月9日全市场超3300只个股上涨，超百股涨停，创业板指涨近4%，市场宽度较前一交易日明显改善。",
+    "data_quality": "partial"
+  },
+  "evidence_gaps": [
+    "北向资金、ETF分项净流入和融资融券缺少统一免费实时直连口径，本轮主要使用公开市场综述和盘后报道做方向判断。",
+    "已尝试使用 china-stock-analysis 的 data_fetcher 脚本抓取候选股基本面与估值，但东方财富数据域名在本地运行时仍有 DNS 解析失败，个股财务补充需结合公开年报摘要与报价页交叉验证。",
+    "china-stock-price-analysis 需要 QVERIS_API_KEY 才能直接调用实时接口，本轮仅使用该 skill 的相对估值框架，不使用付费或需授权的实时行情接口。"
+  ],
+  "optional_data_sources": {
+    "china_stock_analysis": "partial",
+    "china_stock_price_analysis": "framework_only",
+    "free_web_quotes": "available"
+  },
+  "sector_candidates": [
+    {
+      "title": "半导体/芯片设备材料",
+      "direction": "positive",
+      "magnitude": 4.6,
+      "breadth": 4.5,
+      "immediacy": 4.5,
+      "confidence": 4.4,
+      "novelty": 4.0,
+      "liquidity": 4.6,
+      "price_volume": 4.6
+    },
+    {
+      "title": "PCB/CPO/AI硬件互连",
+      "direction": "positive",
+      "magnitude": 4.4,
+      "breadth": 4.3,
+      "immediacy": 4.4,
+      "confidence": 4.2,
+      "novelty": 4.2,
+      "liquidity": 4.5,
+      "price_volume": 4.5
+    },
+    {
+      "title": "机器人/物理AI",
+      "direction": "positive",
+      "magnitude": 4.2,
+      "breadth": 4.0,
+      "immediacy": 4.2,
+      "confidence": 4.0,
+      "novelty": 4.1,
+      "liquidity": 4.1,
+      "price_volume": 4.0
+    },
+    {
+      "title": "工程机械/智能装备",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.0,
+      "confidence": 4.4,
+      "novelty": 3.6,
+      "liquidity": 3.9,
+      "price_volume": 3.8
+    },
+    {
+      "title": "油气/煤炭/传统防御回落",
+      "direction": "negative",
+      "magnitude": 4.1,
+      "breadth": 3.9,
+      "immediacy": 4.0,
+      "confidence": 4.3,
+      "novelty": 3.7,
+      "liquidity": 3.9,
+      "price_volume": 3.9
+    },
+    {
+      "title": "白酒/消费权重回落",
+      "direction": "negative",
+      "magnitude": 3.9,
+      "breadth": 3.7,
+      "immediacy": 4.0,
+      "confidence": 4.2,
+      "novelty": 3.5,
+      "liquidity": 3.8,
+      "price_volume": 3.8
+    },
+    {
+      "title": "地产/稳增长链走弱",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.6,
+      "immediacy": 3.9,
+      "confidence": 4.1,
+      "novelty": 3.5,
+      "liquidity": 3.7,
+      "price_volume": 3.7
+    },
+    {
+      "title": "苹果链/消费电子预期分化",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.5,
+      "immediacy": 3.9,
+      "confidence": 3.9,
+      "novelty": 3.8,
+      "liquidity": 3.8,
+      "price_volume": 3.7
+    },
+    {
+      "title": "服务消费/内需偏弱",
+      "direction": "negative",
+      "magnitude": 3.6,
+      "breadth": 3.5,
+      "immediacy": 3.8,
+      "confidence": 4.2,
+      "novelty": 3.5,
+      "liquidity": 3.6,
+      "price_volume": 3.5
+    },
+    {
+      "title": "石油化工价格回落",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.6,
+      "immediacy": 4.0,
+      "confidence": 4.3,
+      "novelty": 3.4,
+      "liquidity": 3.8,
+      "price_volume": 3.7
+    }
+  ],
+  "candidates": [
+    {
+      "title": "6月9日A股科技股全面反弹，创业板指涨近4%，PCB/CPO与芯片方向领涨",
+      "direction": "positive",
+      "magnitude": 4.6,
+      "breadth": 4.5,
+      "immediacy": 4.6,
+      "confidence": 4.4,
+      "novelty": 3.9,
+      "liquidity": 4.6,
+      "price_volume": 4.6
+    },
+    {
+      "title": "SEMI称2026年第一季度全球硅晶圆出货面积同比增长13.1%",
+      "direction": "positive",
+      "magnitude": 4.4,
+      "breadth": 4.2,
+      "immediacy": 4.2,
+      "confidence": 4.5,
+      "novelty": 4.0,
+      "liquidity": 4.2,
+      "price_volume": 4.3
+    },
+    {
+      "title": "康宁与亚马逊签署多年期数十亿美元协议，扩张AI数据中心光纤供应链",
+      "direction": "positive",
+      "magnitude": 4.3,
+      "breadth": 4.0,
+      "immediacy": 4.1,
+      "confidence": 4.5,
+      "novelty": 4.3,
+      "liquidity": 4.2,
+      "price_volume": 4.4
+    },
+    {
+      "title": "天工3.0发布并给出下半年规模化量产预期，人形机器人产业化再获强化",
+      "direction": "positive",
+      "magnitude": 4.2,
+      "breadth": 4.0,
+      "immediacy": 4.2,
+      "confidence": 4.1,
+      "novelty": 4.2,
+      "liquidity": 4.0,
+      "price_volume": 4.0
+    },
+    {
+      "title": "中国工程机械工业协会披露1至5月挖掘机销量同比增长17.4%，国内外需求继续修复",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.0,
+      "confidence": 4.5,
+      "novelty": 3.6,
+      "liquidity": 3.9,
+      "price_volume": 3.8
+    },
+    {
+      "title": "路透称中国5月出口增速高于预期，高技术产品与汽车出口延续景气",
+      "direction": "positive",
+      "magnitude": 4.1,
+      "breadth": 4.0,
+      "immediacy": 4.1,
+      "confidence": 4.3,
+      "novelty": 3.7,
+      "liquidity": 4.0,
+      "price_volume": 4.1
+    },
+    {
+      "title": "国家统计局公布5月PPI同比上涨3.9%，电子计算机制造和工业金属价格回升",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.1,
+      "confidence": 4.5,
+      "novelty": 3.7,
+      "liquidity": 3.9,
+      "price_volume": 4.0
+    },
+    {
+      "title": "6月9日机器人与人形概念继续活跃，科技主线从芯片向具身智能扩散",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 3.9,
+      "immediacy": 4.1,
+      "confidence": 4.0,
+      "novelty": 3.8,
+      "liquidity": 4.0,
+      "price_volume": 4.0
+    },
+    {
+      "title": "2026年第一季度我国工业机器人出口额和出口量保持较快增长",
+      "direction": "positive",
+      "magnitude": 3.9,
+      "breadth": 3.8,
+      "immediacy": 3.9,
+      "confidence": 3.9,
+      "novelty": 4.0,
+      "liquidity": 3.8,
+      "price_volume": 3.9
+    },
+    {
+      "title": "6月9日AI算力硬件、光模块与高速互连继续放量，主线扩散到大市值中军",
+      "direction": "positive",
+      "magnitude": 4.2,
+      "breadth": 4.1,
+      "immediacy": 4.2,
+      "confidence": 4.1,
+      "novelty": 3.9,
+      "liquidity": 4.4,
+      "price_volume": 4.5
+    },
+    {
+      "title": "6月9日油气板块走弱，避险和资源方向让位于科技成长反弹",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.0,
+      "confidence": 4.2,
+      "novelty": 3.6,
+      "liquidity": 3.9,
+      "price_volume": 3.9
+    },
+    {
+      "title": "6月9日白酒板块走弱，消费权重未参与本轮科技修复",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.6,
+      "immediacy": 4.0,
+      "confidence": 4.2,
+      "novelty": 3.4,
+      "liquidity": 3.7,
+      "price_volume": 3.8
+    },
+    {
+      "title": "6月9日煤炭板块回落，高股息与资源抱团出现松动",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.6,
+      "immediacy": 4.0,
+      "confidence": 4.1,
+      "novelty": 3.4,
+      "liquidity": 3.7,
+      "price_volume": 3.8
+    },
+    {
+      "title": "6月9日地产板块下跌，稳增长链条未能跟随市场全面回暖",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.6,
+      "immediacy": 3.9,
+      "confidence": 4.1,
+      "novelty": 3.5,
+      "liquidity": 3.7,
+      "price_volume": 3.7
+    },
+    {
+      "title": "国家统计局称5月石油和天然气开采价格环比由涨转跌至-1.8%",
+      "direction": "negative",
+      "magnitude": 3.9,
+      "breadth": 3.7,
+      "immediacy": 4.0,
+      "confidence": 4.5,
+      "novelty": 3.5,
+      "liquidity": 3.8,
+      "price_volume": 3.8
+    },
+    {
+      "title": "国家统计局称5月精炼石油产品价格环比由涨转跌至-0.3%",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.6,
+      "immediacy": 4.0,
+      "confidence": 4.5,
+      "novelty": 3.4,
+      "liquidity": 3.8,
+      "price_volume": 3.7
+    },
+    {
+      "title": "国家统计局称5月服务价格环比由涨0.5%转为跌0.1%，节后内需热度回落",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.6,
+      "immediacy": 3.9,
+      "confidence": 4.5,
+      "novelty": 3.4,
+      "liquidity": 3.5,
+      "price_volume": 3.5
+    },
+    {
+      "title": "苹果WWDC后股价走弱，AI助手更新缺乏明确落地时间压制苹果链预期",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.5,
+      "immediacy": 3.9,
+      "confidence": 4.0,
+      "novelty": 3.9,
+      "liquidity": 3.8,
+      "price_volume": 3.7
+    },
+    {
+      "title": "美股6月9日收盘时科技指数转为谨慎，海外风险偏好未完全接力A股科技修复",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.5,
+      "immediacy": 3.9,
+      "confidence": 3.9,
+      "novelty": 3.7,
+      "liquidity": 3.8,
+      "price_volume": 3.7
+    },
+    {
+      "title": "路透指出PPI处于近四年高位，输入性成本可能继续挤压中下游利润和消费",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.7,
+      "immediacy": 3.8,
+      "confidence": 4.1,
+      "novelty": 3.6,
+      "liquidity": 3.6,
+      "price_volume": 3.5
+    }
+  ],
+  "stocks": [
+    {
+      "ticker": "002371",
+      "name": "北方华创",
+      "sector": "半导体/芯片设备材料",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 448.82,
+      "trend_score": 4.2,
+      "volume_score": 4.1,
+      "retail_sentiment": 4.0,
+      "retail_voc_summary": "半导体龙头讨论热度快速回升，但尚未出现极端一致预期。",
+      "capital_recognition": 4.3,
+      "event_alignment": 4.4,
+      "risk_score": 3.6,
+      "external_data": {
+        "source": "public_web_quote_and_annual_report",
+        "data_time": "2026-06-10T17:00:00+08:00",
+        "quote": {
+          "latest": 619.2,
+          "market_cap": 448816000000
+        },
+        "valuation_context": "PE/PB约为80.49/11.42，显著高于半导体设备的常规区间，需要用高景气与国产替代兑现来消化估值。",
+        "fundamental_context": "2025年营收约393.53亿元，净利润约55.22亿元，研发投入约72.77亿元，平台化能力继续增强。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "688981",
+      "name": "中芯国际",
+      "sector": "半导体/芯片设备材料",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1004.41,
+      "trend_score": 4.2,
+      "volume_score": 4.1,
+      "retail_sentiment": 4.2,
+      "retail_voc_summary": "芯片主线热度回升较快，但当前仍以产业景气与国产替代逻辑为主。",
+      "capital_recognition": 4.3,
+      "event_alignment": 4.5,
+      "risk_score": 3.8,
+      "external_data": {
+        "source": "public_web_quote_and_annual_report",
+        "data_time": "2026-06-10T17:00:00+08:00",
+        "quote": {
+          "latest": 125.34,
+          "market_cap": 1004411000000
+        },
+        "valuation_context": "PE/PB约为199.07/6.69，PS约14.92，估值显著依赖先进制程扩产和产业链景气延续。",
+        "fundamental_context": "2025年营收约673.23亿元，归母净利润约50.41亿元，年报强调行业周期复苏与高端工艺扩张。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "sector": "PCB/CPO/AI硬件互连",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 251.32,
+      "trend_score": 4.3,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.4,
+      "retail_voc_summary": "AI硬件互连热度较高，散户关注度偏热，但仍有主力资金与成交放大配合。",
+      "capital_recognition": 4.2,
+      "event_alignment": 4.3,
+      "risk_score": 3.8,
+      "external_data": {
+        "source": "public_web_quote_and_annual_report",
+        "data_time": "2026-06-10T17:00:00+08:00",
+        "quote": {
+          "latest": 130.6,
+          "market_cap": 251322000000
+        },
+        "valuation_context": "PE/PB约为58.42/14.97，PS约13.26，属于高景气与高估值并存的典型互连龙头。",
+        "fundamental_context": "2025年营收约189.45亿元，净利润约38.22亿元，研发投入约11.41亿元，AI相关高端PCB需求维持高景气。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "PCB/CPO/AI硬件互连",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1279.17,
+      "trend_score": 4.3,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.4,
+      "retail_voc_summary": "光模块龙头维持高热度，讨论度高但尚未脱离基本面主线。",
+      "capital_recognition": 4.3,
+      "event_alignment": 4.5,
+      "risk_score": 3.8,
+      "external_data": {
+        "source": "public_web_quote_and_annual_report",
+        "data_time": "2026-06-10T17:00:00+08:00",
+        "quote": {
+          "latest": 1147.0,
+          "market_cap": 1279174000000
+        },
+        "valuation_context": "PE/PB约为85.57/35.81，PS约33.45，估值很高但与AI光模块高增长预期一致。",
+        "fundamental_context": "2025年营收约382.40亿元，净利润约107.97亿元，ROE约43.84%，盈利质量在高景气赛道中保持领先。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "601138",
+      "name": "工业富联",
+      "sector": "PCB/CPO/AI硬件互连",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1411.51,
+      "trend_score": 3.9,
+      "volume_score": 3.8,
+      "retail_sentiment": 3.6,
+      "retail_voc_summary": "AI服务器和交换机链条关注度维持高位，但情绪未过热。",
+      "capital_recognition": 4.0,
+      "event_alignment": 4.2,
+      "risk_score": 3.2,
+      "external_data": {
+        "source": "public_web_quote_and_annual_report",
+        "data_time": "2026-06-10T17:00:00+08:00",
+        "quote": {
+          "latest": 71.13,
+          "market_cap": 1411510000000
+        },
+        "valuation_context": "PE/PB约为34.72/8.01，PS约1.56，在AI硬件主线里属于估值相对可解释的大市值中军。",
+        "fundamental_context": "2025年营收约9028.87亿元，净利润约352.86亿元，ROE约21.65%，业绩兑现度高于多数题材链条公司。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "601689",
+      "name": "拓普集团",
+      "sector": "机器人/物理AI",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 109.85,
+      "trend_score": 4.0,
+      "volume_score": 3.9,
+      "retail_sentiment": 4.2,
+      "retail_voc_summary": "机器人主线热度高位维持，短线追涨情绪抬升但仍有主力承接。",
+      "capital_recognition": 4.0,
+      "event_alignment": 4.2,
+      "risk_score": 3.6,
+      "external_data": {
+        "source": "public_web_quote_and_annual_report",
+        "data_time": "2026-06-10T17:00:00+08:00",
+        "quote": {
+          "latest": 63.21,
+          "market_cap": 109849000000
+        },
+        "valuation_context": "PE/PB约为39.72/4.47，PS约3.61，估值不低但仍在机器人零部件龙头可讨论区间。",
+        "fundamental_context": "2025年营收约304.31亿元，净利润约31.35亿元，ROE约16.28%，财务质量维持在机器人映射链条中上水平。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300124",
+      "name": "汇川技术",
+      "sector": "机器人/物理AI",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 193.46,
+      "trend_score": 3.8,
+      "volume_score": 3.6,
+      "retail_sentiment": 3.4,
+      "retail_voc_summary": "工业自动化平台龙头情绪温和，更多体现为机构型中军承接。",
+      "capital_recognition": 3.9,
+      "event_alignment": 4.0,
+      "risk_score": 3.1,
+      "external_data": {
+        "source": "public_web_quote_and_annual_report",
+        "data_time": "2026-06-10T17:00:00+08:00",
+        "quote": {
+          "latest": 71.45,
+          "market_cap": 193458000000
+        },
+        "valuation_context": "PE/PB约为40.81/5.32，属于平台型自动化龙头的合理偏高估值区间。",
+        "fundamental_context": "2025年年报摘要显示营收突破450亿元、净利润延续两位数增长，新能源汽车和通用自动化业务共同拉动业绩。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600031",
+      "name": "三一重工",
+      "sector": "工程机械/智能装备",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 172.77,
+      "trend_score": 3.6,
+      "volume_score": 3.2,
+      "retail_sentiment": 3.1,
+      "retail_voc_summary": "工程机械关注度温和回升，但尚未形成与科技主线同级别的拥挤热度。",
+      "capital_recognition": 3.3,
+      "event_alignment": 4.0,
+      "risk_score": 2.8,
+      "external_data": {
+        "source": "public_web_quote_and_annual_report",
+        "data_time": "2026-06-10T17:00:00+08:00",
+        "quote": {
+          "latest": 18.85,
+          "market_cap": 172770000000
+        },
+        "valuation_context": "PE/PB约为20.59/1.91，估值明显低于科技主线，更多体现为景气修复型定价。",
+        "fundamental_context": "2025年营收约783.83亿元，净利润约59.75亿元，盈利恢复路径较清晰，但板块短线资金强度弱于科技成长。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "000425",
+      "name": "徐工机械",
+      "sector": "工程机械/智能装备",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 108.56,
+      "trend_score": 3.5,
+      "volume_score": 3.1,
+      "retail_sentiment": 3.0,
+      "retail_voc_summary": "工程机械中军情绪偏稳，基本面强于情绪驱动。",
+      "capital_recognition": 3.2,
+      "event_alignment": 3.9,
+      "risk_score": 2.7,
+      "external_data": {
+        "source": "public_web_quote_and_annual_report",
+        "data_time": "2026-06-10T17:00:00+08:00",
+        "quote": {
+          "latest": 9.27,
+          "market_cap": 108563000000
+        },
+        "valuation_context": "PE/PB约为16.47/1.74，估值与景气修复更匹配，但短线弹性弱于科技主线。",
+        "fundamental_context": "2025年营收约918.14亿元，净利润约59.76亿元，ROE约10.67%，受益于设备更新与出口修复。",
+        "data_quality": "partial"
+      }
+    }
+  ]
+}

@@ -1,0 +1,644 @@
+{
+  "window": {
+    "start": "2026-06-01T09:30:00+08:00",
+    "end": "2026-06-02T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "fund_flow": {
+    "direction": "拥挤分化",
+    "turnover_summary": "6月2日10:00附近，上证指数和深证成指偏弱，创业板指小幅翻红，科创50继续承压；前一交易日上交所成交额维持高位。",
+    "main_flow_summary": "完整全A主力资金未稳定取得；用腾讯/新浪公开行情、板块涨跌、换手率和候选股票量价评分代理判断。",
+    "sector_flow_summary": "有色/稀土、汽车轻量化、通信设备、部分数据中心热管理方向相对活跃；PCB/CPO等高位AI硬件分化，周期链、航空和科创权重承压。",
+    "breadth_summary": "新浪行情显示早盘上涨家数多于下跌家数，但宽基指数分化，说明资金偏向低位和中小主题而非指数级扩散。",
+    "data_quality": "partial"
+  },
+  "sector_candidates": [
+    {
+      "title": "工业金属与稀土永磁",
+      "direction": "positive",
+      "magnitude": 4.1,
+      "breadth": 4.0,
+      "immediacy": 4.0,
+      "confidence": 3.8,
+      "novelty": 3.4,
+      "liquidity": 3.8,
+      "price_volume": 3.7
+    },
+    {
+      "title": "新动能制造",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 4.2,
+      "immediacy": 3.8,
+      "confidence": 4.7,
+      "novelty": 3.4,
+      "liquidity": 3.8,
+      "price_volume": 3.3
+    },
+    {
+      "title": "数据中心冷却",
+      "direction": "positive",
+      "magnitude": 3.6,
+      "breadth": 3.1,
+      "immediacy": 3.5,
+      "confidence": 3.5,
+      "novelty": 3.3,
+      "liquidity": 3.1,
+      "price_volume": 3.2
+    },
+    {
+      "title": "创新药",
+      "direction": "positive",
+      "magnitude": 3.7,
+      "breadth": 3.4,
+      "immediacy": 3.3,
+      "confidence": 4.0,
+      "novelty": 3.6,
+      "liquidity": 3.0,
+      "price_volume": 2.6
+    },
+    {
+      "title": "国资改革",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.8,
+      "immediacy": 3.2,
+      "confidence": 3.8,
+      "novelty": 3.4,
+      "liquidity": 3.4,
+      "price_volume": 2.5
+    },
+    {
+      "title": "汽车轻量化",
+      "direction": "positive",
+      "magnitude": 3.3,
+      "breadth": 3.0,
+      "immediacy": 3.2,
+      "confidence": 3.4,
+      "novelty": 3.0,
+      "liquidity": 3.0,
+      "price_volume": 3.0
+    },
+    {
+      "title": "高位PCB与AI硬件",
+      "direction": "negative",
+      "magnitude": 4.2,
+      "breadth": 4.0,
+      "immediacy": 4.2,
+      "confidence": 3.9,
+      "novelty": 3.4,
+      "liquidity": 4.4,
+      "price_volume": 4.1
+    },
+    {
+      "title": "科创权重承压",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.0,
+      "confidence": 4.1,
+      "novelty": 3.2,
+      "liquidity": 4.1,
+      "price_volume": 4.0
+    },
+    {
+      "title": "PMI弱需求周期链",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 4.3,
+      "immediacy": 3.8,
+      "confidence": 4.8,
+      "novelty": 3.0,
+      "liquidity": 3.9,
+      "price_volume": 3.3
+    },
+    {
+      "title": "航空景气偏低",
+      "direction": "negative",
+      "magnitude": 3.5,
+      "breadth": 2.8,
+      "immediacy": 3.5,
+      "confidence": 4.2,
+      "novelty": 3.0,
+      "liquidity": 3.1,
+      "price_volume": 3.3
+    },
+    {
+      "title": "英伟达题材证伪",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 2.8,
+      "immediacy": 3.6,
+      "confidence": 4.0,
+      "novelty": 3.3,
+      "liquidity": 3.6,
+      "price_volume": 3.8
+    },
+    {
+      "title": "中小企业景气回落",
+      "direction": "negative",
+      "magnitude": 3.6,
+      "breadth": 3.8,
+      "immediacy": 3.3,
+      "confidence": 4.8,
+      "novelty": 3.0,
+      "liquidity": 3.2,
+      "price_volume": 3.0
+    }
+  ],
+  "candidates": [
+    {
+      "title": "早盘工业金属、通信设备等热门行业相对活跃",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.1,
+      "confidence": 3.6,
+      "novelty": 3.1,
+      "liquidity": 3.8,
+      "price_volume": 3.7
+    },
+    {
+      "title": "5月高技术制造业和装备制造业PMI继续扩张",
+      "direction": "positive",
+      "magnitude": 4.1,
+      "breadth": 4.2,
+      "immediacy": 3.8,
+      "confidence": 4.8,
+      "novelty": 3.4,
+      "liquidity": 3.8,
+      "price_volume": 3.3
+    },
+    {
+      "title": "国家医保和商保创新药目录调整预期仍支撑创新药主题",
+      "direction": "positive",
+      "magnitude": 3.7,
+      "breadth": 3.5,
+      "immediacy": 3.3,
+      "confidence": 4.0,
+      "novelty": 3.4,
+      "liquidity": 3.1,
+      "price_volume": 2.6
+    },
+    {
+      "title": "数据中心热管理和汽车轻量化早盘仍有结构性热度",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.2,
+      "immediacy": 3.5,
+      "confidence": 3.5,
+      "novelty": 3.2,
+      "liquidity": 3.1,
+      "price_volume": 3.2
+    },
+    {
+      "title": "国资改革主线延续但量价确认不足",
+      "direction": "positive",
+      "magnitude": 3.4,
+      "breadth": 3.7,
+      "immediacy": 3.1,
+      "confidence": 3.7,
+      "novelty": 3.3,
+      "liquidity": 3.3,
+      "price_volume": 2.5
+    },
+    {
+      "title": "高位PCB与AI硬件分化，部分龙头早盘下跌",
+      "direction": "negative",
+      "magnitude": 4.2,
+      "breadth": 4.0,
+      "immediacy": 4.2,
+      "confidence": 4.0,
+      "novelty": 3.4,
+      "liquidity": 4.4,
+      "price_volume": 4.2
+    },
+    {
+      "title": "科创50继续偏弱，科技权重承压",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.0,
+      "confidence": 4.1,
+      "novelty": 3.2,
+      "liquidity": 4.1,
+      "price_volume": 4.0
+    },
+    {
+      "title": "制造业PMI位于临界点且新订单低于临界点",
+      "direction": "negative",
+      "magnitude": 4.1,
+      "breadth": 4.4,
+      "immediacy": 3.8,
+      "confidence": 4.8,
+      "novelty": 3.0,
+      "liquidity": 3.9,
+      "price_volume": 3.3
+    },
+    {
+      "title": "航空运输景气低于临界点，航空链继续承压",
+      "direction": "negative",
+      "magnitude": 3.6,
+      "breadth": 2.8,
+      "immediacy": 3.5,
+      "confidence": 4.4,
+      "novelty": 3.0,
+      "liquidity": 3.1,
+      "price_volume": 3.3
+    },
+    {
+      "title": "中小企业PMI回落，主题扩散质量受制约",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.9,
+      "immediacy": 3.3,
+      "confidence": 4.8,
+      "novelty": 3.0,
+      "liquidity": 3.2,
+      "price_volume": 3.0
+    },
+    {
+      "title": "英伟达相关题材证伪后的情绪拥挤仍需消化",
+      "direction": "negative",
+      "magnitude": 3.6,
+      "breadth": 2.7,
+      "immediacy": 3.4,
+      "confidence": 4.0,
+      "novelty": 3.2,
+      "liquidity": 3.5,
+      "price_volume": 3.8
+    }
+  ],
+  "stocks": [
+    {
+      "ticker": "000807",
+      "name": "云铝股份",
+      "sector": "工业金属与稀土永磁",
+      "directional_role": "beneficiary",
+      "trend_score": 3.4,
+      "volume_score": 3.2,
+      "retail_sentiment": 3.3,
+      "capital_recognition": 3.4,
+      "event_alignment": 3.8,
+      "risk_score": 3.0,
+      "market_cap_billion": 1024.09,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz000807",
+          "name": "云铝股份",
+          "ticker": "000807",
+          "last_price": 29.53,
+          "previous_close": 28.91,
+          "pct_change": 2.14,
+          "turnover_rate": 0.59,
+          "float_market_cap_billion": 1024.08,
+          "total_market_cap_billion": 1024.09,
+          "timestamp": "20260602100312"
+        }
+      }
+    },
+    {
+      "ticker": "002126",
+      "name": "银轮股份",
+      "sector": "数据中心冷却",
+      "directional_role": "beneficiary",
+      "trend_score": 3.1,
+      "volume_score": 3.1,
+      "retail_sentiment": 3.5,
+      "capital_recognition": 3.0,
+      "event_alignment": 3.7,
+      "risk_score": 3.5,
+      "market_cap_billion": 423.83,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz002126",
+          "name": "银轮股份",
+          "ticker": "002126",
+          "last_price": 50.05,
+          "previous_close": 49.9,
+          "pct_change": 0.3,
+          "turnover_rate": 0.84,
+          "float_market_cap_billion": 397.5,
+          "total_market_cap_billion": 423.83,
+          "timestamp": "20260602100312"
+        }
+      }
+    },
+    {
+      "ticker": "601766",
+      "name": "中国中车",
+      "sector": "国资改革",
+      "directional_role": "beneficiary",
+      "trend_score": 2.4,
+      "volume_score": 2.5,
+      "retail_sentiment": 2.9,
+      "capital_recognition": 2.7,
+      "event_alignment": 3.6,
+      "risk_score": 3.2,
+      "market_cap_billion": 1658.79,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh601766",
+          "name": "中国中车",
+          "ticker": "601766",
+          "last_price": 5.78,
+          "previous_close": 5.78,
+          "pct_change": 0.0,
+          "turnover_rate": 0.18,
+          "float_market_cap_billion": 1406.15,
+          "total_market_cap_billion": 1658.79,
+          "timestamp": "20260602100313"
+        }
+      }
+    },
+    {
+      "ticker": "688180",
+      "name": "君实生物-U",
+      "sector": "创新药",
+      "directional_role": "beneficiary",
+      "trend_score": 2.7,
+      "volume_score": 3.0,
+      "retail_sentiment": 3.7,
+      "capital_recognition": 2.7,
+      "event_alignment": 3.7,
+      "risk_score": 4.0,
+      "market_cap_billion": 331.83,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh688180",
+          "name": "君实生物-U",
+          "ticker": "688180",
+          "last_price": 32.32,
+          "previous_close": 33.03,
+          "pct_change": -2.15,
+          "turnover_rate": 0.84,
+          "float_market_cap_billion": 247.7,
+          "total_market_cap_billion": 331.83,
+          "timestamp": "20260602100315"
+        }
+      }
+    },
+    {
+      "ticker": "600183",
+      "name": "生益科技",
+      "sector": "高位PCB与AI硬件",
+      "directional_role": "pressure",
+      "trend_score": 2.6,
+      "volume_score": 3.8,
+      "retail_sentiment": 4.4,
+      "capital_recognition": 2.6,
+      "event_alignment": 4.0,
+      "risk_score": 4.1,
+      "market_cap_billion": 3189.43,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh600183",
+          "name": "生益科技",
+          "ticker": "600183",
+          "last_price": 131.3,
+          "previous_close": 135.63,
+          "pct_change": -3.19,
+          "turnover_rate": 1.71,
+          "float_market_cap_billion": 3143.98,
+          "total_market_cap_billion": 3189.43,
+          "timestamp": "20260602100314"
+        }
+      }
+    },
+    {
+      "ticker": "300476",
+      "name": "胜宏科技",
+      "sector": "高位PCB与AI硬件",
+      "directional_role": "pressure",
+      "trend_score": 2.7,
+      "volume_score": 3.7,
+      "retail_sentiment": 4.5,
+      "capital_recognition": 2.6,
+      "event_alignment": 4.0,
+      "risk_score": 4.2,
+      "market_cap_billion": 3323.19,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz300476",
+          "name": "胜宏科技",
+          "ticker": "300476",
+          "last_price": 338.14,
+          "previous_close": 342.35,
+          "pct_change": -1.23,
+          "turnover_rate": 1.55,
+          "float_market_cap_billion": 2925.57,
+          "total_market_cap_billion": 3323.19,
+          "timestamp": "20260602100312"
+        }
+      }
+    },
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "sector": "高位PCB与AI硬件",
+      "directional_role": "pressure",
+      "trend_score": 2.8,
+      "volume_score": 3.4,
+      "retail_sentiment": 4.1,
+      "capital_recognition": 2.8,
+      "event_alignment": 3.9,
+      "risk_score": 3.9,
+      "market_cap_billion": 2350.61,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz002463",
+          "name": "沪电股份",
+          "ticker": "002463",
+          "last_price": 122.15,
+          "previous_close": 122.51,
+          "pct_change": -0.29,
+          "turnover_rate": 1.29,
+          "float_market_cap_billion": 2348.71,
+          "total_market_cap_billion": 2350.61,
+          "timestamp": "20260602100315"
+        }
+      }
+    },
+    {
+      "ticker": "688041",
+      "name": "海光信息",
+      "sector": "科创权重承压",
+      "directional_role": "pressure",
+      "trend_score": 2.5,
+      "volume_score": 3.2,
+      "retail_sentiment": 4.0,
+      "capital_recognition": 2.5,
+      "event_alignment": 3.7,
+      "risk_score": 4.0,
+      "market_cap_billion": 6473.28,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh688041",
+          "name": "海光信息",
+          "ticker": "688041",
+          "last_price": 278.5,
+          "previous_close": 275.36,
+          "pct_change": 1.14,
+          "turnover_rate": 0.41,
+          "float_market_cap_billion": 6473.28,
+          "total_market_cap_billion": 6473.28,
+          "timestamp": "20260602100314"
+        }
+      }
+    },
+    {
+      "ticker": "600019",
+      "name": "宝钢股份",
+      "sector": "PMI弱需求周期链",
+      "directional_role": "pressure",
+      "trend_score": 2.8,
+      "volume_score": 3.0,
+      "retail_sentiment": 2.8,
+      "capital_recognition": 2.7,
+      "event_alignment": 3.8,
+      "risk_score": 3.7,
+      "market_cap_billion": 1317.82,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh600019",
+          "name": "宝钢股份",
+          "ticker": "600019",
+          "last_price": 6.05,
+          "previous_close": 6.04,
+          "pct_change": 0.17,
+          "turnover_rate": 0.14,
+          "float_market_cap_billion": 1317.82,
+          "total_market_cap_billion": 1317.82,
+          "timestamp": "20260602100316"
+        }
+      }
+    },
+    {
+      "ticker": "600031",
+      "name": "三一重工",
+      "sector": "PMI弱需求周期链",
+      "directional_role": "pressure",
+      "trend_score": 2.5,
+      "volume_score": 3.2,
+      "retail_sentiment": 3.0,
+      "capital_recognition": 2.6,
+      "event_alignment": 3.7,
+      "risk_score": 4.0,
+      "market_cap_billion": 1639.47,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh600031",
+          "name": "三一重工",
+          "ticker": "600031",
+          "last_price": 17.83,
+          "previous_close": 18.07,
+          "pct_change": -1.33,
+          "turnover_rate": 0.24,
+          "float_market_cap_billion": 1510.98,
+          "total_market_cap_billion": 1639.47,
+          "timestamp": "20260602100315"
+        }
+      }
+    },
+    {
+      "ticker": "600029",
+      "name": "南方航空",
+      "sector": "航空景气偏低",
+      "directional_role": "pressure",
+      "trend_score": 2.5,
+      "volume_score": 3.1,
+      "retail_sentiment": 3.3,
+      "capital_recognition": 2.6,
+      "event_alignment": 3.7,
+      "risk_score": 4.0,
+      "market_cap_billion": 967.66,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sh600029",
+          "name": "南方航空",
+          "ticker": "600029",
+          "last_price": 5.34,
+          "previous_close": 5.43,
+          "pct_change": -1.66,
+          "turnover_rate": 0.31,
+          "float_market_cap_billion": 719.67,
+          "total_market_cap_billion": 967.66,
+          "timestamp": "20260602100315"
+        }
+      }
+    },
+    {
+      "ticker": "000636",
+      "name": "风华高科",
+      "sector": "英伟达题材证伪",
+      "directional_role": "pressure",
+      "trend_score": 2.9,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.8,
+      "capital_recognition": 2.1,
+      "event_alignment": 4.1,
+      "risk_score": 4.4,
+      "market_cap_billion": 667.02,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz000636",
+          "name": "风华高科",
+          "ticker": "000636",
+          "last_price": 57.65,
+          "previous_close": 55.05,
+          "pct_change": 4.72,
+          "turnover_rate": 7.39,
+          "float_market_cap_billion": 667.02,
+          "total_market_cap_billion": 667.02,
+          "timestamp": "20260602100315"
+        }
+      }
+    },
+    {
+      "ticker": "002552",
+      "name": "宝鼎科技",
+      "sector": "英伟达题材证伪",
+      "directional_role": "pressure",
+      "trend_score": 2.7,
+      "volume_score": 4.0,
+      "retail_sentiment": 4.8,
+      "capital_recognition": 2.0,
+      "event_alignment": 4.0,
+      "risk_score": 4.4,
+      "market_cap_billion": 232.33,
+      "external_data": {
+        "quote_snapshot": {
+          "source": "tencent_public_quote",
+          "symbol": "sz002552",
+          "name": "宝鼎科技",
+          "ticker": "002552",
+          "last_price": 59.88,
+          "previous_close": 57.93,
+          "pct_change": 3.37,
+          "turnover_rate": 3.55,
+          "float_market_cap_billion": 220.66,
+          "total_market_cap_billion": 232.33,
+          "timestamp": "20260602100318"
+        }
+      }
+    }
+  ],
+  "evidence_gaps": [
+    "akshare已安装但当前探测抓取被远端断开，个股市值降级使用腾讯无密钥公开行情补全。",
+    "Sina/Tencent公开报价可用；Eastmoney当前返回空响应；iTick未配置免费token；Zhitu仅demo可用；baostock未安装。",
+    "散户VOC使用公开行情页热度、涨跌幅、换手率和异常波动代理，未使用个人级数据。",
+    "未稳定获取完整全A主力净流入、北向资金和逐日14交易日K线；量价使用公开行情、成交额和脚本评分近似。"
+  ]
+}

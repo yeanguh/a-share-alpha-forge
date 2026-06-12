@@ -1,0 +1,267 @@
+{
+  "review_time": "2026-06-11T23:10:00+08:00",
+  "report_date": "2026-06-11",
+  "review_type": "post_close_daily_review",
+  "archive_status": {
+    "morning_archive_complete": true,
+    "files_read": [
+      "report.md",
+      "assembled.json",
+      "input_bundle.json",
+      "metadata.json"
+    ],
+    "missing_files": []
+  },
+  "data_quality": {
+    "market_data": "partial",
+    "stock_price_data": "partial",
+    "limitations": [
+      "本地沙箱 DNS 受限，技能自带腾讯公开行情脚本与 archived backtest 无法直接联网抓取。",
+      "收盘行情改用公开网页检索、交易所/行情页摘要与早盘归档报价字段交叉核对。",
+      "个别观察股网页行情存在延迟或历史表未刷新，本次对其标注为 latest_available 或 close_estimate，不把单个不完整样本用于核心命中率。",
+      "板块资金流使用公开收评与板块涨跌描述，缺少统一免费主力净流入口径。"
+    ],
+    "sources": [
+      "早盘归档：local/2026-06-11/report.md",
+      "早盘结构化数据：local/2026-06-11/assembled.json",
+      "早盘输入包：local/2026-06-11/input_bundle.json",
+      "证券之星/证券时报/财联社等 2026-06-11 A股收评与行情摘要",
+      "Investing.com、搜狐证券、新浪财经等公开个股行情页"
+    ]
+  },
+  "morning_direction": "震荡分化",
+  "actual_market": {
+    "summary": "6月11日A股继续呈现震荡分化，沪指小幅偏弱或近乎持平，深成指和创业板指相对更弱。半导体材料、芯片设备、光刻胶等方向仍有承接，机器人、工程机械以及部分AI硬件互连个股继续承压，市场没有形成全面扩散。",
+    "direction": "震荡分化",
+    "turnover_and_breadth": "公开收评显示资金仍集中在少数科技景气分支，整体风险偏好未显著扩散；本地未能取得统一免费主力净流入口径。",
+    "major_indices": [
+      {
+        "name": "上证指数",
+        "close": 3986.79,
+        "pct_change": -0.16,
+        "data_note": "公开行情摘要口径"
+      },
+      {
+        "name": "深证成指",
+        "close": 14852.57,
+        "pct_change": -0.68,
+        "data_note": "深交所/行情页摘要口径"
+      },
+      {
+        "name": "创业板指",
+        "close": 3809.10,
+        "pct_change": -1.19,
+        "data_note": "公开行情摘要口径"
+      }
+    ]
+  },
+  "direction_hit": true,
+  "direction_review": {
+    "hit_level": "hit",
+    "reason": "早盘判断为震荡分化，收盘看指数未明显转强，半导体材料和国产算力中军相对强，AI硬件互连、机器人和工程机械分化走弱，整体形态与早盘方向一致。"
+  },
+  "average_stock_error": 0.56,
+  "stock_hit_threshold_pct": 0.5,
+  "sector_hits": [
+    {
+      "rank": 1,
+      "sector": "半导体材料/国产算力基础设施",
+      "expected_direction": "positive",
+      "hit": true,
+      "hit_level": "hit",
+      "reason": "北方华创开盘至收盘约+2.08%，中芯国际约+1.63%，均超过+0.5%有效阈值；板块继续体现国产算力和设备材料的相对强度。"
+    },
+    {
+      "rank": 2,
+      "sector": "AI硬件互连/光模块",
+      "expected_direction": "positive",
+      "hit": false,
+      "hit_level": "miss_with_internal_split",
+      "reason": "工业富联约-2.03%，中际旭创约-1.41%，沪电股份约-1.80%，海外AI需求映射没有抵消高位拥挤与内部路线分化。"
+    },
+    {
+      "rank": 3,
+      "sector": "机器人/具身智能",
+      "expected_direction": "positive_observation",
+      "hit": false,
+      "hit_level": "miss_but_observation_constraint_helped",
+      "reason": "拓普集团和汇川技术仍偏弱，机器人催化未转化为当天板块级资金确认；早盘将其留在观察列是有效约束。"
+    },
+    {
+      "rank": 4,
+      "sector": "工程机械/高端装备",
+      "expected_direction": "positive_observation",
+      "hit": false,
+      "hit_level": "miss_but_exclusion_helped",
+      "reason": "三一重工约-3.34%，徐工机械可得行情也显示弱势，销量修复逻辑没有形成同日相对强度；早盘未纳入受益列正确。"
+    },
+    {
+      "rank": 5,
+      "sector": "铜缆高速连接/元件分化",
+      "expected_direction": "negative",
+      "hit": true,
+      "hit_level": "partial_hit",
+      "reason": "AI硬件互连中的工业富联、中际旭创、沪电股份继续走弱，负向分化判断兑现；但半导体材料链仍强，不能把AI硬件全部统一降权。"
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "002371",
+      "name": "北方华创",
+      "sector": "半导体材料/国产算力基础设施",
+      "role": "beneficiary",
+      "open": 624.63,
+      "close": 637.60,
+      "actual_return_pct": 2.08,
+      "hit": true,
+      "actual_move": "半导体设备中军延续强势，是本次受益列的主要正贡献。"
+    },
+    {
+      "ticker": "601138",
+      "name": "工业富联",
+      "sector": "AI硬件互连/光模块",
+      "role": "beneficiary",
+      "open": 70.02,
+      "close": 68.60,
+      "actual_return_pct": -2.03,
+      "hit": false,
+      "actual_move": "AI服务器中军继续承压，说明AI硬件互连方向仍未恢复主线扩散。"
+    },
+    {
+      "ticker": "688981",
+      "name": "中芯国际",
+      "sector": "半导体材料/国产算力基础设施",
+      "role": "beneficiary",
+      "open": 125.34,
+      "close": 127.38,
+      "actual_return_pct": 1.63,
+      "hit": true,
+      "actual_move": "国产算力与先进制程中军有效命中，强化半导体材料/设备链相对优势。"
+    }
+  ],
+  "stock_summary": {
+    "eligible_beneficiary_count": 3,
+    "effective_hit_count": 2,
+    "effective_hit_rate": 0.667,
+    "raw_positive_count": 2,
+    "raw_positive_rate": 0.667,
+    "average_return_pct": 0.56,
+    "candidate_pool_average_return_pct": -0.90,
+    "worst_selected_miss": "工业富联",
+    "best_hit": "北方华创"
+  },
+  "unselected_observation_review": [
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "AI硬件互连/光模块",
+      "early_handling": "风险观察，未入选受益列",
+      "open": 1139.99,
+      "close": 1123.97,
+      "actual_return_pct": -1.41,
+      "review": "未入选正确。海外合规扰动和高估值拥挤仍压制光模块高弹性股。"
+    },
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "sector": "AI硬件互连/光模块",
+      "early_handling": "风险观察，未入选受益列",
+      "open": 129.23,
+      "close": 126.91,
+      "actual_return_pct": -1.80,
+      "review": "未入选正确。PCB逻辑仍在，但短线资金仍在兑现高位互连链条。"
+    },
+    {
+      "ticker": "601689",
+      "name": "拓普集团",
+      "sector": "机器人/具身智能",
+      "early_handling": "主题跟踪，未入选受益列",
+      "open": 62.11,
+      "close": 61.31,
+      "actual_return_pct": -1.29,
+      "review": "未入选正确。机器人题材仍缺少板块级资金确认。"
+    },
+    {
+      "ticker": "300124",
+      "name": "汇川技术",
+      "sector": "机器人/具身智能",
+      "early_handling": "主题跟踪，未入选受益列",
+      "open": 69.62,
+      "close": 68.88,
+      "actual_return_pct": -1.06,
+      "review": "未入选正确。平台型自动化基本面较稳，但当天仍受机器人/自动化主题退潮影响。"
+    },
+    {
+      "ticker": "600031",
+      "name": "三一重工",
+      "sector": "工程机械/高端装备",
+      "early_handling": "主题跟踪，未入选受益列",
+      "open": 18.85,
+      "close": 18.22,
+      "actual_return_pct": -3.34,
+      "review": "未入选正确。工程机械基本面修复无法替代同日资金确认。"
+    },
+    {
+      "ticker": "000425",
+      "name": "徐工机械",
+      "sector": "工程机械/高端装备",
+      "early_handling": "主题跟踪，未入选受益列",
+      "open": null,
+      "close": 8.66,
+      "actual_return_pct": null,
+      "review": "网页仅取得延迟/可得行情，方向显示明显弱于早盘观察逻辑；因缺少可靠同日开盘价，不纳入核心统计。"
+    }
+  ],
+  "fund_flow_bias": {
+    "morning_assumption": "拥挤分化，资金更像主线内再集中，而不是全面扩散。",
+    "post_close_assessment": "判断基本正确。资金继续集中在半导体设备、材料和国产算力中军；AI硬件互连、机器人和工程机械没有形成扩散，负向分化继续存在。",
+    "bias": "主要偏差在AI硬件互连仍被列为第二主线且工业富联进入受益列，实际收盘显示该方向短线仍需更强资金确认。"
+  },
+  "main_bias_causes": [
+    "半导体材料/国产算力与AI硬件互连同属AI基础设施，但当天资金明显选择设备材料而非互连/服务器链，早盘主线拆分仍不够严格。",
+    "工业富联虽然具备业绩兑现和中军属性，但在AI硬件内部高低切阶段，前一交易日的相对承接不足以支撑同日入选。",
+    "机器人和工程机械只放在观察列是正确的，说明近期提高资金确认门槛有效；但Top 5观察权重仍需要继续等待量能确认。",
+    "资金方向口径仍受本地接口限制，缺少统一主力净流入、ETF和融资融券数据来量化板块拥挤度。"
+  ],
+  "significant_deviation_analysis": [
+    {
+      "ticker": "601138",
+      "name": "工业富联",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "fundamental_context": "AI服务器和交换机中军，2025年营收、利润和ROE兑现度高于多数题材链条公司，基本面并非主要负偏差来源。",
+      "valuation_context": "早盘归档显示PE/PB/PS约34.72/8.01/1.56，估值相对部分高弹性AI链更可解释，但仍需要AI硬件主线扩散和成交确认。",
+      "price_volume_explanation": "开盘至收盘约-2.03%，说明资金在AI硬件内部选择更偏半导体材料/设备，而非服务器制造中军；后续需把AI硬件主线拆成设备材料、光模块/PCB、服务器制造分别验证。"
+    },
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "fundamental_context": "高端PCB和AI服务器互连需求仍是核心逻辑，2025年营收和利润增长质量较强。",
+      "valuation_context": "早盘归档显示PE/PB/PS约58.42/14.97/13.26，仍属高景气高估值并存，对持续放量要求高。",
+      "price_volume_explanation": "开盘至收盘约-1.80%，连续两日偏弱，说明高位互连链条仍处于兑现和降拥挤过程；未入选受益列是正确过滤。"
+    },
+    {
+      "ticker": "600031",
+      "name": "三一重工",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "fundamental_context": "工程机械销量修复和出口改善逻辑仍在，属于基本面修复型样本。",
+      "valuation_context": "早盘归档显示PE/PB约20.59/1.91，估值低于科技主线但并不足以形成短线资金优势。",
+      "price_volume_explanation": "开盘至收盘约-3.34%，说明周期修复线仍缺少资金确认；继续放在观察列比下沉为受益候选更合适。"
+    }
+  ],
+  "next_day_weight_conditions": {
+    "increase_weight_if": [
+      "半导体设备、材料、光刻胶和国产算力中军继续跑赢大盘，且北方华创、中芯国际等保持放量或抗跌。",
+      "AI硬件互连只有在工业富联、沪电股份、中际旭创等核心股同步止跌并恢复相对强度时，才重新提高为强主线权重。",
+      "机器人方向需要拓普集团、汇川技术等中军出现主动修复，并伴随板块成交放大，才从观察列升级。",
+      "工程机械需要三一重工、徐工机械至少出现相对大盘抗跌和成交额放大，才能提升权重。"
+    ],
+    "decrease_weight_if": [
+      "半导体强势只集中于少数个股且成交不扩散，应避免把整个AI基础设施统一升权。",
+      "AI硬件互连、机器人或工程机械继续高开低走、放量下跌或弱于指数。",
+      "防御资金继续回流且成长板块市场宽度继续收缩，说明风险偏好仍不足。",
+      "资讯催化强但缺少同日开盘后资金确认的板块，继续留在观察列。"
+    ]
+  },
+  "lesson": "6月11日早盘震荡分化判断命中，受益列2/3有效命中；主要偏差是AI硬件互连仍被赋予过高主线权重，后续应继续提高光模块/PCB/服务器链的同日资金确认要求，并把半导体设备材料与AI硬件互连分开评估。"
+}

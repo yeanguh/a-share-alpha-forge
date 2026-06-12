@@ -16,4 +16,4 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-norecursedirs = [".venv", ".local", "tmp", "__pycache__"]
+norecursedirs = [".venv", "tmp", "__pycache__"]

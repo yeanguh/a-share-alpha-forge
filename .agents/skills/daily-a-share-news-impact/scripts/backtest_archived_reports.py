@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 from urllib import request
 
-DEFAULT_ROOT = Path(".local/daily-a-share-news-impact")
+DEFAULT_ROOT = Path("local")
 DEFAULT_REVIEW_ROOT = DEFAULT_ROOT / "reviews"
 DEFAULT_TIMEOUT_SECONDS = 10
 
