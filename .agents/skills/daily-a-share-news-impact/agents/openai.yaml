@@ -1,0 +1,4 @@
+interface:
+  display_name: "A股资讯影响简报"
+  short_description: "Daily A-share news, flows, and stock scores"
+  default_prompt: "Use $daily-a-share-news-impact to first check the report-date PBOC open market operation notice, then collect prior-trading-day 09:30 to current-trading-day 09:30 investment news from official sources plus Cailian Press（财联社）, Caixin（财新）, Reuters（路透社）, and other authority checks, screen sectors first, score sector-qualified A-share stocks, persist the dated report, and draft a Chinese market brief."

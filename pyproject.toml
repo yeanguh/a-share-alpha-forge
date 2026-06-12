@@ -1,0 +1,10 @@
+[project]
+name = "stock-analysis"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "akshare>=1.18.64",
+    "baostock>=0.9.2",
+    "numpy>=2.4.6",
+    "pandas>=3.0.3",
+]

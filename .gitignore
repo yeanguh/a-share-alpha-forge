@@ -1,0 +1,16 @@
+.DS_Store
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local virtual environment and uv/runtime caches
+.venv/
+.uv-cache/
+
+# Local generated data
+.local/
+tmp/
