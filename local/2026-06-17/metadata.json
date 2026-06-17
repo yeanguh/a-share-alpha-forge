@@ -1,0 +1,17 @@
+{
+  "report_date": "2026-06-17",
+  "run_id": "close_review_153058",
+  "run_dir": "local/2026-06-17/runs/close_review_153058",
+  "window": {
+    "start": "2026-06-16T09:30:00+08:00",
+    "end": "2026-06-17T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "files": [
+    "assembled.json",
+    "close_review.json",
+    "input_bundle.json",
+    "metadata.json",
+    "report.md"
+  ]
+}
