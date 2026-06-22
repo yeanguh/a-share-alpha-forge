@@ -8,6 +8,7 @@ __pycache__/
 .mypy_cache/
 .idea/
 .vscode/
+.playwright-cli/
 
 # Local virtual environment and uv/runtime caches
 .venv/
