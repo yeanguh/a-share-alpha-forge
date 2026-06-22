@@ -1,5 +1,7 @@
 {
   "report_date": "2026-06-12",
+  "run_id": "170833",
+  "run_dir": "local/2026-06-12/runs/170833",
   "window": {
     "timezone": "Asia/Shanghai",
     "start": "2026-06-11T09:30:00+08:00",
@@ -7,6 +9,7 @@
   },
   "files": [
     "assembled.json",
+    "close_review.json",
     "input_bundle.json",
     "metadata.json",
     "report.md"

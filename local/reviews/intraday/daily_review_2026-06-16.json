@@ -1,0 +1,18 @@
+{
+  "frequency": "daily",
+  "summaries": [
+    {
+      "period": "2026-06-16",
+      "review_days": 1,
+      "direction_hit_rate": 1.0,
+      "average_stock_error": 0.03,
+      "sector_hit_rate": 0.8,
+      "sector_sample_count": 5,
+      "stock_hit_rate": 0.8,
+      "stock_sample_count": 5,
+      "lessons": [
+        "早盘方向与强主线大体命中，机会列质量门槛有效；但对高景气通信和铜箔的情绪延续偏保守。次日不放松生产门槛，优先观察强主题资金净额和高估值样本是否继续放量分歧。"
+      ]
+    }
+  ]
+}

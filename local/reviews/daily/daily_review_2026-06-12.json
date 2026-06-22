@@ -1,0 +1,18 @@
+{
+  "frequency": "daily",
+  "summaries": [
+    {
+      "period": "2026-06-12",
+      "review_days": 1,
+      "direction_hit_rate": 1.0,
+      "average_stock_error": -3.01,
+      "sector_hit_rate": 0.4,
+      "sector_sample_count": 5,
+      "stock_hit_rate": 0.222,
+      "stock_sample_count": 9,
+      "lessons": [
+        "6月12日早盘“震荡偏强”只算部分命中：指数较前收偏强，但Top 5主线内部仅有有色资源明确命中，商业航天价格部分命中，半导体/存储与AI通信/CPO明显失准；受益股开收有效命中2/8，平均方向收益-3.01%。次日应提高主线入选的收盘资金确认权重，特别压低高位硬科技在主力净流出、高开低走时的评分，同时保留有色资源在资金扩散时的更高权重。"
+      ]
+    }
+  ]
+}

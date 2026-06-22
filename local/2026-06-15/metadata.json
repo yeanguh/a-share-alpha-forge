@@ -1,0 +1,18 @@
+{
+  "report_date": "2026-06-15",
+  "run_id": "postclose-1525",
+  "run_dir": "local/2026-06-15/runs/postclose-1525",
+  "window": {
+    "start": "2026-06-12T09:30:00+08:00",
+    "end": "2026-06-15T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "files": [
+    "assembled.json",
+    "close_review.json",
+    "close_review.md",
+    "input_bundle.json",
+    "metadata.json",
+    "report.md"
+  ]
+}

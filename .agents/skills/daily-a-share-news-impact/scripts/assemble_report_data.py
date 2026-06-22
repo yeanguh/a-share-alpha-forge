@@ -203,14 +203,14 @@ def leading_stock_output(stock: StockObservation, mainline_sector_names: set[str
 
 def is_leader_quality_candidate(stock: StockObservation) -> bool:
     threshold = stock.threshold
+    if stock.excluded_security:
+        return False
     if stock.eligible_for_recommendation:
         return True
     return (
-        not stock.market_cap_in_range
-        and stock.trend_score >= threshold("stock_gates", "leader_watch", "trend_min")
+        stock.trend_score >= threshold("stock_gates", "leader_watch", "trend_min")
         and stock.volume_score >= threshold("stock_gates", "leader_watch", "volume_min")
         and stock.capital_recognition >= threshold("stock_gates", "leader_watch", "capital_recognition_min")
-        and stock.institutional_trend_score >= threshold("stock_gates", "leader_watch", "institutional_trend_min")
         and stock.event_alignment >= threshold("stock_gates", "leader_watch", "event_alignment_min")
         and stock.risk_score <= threshold("stock_gates", "leader_watch", "risk_max")
         and stock.research_rating != "风险回避"
@@ -331,6 +331,11 @@ def assemble_command(args: argparse.Namespace) -> None:
             "min_billion": market_cap_range.minimum_billion,
             "max_billion": market_cap_range.maximum_billion,
             "description": market_cap_range.description,
+            "used_for_eligibility": False,
+        },
+        "market_cap_context": {
+            "description": "display_only",
+            "used_for_eligibility": False,
         },
         "threshold_config": {
             "version": threshold_version(threshold_config),
@@ -382,6 +387,10 @@ def assemble_command(args: argparse.Namespace) -> None:
         ],
         "warnings": collect_warnings(bundle, candidates, sector_candidates, stocks, fund_warnings),
     }
+    if "supplemental_stock_analysis" in bundle:
+        output["supplemental_stock_analysis"] = bundle.get("supplemental_stock_analysis")
+    if "supplemental_conclusion" in bundle:
+        output["supplemental_conclusion"] = bundle.get("supplemental_conclusion")
     write_json(output, Path(args.output) if args.output else None)
 
 
@@ -440,13 +449,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--min-market-cap-billion",
         type=float,
         default=None,
-        help="Minimum market cap in CNY billions for stock recommendation eligibility.",
+        help="Deprecated; market cap is retained as display context, not recommendation eligibility.",
     )
     parser.add_argument(
         "--max-market-cap-billion",
         type=float,
         default=None,
-        help="Maximum market cap in CNY billions for stock recommendation eligibility.",
+        help="Deprecated; market cap is retained as display context, not recommendation eligibility.",
     )
     parser.set_defaults(func=assemble_command)
     return parser

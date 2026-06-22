@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from score_stocks import is_bse_ticker, is_st_stock_name, is_star_market_ticker
 from threshold_config import get_number, load_thresholds
 
 DEFAULT_ROOT = Path("local")
@@ -114,8 +115,12 @@ def optional_market_cap(payload: dict[str, Any]) -> float | None:
     return float(value) if isinstance(value, int | float) else None
 
 
-def market_cap_in_range(sample: Sample, minimum_billion: float, maximum_billion: float) -> bool:
-    return sample.market_cap_billion is not None and minimum_billion <= sample.market_cap_billion <= maximum_billion
+def allowed_security(sample: Sample) -> bool:
+    return not (
+        is_star_market_ticker(sample.ticker)
+        or is_bse_ticker(sample.ticker)
+        or is_st_stock_name(sample.name)
+    )
 
 
 def role_in_scope(sample: Sample, role_scope: str) -> bool:
@@ -745,21 +750,13 @@ def profile_grid() -> list[ThresholdProfile]:
 
 
 def scan_command(args: argparse.Namespace) -> None:
-    if args.min_market_cap_billion <= 0:
-        raise ValueError("`min_market_cap_billion` must be positive")
-    if args.max_market_cap_billion < args.min_market_cap_billion:
-        raise ValueError("`max_market_cap_billion` must be greater than or equal to `min_market_cap_billion`")
     if args.role_scope not in VALID_ROLE_SCOPES:
         raise ValueError("`role_scope` must be all, beneficiary, or pressure")
 
     outcomes = load_outcomes(Path(args.backtest))
     all_samples = load_samples(Path(args.output_root), outcomes)
-    market_cap_samples = [
-        sample
-        for sample in all_samples
-        if market_cap_in_range(sample, args.min_market_cap_billion, args.max_market_cap_billion)
-    ]
-    samples = [sample for sample in market_cap_samples if role_in_scope(sample, args.role_scope)]
+    security_samples = [sample for sample in all_samples if allowed_security(sample)]
+    samples = [sample for sample in security_samples if role_in_scope(sample, args.role_scope)]
     production_profile = current_production_profile()
     promotion_gate = {
         "min_report_count": args.promotion_min_report_count,
@@ -783,16 +780,17 @@ def scan_command(args: argparse.Namespace) -> None:
         profile for profile in ranked if profile["passes_promotion_gate"] and profile["beats_production_baseline"]
     ]
     payload = {
-        "market_cap_filter": {
-            "min_billion": args.min_market_cap_billion,
-            "max_billion": args.max_market_cap_billion,
+        "security_exclusions": {
+            "exclude_star_market": True,
+            "exclude_bse": True,
+            "exclude_st": True,
         },
         "role_scope": args.role_scope,
         "raw_sample_count": len(all_samples),
-        "market_cap_sample_count": len(market_cap_samples),
+        "security_filtered_sample_count": len(security_samples),
         "sample_count": len(samples),
-        "excluded_by_market_cap_count": len(all_samples) - len(market_cap_samples),
-        "excluded_by_role_count": len(market_cap_samples) - len(samples),
+        "excluded_by_security_count": len(all_samples) - len(security_samples),
+        "excluded_by_role_count": len(security_samples) - len(samples),
         "promotion_gate": promotion_gate,
         "production_baseline_profile": production_profile.to_dict(),
         "production_baseline_evaluation": production_baseline,
@@ -822,7 +820,7 @@ def write_json(payload: object, output_path: Path | None = None) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Scan archived A-share selection thresholds against market-cap-aligned backtest labels."
+        description="Scan archived A-share selection thresholds against board/ST-filtered backtest labels."
     )
     parser.add_argument("--output-root", default=str(DEFAULT_ROOT), help="Archive root containing input bundles.")
     parser.add_argument("--backtest", required=True, help="Backtest JSON containing evaluated rows.")
@@ -841,13 +839,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--min-market-cap-billion",
         type=float,
         default=DEFAULT_MIN_MARKET_CAP_BILLION,
-        help="Minimum market cap in CNY billions for calibration samples.",
+        help="Deprecated; market cap is no longer used as a calibration sample gate.",
     )
     parser.add_argument(
         "--max-market-cap-billion",
         type=float,
         default=DEFAULT_MAX_MARKET_CAP_BILLION,
-        help="Maximum market cap in CNY billions for calibration samples.",
+        help="Deprecated; market cap is no longer used as a calibration sample gate.",
     )
     parser.add_argument(
         "--promotion-min-report-count",

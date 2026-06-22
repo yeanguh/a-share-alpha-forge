@@ -1,0 +1,43 @@
+{
+  "code": "603118",
+  "name": "",
+  "valuation_date": "2026-06-17T13:27:43.818100",
+  "methods": {
+    "DCF": {
+      "method": "DCF现金流折现",
+      "parameters": {
+        "discount_rate": 10.0,
+        "forecast_years": 5,
+        "terminal_growth": 3.0
+      },
+      "calculation": {},
+      "intrinsic_value": null,
+      "per_share_value": null,
+      "error": "无法获取现金流数据"
+    },
+    "DDM": {
+      "method": "DDM股息折现",
+      "parameters": {
+        "required_return": 10
+      },
+      "calculation": {},
+      "intrinsic_value": null,
+      "per_share_value": null,
+      "error": "分红数据不足，无法使用DDM"
+    },
+    "相对估值": {
+      "method": "相对估值",
+      "current_valuation": {
+        "PE_TTM": null,
+        "PB": null,
+        "当前价格": null
+      },
+      "comparison": {
+        "PE历史分位数": null,
+        "PB历史分位数": null
+      },
+      "assessment": {}
+    }
+  },
+  "summary": {}
+}

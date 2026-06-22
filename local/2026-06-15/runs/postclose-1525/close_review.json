@@ -1,0 +1,391 @@
+{
+  "review_time": "2026-06-15T15:25:00+08:00",
+  "report_date": "2026-06-15",
+  "review_type": "post_close_daily_review",
+  "data_sources": [
+    "local/2026-06-15/report.md",
+    "local/2026-06-15/assembled.json",
+    "local/2026-06-15/input_bundle.json",
+    "Tencent public quote qt.gtimg.cn after close",
+    "Archived china-stock-analysis fundamental and valuation context in input_bundle.json"
+  ],
+  "archive_status": {
+    "morning_archive_complete": true,
+    "files_read": [
+      "report.md",
+      "assembled.json",
+      "input_bundle.json",
+      "metadata.json"
+    ],
+    "missing_files": []
+  },
+  "data_quality": {
+    "market_data": "partial",
+    "stock_price_data": "available",
+    "sector_flow_data": "proxy_only",
+    "limitations": [
+      "akshare 东方财富接口在本机返回 RemoteDisconnected，未取得统一行业/概念主力净流排名。",
+      "技能自带 backtest 脚本的 urllib 访问 Tencent 因本机证书链失败中断；本次改用 curl -k 调取同一公开行情源。",
+      "Sina/Tencent/Eastmoney 的 Python urllib 健康检查存在 SSL 证书失败，已记录为数据源缺口。",
+      "板块命中主要用代表个股、主线龙头和指数涨跌交叉核对；不把缺失的主力净流口径写成确定数值。"
+    ],
+    "stock_hit_threshold_pct": 0.5
+  },
+  "morning_report": {
+    "direction": "震荡偏强",
+    "fund_flow_direction": "结构性流入",
+    "top_mainlines": [
+      {
+        "rank": 1,
+        "sector": "AI硬件",
+        "direction": "positive",
+        "impact_score": 4.36
+      },
+      {
+        "rank": 2,
+        "sector": "战略资源(金属)",
+        "direction": "positive",
+        "impact_score": 4.2
+      },
+      {
+        "rank": 3,
+        "sector": "存储芯片",
+        "direction": "positive",
+        "impact_score": 4.07
+      },
+      {
+        "rank": 4,
+        "sector": "证券",
+        "direction": "positive",
+        "impact_score": 3.94
+      },
+      {
+        "rank": 5,
+        "sector": "先进封装/电子化学品",
+        "direction": "positive",
+        "impact_score": 3.84
+      }
+    ],
+    "eligible_beneficiaries": [
+      "603993 洛阳钼业",
+      "601899 紫金矿业"
+    ],
+    "eligible_pressure": []
+  },
+  "direction_hit": true,
+  "direction_hit_level": "hit",
+  "direction_hit_reason": "早盘判断为震荡偏强，收盘主要指数全面上行且成长风格明显领涨：上证指数+1.61%、深证成指+3.79%、创业板指+5.30%、科创50+5.12%。从开盘到收盘，上证指数+1.06%、深成指+2.49%、创业板指+3.53%、科创50+3.59%，没有出现6月12日那种高开低走式回落。",
+  "average_stock_error": 4.93,
+  "market_close": {
+    "上证指数": {
+      "close": 4096.47,
+      "pct_vs_previous_close": 1.61,
+      "open_to_close_return_pct": 1.06,
+      "turnover_amount_yuan": 1403586230000,
+      "timestamp": "20260615151800"
+    },
+    "深证成指": {
+      "close": 15531.11,
+      "pct_vs_previous_close": 3.79,
+      "open_to_close_return_pct": 2.49,
+      "turnover_amount_yuan": 1627612450000,
+      "timestamp": "20260615151818"
+    },
+    "创业板指": {
+      "close": 4033.53,
+      "pct_vs_previous_close": 5.3,
+      "open_to_close_return_pct": 3.53,
+      "turnover_amount_yuan": 790537830000,
+      "timestamp": "20260615151833"
+    },
+    "科创50": {
+      "close": 1748.33,
+      "pct_vs_previous_close": 5.12,
+      "open_to_close_return_pct": 3.59,
+      "turnover_amount_yuan": 158477480000,
+      "timestamp": "20260615151800"
+    },
+    "沪深300": {
+      "close": 4891.71,
+      "pct_vs_previous_close": 2.39,
+      "open_to_close_return_pct": 1.29,
+      "turnover_amount_yuan": 914145760000,
+      "timestamp": "20260615151900"
+    },
+    "中证500": {
+      "close": 8406.75,
+      "pct_vs_previous_close": 3.71,
+      "open_to_close_return_pct": 2.83,
+      "turnover_amount_yuan": 624419630000,
+      "timestamp": "20260615151900"
+    }
+  },
+  "market_breadth": {
+    "total": null,
+    "up": null,
+    "down": null,
+    "flat": null,
+    "turnover_yuan": 3031198680000,
+    "turnover_trillion_yuan": 3.03,
+    "source": "Tencent public quote amount fields for 上证指数+深证成指",
+    "main_net_inflow_yuan": null,
+    "main_net_inflow_billion_yuan": null,
+    "main_flow_note": "未取得统一免费全市场主力净流口径；资金方向以指数强弱、主线代表股收盘涨跌、成交额和早盘归档交叉核对。"
+  },
+  "sector_hits": [
+    {
+      "rank": 1,
+      "sector": "AI硬件",
+      "expected_direction": "positive",
+      "hit": true,
+      "hit_level": "strong_hit",
+      "reason": "AI硬件代表股收盘继续强化：太辰光+20.00%、中际旭创+8.36%、沪电股份+6.84%、胜宏科技+5.28%；从开盘到收盘也分别约+9.28%、+5.96%、+4.09%、+2.44%。早盘板块方向命中，但机会列没有纳入该方向龙头，个股筛选偏保守。"
+    },
+    {
+      "rank": 2,
+      "sector": "战略资源(金属)",
+      "expected_direction": "positive",
+      "hit": true,
+      "hit_level": "strong_hit",
+      "reason": "洛阳钼业+9.47%、紫金矿业+7.63%，从开盘到收盘分别约+7.34%、+2.52%。早盘把资源作为强主线并纳入机会列，方向和个股均命中。"
+    },
+    {
+      "rank": 3,
+      "sector": "存储芯片",
+      "expected_direction": "positive",
+      "hit": true,
+      "hit_level": "partial_to_hit",
+      "reason": "香农芯创+8.95%，江波龙+2.79%；但江波龙开盘到收盘仅约+0.04%，说明存储链收盘为正，内部弹性主要来自香农芯创，江波龙的同日承接不算强。"
+    },
+    {
+      "rank": 4,
+      "sector": "证券",
+      "expected_direction": "positive",
+      "hit": true,
+      "hit_level": "hit",
+      "reason": "中信证券+2.17%、东方财富+4.94%，与指数风险偏好修复一致。早盘未把证券升级为强机会列是保守处理，但板块方向有效。"
+    },
+    {
+      "rank": 5,
+      "sector": "先进封装/电子化学品",
+      "expected_direction": "positive",
+      "hit": true,
+      "hit_level": "hit_with_crowding_risk",
+      "reason": "江丰电子+7.12%，从开盘到收盘约+3.38%，继续体现电子化学品和先进封装资金弹性；但换手约14.98%，估值和拥挤风险仍需保留。"
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "603993",
+      "name": "洛阳钼业",
+      "sector": "战略资源(金属)",
+      "role": "beneficiary",
+      "open": 19.49,
+      "close": 20.92,
+      "previous_close": 19.11,
+      "pct_vs_previous_close": 9.47,
+      "actual_return_pct": 7.34,
+      "hit": true,
+      "turnover_rate": 4.19,
+      "actual_move": "开盘19.49，收盘20.92，开收+7.34%，较前收+9.47%。"
+    },
+    {
+      "ticker": "601899",
+      "name": "紫金矿业",
+      "sector": "战略资源(金属)",
+      "role": "beneficiary",
+      "open": 30.54,
+      "close": 31.31,
+      "previous_close": 29.09,
+      "pct_vs_previous_close": 7.63,
+      "actual_return_pct": 2.52,
+      "hit": true,
+      "turnover_rate": 2.77,
+      "actual_move": "开盘30.54，收盘31.31，开收+2.52%，较前收+7.63%。"
+    }
+  ],
+  "excluded_or_observation_hits": [
+    {
+      "ticker": "300570",
+      "name": "太辰光",
+      "sector": "AI硬件",
+      "role": "beneficiary_observation",
+      "early_handling": "风险过高，未入选机会列",
+      "open": 203.23,
+      "close": 222.1,
+      "pct_vs_previous_close": 20.0,
+      "actual_return_pct": 9.28,
+      "hit": true,
+      "review": "显著漏选。股价涨停并放大到15.73%换手，说明当日强动量压过了估值和基本面降权；但早盘归档显示PE约189倍、Q1营收和利润同比下滑，仍不宜因单日涨停直接放松风险门槛。"
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "AI硬件",
+      "role": "beneficiary_observation",
+      "early_handling": "量能确认不足，未入选机会列",
+      "open": 1175.0,
+      "close": 1245.0,
+      "pct_vs_previous_close": 8.36,
+      "actual_return_pct": 5.96,
+      "hit": true,
+      "review": "漏选。早盘量能门槛保守，但收盘价封在日内高位，显示CPO中军资金确认重新增强；基本面高增支持估值，但PE/PB已高，需要用持续成交确认过滤追涨噪音。"
+    },
+    {
+      "ticker": "300666",
+      "name": "江丰电子",
+      "sector": "先进封装/电子化学品",
+      "role": "beneficiary_observation",
+      "early_handling": "风险过高、未通过资讯板块筛选",
+      "open": 284.0,
+      "close": 293.6,
+      "pct_vs_previous_close": 7.12,
+      "actual_return_pct": 3.38,
+      "hit": true,
+      "review": "漏选但风险提示有效。短线资金继续追逐电子化学品和先进封装，收盘验证强势；PE约88倍、换手约14.98%，说明该样本仍需要更高的连续资金确认。"
+    },
+    {
+      "ticker": "300475",
+      "name": "香农芯创",
+      "sector": "存储芯片",
+      "role": "beneficiary_observation",
+      "early_handling": "量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "open": 193.0,
+      "close": 204.29,
+      "pct_vs_previous_close": 8.95,
+      "actual_return_pct": 5.85,
+      "hit": true,
+      "review": "漏选。指数纳入与存储链弹性在收盘得到确认；但早盘归档提示资产负债率75.4%、PB约18倍，基本面和估值仍要求后续盈利兑现。"
+    },
+    {
+      "ticker": "301308",
+      "name": "江波龙",
+      "sector": "存储芯片",
+      "role": "beneficiary_observation",
+      "early_handling": "14日走势不足、量能确认不足、资金认可度不足",
+      "open": 529.03,
+      "close": 529.23,
+      "pct_vs_previous_close": 2.79,
+      "actual_return_pct": 0.04,
+      "hit": false,
+      "review": "未入选基本合理。较前收为正，但开收几乎持平，说明资金主要在早盘完成定价，盘中追加承接不足。"
+    },
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "sector": "AI硬件",
+      "role": "beneficiary_observation",
+      "early_handling": "14日走势不足、量能确认不足、资金认可度不足",
+      "open": 128.5,
+      "close": 133.76,
+      "pct_vs_previous_close": 6.84,
+      "actual_return_pct": 4.09,
+      "hit": true,
+      "review": "漏选。PCB主线随AI硬件扩散被重新定价；早盘基本面改善明确但K线不顺的判断偏滞后。"
+    },
+    {
+      "ticker": "300476",
+      "name": "胜宏科技",
+      "sector": "AI硬件",
+      "role": "beneficiary_observation",
+      "early_handling": "量能/资金确认不足、散户情绪过热、风险过高",
+      "open": 336.29,
+      "close": 344.5,
+      "pct_vs_previous_close": 5.28,
+      "actual_return_pct": 2.44,
+      "hit": true,
+      "review": "漏选但不宜马上放宽。收盘验证PCB弹性，但早盘归档显示估值和拥挤风险仍高，后续要看是否连续放量且不再高开低走。"
+    },
+    {
+      "ticker": "600030",
+      "name": "中信证券",
+      "sector": "证券",
+      "role": "beneficiary_observation",
+      "early_handling": "未通过资讯板块筛选",
+      "open": 26.45,
+      "close": 26.86,
+      "pct_vs_previous_close": 2.17,
+      "actual_return_pct": 1.55,
+      "hit": true,
+      "review": "观察列有效但偏保守。券商随指数和成交活跃度修复，但弹性不如成长主线。"
+    },
+    {
+      "ticker": "300059",
+      "name": "东方财富",
+      "sector": "证券",
+      "role": "beneficiary_observation",
+      "early_handling": "未通过资讯板块筛选",
+      "open": 18.0,
+      "close": 18.89,
+      "pct_vs_previous_close": 4.94,
+      "actual_return_pct": 4.94,
+      "hit": true,
+      "review": "观察列偏保守。成交额和风险偏好修复时弹性更强，但估值高于传统券商，仍适合以成交扩散确认。"
+    }
+  ],
+  "summary_metrics": {
+    "eligible_beneficiary_count": 2,
+    "eligible_beneficiary_hit_count": 2,
+    "eligible_beneficiary_hit_rate": 1.0,
+    "eligible_pressure_count": 0,
+    "observation_positive_count": 8,
+    "observation_effective_hit_count": 7,
+    "average_selected_directional_return_pct": 4.93,
+    "average_observation_return_pct": 4.19,
+    "best_selected_hit": "603993 洛阳钼业",
+    "largest_observation_miss_or_leak": "300570 太辰光"
+  },
+  "fund_flow_review": {
+    "morning_judgment": "结构性流入",
+    "hit_level": "hit_with_underestimated_breadth",
+    "actual": "沪深两市指数口径成交额约3.03万亿元，较6月12日复盘记录的约3.21万亿元略低，但主要指数和科技成长指数明显走强；收盘表现从早盘的AI硬件、资源、券商扩散到存储、先进封装和PCB。",
+    "bias": "大类资金方向命中，但早盘对资金扩散强度估计不足。真正的偏差不是把方向看错，而是机会列只保留资源股，过度过滤了AI硬件和存储链的高弹性样本。"
+  },
+  "deviation_analysis": [
+    {
+      "subject": "AI硬件观察股",
+      "type": "significant_positive_deviation",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "explanation": "太辰光、中际旭创、沪电股份、胜宏科技均明显收涨，说明指数调样、CPO/PCB景气和成长风格风险偏好共同强化。股价/量价框架看，多个样本收在日内高位，盘中承接强于早盘判断；基本面/估值框架看，中际旭创业绩高增可解释部分估值溢价，沪电和胜宏有PCB景气支撑，但太辰光PE约189倍且Q1营收利润同比下滑，仍属于价格领先基本面的拥挤样本。"
+    },
+    {
+      "subject": "存储芯片",
+      "type": "positive_deviation_with_internal_split",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "explanation": "香农芯创收盘强，江波龙较前收为正但开收基本持平。股价框架显示资金更偏弹性和指数纳入交易；基本面框架显示存储链利润改善明确，但香农芯创杠杆偏高、江波龙现金流仍需观察，不能仅凭单日涨幅取消财务质量约束。"
+    },
+    {
+      "subject": "战略资源(金属)",
+      "type": "selected_hit",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "explanation": "洛阳钼业、紫金矿业均有效命中。基本面上两者Q1营收和归母净利高增，估值相对AI硬件更容易解释；股价框架看，收盘仍保持开盘后的正收益，是本次机会列的主要正贡献。"
+    },
+    {
+      "subject": "证券",
+      "type": "conservative_observation",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "explanation": "中信证券和东方财富均收涨，方向命中但未进入机会列。估值上中信证券更接近传统券商合理区间，东方财富弹性更高但估值溢价更明显；股价框架显示券商受益于风险偏好扩散，但相对创业板、科创和AI硬件弹性偏弱。"
+    }
+  ],
+  "main_bias_reasons": [
+    "机会列门槛对高估值、高拥挤样本的惩罚过重，导致AI硬件主线方向看对但个股未能覆盖。",
+    "早盘把量能确认不足作为硬门槛时，没有充分考虑指数调样生效日和成长风格集体扩散可能带来的日内再定价。",
+    "资源主线筛选有效，说明强主线+业绩弹性+估值可解释的组合仍应保留较高权重。",
+    "统一主力净流接口缺失，导致资金扩散判断更多依赖早盘行业/概念和个股快照，收盘校准精度受限。"
+  ],
+  "next_day_weight_conditions": {
+    "increase_weight_if": [
+      "提高AI硬件/PCB/CPO权重：仅当中际旭创、沪电股份、胜宏科技等核心股继续收盘强于指数，且换手放大但不出现高开低走。",
+      "提高存储芯片权重：香农芯创、江波龙等需要同时满足收盘强度、成交额扩张和资金认可度改善，避免只跟指数纳入交易。",
+      "提高证券权重：两市成交额继续维持高位并向券商龙头扩散，东方财富与中信证券同步跑赢沪深300。",
+      "保留资源权重：洛阳钼业、紫金矿业继续保持相对强度，同时国际资源价格和有色板块不反向。"
+    ],
+    "decrease_weight_if": [
+      "降低太辰光一类高拥挤样本权重：若涨停后出现放量冲高回落、换手继续过高但收盘不再强于主线。",
+      "降低AI硬件机会列放行：若CPO/PCB核心股转为高开低走，说明今日漏选更多是单日风格扩散而非可持续主线。",
+      "降低存储链权重：若江波龙继续开收走弱或香农芯创回吐，说明指数纳入催化已被充分交易。",
+      "降低资源股权重：若金属价格或资源股成交额回落，且洛阳钼业/紫金矿业不能维持相对大盘强度。"
+    ]
+  },
+  "lesson": "6月15日早盘“震荡偏强”命中，Top 5主线方向全部收盘验证，机会列洛阳钼业、紫金矿业2/2有效命中，平均开收方向收益约+4.93%。主要偏差是AI硬件、存储、先进封装和券商观察股普遍走强，个股筛选过度保守。次日可提高“强主线已确认+指数调样/风格扩散+盘中收盘强度”的权重，但对太辰光这类高估值且基本面未同步的样本仍不应直接放松风险门槛。"
+}

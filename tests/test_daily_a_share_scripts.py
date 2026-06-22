@@ -38,14 +38,15 @@ def candidate(title: str, direction: str, score: float = 4.2) -> dict[str, objec
 
 
 def stock(
-    ticker: str = "688525",
+    ticker: str = "300750",
+    name: str = "宁德时代",
     sector: str = "半导体材料",
     market_cap_billion: float = 1200.0,
     institutional_trend_score: float = 3.8,
 ) -> dict[str, object]:
     return {
         "ticker": ticker,
-        "name": "佰维存储",
+        "name": name,
         "sector": sector,
         "directional_role": "beneficiary",
         "market_cap_billion": market_cap_billion,
@@ -79,6 +80,24 @@ def bundle() -> dict[str, object]:
         + [candidate(f"负向{i}", "negative") for i in range(10)],
         "sector_candidates": [candidate("半导体材料", "positive", 4.3)],
         "stocks": [stock()],
+        "supplemental_stock_analysis": [
+            {
+                "stock": "300750 宁德时代",
+                "latest_price": "240.0",
+                "valuation_metrics": "PE 20 / PB 3 / PS 2",
+                "financial_health": "ROE较高，杠杆可控",
+                "valuation_summary": "相对估值中性偏低",
+                "risk_note": "原材料波动",
+                "judgement": "证据更强",
+            }
+        ],
+        "supplemental_conclusion": {
+            "as_of": "2026-06-12T09:30:00+08:00",
+            "method_note": "使用免费公开数据补充财务与估值。",
+            "stronger_evidence": ["300750 宁德时代：主线与基本面共振。"],
+            "observation_only": ["000001 平安银行：缺少主线催化。"],
+            "notes": ["不提供买卖、仓位或目标价指令。"],
+        },
     }
 
 
@@ -213,8 +232,10 @@ def test_render_report_outputs_fixed_sections(tmp_path: Path, monkeypatch: pytes
     assert "# A股投资资讯影响简报" in report
     assert "## 每日主线板块/概念与龙头个股" in report
     assert "## 正向负向事件Top" in report
+    assert "## 补充结论" in report
+    assert "### 候选股补充分析摘要" in report
     assert "## 数据留痕与复盘" in report
-    assert "阈值版本：2026-06-default-v1" in report
+    assert "阈值版本：2026-06-board-st-exclusion-v2" in report
 
 
 def test_run_daily_report_assembles_renders_and_persists(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -349,14 +370,14 @@ def test_score_stocks_preserves_voc_and_external_data(tmp_path: Path) -> None:
     assert payload["institutional_trend_score"] == 3.8
 
 
-def test_institutional_trend_score_gates_beneficiary_recommendations(tmp_path: Path) -> None:
+def test_institutional_trend_score_is_auxiliary_for_beneficiary_recommendations(tmp_path: Path) -> None:
     weak_trend_path = write_json(tmp_path / "stocks.json", [stock(institutional_trend_score=3.2)])
 
     observation = load_observations(weak_trend_path, MarketCapRange())[0]
 
-    assert observation.eligible_for_recommendation is False
-    assert "机构趋势确认不足" in observation.exclusion_reason
-    assert observation.operation_tendency == "等待机构趋势确认"
+    assert observation.eligible_for_recommendation is True
+    assert "机构趋势确认不足" not in observation.exclusion_reason
+    assert observation.operation_tendency == "趋势跟踪观察"
 
 
 def test_institutional_trend_score_defaults_to_unconfirmed(tmp_path: Path) -> None:
@@ -367,4 +388,35 @@ def test_institutional_trend_score_defaults_to_unconfirmed(tmp_path: Path) -> No
     observation = load_observations(path, MarketCapRange())[0]
 
     assert observation.institutional_trend_score == 0
-    assert observation.eligible_for_recommendation is False
+    assert observation.eligible_for_recommendation is True
+
+
+def test_market_cap_does_not_gate_beneficiary_recommendations(tmp_path: Path) -> None:
+    path = write_json(tmp_path / "stocks.json", [stock(market_cap_billion=9000.0)])
+
+    observation = load_observations(path, MarketCapRange())[0]
+
+    assert observation.market_cap_in_range is False
+    assert observation.eligible_for_recommendation is True
+    assert "市值不在" not in observation.exclusion_reason
+
+
+def test_star_bse_and_st_stocks_are_excluded(tmp_path: Path) -> None:
+    path = write_json(
+        tmp_path / "stocks.json",
+        [
+            stock(ticker="688525", name="佰维存储"),
+            stock(ticker="920001", name="北交样例"),
+            stock(ticker="300001", name="*ST样例"),
+        ],
+    )
+
+    observations = load_observations(path, MarketCapRange())
+    reasons = [observation.exclusion_reason for observation in observations]
+
+    assert observations[0].eligible_for_recommendation is False
+    assert "科创板股票排除" in reasons[0]
+    assert observations[1].eligible_for_recommendation is False
+    assert "北交所股票排除" in reasons[1]
+    assert observations[2].eligible_for_recommendation is False
+    assert "ST/退市风险股票排除" in reasons[2]

@@ -181,4 +181,5 @@ When optional data is available, add it to the report bundle under
 
 Use `external_data` only for explanation, confidence adjustment, and post-close
 review calibration. The stock must still pass the daily skill's sector,
-price-volume, retail VOC, capital-recognition, event-alignment, and risk gates.
+board/ST exclusion, price-volume, retail VOC, capital-recognition,
+event-alignment, and risk gates.

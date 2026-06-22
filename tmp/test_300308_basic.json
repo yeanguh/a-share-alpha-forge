@@ -1,0 +1,9 @@
+{
+  "code": "300308",
+  "fetch_time": "2026-06-22T09:49:55.960652",
+  "data_type": "basic",
+  "basic_info": {
+    "code": "300308",
+    "error": "Length mismatch: Expected axis has 3 elements, new values have 2 elements"
+  }
+}

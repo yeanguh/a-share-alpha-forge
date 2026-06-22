@@ -60,7 +60,8 @@ passed the opportunity gate.
 
 Use `institutional_trend_score` as an internal confirmation factor for the
 so-called trend-following slow-grind setup. This is not an independent trading
-strategy and must not bypass sector-first or main-capital gates.
+strategy and must not bypass sector-first or main-capital gates. It is an
+auxiliary ranking and annotation field, not a hard recommendation gate.
 
 Score higher when:
 
@@ -107,11 +108,12 @@ mainline readout or observation list, but not in the opportunity column.
 For a positive beneficiary list, require all conditions:
 
 - `directional_role` is `beneficiary`.
+- The stock is not STAR Market（科创板）, Beijing Stock Exchange（北交所）, ST,
+  `*ST`, or delisting-risk.
 - `event_alignment >= 3.5`.
 - `trend_score >= 3.0`.
 - `volume_score >= 3.4`.
 - `capital_recognition >= 3.6`.
-- `institutional_trend_score >= 3.5`.
 - If `retail_sentiment >= 4.5`, require `capital_recognition >= 3.8` and
   `volume_score >= 3.4`; otherwise treat it as retail crowding and exclude the
   stock from the beneficiary column.
@@ -128,6 +130,8 @@ not enough for the opportunity table.
 For a negative pressure-company list, require all conditions:
 
 - `directional_role` is `pressure`.
+- The stock is not STAR Market（科创板）, Beijing Stock Exchange（北交所）, ST,
+  `*ST`, or delisting-risk.
 - `event_alignment >= 3.5`.
 - `trend_score <= 2.4`.
 - `capital_recognition <= 2.6`.
@@ -178,7 +182,7 @@ If a company fails the gate:
 - Do not list it in the positive or negative Top 10 company column.
 - Put it in the stock detail section as `未入选推荐列`.
 - Explain the exclusion reason, such as `量能不足`, `散户情绪过热`,
-  `资金认可度不足`, `机构趋势确认不足`, `风险过高`, or `事件关联不足`.
+  `资金认可度不足`, `量能确认不足`, `风险过高`, or `事件关联不足`.
 
 ## Research Rating
 
@@ -198,8 +202,6 @@ Use these informational operation tendencies only:
 
 - `等待放量确认`: catalyst is promising but volume/price confirmation is not
   enough.
-- `等待机构趋势确认`: catalyst, sector, or capital recognition is positive, but
-  the controlled institutional trend setup is not confirmed.
 - `趋势跟踪观察`: trend and capital recognition are supportive; continue
   monitoring confirmation.
 - `回撤后再评估`: catalyst is valid but short-term crowding or overheating is

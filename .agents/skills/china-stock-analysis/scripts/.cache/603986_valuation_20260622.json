@@ -1,0 +1,1 @@
+{"code": "603986", "fetch_time": "2026-06-22T09:59:22.942144", "data_type": "valuation", "valuation": {"error": "stock_a_ttm_lyr() got an unexpected keyword argument 'symbol'", "note": "估值历史数据获取失败，将使用基本信息中的估值"}, "price": {"error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"}}

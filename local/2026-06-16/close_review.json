@@ -1,0 +1,892 @@
+{
+  "review_time": "2026-06-16T15:31:44+08:00",
+  "report_date": "2026-06-16",
+  "archive_files_read": [
+    "/Users/bytedance/Documents/stock-analysis/local/2026-06-16/report.md",
+    "/Users/bytedance/Documents/stock-analysis/local/2026-06-16/assembled.json",
+    "/Users/bytedance/Documents/stock-analysis/local/2026-06-16/input_bundle.json"
+  ],
+  "data_sources": [
+    "akshare.stock_zh_index_spot_sina",
+    "akshare.stock_market_activity_legu",
+    "akshare.stock_fund_flow_industry",
+    "akshare.stock_fund_flow_concept",
+    "akshare.stock_hsgt_fund_flow_summary_em",
+    "Tencent public quote qt.gtimg.cn via curl -k because Python urllib SSL verification failed in this environment"
+  ],
+  "morning_direction": "震荡偏强",
+  "direction_hit": true,
+  "direction_hit_grade": "命中但偏结构性",
+  "direction_review": "收盘上证指数-0.11%，深成指+0.93%，创业板指+1.72%，科创50+0.58%；上涨2626家、下跌2468家，涨停140家、跌停11家。指数没有全面普涨，但成长和主题方向明显强于上证，符合早盘“震荡偏强、拥挤分化”的核心判断。",
+  "broad_market_close": {
+    "indices": [
+      {
+        "code": "sh000001",
+        "name": "上证指数",
+        "close": 4091.8917,
+        "pct": -0.112,
+        "open": 4094.2124,
+        "high": 4103.9259,
+        "low": 4077.8702,
+        "turnover_cny": 1369612989674
+      },
+      {
+        "code": "sz399001",
+        "name": "深证成指",
+        "close": 15675.246,
+        "pct": 0.928,
+        "open": 15584.37,
+        "high": 15761.004,
+        "low": 15537.503,
+        "turnover_cny": 1695082857789
+      },
+      {
+        "code": "sz399006",
+        "name": "创业板指",
+        "close": 4102.942,
+        "pct": 1.721,
+        "open": 4065.271,
+        "high": 4142.433,
+        "low": 4053.878,
+        "turnover_cny": 829816569631
+      },
+      {
+        "code": "sh000688",
+        "name": "科创50",
+        "close": 1758.4244,
+        "pct": 0.578,
+        "open": 1751.7052,
+        "high": 1766.1375,
+        "low": 1729.0368,
+        "turnover_cny": 142643106071
+      }
+    ],
+    "market_activity": {
+      "advance_count": 2626,
+      "decline_count": 2468,
+      "flat_count": 100,
+      "limit_up_count": 140,
+      "true_limit_up_count": 127,
+      "limit_down_count": 11,
+      "true_limit_down_count": 6,
+      "activity_rate": "50.43%",
+      "stat_time": "2026-06-16 15:00:00"
+    },
+    "turnover_summary": "上证指数成交额约1.37万亿元，深证成指口径成交额约1.70万亿元，主指数口径合计约3.06万亿元；口径与全市场总成交额不完全等同，仅作收盘量能参照。"
+  },
+  "fund_flow_close": {
+    "morning_judgment": "拥挤分化",
+    "hit": true,
+    "hit_grade": "方向命中，强度略低估",
+    "industry_and_concept_flow": {
+      "industry_rows": [
+        {
+          "name": "小金属",
+          "rank": 11,
+          "pct": 2.7,
+          "net_amount": -8.78,
+          "leader": "长裕集团",
+          "leader_pct": 10.01
+        },
+        {
+          "name": "金属新材料",
+          "rank": 6,
+          "pct": 3.53,
+          "net_amount": 6.65,
+          "leader": "悦安新材",
+          "leader_pct": 10.86
+        },
+        {
+          "name": "电池",
+          "rank": 3,
+          "pct": 4.02,
+          "net_amount": 64.87,
+          "leader": "ST南都",
+          "leader_pct": 20.0
+        },
+        {
+          "name": "其他电源设备",
+          "rank": 5,
+          "pct": 3.84,
+          "net_amount": -6.82,
+          "leader": "欧陆通",
+          "leader_pct": 16.12
+        },
+        {
+          "name": "证券",
+          "rank": 24,
+          "pct": 0.91,
+          "net_amount": 10.2,
+          "leader": "锦龙股份",
+          "leader_pct": 6.58
+        },
+        {
+          "name": "通信设备",
+          "rank": 7,
+          "pct": 3.28,
+          "net_amount": 48.31,
+          "leader": "长进光子",
+          "leader_pct": 20.0
+        },
+        {
+          "name": "半导体",
+          "rank": 14,
+          "pct": 2.19,
+          "net_amount": -2.69,
+          "leader": "南芯科技",
+          "leader_pct": 20.0
+        },
+        {
+          "name": "工业金属",
+          "rank": 56,
+          "pct": -0.43,
+          "net_amount": -50.93,
+          "leader": "常铝股份",
+          "leader_pct": 10.07
+        },
+        {
+          "name": "贵金属",
+          "rank": 72,
+          "pct": -0.75,
+          "net_amount": -9.13,
+          "leader": "湖南黄金",
+          "leader_pct": 3.7
+        }
+      ],
+      "concept_rows": [
+        {
+          "name": "稀土永磁",
+          "rank": 15,
+          "pct": 3.31,
+          "net_amount": 5.42,
+          "leader": "三川智慧",
+          "leader_pct": 13.76
+        },
+        {
+          "name": "小金属概念",
+          "rank": 133,
+          "pct": 1.16,
+          "net_amount": -72.34,
+          "leader": "ST南都",
+          "leader_pct": 20.0
+        },
+        {
+          "name": "PET铜箔",
+          "rank": 1,
+          "pct": 4.83,
+          "net_amount": 0.86,
+          "leader": "先导智能",
+          "leader_pct": 15.96
+        },
+        {
+          "name": "BC电池",
+          "rank": 9,
+          "pct": 3.5,
+          "net_amount": 18.21,
+          "leader": "先导智能",
+          "leader_pct": 15.96
+        },
+        {
+          "name": "固态电池",
+          "rank": 30,
+          "pct": 2.73,
+          "net_amount": 35.65,
+          "leader": "ST南都",
+          "leader_pct": 20.0
+        },
+        {
+          "name": "钠离子电池",
+          "rank": 34,
+          "pct": 2.64,
+          "net_amount": 46.59,
+          "leader": "ST南都",
+          "leader_pct": 20.0
+        },
+        {
+          "name": "光纤概念",
+          "rank": 4,
+          "pct": 3.86,
+          "net_amount": 63.45,
+          "leader": "长进光子",
+          "leader_pct": 20.0
+        },
+        {
+          "name": "F5G概念",
+          "rank": 6,
+          "pct": 3.64,
+          "net_amount": 13.03,
+          "leader": "太辰光",
+          "leader_pct": 18.55
+        },
+        {
+          "name": "芯片概念",
+          "rank": 47,
+          "pct": 2.29,
+          "net_amount": -28.71,
+          "leader": "鸿仕达",
+          "leader_pct": 23.57
+        },
+        {
+          "name": "存储芯片",
+          "rank": 55,
+          "pct": 2.18,
+          "net_amount": -30.41,
+          "leader": "雅创电子",
+          "leader_pct": 20.0
+        },
+        {
+          "name": "第三代半导体",
+          "rank": 31,
+          "pct": 2.71,
+          "net_amount": -10.75,
+          "leader": "欧陆通",
+          "leader_pct": 16.12
+        }
+      ]
+    },
+    "hsgt_summary": [
+      {
+        "type": "沪港通",
+        "board": "沪股通",
+        "direction": "北向",
+        "trade_status": 3,
+        "net_buy_billion_cny": 0.0,
+        "related_index": "上证指数",
+        "index_pct": -0.11,
+        "advances": 661,
+        "declines": 852
+      },
+      {
+        "type": "沪港通",
+        "board": "港股通(沪)",
+        "direction": "南向",
+        "trade_status": 1,
+        "net_buy_billion_cny": 36.218,
+        "related_index": "恒生指数",
+        "index_pct": -1.68,
+        "advances": 92,
+        "declines": 496
+      },
+      {
+        "type": "深港通",
+        "board": "深股通",
+        "direction": "北向",
+        "trade_status": 3,
+        "net_buy_billion_cny": 0.0,
+        "related_index": "深证成指",
+        "index_pct": 0.93,
+        "advances": 889,
+        "declines": 800
+      },
+      {
+        "type": "深港通",
+        "board": "港股通(深)",
+        "direction": "南向",
+        "trade_status": 1,
+        "net_buy_billion_cny": -0.97,
+        "related_index": "恒生指数",
+        "index_pct": -1.68,
+        "advances": 92,
+        "declines": 496
+      }
+    ],
+    "review": "收盘资金仍集中在电池、通信设备、稀土永磁、光纤/F5G、PET铜箔等分支；证券净额为正但弹性一般；芯片概念与半导体涨幅为正但净额为负。早盘“拥挤分化”判断成立，但低估了电池、通信和铜箔分支的扩散强度。沪深股通当日交易状态显示北向成交净买额为0，北向方向仍按不可用/partial处理。",
+    "data_quality": "partial: sector and concept flows available; broad main-fund and individual-fund rank endpoints partly disconnected"
+  },
+  "average_stock_error": 0.03,
+  "average_stock_error_definition": "入选受益股按开盘至收盘+0.5%有效命中阈值计算的平均不足幅度，单位为百分点；未把正超额收益计为误差。",
+  "selected_stock_summary": {
+    "selected_count": 5,
+    "effective_hit_count_open_to_close": 4,
+    "effective_hit_rate_open_to_close": 0.8,
+    "report_time_hold_hit_count": 5,
+    "report_time_hold_hit_rate": 1.0,
+    "beneficiary_result": "5只早盘受益候选全部收涨且收盘不低于早盘快照；按“开盘至收盘+0.5%”更严格口径为4/5命中，亿纬锂能开盘后有效涨幅不足但未走弱。",
+    "pressure_result": "早盘无通过承压门槛个股，因此仅核对板块/风格风险，未产生个股承压命中率。"
+  },
+  "sector_hits": [
+    {
+      "sector": "小金属/稀土",
+      "hit": true,
+      "hit_grade": "强命中",
+      "reason": "小金属行业+2.70%、稀土永磁+3.31%；盛和资源和厦门钨业涨停，中钨高新+6.44%，但小金属概念净额为负，说明强度来自核心个股而非全面扩散。",
+      "evidence": {
+        "industry": [
+          {
+            "name": "小金属",
+            "rank": 11,
+            "pct": 2.7,
+            "net_amount": -8.78,
+            "leader": "长裕集团",
+            "leader_pct": 10.01
+          }
+        ],
+        "concept": [
+          {
+            "name": "稀土永磁",
+            "rank": 15,
+            "pct": 3.31,
+            "net_amount": 5.42,
+            "leader": "三川智慧",
+            "leader_pct": 13.76
+          },
+          {
+            "name": "小金属概念",
+            "rank": 133,
+            "pct": 1.16,
+            "net_amount": -72.34,
+            "leader": "ST南都",
+            "leader_pct": 20.0
+          }
+        ]
+      }
+    },
+    {
+      "sector": "电力设备",
+      "hit": true,
+      "hit_grade": "强命中",
+      "reason": "电池行业+4.02%、净额+64.87；电池与电源设备分支均在涨幅前列，亿纬锂能和中国西电维持正向。",
+      "evidence": {
+        "industry": [
+          {
+            "name": "电池",
+            "rank": 3,
+            "pct": 4.02,
+            "net_amount": 64.87,
+            "leader": "ST南都",
+            "leader_pct": 20.0
+          },
+          {
+            "name": "其他电源设备",
+            "rank": 5,
+            "pct": 3.84,
+            "net_amount": -6.82,
+            "leader": "欧陆通",
+            "leader_pct": 16.12
+          }
+        ],
+        "concept": [
+          {
+            "name": "BC电池",
+            "rank": 9,
+            "pct": 3.5,
+            "net_amount": 18.21,
+            "leader": "先导智能",
+            "leader_pct": 15.96
+          },
+          {
+            "name": "固态电池",
+            "rank": 30,
+            "pct": 2.73,
+            "net_amount": 35.65,
+            "leader": "ST南都",
+            "leader_pct": 20.0
+          },
+          {
+            "name": "钠离子电池",
+            "rank": 34,
+            "pct": 2.64,
+            "net_amount": 46.59,
+            "leader": "ST南都",
+            "leader_pct": 20.0
+          },
+          {
+            "name": "华为数字能源",
+            "rank": 20,
+            "pct": 3.03,
+            "net_amount": 3.01,
+            "leader": "ST南都",
+            "leader_pct": 20.0
+          }
+        ]
+      }
+    },
+    {
+      "sector": "证券",
+      "hit": true,
+      "hit_grade": "弱命中",
+      "reason": "证券行业+0.91%、净额+10.20，方向为正但弹性弱于资源、电池和通信，符合早盘“观察/流动性修复逻辑”而非强主线。",
+      "evidence": {
+        "industry": [
+          {
+            "name": "证券",
+            "rank": 24,
+            "pct": 0.91,
+            "net_amount": 10.2,
+            "leader": "锦龙股份",
+            "leader_pct": 6.58
+          }
+        ]
+      }
+    },
+    {
+      "sector": "通信设备",
+      "hit": true,
+      "hit_grade": "强命中",
+      "reason": "通信设备+3.28%、净额+48.31；光纤概念+3.86%、F5G+3.64%，高景气分支继续扩散。",
+      "evidence": {
+        "industry": [
+          {
+            "name": "通信设备",
+            "rank": 7,
+            "pct": 3.28,
+            "net_amount": 48.31,
+            "leader": "长进光子",
+            "leader_pct": 20.0
+          }
+        ],
+        "concept": [
+          {
+            "name": "光纤概念",
+            "rank": 4,
+            "pct": 3.86,
+            "net_amount": 63.45,
+            "leader": "长进光子",
+            "leader_pct": 20.0
+          },
+          {
+            "name": "F5G概念",
+            "rank": 6,
+            "pct": 3.64,
+            "net_amount": 13.03,
+            "leader": "太辰光",
+            "leader_pct": 18.55
+          }
+        ]
+      }
+    },
+    {
+      "sector": "数字芯片设计",
+      "hit": false,
+      "hit_grade": "未充分命中",
+      "reason": "半导体行业+2.19%、芯片概念+2.29%虽为正，但芯片概念净额-28.71、半导体净额-2.69；观察股立昂微仅+0.15%且开盘至收盘-1.94%，资金确认不足。",
+      "evidence": {
+        "industry": [
+          {
+            "name": "半导体",
+            "rank": 14,
+            "pct": 2.19,
+            "net_amount": -2.69,
+            "leader": "南芯科技",
+            "leader_pct": 20.0
+          }
+        ],
+        "concept": [
+          {
+            "name": "芯片概念",
+            "rank": 47,
+            "pct": 2.29,
+            "net_amount": -28.71,
+            "leader": "鸿仕达",
+            "leader_pct": 23.57
+          },
+          {
+            "name": "存储芯片",
+            "rank": 55,
+            "pct": 2.18,
+            "net_amount": -30.41,
+            "leader": "雅创电子",
+            "leader_pct": 20.0
+          },
+          {
+            "name": "第三代半导体",
+            "rank": 31,
+            "pct": 2.71,
+            "net_amount": -10.75,
+            "leader": "欧陆通",
+            "leader_pct": 16.12
+          }
+        ]
+      }
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "600392",
+      "name": "盛和资源",
+      "sector": "小金属/稀土",
+      "role": "beneficiary",
+      "hit": true,
+      "hit_standard": "report_date_open_to_close >= +0.5pct for beneficiary",
+      "report_time_hold_hit": true,
+      "actual_move": "收盘较昨收+10.00%，开盘至收盘+9.96%，较早盘快照+0.00%",
+      "close_quote": {
+        "ticker": "600392",
+        "name": "盛和资源",
+        "close": 29.03,
+        "prev_close": 26.39,
+        "open": 26.4,
+        "high": 29.03,
+        "low": 26.24,
+        "pct_today": 10.0,
+        "open_to_close_pct": 9.96,
+        "turnover_rate": 11.27,
+        "turnover_amount_billion_cny": 56.28,
+        "market_cap_billion": 508.85,
+        "quote_time": "20260616153129"
+      },
+      "morning_snapshot_price": 29.03,
+      "quality_context": {
+        "trend_score": 4.2,
+        "volume_score": 4.3,
+        "capital_recognition": 4.4,
+        "risk_score": 3.1,
+        "valuation_context": "PE(TTM)约38.86倍；PB约3.95倍，资源景气扩张仍可解释当前估值。",
+        "fundamental_context": "2026-03-31营收同比13.07%；净利同比94.46%；ROE 2.56%；资产负债率36.04%；每股经营现金流-0.34元"
+      }
+    },
+    {
+      "ticker": "600549",
+      "name": "厦门钨业",
+      "sector": "小金属/稀土",
+      "role": "beneficiary",
+      "hit": true,
+      "hit_standard": "report_date_open_to_close >= +0.5pct for beneficiary",
+      "report_time_hold_hit": true,
+      "actual_move": "收盘较昨收+10.00%，开盘至收盘+5.96%，较早盘快照+0.00%",
+      "close_quote": {
+        "ticker": "600549",
+        "name": "厦门钨业",
+        "close": 78.41,
+        "prev_close": 71.28,
+        "open": 74.0,
+        "high": 78.41,
+        "low": 73.81,
+        "pct_today": 10.0,
+        "open_to_close_pct": 5.96,
+        "turnover_rate": 4.01,
+        "turnover_amount_billion_cny": 48.201,
+        "market_cap_billion": 1244.83,
+        "quote_time": "20260616153114"
+      },
+      "morning_snapshot_price": 78.41,
+      "quality_context": {
+        "trend_score": 4.4,
+        "volume_score": 4.2,
+        "capital_recognition": 4.3,
+        "risk_score": 3.0,
+        "valuation_context": "PE(TTM)约28.12倍；PB约7.05倍，资源景气扩张仍可解释当前估值。",
+        "fundamental_context": "2026-03-31营收同比86.99%；净利同比189.14%；ROE 6.24%；资产负债率55.62%；每股经营现金流-1.62元"
+      }
+    },
+    {
+      "ticker": "300014",
+      "name": "亿纬锂能",
+      "sector": "电力设备",
+      "role": "beneficiary",
+      "hit": false,
+      "hit_standard": "report_date_open_to_close >= +0.5pct for beneficiary",
+      "report_time_hold_hit": true,
+      "actual_move": "收盘较昨收+13.80%，开盘至收盘+0.33%，较早盘快照+1.35%",
+      "close_quote": {
+        "ticker": "300014",
+        "name": "亿纬锂能",
+        "close": 66.88,
+        "prev_close": 58.77,
+        "open": 66.66,
+        "high": 67.5,
+        "low": 63.87,
+        "pct_today": 13.8,
+        "open_to_close_pct": 0.33,
+        "turnover_rate": 7.88,
+        "turnover_amount_billion_cny": 109.954,
+        "market_cap_billion": 1453.5,
+        "quote_time": "20260616153048"
+      },
+      "morning_snapshot_price": 65.99,
+      "quality_context": {
+        "trend_score": 4.2,
+        "volume_score": 4.3,
+        "capital_recognition": 4.2,
+        "risk_score": 3.4,
+        "valuation_context": "PE(TTM)约24.79倍；PB约3.32倍，仍需业绩兑现继续消化估值。",
+        "fundamental_context": "2026-03-31营收同比61.61%；净利同比31.35%；ROE 3.35%；资产负债率64.89%；每股经营现金流-0.18元"
+      }
+    },
+    {
+      "ticker": "000657",
+      "name": "中钨高新",
+      "sector": "小金属/稀土",
+      "role": "beneficiary",
+      "hit": true,
+      "hit_standard": "report_date_open_to_close >= +0.5pct for beneficiary",
+      "report_time_hold_hit": true,
+      "actual_move": "收盘较昨收+6.44%，开盘至收盘+3.38%，较早盘快照+1.75%",
+      "close_quote": {
+        "ticker": "000657",
+        "name": "中钨高新",
+        "close": 92.5,
+        "prev_close": 86.9,
+        "open": 89.48,
+        "high": 94.14,
+        "low": 89.01,
+        "pct_today": 6.44,
+        "open_to_close_pct": 3.38,
+        "turnover_rate": 8.47,
+        "turnover_amount_billion_cny": 112.762,
+        "market_cap_billion": 2107.71,
+        "quote_time": "20260616153051"
+      },
+      "morning_snapshot_price": 90.91,
+      "quality_context": {
+        "trend_score": 4.1,
+        "volume_score": 4.0,
+        "capital_recognition": 4.0,
+        "risk_score": 3.5,
+        "valuation_context": "PE(TTM)约56.22倍；PB约19.39倍，资源景气扩张仍可解释当前估值。",
+        "fundamental_context": "2026-03-31营收同比106.47%；净利同比264.44%；ROE 9.03%；资产负债率59.38%；每股经营现金流-0.94元"
+      }
+    },
+    {
+      "ticker": "601179",
+      "name": "中国西电",
+      "sector": "电力设备",
+      "role": "beneficiary",
+      "hit": true,
+      "hit_standard": "report_date_open_to_close >= +0.5pct for beneficiary",
+      "report_time_hold_hit": true,
+      "actual_move": "收盘较昨收+9.99%，开盘至收盘+5.09%，较早盘快照+0.00%",
+      "close_quote": {
+        "ticker": "601179",
+        "name": "中国西电",
+        "close": 16.3,
+        "prev_close": 14.82,
+        "open": 15.51,
+        "high": 16.3,
+        "low": 15.39,
+        "pct_today": 9.99,
+        "open_to_close_pct": 5.09,
+        "turnover_rate": 4.52,
+        "turnover_amount_billion_cny": 37.069,
+        "market_cap_billion": 835.52,
+        "quote_time": "20260616153100"
+      },
+      "morning_snapshot_price": 16.3,
+      "quality_context": {
+        "trend_score": 3.8,
+        "volume_score": 4.0,
+        "capital_recognition": 4.0,
+        "risk_score": 3.0,
+        "valuation_context": "PE(TTM)约60.27倍；PB约3.58倍，仍需业绩兑现继续消化估值。",
+        "fundamental_context": "2026-03-31营收同比4.99%；净利同比17.54%；ROE 1.50%；资产负债率45.05%；每股经营现金流-0.11元"
+      }
+    }
+  ],
+  "observation_stock_bias": {
+    "summary": "未入选观察股中，通信与铜箔高弹性样本出现显著正偏差；数字芯片观察股立昂微走势弱，排除判断有效。偏差说明短线情绪动量在强主题中继续抬升，但估值、ROE、现金流或量能约束仍没有消失。",
+    "rows": [
+      {
+        "ticker": "300570",
+        "name": "太辰光",
+        "sector": "通信设备",
+        "exclusion_reason": "风险过高、综合评级为风险回避",
+        "deviation_grade": "显著偏离",
+        "actual_move": "收盘较昨收+18.55%，开盘至收盘+7.44%，较早盘快照+2.44%",
+        "close_quote": {
+          "ticker": "300570",
+          "name": "太辰光",
+          "close": 263.29,
+          "prev_close": 222.1,
+          "open": 245.06,
+          "high": 263.6,
+          "low": 245.06,
+          "pct_today": 18.55,
+          "open_to_close_pct": 7.44,
+          "turnover_rate": 21.27,
+          "turnover_amount_billion_cny": 104.701,
+          "market_cap_billion": 598.0,
+          "quote_time": "20260616153057"
+        },
+        "fundamental_valuation_explanation": {
+          "valuation_context": "PE(TTM)约221.87倍；PB约33.00倍，通信景气已高度反映，拥挤风险偏高。",
+          "fundamental_context": "2026-03-31营收同比-8.04%；净利同比-17.12%；ROE 3.78%；资产负债率20.69%；每股经营现金流-0.41元",
+          "price_volume_context": {
+            "period_start": "2026-05-27",
+            "period_end": "2026-06-15",
+            "gain_14d_pct": 37.13,
+            "vol_ratio_14d": 1.07,
+            "turnover_pct": 12.46,
+            "close_vs_ma5_pct": 18.58,
+            "close_vs_ma10_pct": 26.19
+          },
+          "risk_score": 4.5,
+          "retail_sentiment": 4.8,
+          "capital_recognition": 4.0
+        }
+      },
+      {
+        "ticker": "605358",
+        "name": "立昂微",
+        "sector": "数字芯片设计",
+        "exclusion_reason": "风险过高、未通过资讯板块筛选",
+        "deviation_grade": "基本符合",
+        "actual_move": "收盘较昨收+0.15%，开盘至收盘-1.94%，较早盘快照-3.21%",
+        "close_quote": {
+          "ticker": "605358",
+          "name": "立昂微",
+          "close": 68.15,
+          "prev_close": 68.05,
+          "open": 69.5,
+          "high": 71.51,
+          "low": 67.79,
+          "pct_today": 0.15,
+          "open_to_close_pct": -1.94,
+          "turnover_rate": 11.82,
+          "turnover_amount_billion_cny": 60.782,
+          "market_cap_billion": 504.68,
+          "quote_time": "20260616153105"
+        },
+        "fundamental_valuation_explanation": {
+          "valuation_context": "PE(TTM)约1804.31倍；PB约7.47倍，国产替代逻辑仍在，但需警惕高估值回撤。",
+          "fundamental_context": "2026-03-31营收同比21.81%；净利同比108.92%；ROE 0.10%；资产负债率57.16%；每股经营现金流0.03元",
+          "price_volume_context": {
+            "period_start": "2026-05-27",
+            "period_end": "2026-06-15",
+            "gain_14d_pct": 20.44,
+            "vol_ratio_14d": 1.06,
+            "turnover_pct": 5.74,
+            "close_vs_ma5_pct": -2.78,
+            "close_vs_ma10_pct": 3.53
+          },
+          "risk_score": 4.0,
+          "retail_sentiment": 4.2,
+          "capital_recognition": 3.8
+        }
+      },
+      {
+        "ticker": "300548",
+        "name": "长芯博创",
+        "sector": "通信设备",
+        "exclusion_reason": "风险过高、综合评级为风险回避",
+        "deviation_grade": "显著偏离",
+        "actual_move": "收盘较昨收+5.38%，开盘至收盘-1.21%，较早盘快照-1.98%",
+        "close_quote": {
+          "ticker": "300548",
+          "name": "长芯博创",
+          "close": 283.3,
+          "prev_close": 268.84,
+          "open": 286.77,
+          "high": 301.62,
+          "low": 282.21,
+          "pct_today": 5.38,
+          "open_to_close_pct": -1.21,
+          "turnover_rate": 10.54,
+          "turnover_amount_billion_cny": 83.228,
+          "market_cap_billion": 834.76,
+          "quote_time": "20260616153133"
+        },
+        "fundamental_valuation_explanation": {
+          "valuation_context": "PE(TTM)约163.68倍；PB约40.26倍，通信景气已高度反映，拥挤风险偏高。",
+          "fundamental_context": "2026-03-31营收同比24.53%；净利同比45.00%；ROE 6.42%；资产负债率28.33%；每股经营现金流0.78元",
+          "price_volume_context": {
+            "period_start": "2026-05-27",
+            "period_end": "2026-06-15",
+            "gain_14d_pct": 16.4,
+            "vol_ratio_14d": 1.32,
+            "turnover_pct": 6.05,
+            "close_vs_ma5_pct": 13.35,
+            "close_vs_ma10_pct": 15.51
+          },
+          "risk_score": 4.2,
+          "retail_sentiment": 4.6,
+          "capital_recognition": 3.8
+        }
+      },
+      {
+        "ticker": "600110",
+        "name": "诺德股份",
+        "sector": "金属新材料/铜箔",
+        "exclusion_reason": "散户情绪过热但主力/量能确认不足、风险过高、未通过资讯板块筛选",
+        "deviation_grade": "显著偏离",
+        "actual_move": "收盘较昨收+9.98%，开盘至收盘+0.00%，较早盘快照+0.00%",
+        "close_quote": {
+          "ticker": "600110",
+          "name": "诺德股份",
+          "close": 15.65,
+          "prev_close": 14.23,
+          "open": 15.65,
+          "high": 15.65,
+          "low": 15.65,
+          "pct_today": 9.98,
+          "open_to_close_pct": 0.0,
+          "turnover_rate": 0.62,
+          "turnover_amount_billion_cny": 1.692,
+          "market_cap_billion": 271.56,
+          "quote_time": "20260616153120"
+        },
+        "fundamental_valuation_explanation": {
+          "valuation_context": "PE(TTM)约169.34倍；PB约4.82倍，主题弹性大但估值不便宜。",
+          "fundamental_context": "2026-03-31营收同比80.42%；净利同比206.42%；ROE 0.71%；资产负债率65.85%；每股经营现金流0.16元",
+          "price_volume_context": {
+            "period_start": "2026-05-27",
+            "period_end": "2026-06-15",
+            "gain_14d_pct": 36.04,
+            "vol_ratio_14d": 0.35,
+            "turnover_pct": 0.52,
+            "close_vs_ma5_pct": 12.22,
+            "close_vs_ma10_pct": 17.75
+          },
+          "risk_score": 4.1,
+          "retail_sentiment": 4.5,
+          "capital_recognition": 3.7
+        }
+      }
+    ]
+  },
+  "fund_direction_bias": {
+    "summary": "早盘资金方向判断偏差不在方向，而在扩散强度：资源、电池、通信和铜箔的强度超过“拥挤分化”中的谨慎预期；证券只温和跟随；芯片方向涨幅不弱但资金净额为负，说明价格反弹与资金确认不同步。",
+    "main_gaps": [
+      "全市场主力净流入接口和个股资金排名接口出现 RemoteDisconnected，资金核对采用行业/概念资金流、成交额、涨跌家数和个股成交表现交叉验证。",
+      "北向资金当日交易状态为3且净买额显示0，无法作为主动方向证据。"
+    ]
+  },
+  "major_bias_causes": [
+    "强主题进入收盘阶段后继续出现涨停和高换手，说明短线情绪资金对稀土、钨、电池、光通信、铜箔的追逐强于早盘保守假设。",
+    "部分高估值通信股虽然基本面和估值不支持进入机会列，但在强产业趋势和资金拥挤下仍可短线冲高，导致未入选观察股产生正偏差。",
+    "芯片设计方向缺少同等强度的主力净额确认，立昂微高估值和弱ROE拖累观察样本表现。",
+    "早盘资金数据存在 partial 缺口，尤其是全市场主力和北向维度不完整，使资金强度判断偏保守。"
+  ],
+  "supplemental_deviation_analysis": [
+    {
+      "ticker": "300570",
+      "name": "太辰光",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "explanation": "收盘+18.55%、开盘至收盘+7.44%，是最大未入选正偏差。估值端PE(TTM)约221.87倍、PB约33倍，2026Q1营收同比-8.04%、净利同比-17.12%，基本面未同步验证当日弹性；量价上换手21.27%，更像强景气分支的高拥挤动量。"
+    },
+    {
+      "ticker": "300548",
+      "name": "长芯博创",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "explanation": "收盘+5.38%，但开盘至收盘-1.21%，说明早盘冲高后分歧加大。PE(TTM)约163.68倍、PB约40.26倍，2026Q1营收和净利增长较好但估值承载要求高，量价解释偏“高位放量分歧”。"
+    },
+    {
+      "ticker": "600110",
+      "name": "诺德股份",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "explanation": "收盘+9.98%，但开高后全天一字/窄幅，换手仅0.62%。PE(TTM)约169.34倍、ROE 0.71%、资产负债率65.85%，早盘因主力/量能确认不足和风险高被排除，方向上错过涨停，质量门槛仍有解释力。"
+    },
+    {
+      "ticker": "605358",
+      "name": "立昂微",
+      "framework": "china-stock-analysis + china-stock-price-analysis",
+      "explanation": "收盘仅+0.15%、开盘至收盘-1.94%，与“风险过高、未通过强主线机会门槛”一致。PE(TTM)约1746-1804倍、ROE约0.10%，芯片概念净额为负，估值和资金两端均解释了弱于主线的表现。"
+    }
+  ],
+  "next_day_weight_conditions": {
+    "raise_weight_conditions": [
+      "小金属/稀土若继续保持行业或稀土永磁概念正涨幅，同时核心股不出现高换手长上影，资源主线证据可继续维持高权重。",
+      "电池/电力设备若行业资金净额继续为正，且业绩兑现样本不低于早盘快照，可提高“业绩+主线+资金”组合的评分权重。",
+      "通信设备若光纤、F5G或PCB等分支净额继续为正，并且高估值样本不再明显放量分歧，可适度提高产业趋势持续性权重。",
+      "铜箔/PET铜箔若延续涨幅和净额正向，同时成交不再是一字或低换手，可把“材料紧平衡+资金确认”从观察条件上调为候选条件。"
+    ],
+    "lower_weight_conditions": [
+      "若上证、深成指与创业板同步转弱，且上涨家数低于下跌家数，降低整体“震荡偏强”权重。",
+      "若小金属、稀土永磁、电池或通信设备出现涨幅为正但净额连续转负，降低主线持续性权重。",
+      "若高估值通信/芯片观察股继续高换手冲高回落，继续提高拥挤惩罚，避免仅因涨幅强而放松风险门槛。",
+      "若证券仍只有温和正涨幅且无法带动成交额扩散，降低流动性修复对券商主线的权重。",
+      "若北向和主力资金接口继续不可用，保持资金维度 partial，不因单日价格强势调整生产阈值。"
+    ]
+  },
+  "lesson": "早盘方向与强主线大体命中，机会列质量门槛有效；但对高景气通信和铜箔的情绪延续偏保守。次日不放松生产门槛，优先观察强主题资金净额和高估值样本是否继续放量分歧。",
+  "compliance_note": "本复盘只做研究核对和权重条件校准，不包含直接买卖、仓位、止损或目标价指令。"
+}

@@ -1,6 +1,6 @@
 ---
 name: daily-a-share-news-impact
-description: Create a daily low-frequency A-share investment-news impact brief for the prior trading-day 09:30 to current trading-day 09:30 China-time window, using Friday 09:30 to Monday 09:30 for Monday runs. Use free available data sources by default, screen sectors first, map sector-qualified stocks, always list the daily top 5 mainline sectors or concepts and up to 10 quality-gated leading stocks, rank top 10 positive and top 10 negative catalysts, screen A-share stocks with a configurable market-cap range that defaults to 100 to 2000 billion CNY after 14-trading-day K-line, volume, retail sentiment, capital recognition, and risk scoring, incorporate whole-market fund-flow direction, persist daily reports by date, and support daily or weekly post-close reviews.
+description: Create a daily low-frequency A-share investment-news impact brief for the prior trading-day 09:30 to current trading-day 09:30 China-time window, using Friday 09:30 to Monday 09:30 for Monday runs. Use free available data sources by default, screen sectors first, map sector-qualified stocks, always list the daily top 5 mainline sectors or concepts and up to 10 quality-gated leading stocks, rank top 10 positive and top 10 negative catalysts, screen A-share stocks after 14-trading-day K-line, volume, retail sentiment, capital recognition, and risk scoring, exclude STAR Market, Beijing Stock Exchange, ST, and delisting-risk stocks from opportunity and pressure columns, incorporate whole-market fund-flow direction, persist daily reports by date, and support daily or weekly post-close reviews.
 ---
 
 # Daily A-Share News Impact
@@ -50,14 +50,14 @@ user explicitly asks for them.
    negative `sector_candidates` before generating stock candidates. Follow
    `references/sector-first-screening.md`.
 8. Generate affected-company candidates only from ranked sectors when the
-   transmission path is explainable. Keep only stocks whose latest available
-   market cap is inside the configured range. The default range is 100 to 2000
-   billion CNY and can be customized with `--min-market-cap-billion` and
-   `--max-market-cap-billion` when running the stock scoring or report assembly
-   scripts. For beneficiary opportunities, require the source sector to pass the
-   strong-mainline gate in `references/fund-flow-and-stock-scoring.md`; weaker
-   positive sectors are observation-only even when individual stock scores look
-   acceptable. Do not place any stock in the
+   transmission path is explainable. Exclude STAR Market（科创板）, Beijing Stock
+   Exchange（北交所）, ST, `*ST`, and delisting-risk stocks from opportunity and
+   pressure columns. Market cap is a display/context field only and must not be
+   used as a hard eligibility gate. For beneficiary opportunities, require the
+   source sector to pass the strong-mainline gate in
+   `references/fund-flow-and-stock-scoring.md`; weaker positive sectors are
+   observation-only even when individual stock scores look acceptable. Do not
+   place any stock in the
    `可能受益A股公司` or `可能承压A股公司` report columns yet.
 9. Check recent K-line and volume behavior for representative affected
    companies or sector ETFs using `references/market-data-checklist.md`. Feed
@@ -83,7 +83,8 @@ user explicitly asks for them.
    gate so stronger 14-day trend, volume, main-capital recognition,
    institution-led slow-grind setup, event alignment, and risk control appear
    first. Treat the institutional trend setup as an internal confirmation
-   factor only, not as a standalone trading method.
+   factor and report annotation only, not as a strict eligibility gate or
+   standalone trading method.
    Only stocks that pass the eligibility gate in
    `references/fund-flow-and-stock-scoring.md` may appear in the
    `可能受益A股公司` or `可能承压A股公司` columns. Stocks must also pass the
@@ -91,8 +92,8 @@ user explicitly asks for them.
 13. Enrich selected stocks only with free available data sources using
     `references/optional-stock-analysis-skills.md`. Treat valuation and
     fundamental outputs as supporting context only; they must not bypass the
-    sector-first, market-cap, price/volume, retail VOC, capital-recognition, or
-    institutional-trend gates. Prefer akshare, Sina, Tencent, Eastmoney,
+    sector-first, board/ST exclusion, price/volume, retail VOC,
+    capital-recognition, or risk gates. Prefer akshare, Sina, Tencent, Eastmoney,
     Baostock, or free-token providers when available. Run
     `scripts/check_optional_data_sources.py` before reporting optional-source
     gaps so the report distinguishes missing dependencies, provider fetch
@@ -203,9 +204,9 @@ user explicitly asks for them.
 - Treat `positive` and `negative` as directional impact on affected A-share
   equities or sectors. Split `mixed` items into two scored directional entries
   when they can affect both winners and losers.
-- Only include A-share companies inside the configured market-cap range in
-  opportunity or pressure tables. The default is 100 to 2000 billion CNY; list
-  out-of-range companies as excluded or observation-only when relevant.
+- Exclude STAR Market（科创板）, Beijing Stock Exchange（北交所）, ST, `*ST`, and
+  delisting-risk stocks from opportunity or pressure tables. Market cap can be
+  displayed as context but is not a hard eligibility gate.
 - State uncertainty explicitly when company exposure is indirect or estimated.
 
 ## Resources
@@ -318,15 +319,11 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/rank_news.py rank \
   --top-negative 10
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/score_stocks.py \
-  --input tmp/a-share-stock-observations.json \
-  --min-market-cap-billion 100 \
-  --max-market-cap-billion 2000
+  --input tmp/a-share-stock-observations.json
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/assemble_report_data.py \
   --input tmp/a-share-brief-bundle.json \
-  --output tmp/a-share-brief-assembled.json \
-  --min-market-cap-billion 100 \
-  --max-market-cap-billion 2000
+  --output tmp/a-share-brief-assembled.json
 
 python3 .agents/skills/daily-a-share-news-impact/scripts/render_report.py \
   --assembled tmp/a-share-brief-assembled.json \

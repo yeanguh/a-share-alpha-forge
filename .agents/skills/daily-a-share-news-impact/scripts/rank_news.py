@@ -39,6 +39,7 @@ class Candidate:
     novelty: float
     liquidity: float
     price_volume: float
+    metadata: dict[str, object]
 
     @property
     def impact_score(self) -> float:
@@ -54,7 +55,7 @@ class Candidate:
         )
 
     def to_ranked_dict(self, rank: int) -> dict[str, float | int | str]:
-        return {
+        ranked: dict[str, float | int | str | object] = {
             "rank": rank,
             "title": self.title,
             "direction": self.direction,
@@ -67,6 +68,8 @@ class Candidate:
             "liquidity": self.liquidity,
             "price_volume": self.price_volume,
         }
+        ranked.update(self.metadata)
+        return ranked
 
 
 def load_trading_calendar(path: Path | None) -> TradingCalendar | None:
@@ -161,6 +164,22 @@ def load_candidates(path: Path) -> list[Candidate]:
         title = item.get("title")
         if not isinstance(title, str) or not title.strip():
             raise ValueError(f"Candidate #{index} must include non-empty `title`")
+        metadata = {
+            key: value
+            for key, value in item.items()
+            if key
+            not in {
+                "title",
+                "direction",
+                "magnitude",
+                "breadth",
+                "immediacy",
+                "confidence",
+                "novelty",
+                "liquidity",
+                "price_volume",
+            }
+        }
         candidates.append(
             Candidate(
                 title=title.strip(),
@@ -172,6 +191,7 @@ def load_candidates(path: Path) -> list[Candidate]:
                 novelty=require_score(item.get("novelty"), "novelty"),
                 liquidity=require_score(item.get("liquidity"), "liquidity"),
                 price_volume=require_score(item.get("price_volume"), "price_volume"),
+                metadata=metadata,
             )
         )
     return candidates

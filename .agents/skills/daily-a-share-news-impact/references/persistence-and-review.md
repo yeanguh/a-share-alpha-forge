@@ -262,20 +262,21 @@ python3 .agents/skills/daily-a-share-news-impact/scripts/scan_selection_threshol
 ```
 
 The helper joins archived `input_bundle.json` scoring dimensions with backtest
-outcomes after applying the active market-cap range. Use it to compare hit
-rate, average return, and sample count. The scanner also evaluates
+outcomes after applying the active board/ST exclusion rules. Use it to compare
+hit rate, average return, and sample count. The scanner also evaluates
 `beneficiary_quality_min`, which applies the opportunity-specific score that
 prioritizes 14-day trend, volume, main-capital recognition, institutional trend
 setup, event alignment, and risk control. Treat quality-score floors as
 deployable only when they pass the same promotion and production-baseline gates
-as every other threshold. The current June 2026 candidate-pool calibration first
-filters out samples outside the default `100-2000` billion CNY range, then scans
-stock and sector thresholds. Beneficiary-only scans are the primary evidence for
-the opportunity pool. The production gate keeps a conservative
-`capital_recognition >= 3.6`, `institutional_trend_score >= 3.5`, and
-`risk_score <= 3.8` overlay because it controlled average return and
-worst-return quality better than the slightly looser best scan on the small June
-sample. It also requires a
+as every other threshold. The current June 2026 candidate-pool calibration
+excludes STAR Market, Beijing Stock Exchange, ST, and delisting-risk stocks,
+then scans stock and sector thresholds. Beneficiary-only scans are the primary
+evidence for the opportunity pool. The production gate keeps a conservative
+`capital_recognition >= 3.6` and `risk_score <= 3.8` overlay because it
+controlled average return and worst-return quality better than the slightly
+looser best scan on the small June sample. `institutional_trend_score` remains
+an auxiliary score and ranking annotation rather than a strict production gate.
+It also requires a
 strong-mainline sector: sector impact, sector price-volume confirmation, and
 sector liquidity confirmation should each be at least `4.0/5`. Pressure rows
 keep tighter deterioration gates of

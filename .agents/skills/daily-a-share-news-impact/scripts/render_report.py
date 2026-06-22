@@ -190,6 +190,8 @@ def candidate_table(rows: list[dict[str, Any]], direction: str) -> list[str]:
         output.append("| - | - | 暂无达标事件 | - | 候选不足 | - | - | - | - |")
         return output
     for row in rows:
+        logic = text(row.get("logic"), "需结合板块与资金确认")
+        short_impact = text(row.get("short_impact"), "一至三个交易日观察")
         output.append(
             "| "
             + " | ".join(
@@ -198,10 +200,10 @@ def candidate_table(rows: list[dict[str, Any]], direction: str) -> list[str]:
                     cell(score(row.get("impact_score"))),
                     cell(row.get("title")),
                     cell(candidate_sector(row)),
-                    "需结合板块与资金确认",
+                    cell(logic),
                     "见个股筛选结果",
                     f"量价{score(row.get('price_volume'))}",
-                    "一至三个交易日观察",
+                    cell(short_impact),
                     cell(row.get("source") or "结构化输入"),
                 ]
             )
@@ -269,6 +271,42 @@ def excluded_table(rows: list[dict[str, Any]]) -> list[str]:
     return output
 
 
+def supplemental_table(rows: list[dict[str, Any]]) -> list[str]:
+    output = [
+        "| 股票 | 最新价 | PE/PB/PS | 财务健康 | 估值补充 | 风险提示 | 补充判断 |",
+        "| --- | ---: | --- | --- | --- | --- | --- |",
+    ]
+    if not rows:
+        output.append("| 暂无补充分析 | - | - | - | - | - | - |")
+        return output
+    for row in rows:
+        output.append(
+            "| "
+            + " | ".join(
+                [
+                    cell(row.get("stock")),
+                    cell(row.get("latest_price")),
+                    cell(row.get("valuation_metrics")),
+                    cell(row.get("financial_health")),
+                    cell(row.get("valuation_summary")),
+                    cell(row.get("risk_note")),
+                    cell(row.get("judgement")),
+                ]
+            )
+            + " |"
+        )
+    return output
+
+
+def supplemental_conclusion_lines(title: str, rows: object) -> list[str]:
+    if not isinstance(rows, list) or not rows:
+        return []
+    output = [f"### {title}", ""]
+    output.extend(f"- {text(row)}" for row in rows)
+    output.append("")
+    return output
+
+
 def render_report(assembled: dict[str, Any]) -> str:
     window = assembled.get("window", {}) if isinstance(assembled.get("window"), dict) else {}
     fund_flow = assembled.get("fund_flow", {}) if isinstance(assembled.get("fund_flow"), dict) else {}
@@ -276,6 +314,12 @@ def render_report(assembled: dict[str, Any]) -> str:
     direction = estimate_market_direction(assembled)
     warnings = assembled.get("warnings", [])
     threshold_config = assembled.get("threshold_config", {})
+    supplemental_rows = assembled.get("supplemental_stock_analysis", [])
+    supplemental_conclusion = (
+        assembled.get("supplemental_conclusion", {})
+        if isinstance(assembled.get("supplemental_conclusion"), dict)
+        else {}
+    )
     lines: list[str] = [
         "# A股投资资讯影响简报",
         "",
@@ -346,6 +390,18 @@ def render_report(assembled: dict[str, Any]) -> str:
         "- 主要下行风险：成交额回落、汇率/利率扰动、强主题拥挤后分化。",
         "- 观察指标：成交额、行业主力净流向、ETF/融资数据、汇率、利率、商品价格和关键政策发布时间。",
         "",
+        "## 补充结论",
+        "",
+        f"- 分析时点：{text(supplemental_conclusion.get('as_of'), '未单独记录，沿用报告生成时点。')}",
+        f"- 方法说明：{text(supplemental_conclusion.get('method_note'), '对筛出的候选股补充公开财务、估值和免费行情交叉验证，仅用于研究分层。')}",
+        "",
+        "### 候选股补充分析摘要",
+        "",
+        *supplemental_table(supplemental_rows if isinstance(supplemental_rows, list) else []),
+        "",
+        *supplemental_conclusion_lines("证据更强", supplemental_conclusion.get("stronger_evidence")),
+        *supplemental_conclusion_lines("仅作观察", supplemental_conclusion.get("observation_only")),
+        *supplemental_conclusion_lines("补充说明", supplemental_conclusion.get("notes")),
         "## 数据留痕与复盘",
         "",
         f"- 日报归档：local/{text(window.get('end'), 'YYYY-MM-DD')[:10]}/",

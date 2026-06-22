@@ -71,17 +71,16 @@ For a final report, prefer at least two available sources for price and volume
 confirmation. If only no-key public quote APIs are available, use them for spot
 quote direction only and keep 14-trading-day K-line confidence limited.
 
-## Market-Cap Gate
+## Security Exclusion Gate
 
-Every stock in the opportunity or pressure table must have latest available
-market cap inside the configured range. The default is 100 to 2000 billion CNY,
-and it can be overridden with `--min-market-cap-billion` and
-`--max-market-cap-billion` in the scoring and assembly scripts. If market cap
-is missing or outside that range, exclude the stock from the table and record
-the reason. Large mega-caps can still be mentioned as index context, and small
-caps can still be mentioned as theme breadth context, but neither should be
-listed as selected stock opportunities unless the run explicitly changes the
-range.
+Market cap is displayed as context only and must not exclude a stock from the
+opportunity or pressure table. Every stock in those tables must still pass the
+sector-first, price/volume, retail VOC, capital-recognition, event-alignment,
+and risk gates.
+
+Exclude STAR Market（科创板）, Beijing Stock Exchange（北交所）, ST, `*ST`, and
+delisting-risk stocks from opportunity and pressure tables. List them under
+excluded/observation notes when they are otherwise relevant to the theme.
 
 ## Interpreting Positive News
 

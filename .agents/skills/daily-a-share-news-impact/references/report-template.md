@@ -49,12 +49,12 @@ candidates and clearly mark their direction. Then list up to 10 leading stocks
 from those mainlines.
 
 The leading-stock list is a market-readout module, not a recommendation table.
-It may include watch-only leaders that fail the active market-cap gate, but
-watch-only leaders must still have confirmed trend, volume, capital
-recognition, direct event alignment, and acceptable risk. Do not fill the table
-with weakly confirmed stocks just to reach 10 rows. Stocks can enter
-`可能受益A股公司` only through the stricter stock opportunity gate in the later
-module.
+Watch-only leaders must still have confirmed trend, volume, capital recognition,
+direct event alignment, and acceptable risk. Do not fill the table with weakly
+confirmed stocks just to reach 10 rows. Stocks can enter `可能受益A股公司` only
+through the stricter stock opportunity gate in the later module. Exclude STAR
+Market（科创板）, Beijing Stock Exchange（北交所）, ST, `*ST`, and delisting-risk
+stocks from both recommendation columns.
 
 ```markdown
 ## 每日主线板块/概念与龙头个股
@@ -117,10 +117,9 @@ Column guidance:
 
 ## 个股机会的筛选结果
 
-Only list stocks inside the configured market-cap range. The default range is
-100 to 2000 billion CNY, and a run can override it with
-`--min-market-cap-billion` and `--max-market-cap-billion`. Stocks outside the
-active range must be placed under excluded/observation notes.
+Market cap is shown for context but is not a hard eligibility gate. Exclude
+STAR Market（科创板）, Beijing Stock Exchange（北交所）, ST, `*ST`, and
+delisting-risk stocks from both opportunity and pressure tables.
 
 ```markdown
 ## 个股机会的筛选结果
@@ -142,15 +141,16 @@ active range must be placed under excluded/observation notes.
 ```
 
 Add `入选状态` or explanatory wording when a stock fails the gate, such as
-`未入选推荐列：市值不在当前参数区间`, `未入选推荐列：未通过资讯板块筛选`,
-`未入选推荐列：机构趋势确认不足`, or `未入选推荐列：散户情绪过热且风险高`.
+`未入选推荐列：科创板股票排除`, `未入选推荐列：北交所股票排除`,
+`未入选推荐列：ST/退市风险股票排除`, `未入选推荐列：未通过资讯板块筛选`,
+`未入选推荐列：资金认可度不足`, or `未入选推荐列：散户情绪过热且风险高`.
 When retail VOC is unavailable, write `VOC数据不足` and lower the confidence of
 the retail sentiment score.
 
 Use `高关注`, `关注`, `中性观察`, `谨慎观察`, or `风险回避` for `综合评级`.
 Use non-personalized tendencies such as `等待放量确认`, `趋势跟踪观察`,
-`等待机构趋势确认`, `回撤后再评估`, `事件落地后再评估`, `风险回避观察`, or
-`仅作主题跟踪`. For pressure candidates that fail the gate, use
+`回撤后再评估`, `事件落地后再评估`, `风险回避观察`, or `仅作主题跟踪`.
+For pressure candidates that fail the gate, use
 `仅作风险跟踪`.
 
 ## 短期市场判断

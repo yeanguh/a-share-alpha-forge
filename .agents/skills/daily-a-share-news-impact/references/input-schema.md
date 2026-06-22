@@ -131,15 +131,18 @@ Use `directional_role` for stock recommendation gating:
 - `pressure`: screen the stock for `可能承压A股公司`.
 - `watch`: stock is relevant but should not enter either recommendation column.
 
-## Market-Cap Gate
+## Security Exclusion Gate
 
-Use `market_cap_billion` for the latest available market cap in CNY billions.
-The stock recommendation gate defaults to
-`100 <= market_cap_billion <= 2000`. Override the range at runtime with
-`--min-market-cap-billion` and `--max-market-cap-billion` when running
-`scripts/score_stocks.py` or `scripts/assemble_report_data.py`. Missing or
-out-of-range market cap must exclude the stock from opportunity and pressure
-tables.
+Use `market_cap_billion` for the latest available market cap in CNY billions as
+display and context only. Missing or out-of-range market cap must not exclude a
+stock from opportunity or pressure tables.
+
+Exclude these stocks from `可能受益A股公司` and `可能承压A股公司`:
+
+- STAR Market / 科创板 tickers, inferred from `688` or `689` prefixes.
+- Beijing Stock Exchange / 北交所 tickers, inferred from `4`, `8`, or `920`
+  prefixes.
+- ST, `*ST`, `SST`, `S*ST`, and delisting-risk names.
 
 ## Sector Candidates
 
@@ -156,12 +159,11 @@ sector candidates with strong impact and price/volume confirmation, then fills
 from the strongest remaining sector candidates when fewer than 5 positive
 mainlines are available. `leading_stocks` contains up to 10 beneficiary-role
 stocks from those mainlines. These rows are a market-readout list, not the
-stricter recommendation list. Watch-only leaders can fail the market-cap gate,
-but they still need confirmed trend, volume, capital recognition, event
-alignment, institutional trend setup, and acceptable risk. Do not fill weakly
-confirmed stocks into the leader table just to reach 10 rows. Rows that fail
-the opportunity gate must keep `eligible_for_recommendation` as `no` with an
-explicit `exclusion_reason`.
+stricter recommendation list. Watch-only leaders still need confirmed trend,
+volume, capital recognition, event alignment, institutional trend setup, and
+acceptable risk. Do not fill weakly confirmed stocks into the leader table just
+to reach 10 rows. Rows that fail the opportunity gate must keep
+`eligible_for_recommendation` as `no` with an explicit `exclusion_reason`.
 
 The assembled output fields have this shape:
 
@@ -248,10 +250,11 @@ recognition gate, event-alignment gate, or risk gate.
 Use `institutional_trend_score` for beneficiary candidates only. It measures
 whether the stock fits an institution-led trend continuation setup: controlled
 positive K-line structure, MA5/MA10/MA20/MA50 alignment, small-candle grind-up
-behavior, healthy pullback volume, and no persistent volume starvation. The
-opportunity gate requires `institutional_trend_score >= 3.5`. Missing values
-default to `0` in `scripts/score_stocks.py`, which excludes the stock from
-`可能受益A股公司` and records `机构趋势确认不足`.
+behavior, healthy pullback volume, and no persistent volume starvation.
+`scripts/score_stocks.py` keeps this field in `research_score` and
+`beneficiary_quality_score`, so it can affect ranking and report annotations,
+but it does not by itself exclude a stock from `可能受益A股公司`. Missing values
+default to `0` and should be reported as weak institutional-trend confirmation.
 
 ## Optional Data Sources
 

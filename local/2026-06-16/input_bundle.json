@@ -1,0 +1,955 @@
+{
+  "window": {
+    "start": "2026-06-15T09:30:00+08:00",
+    "end": "2026-06-16T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "fund_flow": {
+    "direction": "拥挤分化",
+    "pbc_open_market_operation_summary": "6月16日央行开展4495亿元7天期逆回购，利率1.40%，当日1530亿元逆回购到期，单日净投放2965亿元；6月15日另开展4250亿元7天逆回购，并有6000亿元6个月买断式逆回购滚动续作，延续跨季流动性呵护。",
+    "turnover_summary": "截至10:00，沪深两市成交额突破1万亿元，但较上一日同口径缩量超500亿元，量能未形成全面扩散。",
+    "main_flow_summary": "主力资金主要流向小金属、稀土、电力设备、通信设备与通信线缆；计算机、工业金属、非银金融、汽车、医药生物资金流出居前。北向分项未拿到稳定公开快照，按partial处理。",
+    "sector_flow_summary": "行业净流入居前为小金属、电力设备、稀土、通信设备、通信线缆及配套；净流出居前为计算机、工业金属、电子、非银金融、汽车。",
+    "breadth_summary": "上证指数-0.02%，深成指+0.70%，创业板指+1.36%，科创50-0.04%；盘面结构偏向资源+电力设备+通信，市场宽度精确涨跌家数缺口未拿到稳定公开接口。",
+    "data_quality": "partial"
+  },
+  "candidates": [
+    {
+      "title": "央行6月16日开展4495亿元7天逆回购，净投放2965亿元",
+      "direction": "positive",
+      "sector": "证券",
+      "affected_sectors": [
+        "证券",
+        "电力设备",
+        "通信设备"
+      ],
+      "source": "中国人民银行/东方金诚解读",
+      "logic": "短端流动性继续净投放，压低资金面扰动并支撑高弹性成长主题。",
+      "short_impact": "偏利好券商与高弹性成长风格",
+      "magnitude": 4.4,
+      "breadth": 4.5,
+      "immediacy": 4.5,
+      "confidence": 4.8,
+      "novelty": 3.5,
+      "liquidity": 4.7,
+      "price_volume": 3.9
+    },
+    {
+      "title": "6月15日6000亿元6个月买断式逆回购落地，操作后余额维持5.4万亿元",
+      "direction": "positive",
+      "sector": "证券",
+      "affected_sectors": [
+        "证券",
+        "电力设备"
+      ],
+      "source": "中国人民银行/每日经济新闻",
+      "logic": "跨季工具延续呵护信号，有助于稳定中期流动性预期。",
+      "short_impact": "偏利好券商、权重与高弹性成长共振",
+      "magnitude": 4.2,
+      "breadth": 4.2,
+      "immediacy": 4.0,
+      "confidence": 4.6,
+      "novelty": 3.6,
+      "liquidity": 4.6,
+      "price_volume": 3.8
+    },
+    {
+      "title": "美伊签署电子版谅解备忘录、国际油价显著回落，成长风险偏好修复",
+      "direction": "positive",
+      "sector": "电力设备",
+      "affected_sectors": [
+        "电力设备",
+        "通信设备"
+      ],
+      "source": "财新/财联社/Reuters",
+      "logic": "油价回落缓解输入型通胀与地缘风险溢价，利于成长板块估值承压缓解。",
+      "short_impact": "偏利好新能源与成长硬件",
+      "magnitude": 4.0,
+      "breadth": 3.9,
+      "immediacy": 4.2,
+      "confidence": 4.2,
+      "novelty": 3.7,
+      "liquidity": 4.2,
+      "price_volume": 4.0
+    },
+    {
+      "title": "隔夜纳指涨3.07%、费城半导体指数涨4.45%，美光西数等大涨",
+      "direction": "positive",
+      "sector": "数字芯片设计",
+      "affected_sectors": [
+        "数字芯片设计",
+        "通信设备"
+      ],
+      "source": "财联社/新浪财经",
+      "logic": "海外半导体与存储链强势抬升A股算力与芯片设计风险偏好。",
+      "short_impact": "偏利好国产算力、芯片设计与光通信链",
+      "magnitude": 4.1,
+      "breadth": 4.0,
+      "immediacy": 4.3,
+      "confidence": 4.1,
+      "novelty": 3.8,
+      "liquidity": 4.1,
+      "price_volume": 3.9
+    },
+    {
+      "title": "HVLP4代算力铜箔在手订单排至2027年下半年",
+      "direction": "positive",
+      "sector": "金属新材料/铜箔",
+      "affected_sectors": [
+        "金属新材料/铜箔"
+      ],
+      "source": "财联社/新浪财经",
+      "logic": "算力链上游材料紧平衡延续，AI服务器配套材料景气被再次验证。",
+      "short_impact": "偏利好铜箔与高端材料链",
+      "magnitude": 4.0,
+      "breadth": 3.6,
+      "immediacy": 4.1,
+      "confidence": 3.9,
+      "novelty": 4.0,
+      "liquidity": 3.9,
+      "price_volume": 4.1
+    },
+    {
+      "title": "航天科技集团与航天电子在卫星通信降本核心技术上取得突破",
+      "direction": "positive",
+      "sector": "通信设备",
+      "affected_sectors": [
+        "通信设备"
+      ],
+      "source": "财联社/航天科技集团",
+      "logic": "卫星通信终端成本明显下探，有助于提升卫星互联网与通信设备渗透率预期。",
+      "short_impact": "偏利好卫星通信和通信设备",
+      "magnitude": 3.9,
+      "breadth": 3.5,
+      "immediacy": 3.9,
+      "confidence": 4.0,
+      "novelty": 4.2,
+      "liquidity": 4.0,
+      "price_volume": 4.0
+    },
+    {
+      "title": "六氟化钨价格较去年同期上涨232.7%，钨系材料景气强化",
+      "direction": "positive",
+      "sector": "小金属/稀土",
+      "affected_sectors": [
+        "小金属/稀土",
+        "金属新材料/铜箔"
+      ],
+      "source": "财联社/买化塑研究院",
+      "logic": "钨与小金属景气抬升强化资源安全与材料涨价逻辑。",
+      "short_impact": "偏利好小金属、钨链和资源新材料",
+      "magnitude": 4.3,
+      "breadth": 3.8,
+      "immediacy": 4.2,
+      "confidence": 4.0,
+      "novelty": 4.1,
+      "liquidity": 4.5,
+      "price_volume": 4.5
+    },
+    {
+      "title": "亿纬锂能预计上半年净利同比增长95%-110%",
+      "direction": "positive",
+      "sector": "电力设备",
+      "affected_sectors": [
+        "电力设备"
+      ],
+      "source": "公司公告/财联社",
+      "logic": "龙头业绩显著超预期，强化电池与储能链盈利兑现预期。",
+      "short_impact": "偏利好电力设备与储能链",
+      "magnitude": 4.2,
+      "breadth": 3.8,
+      "immediacy": 4.4,
+      "confidence": 4.6,
+      "novelty": 4.0,
+      "liquidity": 4.4,
+      "price_volume": 4.3
+    },
+    {
+      "title": "燧原科技科创板IPO过会，粤芯半导体过会，国产GPU与晶圆制造链再获融资确认",
+      "direction": "positive",
+      "sector": "数字芯片设计",
+      "affected_sectors": [
+        "数字芯片设计"
+      ],
+      "source": "财联社/交易所公开信息",
+      "logic": "国产算力与晶圆制造融资通道顺畅，强化自主可控主线。",
+      "short_impact": "偏利好国产GPU与设计制造链",
+      "magnitude": 4.0,
+      "breadth": 3.9,
+      "immediacy": 4.0,
+      "confidence": 4.2,
+      "novelty": 4.1,
+      "liquidity": 3.8,
+      "price_volume": 3.8
+    },
+    {
+      "title": "立昂微自6月15日起对功率芯片业务全线产品涨价10%-15%",
+      "direction": "positive",
+      "sector": "数字芯片设计",
+      "affected_sectors": [
+        "数字芯片设计"
+      ],
+      "source": "公司公告/财联社",
+      "logic": "功率半导体报价提升显示供需与议价能力改善。",
+      "short_impact": "偏利好功率半导体与国产替代链",
+      "magnitude": 3.8,
+      "breadth": 3.5,
+      "immediacy": 4.1,
+      "confidence": 4.4,
+      "novelty": 3.8,
+      "liquidity": 3.9,
+      "price_volume": 3.7
+    },
+    {
+      "title": "美伊协议令国际油价显著回落，油气开采及服务短线承压",
+      "direction": "negative",
+      "sector": "油气开采及服务",
+      "affected_sectors": [
+        "油气开采及服务"
+      ],
+      "source": "财新/Reuters",
+      "logic": "油价回撤压缩资源股风险溢价与盈利预期。",
+      "short_impact": "偏空油服与油气开采链",
+      "magnitude": 4.2,
+      "breadth": 3.8,
+      "immediacy": 4.2,
+      "confidence": 4.5,
+      "novelty": 3.7,
+      "liquidity": 3.9,
+      "price_volume": 3.9
+    },
+    {
+      "title": "美伊协议全文需待6月19日后披露，地缘缓和仍存反复风险",
+      "direction": "negative",
+      "sector": "油气开采及服务",
+      "affected_sectors": [
+        "油气开采及服务"
+      ],
+      "source": "财联社/《纽约时报》转述",
+      "logic": "地缘风险未完全出清，原油与航运链波动可能反复。",
+      "short_impact": "偏空油运与能源高波动方向",
+      "magnitude": 3.4,
+      "breadth": 3.3,
+      "immediacy": 3.9,
+      "confidence": 3.8,
+      "novelty": 3.6,
+      "liquidity": 3.6,
+      "price_volume": 3.2
+    },
+    {
+      "title": "5月贷款重回正增长，但票据融资放量、居民贷款仍待修复",
+      "direction": "negative",
+      "sector": "地产链/消费金融",
+      "affected_sectors": [
+        "地产链/消费金融"
+      ],
+      "source": "21世纪经济报道/CNR/财新",
+      "logic": "居民信用修复偏弱，地产链和消费金融内生需求仍不足。",
+      "short_impact": "偏空地产后周期与消费金融修复节奏",
+      "magnitude": 4.0,
+      "breadth": 4.3,
+      "immediacy": 3.9,
+      "confidence": 4.2,
+      "novelty": 3.9,
+      "liquidity": 4.1,
+      "price_volume": 2.8
+    },
+    {
+      "title": "CoWoS供需缺口预计到2026年底收窄至约10%，先进封装稀缺溢价面临回落",
+      "direction": "negative",
+      "sector": "先进封装",
+      "affected_sectors": [
+        "先进封装"
+      ],
+      "source": "财联社/供应链调研",
+      "logic": "供给扩张削弱先进封装短期供不应求叙事，压缩估值弹性。",
+      "short_impact": "偏空先进封装高估值溢价",
+      "magnitude": 3.8,
+      "breadth": 3.6,
+      "immediacy": 4.0,
+      "confidence": 3.6,
+      "novelty": 4.0,
+      "liquidity": 3.9,
+      "price_volume": 3.2
+    },
+    {
+      "title": "六氟化钨价格同比大涨232.7%，下游晶圆与材料成本端承压",
+      "direction": "negative",
+      "sector": "下游电子制造",
+      "affected_sectors": [
+        "下游电子制造",
+        "先进封装"
+      ],
+      "source": "财联社/买化塑研究院",
+      "logic": "上游材料涨价将挤压下游部分制造与代工环节利润率。",
+      "short_impact": "偏空成本敏感型半导体制造链",
+      "magnitude": 3.7,
+      "breadth": 3.7,
+      "immediacy": 4.1,
+      "confidence": 4.0,
+      "novelty": 4.0,
+      "liquidity": 3.9,
+      "price_volume": 2.9
+    },
+    {
+      "title": "立昂微功率芯片涨价向下游传导，汽车电子与工控制造成本抬升",
+      "direction": "negative",
+      "sector": "下游电子制造",
+      "affected_sectors": [
+        "下游电子制造"
+      ],
+      "source": "公司公告/财联社",
+      "logic": "功率器件涨价不利于成本转嫁能力偏弱的下游制造环节。",
+      "short_impact": "偏空成本承压的汽车电子与工控制造",
+      "magnitude": 3.5,
+      "breadth": 3.6,
+      "immediacy": 4.0,
+      "confidence": 4.2,
+      "novelty": 3.8,
+      "liquidity": 3.8,
+      "price_volume": 2.8
+    },
+    {
+      "title": "中船特气澄清与台积电长期供货协议传闻不实，半导体材料题材降温",
+      "direction": "negative",
+      "sector": "先进封装",
+      "affected_sectors": [
+        "先进封装"
+      ],
+      "source": "公司互动平台/财联社",
+      "logic": "高景气题材传闻被证伪，半导体材料分支情绪回落。",
+      "short_impact": "偏空高位半导体材料题材",
+      "magnitude": 3.6,
+      "breadth": 3.3,
+      "immediacy": 4.1,
+      "confidence": 4.4,
+      "novelty": 3.7,
+      "liquidity": 3.7,
+      "price_volume": 3.1
+    },
+    {
+      "title": "美国5月制造业产出环比停滞，外需链条面临成本与需求双重压力",
+      "direction": "negative",
+      "sector": "下游电子制造",
+      "affected_sectors": [
+        "下游电子制造"
+      ],
+      "source": "财联社/宏观数据",
+      "logic": "海外制造业放缓不利于出口导向型电子与制造企业订单预期。",
+      "short_impact": "偏空外需导向电子制造链",
+      "magnitude": 3.8,
+      "breadth": 3.9,
+      "immediacy": 3.8,
+      "confidence": 4.0,
+      "novelty": 3.5,
+      "liquidity": 4.0,
+      "price_volume": 3.0
+    },
+    {
+      "title": "日本央行料加息至1995年以来最高水平，全球流动性敏感科技估值承压",
+      "direction": "negative",
+      "sector": "计算机/软件服务",
+      "affected_sectors": [
+        "计算机/软件服务"
+      ],
+      "source": "财联社/海外央行预期",
+      "logic": "海外利率抬升压制高估值科技资产风险偏好。",
+      "short_impact": "偏空高估值软件与计算机成长风格",
+      "magnitude": 3.5,
+      "breadth": 4.0,
+      "immediacy": 3.7,
+      "confidence": 3.8,
+      "novelty": 3.5,
+      "liquidity": 4.2,
+      "price_volume": 3.2
+    },
+    {
+      "title": "截至10:00两市成交额虽破1万亿元但较上一日此时缩量超500亿元，计算机/软件服务主力净流出居前",
+      "direction": "negative",
+      "sector": "计算机/软件服务",
+      "affected_sectors": [
+        "计算机/软件服务"
+      ],
+      "source": "财联社/东方财富公开资金流",
+      "logic": "成交缩量且资金继续流出弱势板块，说明反弹承接并不均衡。",
+      "short_impact": "偏空无新增催化的软件与计算机方向",
+      "magnitude": 3.9,
+      "breadth": 4.1,
+      "immediacy": 4.3,
+      "confidence": 4.3,
+      "novelty": 3.4,
+      "liquidity": 4.4,
+      "price_volume": 3.5
+    }
+  ],
+  "sector_candidates": [
+    {
+      "title": "小金属/稀土",
+      "direction": "positive",
+      "magnitude": 4.7,
+      "breadth": 4.2,
+      "immediacy": 4.3,
+      "confidence": 4.4,
+      "novelty": 3.9,
+      "liquidity": 4.7,
+      "price_volume": 4.6
+    },
+    {
+      "title": "电力设备",
+      "direction": "positive",
+      "magnitude": 4.3,
+      "breadth": 4.4,
+      "immediacy": 4.1,
+      "confidence": 4.3,
+      "novelty": 3.7,
+      "liquidity": 4.5,
+      "price_volume": 4.2
+    },
+    {
+      "title": "通信设备",
+      "direction": "positive",
+      "magnitude": 4.1,
+      "breadth": 4.1,
+      "immediacy": 4.0,
+      "confidence": 3.9,
+      "novelty": 3.8,
+      "liquidity": 4.2,
+      "price_volume": 4.0
+    },
+    {
+      "title": "金属新材料/铜箔",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.1,
+      "confidence": 3.8,
+      "novelty": 4.1,
+      "liquidity": 4.0,
+      "price_volume": 4.1
+    },
+    {
+      "title": "数字芯片设计",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 3.9,
+      "immediacy": 4.0,
+      "confidence": 4.1,
+      "novelty": 4.1,
+      "liquidity": 3.9,
+      "price_volume": 3.8
+    },
+    {
+      "title": "证券",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 4.2,
+      "immediacy": 4.1,
+      "confidence": 4.6,
+      "novelty": 3.5,
+      "liquidity": 4.6,
+      "price_volume": 3.4
+    },
+    {
+      "title": "油气开采及服务",
+      "direction": "negative",
+      "magnitude": 4.2,
+      "breadth": 3.8,
+      "immediacy": 4.2,
+      "confidence": 4.4,
+      "novelty": 3.7,
+      "liquidity": 3.9,
+      "price_volume": 3.9
+    },
+    {
+      "title": "地产链/消费金融",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 4.3,
+      "immediacy": 3.9,
+      "confidence": 4.2,
+      "novelty": 3.9,
+      "liquidity": 4.1,
+      "price_volume": 2.8
+    },
+    {
+      "title": "先进封装",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.6,
+      "immediacy": 4.0,
+      "confidence": 3.8,
+      "novelty": 4.0,
+      "liquidity": 3.9,
+      "price_volume": 3.2
+    },
+    {
+      "title": "下游电子制造",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 4.0,
+      "immediacy": 4.0,
+      "confidence": 4.0,
+      "novelty": 3.7,
+      "liquidity": 4.0,
+      "price_volume": 3.0
+    },
+    {
+      "title": "计算机/软件服务",
+      "direction": "negative",
+      "magnitude": 3.9,
+      "breadth": 4.1,
+      "immediacy": 4.1,
+      "confidence": 4.1,
+      "novelty": 3.4,
+      "liquidity": 4.4,
+      "price_volume": 3.5
+    }
+  ],
+  "stocks": [
+    {
+      "ticker": "600392",
+      "name": "盛和资源",
+      "sector": "小金属/稀土",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 508.85,
+      "trend_score": 4.2,
+      "volume_score": 4.3,
+      "retail_sentiment": 4.0,
+      "capital_recognition": 4.4,
+      "event_alignment": 4.5,
+      "institutional_trend_score": 4.2,
+      "risk_score": 3.1,
+      "retail_voc_summary": "稀土/小金属讨论热度明显升温，但筹码博弈仍偏机构化。",
+      "external_data": {
+        "source": "free_public_quote+china-stock-analysis",
+        "data_time": "2026-06-16T10:42+08:00",
+        "quote": {
+          "latest": 29.03,
+          "change_pct": 10.0,
+          "market_cap": 50885000000.0
+        },
+        "valuation_context": "PE(TTM)约38.86倍；PB约3.95倍，资源景气扩张仍可解释当前估值。",
+        "fundamental_context": "2026-03-31营收同比13.07%；净利同比94.46%；ROE 2.56%；资产负债率36.04%；每股经营现金流-0.34元",
+        "holder_context": "本次日报未单独展开股东户数与分红慢接口，避免拖慢主报告。",
+        "data_quality": "partial",
+        "price_context": {
+          "period_start": "2026-05-27",
+          "period_end": "2026-06-15",
+          "gain_14d_pct": 17.03,
+          "vol_ratio_14d": 1.98,
+          "turnover_pct": 7.45,
+          "close_vs_ma5_pct": 5.81,
+          "close_vs_ma10_pct": 10.26
+        }
+      }
+    },
+    {
+      "ticker": "600549",
+      "name": "厦门钨业",
+      "sector": "小金属/稀土",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1244.83,
+      "trend_score": 4.4,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.1,
+      "capital_recognition": 4.3,
+      "event_alignment": 4.5,
+      "institutional_trend_score": 4.1,
+      "risk_score": 3.0,
+      "retail_voc_summary": "钨产业链热度抬升，情绪偏多但尚未失控。",
+      "external_data": {
+        "source": "free_public_quote+china-stock-analysis",
+        "data_time": "2026-06-16T10:42+08:00",
+        "quote": {
+          "latest": 78.41,
+          "change_pct": 10.0,
+          "market_cap": 124483000000.0
+        },
+        "valuation_context": "PE(TTM)约28.12倍；PB约7.05倍，资源景气扩张仍可解释当前估值。",
+        "fundamental_context": "2026-03-31营收同比86.99%；净利同比189.14%；ROE 6.24%；资产负债率55.62%；每股经营现金流-1.62元",
+        "holder_context": "本次日报未单独展开股东户数与分红慢接口，避免拖慢主报告。",
+        "data_quality": "partial",
+        "price_context": {
+          "period_start": "2026-05-27",
+          "period_end": "2026-06-15",
+          "gain_14d_pct": 38.25,
+          "vol_ratio_14d": 1.18,
+          "turnover_pct": 3.59,
+          "close_vs_ma5_pct": 7.61,
+          "close_vs_ma10_pct": 12.81
+        }
+      }
+    },
+    {
+      "ticker": "000657",
+      "name": "中钨高新",
+      "sector": "小金属/稀土",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 2069.43,
+      "trend_score": 4.1,
+      "volume_score": 4.0,
+      "retail_sentiment": 4.4,
+      "capital_recognition": 4.0,
+      "event_alignment": 4.4,
+      "institutional_trend_score": 4.0,
+      "risk_score": 3.5,
+      "retail_voc_summary": "中钨链条热度升温，追价情绪有所抬头。",
+      "external_data": {
+        "source": "free_public_quote+china-stock-analysis",
+        "data_time": "2026-06-16T10:42+08:00",
+        "quote": {
+          "latest": 90.82,
+          "change_pct": 4.51,
+          "market_cap": 206943000000.0
+        },
+        "valuation_context": "PE(TTM)约56.22倍；PB约19.39倍，资源景气扩张仍可解释当前估值。",
+        "fundamental_context": "2026-03-31营收同比106.47%；净利同比264.44%；ROE 9.03%；资产负债率59.38%；每股经营现金流-0.94元",
+        "holder_context": "本次日报未单独展开股东户数与分红慢接口，避免拖慢主报告。",
+        "data_quality": "partial",
+        "price_context": {
+          "period_start": "2026-05-27",
+          "period_end": "2026-06-15",
+          "gain_14d_pct": 34.04,
+          "vol_ratio_14d": 1.13,
+          "turnover_pct": 5.0,
+          "close_vs_ma5_pct": 12.11,
+          "close_vs_ma10_pct": 17.73
+        }
+      }
+    },
+    {
+      "ticker": "300014",
+      "name": "亿纬锂能",
+      "sector": "电力设备",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1440.24,
+      "trend_score": 4.2,
+      "volume_score": 4.3,
+      "retail_sentiment": 4.4,
+      "capital_recognition": 4.2,
+      "event_alignment": 4.4,
+      "institutional_trend_score": 4.0,
+      "risk_score": 3.4,
+      "retail_voc_summary": "业绩预告带动储能/锂电讨论回暖，热度较高但仍有业绩支撑。",
+      "external_data": {
+        "source": "free_public_quote+china-stock-analysis",
+        "data_time": "2026-06-16T10:42+08:00",
+        "quote": {
+          "latest": 66.27,
+          "change_pct": 12.76,
+          "market_cap": 144024000000.0
+        },
+        "valuation_context": "PE(TTM)约24.79倍；PB约3.32倍，仍需业绩兑现继续消化估值。",
+        "fundamental_context": "2026-03-31营收同比61.61%；净利同比31.35%；ROE 3.35%；资产负债率64.89%；每股经营现金流-0.18元",
+        "holder_context": "本次日报未单独展开股东户数与分红慢接口，避免拖慢主报告。",
+        "data_quality": "partial",
+        "price_context": {
+          "period_start": "2026-05-27",
+          "period_end": "2026-06-15",
+          "gain_14d_pct": -9.21,
+          "vol_ratio_14d": 0.78,
+          "turnover_pct": 4.71,
+          "close_vs_ma5_pct": 3.56,
+          "close_vs_ma10_pct": 0.56
+        }
+      }
+    },
+    {
+      "ticker": "601179",
+      "name": "中国西电",
+      "sector": "电力设备",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 835.52,
+      "trend_score": 3.8,
+      "volume_score": 4.0,
+      "retail_sentiment": 3.7,
+      "capital_recognition": 4.0,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 3.8,
+      "risk_score": 3.0,
+      "retail_voc_summary": "特高压与电网设备热度提升，情绪中性偏多。",
+      "external_data": {
+        "source": "free_public_quote+china-stock-analysis",
+        "data_time": "2026-06-16T10:42+08:00",
+        "quote": {
+          "latest": 16.3,
+          "change_pct": 9.99,
+          "market_cap": 83552000000.0
+        },
+        "valuation_context": "PE(TTM)约60.27倍；PB约3.58倍，仍需业绩兑现继续消化估值。",
+        "fundamental_context": "2026-03-31营收同比4.99%；净利同比17.54%；ROE 1.50%；资产负债率45.05%；每股经营现金流-0.11元",
+        "holder_context": "本次日报未单独展开股东户数与分红慢接口，避免拖慢主报告。",
+        "data_quality": "partial",
+        "price_context": {
+          "period_start": "2026-05-27",
+          "period_end": "2026-06-15",
+          "gain_14d_pct": -10.62,
+          "vol_ratio_14d": 1.3,
+          "turnover_pct": 4.13,
+          "close_vs_ma5_pct": 6.34,
+          "close_vs_ma10_pct": 0.62
+        }
+      }
+    },
+    {
+      "ticker": "600110",
+      "name": "诺德股份",
+      "sector": "金属新材料/铜箔",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 271.56,
+      "trend_score": 3.8,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.5,
+      "capital_recognition": 3.7,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 3.6,
+      "risk_score": 4.1,
+      "retail_voc_summary": "算力铜箔概念热度迅速升温，追涨情绪偏高。",
+      "external_data": {
+        "source": "free_public_quote+china-stock-analysis",
+        "data_time": "2026-06-16T10:42+08:00",
+        "quote": {
+          "latest": 15.65,
+          "change_pct": 9.98,
+          "market_cap": 27156000000.0
+        },
+        "valuation_context": "PE(TTM)约169.34倍；PB约4.82倍，主题弹性大但估值不便宜。",
+        "fundamental_context": "2026-03-31营收同比80.42%；净利同比206.42%；ROE 0.71%；资产负债率65.85%；每股经营现金流0.16元",
+        "holder_context": "本次日报未单独展开股东户数与分红慢接口，避免拖慢主报告。",
+        "data_quality": "partial",
+        "price_context": {
+          "period_start": "2026-05-27",
+          "period_end": "2026-06-15",
+          "gain_14d_pct": 36.04,
+          "vol_ratio_14d": 0.35,
+          "turnover_pct": 0.52,
+          "close_vs_ma5_pct": 12.22,
+          "close_vs_ma10_pct": 17.75
+        }
+      }
+    },
+    {
+      "ticker": "300570",
+      "name": "太辰光",
+      "sector": "通信设备",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 593.07,
+      "trend_score": 4.5,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.8,
+      "capital_recognition": 4.0,
+      "event_alignment": 4.2,
+      "institutional_trend_score": 4.4,
+      "risk_score": 4.5,
+      "retail_voc_summary": "卫星通信/光模块讨论热度极高，追涨特征明显。",
+      "external_data": {
+        "source": "free_public_quote+china-stock-analysis",
+        "data_time": "2026-06-16T10:42+08:00",
+        "quote": {
+          "latest": 261.12,
+          "change_pct": 17.57,
+          "market_cap": 59307000000.0
+        },
+        "valuation_context": "PE(TTM)约221.87倍；PB约33.00倍，通信景气已高度反映，拥挤风险偏高。",
+        "fundamental_context": "2026-03-31营收同比-8.04%；净利同比-17.12%；ROE 3.78%；资产负债率20.69%；每股经营现金流-0.41元",
+        "holder_context": "本次日报未单独展开股东户数与分红慢接口，避免拖慢主报告。",
+        "data_quality": "partial",
+        "price_context": {
+          "period_start": "2026-05-27",
+          "period_end": "2026-06-15",
+          "gain_14d_pct": 37.13,
+          "vol_ratio_14d": 1.07,
+          "turnover_pct": 12.46,
+          "close_vs_ma5_pct": 18.58,
+          "close_vs_ma10_pct": 26.19
+        }
+      }
+    },
+    {
+      "ticker": "300548",
+      "name": "长芯博创",
+      "sector": "通信设备",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 859.89,
+      "trend_score": 4.1,
+      "volume_score": 3.8,
+      "retail_sentiment": 4.6,
+      "capital_recognition": 3.8,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 4.0,
+      "risk_score": 4.2,
+      "retail_voc_summary": "光通信主线维持高热，拥挤度偏高。",
+      "external_data": {
+        "source": "free_public_quote+china-stock-analysis",
+        "data_time": "2026-06-16T10:42+08:00",
+        "quote": {
+          "latest": 291.83,
+          "change_pct": 8.55,
+          "market_cap": 85989000000.0
+        },
+        "valuation_context": "PE(TTM)约163.68倍；PB约40.26倍，通信景气已高度反映，拥挤风险偏高。",
+        "fundamental_context": "2026-03-31营收同比24.53%；净利同比45.00%；ROE 6.42%；资产负债率28.33%；每股经营现金流0.78元",
+        "holder_context": "本次日报未单独展开股东户数与分红慢接口，避免拖慢主报告。",
+        "data_quality": "partial",
+        "price_context": {
+          "period_start": "2026-05-27",
+          "period_end": "2026-06-15",
+          "gain_14d_pct": 16.4,
+          "vol_ratio_14d": 1.32,
+          "turnover_pct": 6.05,
+          "close_vs_ma5_pct": 13.35,
+          "close_vs_ma10_pct": 15.51
+        }
+      }
+    },
+    {
+      "ticker": "605358",
+      "name": "立昂微",
+      "sector": "数字芯片设计",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 522.08,
+      "trend_score": 3.9,
+      "volume_score": 3.9,
+      "retail_sentiment": 4.2,
+      "capital_recognition": 3.8,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 3.7,
+      "risk_score": 4.0,
+      "retail_voc_summary": "涨价催化提升关注度，但分歧明显加大。",
+      "external_data": {
+        "source": "free_public_quote+china-stock-analysis",
+        "data_time": "2026-06-16T10:42+08:00",
+        "quote": {
+          "latest": 70.5,
+          "change_pct": 3.6,
+          "market_cap": 52208000000.0
+        },
+        "valuation_context": "PE(TTM)约1804.31倍；PB约7.47倍，国产替代逻辑仍在，但需警惕高估值回撤。",
+        "fundamental_context": "2026-03-31营收同比21.81%；净利同比108.92%；ROE 0.10%；资产负债率57.16%；每股经营现金流0.03元",
+        "holder_context": "本次日报未单独展开股东户数与分红慢接口，避免拖慢主报告。",
+        "data_quality": "partial",
+        "price_context": {
+          "period_start": "2026-05-27",
+          "period_end": "2026-06-15",
+          "gain_14d_pct": 20.44,
+          "vol_ratio_14d": 1.06,
+          "turnover_pct": 5.74,
+          "close_vs_ma5_pct": -2.78,
+          "close_vs_ma10_pct": 3.53
+        }
+      }
+    }
+  ],
+  "evidence_gaps": [
+    "Python 直连部分免费行情源存在 SSL 或远端断连问题，本次最新价改用 Tencent no-key 公共行情，14日K线改用 Sina 公共日K接口。",
+    "全市场精确涨跌家数、北向资金分时净流入未拿到稳定免费接口，市场宽度与外资部分按 partial 处理。",
+    "Caixin 相关早知道为标题和摘要可见，正文存在付费墙，因此更多作为权威交叉确认，不单独承载个股结论。"
+  ],
+  "optional_data_sources": {
+    "akshare_dependency": {
+      "status": "installed",
+      "detail": "akshare=1.18.64, pandas=3.0.0, numpy=2.4.1"
+    },
+    "akshare_fetch": {
+      "status": "fetch_failed",
+      "detail": "东方财富直连超时/断连，K线已降级到 Sina 公共接口。"
+    },
+    "sina_quote": {
+      "status": "available",
+      "detail": "Sina openapi KLine endpoint returned daily bars."
+    },
+    "tencent_quote": {
+      "status": "available",
+      "detail": "Tencent no-key quote endpoint returned realtime quotes."
+    },
+    "eastmoney_quote": {
+      "status": "partial",
+      "detail": "行业资金流接口可用，个股公共 quote 接口不稳定。"
+    },
+    "itick": {
+      "status": "missing_credentials",
+      "detail": "`ITICK_API_TOKEN` is not set."
+    },
+    "zhitu": {
+      "status": "fetch_failed",
+      "detail": "Python SSL 校验失败，未用于本次个股分析。"
+    },
+    "baostock": {
+      "status": "missing_dependency",
+      "detail": "`baostock` is not installed."
+    }
+  },
+  "supplemental_stock_analysis": [
+    {
+      "stock": "600392 盛和资源",
+      "latest_price": "29.03",
+      "valuation_metrics": "PE(TTM)约38.86倍 / PB约3.95倍，资源景气扩张仍可解释当前估值。",
+      "financial_health": "2026-03-31营收同比13.07%；净利同比94.46%；ROE 2.56%；资产负债率36.04%；每股经营现金流-0.34元",
+      "valuation_summary": "PE(TTM)约38.86倍；PB约3.95倍，资源景气扩张仍可解释当前估值。",
+      "risk_note": "主线、量价与资金认可度同步，补充估值仍在可解释区间内。",
+      "judgement": "证据更强"
+    },
+    {
+      "stock": "600549 厦门钨业",
+      "latest_price": "78.41",
+      "valuation_metrics": "PE(TTM)约28.12倍 / PB约7.05倍，资源景气扩张仍可解释当前估值。",
+      "financial_health": "2026-03-31营收同比86.99%；净利同比189.14%；ROE 6.24%；资产负债率55.62%；每股经营现金流-1.62元",
+      "valuation_summary": "PE(TTM)约28.12倍；PB约7.05倍，资源景气扩张仍可解释当前估值。",
+      "risk_note": "资源景气与业绩弹性同步验证，但短线涨幅已大，继续看量价延续。",
+      "judgement": "证据更强"
+    },
+    {
+      "stock": "300014 亿纬锂能",
+      "latest_price": "66.27",
+      "valuation_metrics": "PE(TTM)约24.79倍 / PB约3.32倍，仍需业绩兑现继续消化估值。",
+      "financial_health": "2026-03-31营收同比61.61%；净利同比31.35%；ROE 3.35%；资产负债率64.89%；每股经营现金流-0.18元",
+      "valuation_summary": "PE(TTM)约24.79倍；PB约3.32倍，仍需业绩兑现继续消化估值。",
+      "risk_note": "业绩预告提供基本面支撑，PE/PB 仍处于可跟踪区间。",
+      "judgement": "证据更强"
+    },
+    {
+      "stock": "000657 中钨高新",
+      "latest_price": "90.82",
+      "valuation_metrics": "PE(TTM)约56.22倍 / PB约19.39倍，资源景气扩张仍可解释当前估值。",
+      "financial_health": "2026-03-31营收同比106.47%；净利同比264.44%；ROE 9.03%；资产负债率59.38%；每股经营现金流-0.94元",
+      "valuation_summary": "PE(TTM)约56.22倍；PB约19.39倍，资源景气扩张仍可解释当前估值。",
+      "risk_note": "主题强但 PB 偏高且情绪升温过快，补充证据不如前三只扎实。",
+      "judgement": "仅作观察"
+    },
+    {
+      "stock": "601179 中国西电",
+      "latest_price": "16.30",
+      "valuation_metrics": "PE(TTM)约60.27倍 / PB约3.58倍，仍需业绩兑现继续消化估值。",
+      "financial_health": "2026-03-31营收同比4.99%；净利同比17.54%；ROE 1.50%；资产负债率45.05%；每股经营现金流-0.11元",
+      "valuation_summary": "PE(TTM)约60.27倍；PB约3.58倍，仍需业绩兑现继续消化估值。",
+      "risk_note": "事件催化明确，但 ROE 偏低且 14 日趋势仍待继续确认。",
+      "judgement": "仅作观察"
+    },
+    {
+      "stock": "605358 立昂微",
+      "latest_price": "70.50",
+      "valuation_metrics": "PE(TTM)约1804.31倍 / PB约7.47倍，国产替代逻辑仍在，但需警惕高估值回撤。",
+      "financial_health": "2026-03-31营收同比21.81%；净利同比108.92%；ROE 0.10%；资产负债率57.16%；每股经营现金流0.03元",
+      "valuation_summary": "PE(TTM)约1804.31倍；PB约7.47倍，国产替代逻辑仍在，但需警惕高估值回撤。",
+      "risk_note": "未通过强主线机会门槛，且高估值/高波动风险仍然突出。",
+      "judgement": "仅作观察"
+    }
+  ],
+  "supplemental_conclusion": {
+    "as_of": "2026-06-16 10:42",
+    "method_note": "在日内新闻、板块、资金与14日量价筛选之外，补充使用 china-stock-analysis 的公开财务摘要，以及 china-stock-price-analysis 的 PE/PB 相对估值框架做研究分层；行情仍使用免费公开源，不启用付费 QVeris。",
+    "stronger_evidence": [
+      "600392 盛和资源：主线、14日量价和资金认可度同步，补充估值仍处于主题可解释区间。",
+      "600549 厦门钨业：景气、业绩和量价共振更完整，但短线涨幅较大，适合作为强主线跟踪样本。",
+      "300014 亿纬锂能：业绩预告强化基本面支撑，PE/PB 相对更可跟踪，但仍要留意负债率与现金流。"
+    ],
+    "observation_only": [
+      "000657 中钨高新：主线景气明确，但 PB 较高、散户热度偏高，补充证据强度弱于前三只。",
+      "601179 中国西电：事件催化成立，但 ROE 偏低、14日趋势并不充分，先维持观察。",
+      "605358 立昂微：高估值与波动风险仍高，且未通过强主线机会门槛，仅保留题材观察。"
+    ],
+    "notes": [
+      "以上分层只用于区分研究证据强弱，不覆盖原始主线筛选结果，也不构成买卖、仓位、止损或目标价指令。"
+    ]
+  }
+}

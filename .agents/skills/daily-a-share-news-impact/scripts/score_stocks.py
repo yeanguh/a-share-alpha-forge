@@ -14,6 +14,26 @@ DirectionalRole = str
 DEFAULT_THRESHOLDS = load_thresholds()
 MIN_MARKET_CAP_BILLION = get_number(DEFAULT_THRESHOLDS, "market_cap_billion", "min")
 MAX_MARKET_CAP_BILLION = get_number(DEFAULT_THRESHOLDS, "market_cap_billion", "max")
+BSE_PREFIXES = ("4", "8", "920")
+STAR_MARKET_PREFIXES = ("688", "689")
+ST_MARKERS = ("ST", "*ST", "SST", "S*ST", "退市")
+
+
+def normalized_ticker(value: str) -> str:
+    return value.strip().upper().replace(".SH", "").replace(".SZ", "").replace(".BJ", "")
+
+
+def is_star_market_ticker(value: str) -> bool:
+    return normalized_ticker(value).startswith(STAR_MARKET_PREFIXES)
+
+
+def is_bse_ticker(value: str) -> bool:
+    return normalized_ticker(value).startswith(BSE_PREFIXES)
+
+
+def is_st_stock_name(value: str) -> bool:
+    normalized = value.strip().upper().replace(" ", "")
+    return any(marker in normalized for marker in ST_MARKERS)
 
 
 @dataclass(frozen=True)
@@ -76,6 +96,20 @@ class StockObservation:
         return any(marker in self.sector for marker in ("有色", "金属", "稀土", "钨", "锡", "铝", "煤", "钢铁"))
 
     @property
+    def excluded_security_reason(self) -> str:
+        if is_star_market_ticker(self.ticker):
+            return "科创板股票排除"
+        if is_bse_ticker(self.ticker):
+            return "北交所股票排除"
+        if is_st_stock_name(self.name):
+            return "ST/退市风险股票排除"
+        return ""
+
+    @property
+    def excluded_security(self) -> bool:
+        return bool(self.excluded_security_reason)
+
+    @property
     def retail_voc_quality_score(self) -> float:
         if self.retail_sentiment == 0:
             return 2.2
@@ -126,7 +160,7 @@ class StockObservation:
 
     @property
     def operation_tendency(self) -> str:
-        if not self.market_cap_in_range:
+        if self.excluded_security:
             if self.directional_role == "pressure":
                 return "仅作风险跟踪"
             return "仅作主题跟踪"
@@ -142,15 +176,13 @@ class StockObservation:
             return "回撤后再评估"
         if self.volume_score < 3:
             return "等待放量确认"
-        if self.institutional_trend_score < 3.5:
-            return "等待机构趋势确认"
         if self.capital_recognition >= 3.8 and self.trend_score >= 3.5:
             return "趋势跟踪观察"
         return "事件落地后再评估"
 
     @property
     def eligible_for_recommendation(self) -> bool:
-        if not self.market_cap_in_range:
+        if self.excluded_security:
             return False
         if self.directional_role == "beneficiary":
             return (
@@ -158,8 +190,6 @@ class StockObservation:
                 and self.trend_score >= self.threshold("stock_gates", "beneficiary", "trend_min")
                 and self.volume_score >= self.threshold("stock_gates", "beneficiary", "volume_min")
                 and self.capital_recognition >= self.threshold("stock_gates", "beneficiary", "capital_recognition_min")
-                and self.institutional_trend_score
-                >= self.threshold("stock_gates", "beneficiary", "institutional_trend_min")
                 and (
                     not self.cyclical_resource_sector
                     or (
@@ -210,10 +240,8 @@ class StockObservation:
         if self.eligible_for_recommendation:
             return ""
         reasons: list[str] = []
-        if self.market_cap_billion is None:
-            reasons.append("未获取市值")
-        elif not self.market_cap_in_range:
-            reasons.append(f"市值不在{self.market_cap_range.description}区间")
+        if self.excluded_security_reason:
+            reasons.append(self.excluded_security_reason)
         if self.directional_role not in {"beneficiary", "pressure"}:
             reasons.append("未设置受益/承压角色")
         if self.event_alignment < self.threshold("stock_gates", "beneficiary", "event_alignment_min"):
@@ -225,8 +253,6 @@ class StockObservation:
                 reasons.append("量能确认不足")
             if self.capital_recognition < self.threshold("stock_gates", "beneficiary", "capital_recognition_min"):
                 reasons.append("资金认可度不足")
-            if self.institutional_trend_score < self.threshold("stock_gates", "beneficiary", "institutional_trend_min"):
-                reasons.append("机构趋势确认不足")
             if self.cyclical_resource_sector and (
                 self.trend_score < self.threshold("stock_gates", "resource_beneficiary", "trend_min")
                 or self.volume_score < self.threshold("stock_gates", "resource_beneficiary", "volume_min")
@@ -433,13 +459,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--min-market-cap-billion",
         type=float,
         default=None,
-        help="Minimum market cap in CNY billions for recommendation eligibility.",
+        help="Deprecated; market cap is retained as display context, not recommendation eligibility.",
     )
     parser.add_argument(
         "--max-market-cap-billion",
         type=float,
         default=None,
-        help="Maximum market cap in CNY billions for recommendation eligibility.",
+        help="Deprecated; market cap is retained as display context, not recommendation eligibility.",
     )
     parser.add_argument("--threshold-config", help="Optional threshold config JSON. Defaults to skill config.")
     parser.set_defaults(func=score_command)
