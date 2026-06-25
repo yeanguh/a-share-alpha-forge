@@ -117,7 +117,7 @@ button:hover {
 
 .segmented {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   border: 1px solid var(--line);
   border-radius: 7px;
   overflow: hidden;
@@ -416,6 +416,25 @@ tr:last-child td {
   border-left: 4px solid var(--strong);
   background: var(--surface-alt);
   color: var(--muted);
+}
+
+.markdown-body figure {
+  margin: 16px 0;
+}
+
+.markdown-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.markdown-body figcaption {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .markdown-body code,

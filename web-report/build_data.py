@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import re
+import shutil
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -9,7 +11,9 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL = ROOT / "local"
+INDUSTRY = ROOT / "industry-analysis"
 OUT = ROOT / "web-report" / "data.js"
+INDUSTRY_ASSETS = ROOT / "web-report" / "industry-assets"
 
 
 def read_text(path: Path) -> str:
@@ -152,15 +156,98 @@ def collect_weeklies() -> list[dict[str, Any]]:
     return items
 
 
+def first_heading(markdown: str, fallback: str) -> str:
+    for line in markdown.splitlines():
+        match = re.match(r"^#\s+(.+?)\s*$", line)
+        if match:
+            return match.group(1)
+    return fallback
+
+
+def extract_report_date(markdown: str, fallback: str) -> str:
+    match = re.search(r"分析日期[：:]\s*(\d{4}-\d{2}-\d{2})", markdown)
+    if match:
+        return match.group(1)
+    match = re.search(r"(\d{4}-\d{2}-\d{2})$", fallback)
+    return match.group(1) if match else ""
+
+
+def rewrite_industry_image_refs(markdown: str, report_dir: Path, asset_slug: str) -> tuple[str, list[dict[str, str]]]:
+    images: list[dict[str, str]] = []
+
+    def repl(match: re.Match[str]) -> str:
+        alt = match.group(1)
+        src = match.group(2)
+        if src.startswith(("http://", "https://", "data:")):
+            images.append({"alt": alt, "src": src})
+            return match.group(0)
+        source = report_dir / src
+        target_src = f"../industry-assets/{asset_slug}/{src}"
+        if source.exists():
+            images.append({"alt": alt, "src": target_src})
+            return f"![{alt}]({target_src})"
+        images.append({"alt": alt, "src": src})
+        return match.group(0)
+
+    return re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", repl, markdown), images
+
+
+def collect_industry_reports() -> list[dict[str, Any]]:
+    if INDUSTRY_ASSETS.exists():
+        shutil.rmtree(INDUSTRY_ASSETS)
+    INDUSTRY_ASSETS.mkdir(parents=True, exist_ok=True)
+
+    if not INDUSTRY.exists():
+        return []
+    items: list[dict[str, Any]] = []
+    for report_dir in sorted(INDUSTRY.iterdir()):
+        if not report_dir.is_dir():
+            continue
+        report_path = report_dir / "report.md"
+        if not report_path.exists():
+            continue
+        asset_dir = report_dir / "assets"
+        if asset_dir.exists():
+            shutil.copytree(asset_dir, INDUSTRY_ASSETS / report_dir.name / "assets", dirs_exist_ok=True)
+
+        markdown, images = rewrite_industry_image_refs(read_text(report_path), report_dir, report_dir.name)
+        source_data = read_json(report_dir / "source_data.json")
+        quality = read_json(report_dir / "quality_report.json")
+        items.append(
+            {
+                "id": report_dir.name,
+                "title": first_heading(markdown, report_dir.name),
+                "date": extract_report_date(markdown, report_dir.name),
+                "markdown": markdown,
+                "sourceData": source_data,
+                "quality": quality,
+                "images": images,
+                "path": str(report_path.relative_to(ROOT)),
+            }
+        )
+    return sorted(items, key=lambda item: (item.get("date") or "", item.get("id") or ""), reverse=True)
+
+
 def main() -> None:
     payload = {
         "generatedAt": datetime.now().astimezone().isoformat(timespec="seconds"),
         "days": collect_days(),
         "weeklies": collect_weeklies(),
+        "industryReports": collect_industry_reports(),
     }
     encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     OUT.write_text(f"window.REPORT_DATA = {encoded};\n", encoding="utf-8")
-    print(json.dumps({"output": str(OUT), "days": len(payload["days"]), "weeklies": len(payload["weeklies"])}, ensure_ascii=False))
+    print(
+        json.dumps(
+            {
+                "output": str(OUT),
+                "days": len(payload["days"]),
+                "weeklies": len(payload["weeklies"]),
+                "industryReports": len(payload["industryReports"]),
+            },
+            ensure_ascii=False,
+        )
+    )
 
 
 if __name__ == "__main__":

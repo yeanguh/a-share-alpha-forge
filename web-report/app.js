@@ -1,4 +1,4 @@
-const data = window.REPORT_DATA || { days: [], weeklies: [], generatedAt: "" };
+const data = window.REPORT_DATA || { days: [], weeklies: [], industryReports: [], generatedAt: "" };
 
 const state = {
   view: "daily",
@@ -90,6 +90,15 @@ function renderMarkdown(markdown) {
       continue;
     }
 
+    const image = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (image) {
+      closeList();
+      html += `<figure><img src="${escapeHtml(image[2])}" alt="${escapeHtml(image[1])}" loading="lazy" />${
+        image[1] ? `<figcaption>${escapeHtml(image[1])}</figcaption>` : ""
+      }</figure>`;
+      continue;
+    }
+
     if (/^\|.+\|$/.test(line) && i + 1 < lines.length && /^\|\s*-+/.test(lines[i + 1])) {
       closeList();
       const headers = line.split("|").slice(1, -1).map((cell) => cell.trim());
@@ -151,6 +160,15 @@ function inlineMarkdown(text) {
 }
 
 function getItems() {
+  if (state.view === "industry") {
+    return (data.industryReports || [])
+      .filter((item) => {
+        const text = `${item.title} ${item.id} ${item.date} ${item.markdown}`.toLowerCase();
+        return !state.query || text.includes(state.query.toLowerCase());
+      })
+      .map((item) => ({ type: "industry", key: item.id, label: item.title, raw: item }));
+  }
+
   if (state.view === "weekly") {
     return data.weeklies
       .filter((item) => {
@@ -202,19 +220,27 @@ function renderList(items) {
     .map((item) => {
       const day = item.raw;
       const isWeekly = item.type === "weekly";
-      const badges = isWeekly
+      const isIndustry = item.type === "industry";
+      const badges = isIndustry
+        ? [
+            '<span class="badge good">产业链</span>',
+            item.raw.quality?.passed ? '<span class="badge good">质检通过</span>' : '<span class="badge">未质检</span>',
+          ].join("")
+        : isWeekly
         ? '<span class="badge">周报</span>'
         : [
             day.hasDaily ? '<span class="badge good">日报</span>' : '<span class="badge">日报缺失</span>',
             day.hasCloseReview ? '<span class="badge good">复盘</span>' : '<span class="badge">未复盘</span>',
             day.closeReview?.directionHit === false ? '<span class="badge bad">方向偏差</span>' : "",
           ].join("");
-      const subtitle = isWeekly
+      const subtitle = isIndustry
+        ? `${item.raw.date || "未标日期"} · ${item.raw.sourceData?.sources?.length || 0} 条证据`
+        : isWeekly
         ? "周度表现与校准建议"
         : `${day.fundFlow?.direction || "资金方向未记录"} · 主线 ${day.mainlines?.length || 0}`;
       return `
         <button class="date-item ${item.key === state.selected ? "active" : ""}" data-key="${escapeHtml(item.key)}" type="button">
-          <span class="date-line"><span>${escapeHtml(item.label)}</span>${!isWeekly ? hitBadge(day.closeReview?.directionHit) : ""}</span>
+          <span class="date-line"><span>${escapeHtml(item.label)}</span>${!isWeekly && !isIndustry ? hitBadge(day.closeReview?.directionHit) : ""}</span>
           <span class="badges">${badges}</span>
           <span class="badge">${escapeHtml(subtitle)}</span>
         </button>
@@ -249,6 +275,16 @@ function renderMetrics(item) {
     ].join("");
     return;
   }
+  if (item.type === "industry") {
+    const report = item.raw;
+    els.metrics.innerHTML = [
+      metric("报告日期", report.date || "-"),
+      metric("质量门禁", report.quality?.passed ? "通过" : "未通过", report.quality?.total ? `${report.quality.score}/${report.quality.total}` : ""),
+      metric("证据来源", report.sourceData?.sources?.length || 0, report.path || ""),
+      metric("图表资源", report.images?.length || 0, (report.images || []).map((image) => image.alt || "图表").join(" / ")),
+    ].join("");
+    return;
+  }
 
   const day = item.raw;
   els.metrics.innerHTML = [
@@ -276,6 +312,58 @@ function renderSummary(item) {
         <h3>周度摘要</h3>
         <div class="section-body">
           ${lessons.length ? `<ul>${lessons.map((lesson) => `<li>${escapeHtml(lesson)}</li>`).join("")}</ul>` : '<div class="empty">没有结构化摘要</div>'}
+        </div>
+      </div>
+    `;
+    return;
+  }
+  if (item.type === "industry") {
+    const report = item.raw;
+    const checks = report.quality?.checks || [];
+    const sources = report.sourceData?.sources || [];
+    els.summaryPanel.innerHTML = `
+      <div class="section-grid">
+        <div class="section">
+          <h3>报告信息</h3>
+          <div class="section-body">
+            <p><strong>${escapeHtml(report.title)}</strong></p>
+            <p>${escapeHtml(report.path || "")}</p>
+          </div>
+        </div>
+        <div class="section">
+          <h3>质量门禁</h3>
+          <div class="section-body">
+            <p><strong>${report.quality?.passed ? "通过" : "未通过"}</strong></p>
+            <p>${escapeHtml(report.quality?.total ? `${report.quality.score}/${report.quality.total}` : "无质量报告")}</p>
+          </div>
+        </div>
+        <div class="section">
+          <h3>核心检查</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>检查项</th><th>状态</th></tr></thead>
+              <tbody>
+                ${checks
+                  .slice(0, 8)
+                  .map((check) => `<tr><td>${escapeHtml(check.name)}</td><td>${check.passed ? '<span class="badge good">通过</span>' : '<span class="badge bad">失败</span>'}</td></tr>`)
+                  .join("") || '<tr><td colspan="2" class="empty">无检查结果</td></tr>'}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="section">
+          <h3>证据来源</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>来源</th><th>置信度</th><th>标题</th></tr></thead>
+              <tbody>
+                ${sources
+                  .slice(0, 8)
+                  .map((source) => `<tr><td>${escapeHtml(source.tool || "-")}</td><td>${escapeHtml(source.confidence || "-")}</td><td>${escapeHtml(source.title || source.id || "-")}</td></tr>`)
+                  .join("") || '<tr><td colspan="3" class="empty">无来源数据</td></tr>'}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     `;
@@ -382,6 +470,26 @@ function renderDetail(item) {
     els.activeTitle.textContent = item.raw.title;
     els.markdownPanel.innerHTML = renderMarkdown(item.raw.markdown);
     els.dataPanel.innerHTML = `<pre class="json-view"><code>${escapeHtml(JSON.stringify(item.raw.summary || {}, null, 2))}</code></pre>`;
+    return;
+  }
+  if (item.type === "industry") {
+    els.activeType.textContent = "产业链";
+    els.activeTitle.textContent = item.raw.title;
+    els.markdownPanel.innerHTML = renderMarkdown(item.raw.markdown);
+    els.dataPanel.innerHTML = `<pre class="json-view"><code>${escapeHtml(
+      JSON.stringify(
+        {
+          id: item.raw.id,
+          title: item.raw.title,
+          date: item.raw.date,
+          path: item.raw.path,
+          quality: item.raw.quality,
+          sourceData: item.raw.sourceData,
+        },
+        null,
+        2
+      )
+    )}</code></pre>`;
     return;
   }
 
