@@ -1,0 +1,264 @@
+{
+  "review_time": "2026-06-24T15:24:30+08:00",
+  "report_date": "2026-06-24",
+  "source_data": {
+    "morning_report": "local/2026-06-24/report.md",
+    "assembled": "local/2026-06-24/assembled.json",
+    "input_bundle": "local/2026-06-24/input_bundle.json",
+    "selected_backtest": "local/reviews/backtests/backtest_horizon1_min_hit_0p5_2026-06-24.json",
+    "candidate_backtest": "local/reviews/backtests/backtest_candidates_horizon1_min_hit_0p5_2026-06-24.json",
+    "closing_market_sources": "Tencent public quote/K-line; akshare stock_market_activity_legu; akshare stock_fund_flow_industry and stock_fund_flow_concept"
+  },
+  "morning_archive_status": {
+    "report_md": true,
+    "assembled_json": true,
+    "input_bundle_json": true,
+    "gap": ""
+  },
+  "direction_hit": false,
+  "direction_hit_label": "部分命中：结构分化命中，但宽基指数强于“震荡偏弱”表述",
+  "direction_reason": "早盘判断为震荡偏弱、资金拥挤分化。收盘上证指数+0.11%、深证成指+1.24%、创业板指+1.41%、科创50+3.82%，指数强度明显强于偏弱判断；但全市场上涨约1381家、下跌约3768家，涨停106家、跌停66家，说明涨幅主要集中在半导体、CPO、能源金属等局部方向，结构分化判断仍成立。",
+  "average_stock_error": 1.52,
+  "average_beneficiary_error": 1.03,
+  "average_pressure_error": 2.0,
+  "closing_market": {
+    "index_summary": "上证指数+0.11%；深证成指+1.24%；创业板指+1.41%；科创50+3.82%",
+    "breadth_summary": "乐咕乐股15:00口径显示上涨约1381家、下跌约3768家、平盘43家、涨停106家、跌停66家，活跃度约26.52%。",
+    "fund_flow_summary": "同花顺行业资金口径显示半导体+3.80%、净流入约313.48亿元，元件+3.19%、净流入约13.31亿元，医疗服务+0.51%、净流入约12.79亿元；证券-1.99%、净流出约62.53亿元，港口航运-0.48%、净流出约10.59亿元，软件开发-2.58%、净流出约11.09亿元。",
+    "concept_flow_summary": "概念资金口径中中芯国际概念+4.90%、存储芯片+4.04%、共封装光学(CPO)+2.64%，均明显强于早盘Top5；创新药-0.58%、稀土永磁-1.00%、国资云-1.87%、数字货币-2.85%。",
+    "data_quality_note": "指数和个股使用Tencent免费行情；宽度使用乐咕乐股akshare接口；行业/概念资金使用akshare同花顺接口。东财板块接口本次远端断开，未纳入。"
+  },
+  "sector_hits": [
+    {
+      "sector": "创新药/医疗服务",
+      "hit": true,
+      "hit_level": "partial",
+      "actual_move": "医疗服务+0.51%、净流入约12.79亿元；CRO概念+0.17%、净流入约12.75亿元；创新药-0.58%、净流入约16.87亿元；恒瑞医药+2.59%、博腾股份+7.65%。",
+      "reason": "个股和部分子行业命中，资金仍有净流入，但创新药指数本身收跌，板块扩散不如早盘排序强。"
+    },
+    {
+      "sector": "证券",
+      "hit": false,
+      "hit_level": "weak",
+      "actual_move": "证券行业-1.99%、净流出约62.53亿元；招商证券+0.90%，中信证券-1.52%。",
+      "reason": "早盘把流动性净投放和权重风格映射到券商板块偏乐观，收盘行业资金明显流出，只有少数个股相对抗跌。"
+    },
+    {
+      "sector": "港口航运",
+      "hit": true,
+      "hit_level": "partial",
+      "actual_move": "港口航运行业-0.48%、净流出约10.59亿元；招商轮船+9.99%、中远海能+10.02%。",
+      "reason": "代表股强命中且涨停维持，但行业整体未同步转强，命中主要来自油运/航运核心股而非板块普涨。"
+    },
+    {
+      "sector": "国际工程",
+      "hit": true,
+      "hit_level": "partial",
+      "actual_move": "中工国际+10.01%，开盘到收盘+8.35%；相关建筑装饰行业-1.55%、净流出约21.64亿元。",
+      "reason": "中工国际作为观察龙头强命中，但更像单股主题强化，行业层面没有资金扩散。"
+    },
+    {
+      "sector": "汽车后市场",
+      "hit": false,
+      "hit_level": "weak",
+      "actual_move": "汽车服务及其他-1.22%、净流入约0.83亿元；国机汽车-1.73%，开盘到收盘-3.95%。",
+      "reason": "政策利多未转化为收盘价格承接，早盘列为观察而未进入机会列的处理得到验证。"
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "601872",
+      "name": "招商轮船",
+      "sector": "港口航运",
+      "role": "beneficiary",
+      "hit": true,
+      "actual_change_pct": 9.99,
+      "open_to_close_pct": 5.79,
+      "turnover_pct": 1.32,
+      "actual_move": "收盘+9.99%，开盘到收盘+5.79%，涨停维持。",
+      "explanation": "航运核心股资金承接强，个股强于港口航运行业整体。"
+    },
+    {
+      "ticker": "600026",
+      "name": "中远海能",
+      "sector": "港口航运",
+      "role": "beneficiary",
+      "hit": true,
+      "actual_change_pct": 10.02,
+      "open_to_close_pct": 6.63,
+      "turnover_pct": 3.3,
+      "actual_move": "收盘+10.02%，开盘到收盘+6.63%，涨停维持。",
+      "explanation": "油运龙头的趋势和量价确认继续有效，是早盘受益栏最清晰样本之一。"
+    },
+    {
+      "ticker": "600999",
+      "name": "招商证券",
+      "sector": "证券",
+      "role": "beneficiary",
+      "hit": true,
+      "actual_change_pct": 0.9,
+      "open_to_close_pct": 1.76,
+      "turnover_pct": 2.49,
+      "actual_move": "收盘+0.90%，开盘到收盘+1.76%。",
+      "explanation": "个股勉强命中0.5%阈值，但证券行业净流出，质量弱于医药和航运。"
+    },
+    {
+      "ticker": "600276",
+      "name": "恒瑞医药",
+      "sector": "创新药/医疗服务",
+      "role": "beneficiary",
+      "hit": true,
+      "actual_change_pct": 2.59,
+      "open_to_close_pct": 2.59,
+      "turnover_pct": 2.13,
+      "actual_move": "收盘+2.59%，开盘到收盘+2.59%。",
+      "explanation": "医药龙头走势好于创新药概念本身，资金承接和基本面改善仍提供支撑。"
+    },
+    {
+      "ticker": "600030",
+      "name": "中信证券",
+      "sector": "证券",
+      "role": "beneficiary",
+      "hit": false,
+      "actual_change_pct": -1.52,
+      "open_to_close_pct": -1.03,
+      "turnover_pct": 2.27,
+      "actual_move": "收盘-1.52%，开盘到收盘-1.03%。",
+      "explanation": "权重券商未获得行业资金支持，早盘对券商权重承接的泛化偏强。"
+    },
+    {
+      "ticker": "300363",
+      "name": "博腾股份",
+      "sector": "创新药/医疗服务",
+      "role": "beneficiary",
+      "hit": true,
+      "actual_change_pct": 7.65,
+      "open_to_close_pct": 7.21,
+      "turnover_pct": 8.44,
+      "actual_move": "收盘+7.65%，开盘到收盘+7.21%。",
+      "explanation": "CRO/减肥药弹性股显著命中，但换手较高，仍按高波动样本处理。"
+    },
+    {
+      "ticker": "600549",
+      "name": "厦门钨业",
+      "sector": "钨/稀土/小金属",
+      "role": "pressure",
+      "hit": true,
+      "actual_change_pct": -2.81,
+      "open_to_close_pct": -1.77,
+      "turnover_pct": 7.33,
+      "actual_move": "收盘-2.81%，开盘到收盘-1.77%。",
+      "explanation": "资源股高位兑现仍在，压力方向命中。"
+    },
+    {
+      "ticker": "600392",
+      "name": "盛和资源",
+      "sector": "钨/稀土/小金属",
+      "role": "pressure",
+      "hit": false,
+      "actual_change_pct": 1.84,
+      "open_to_close_pct": 2.0,
+      "turnover_pct": 11.82,
+      "actual_move": "收盘+1.84%，开盘到收盘+2.00%。",
+      "explanation": "稀土链分化，高换手反弹抵消了早盘压力判断，是承压栏主要反向偏差。"
+    },
+    {
+      "ticker": "002261",
+      "name": "拓维信息",
+      "sector": "国产软件/国资云",
+      "role": "pressure",
+      "hit": true,
+      "actual_change_pct": -2.08,
+      "open_to_close_pct": -1.22,
+      "turnover_pct": 4.87,
+      "actual_move": "收盘-2.08%，开盘到收盘-1.22%。",
+      "explanation": "软件开发和国资云资金均弱，压力方向命中。"
+    },
+    {
+      "ticker": "603123",
+      "name": "翠微股份",
+      "sector": "金融信息服务/数字货币",
+      "role": "pressure",
+      "hit": true,
+      "actual_change_pct": -5.6,
+      "open_to_close_pct": -5.08,
+      "turnover_pct": 3.41,
+      "actual_move": "收盘-5.60%，开盘到收盘-5.08%。",
+      "explanation": "数字货币概念-2.85%，金融信息服务弹性方向继续承压，压力命中较强。"
+    }
+  ],
+  "observation_deviations": [
+    {
+      "ticker": "002051",
+      "name": "中工国际",
+      "type": "未入选观察股正向偏差",
+      "actual_move": "收盘+10.01%，开盘到收盘+8.35%，换手约6.87%。",
+      "explanation": "早盘因资金认可度不足、未通过资讯板块筛选而未进入机会列，但单股涨停维持。偏差主要来自国际工程主题日内强化，不宜单日反推放松主线资金门槛。",
+      "fundamental_valuation_note": "腾讯收盘口径PE约64.01倍、PB约1.45倍；早盘归档财务数据显示2026Q1归母净利同比-40.4%、经营现金流为负，说明本次上涨更多是题材和量价驱动。"
+    },
+    {
+      "ticker": "000988",
+      "name": "华工科技",
+      "type": "未入选观察股正向偏差",
+      "actual_move": "收盘+2.58%，开盘到收盘+3.64%，换手约5.46%。",
+      "explanation": "CPO概念收盘+2.64%、净流入约214.18亿元，收盘修复强于早盘判断；但同为CPO观察股的中际旭创开盘到收盘-0.11%，说明板块内部仍分化。",
+      "fundamental_valuation_note": "腾讯收盘口径PE约99.34倍、PB约14.76倍，估值对持续高增长要求较高；早盘未入选的风险和资金门槛仍有约束意义。"
+    },
+    {
+      "ticker": "600335",
+      "name": "国机汽车",
+      "type": "未入选观察股排除验证",
+      "actual_move": "收盘-1.73%，开盘到收盘-3.95%，换手约1.37%。",
+      "explanation": "汽车后市场政策利多没有获得价格承接，早盘因14日走势、量能和资金认可不足而排除是有效的。",
+      "fundamental_valuation_note": "腾讯收盘口径PE约18.38倍、PB约0.65倍；低PB没有抵消行业和趋势弱势，股价解释以资金和量价为主。"
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "type": "未入选观察股排除基本有效",
+      "actual_move": "收盘+0.17%，开盘到收盘-0.11%，换手约2.36%。",
+      "explanation": "虽然CPO概念收盘转强，但中际旭创日内承接不足，早盘因量能、资金和风险门槛排除基本有效。",
+      "fundamental_valuation_note": "腾讯收盘口径PE约97.89倍、PB约42.24倍；高估值叠加散户热度偏高时，需要更强的主力资金和量能确认。"
+    },
+    {
+      "ticker": "300124",
+      "name": "汇川技术",
+      "type": "未入选承压观察股边际偏差",
+      "actual_move": "收盘-0.76%，开盘到收盘-0.50%，刚好达到0.5%承压命中阈值。",
+      "explanation": "工业母机和自动化设备偏弱，但汇川技术跌幅有限，早盘未放入承压栏体现了压力栏从严原则；后续只有行业资金继续转弱才提高承压权重。",
+      "fundamental_valuation_note": "腾讯收盘口径PE约37.87倍、PB约5.13倍，估值不低但基本面龙头属性较强，不能仅凭行业回撤放大压力判断。"
+    }
+  ],
+  "pressure_column_review": {
+    "morning_pressure_count": 4,
+    "hit": true,
+    "reason": "4只承压股中3只达到0.5%有效阈值；软件、数字货币和厦门钨业压力命中，主要误差来自盛和资源高换手反弹。压力栏整体有效，但稀土链内部弹性分化需要增加个股量价验证。"
+  },
+  "fund_flow_bias": {
+    "hit_level": "partial",
+    "bias": "早盘正确识别拥挤分化和软件/数字货币压力，但低估了午后半导体、存储芯片、CPO和科创50的资金扩散；同时高估证券、港口航运和创新药作为板块整体的资金持续性。"
+  },
+  "main_bias_causes": [
+    "半导体、存储芯片、CPO午后成为更强资金主线，早盘只把CPO列为观察，未纳入Top5。",
+    "证券行业收盘净流出约62.53亿元，说明流动性净投放不能直接外推为券商板块整体机会。",
+    "港口航运代表股涨停但行业收跌，主线判断受少数龙头强势影响偏大。",
+    "创新药个股命中，但创新药概念和化学制药行业收盘为负，板块扩散强度被早盘高估。",
+    "小金属/稀土链出现高换手分化，厦门钨业压力命中而盛和资源反弹，压力栏需要进一步区分资源细分和个股日内承接。"
+  ],
+  "next_day_weight_conditions": {
+    "raise_weight": [
+      "半导体、存储芯片、先进封装、CPO若继续同时满足板块涨幅为正、资金净流入为正、核心股不只单点上涨，应提高科技硬件主线权重。",
+      "医药链只有在创新药、CRO、医疗服务和化学制药至少两到三个子方向同步转强时，才提高板块级主线权重；否则保留个股分层。",
+      "航运若招商轮船、中远海能之外出现行业多数上涨并且港口航运资金转正，可提高板块扩散权重。",
+      "软件开发、国资云、数字货币若继续净流出且代表股弱于宽基，应维持承压验证权重。"
+    ],
+    "lower_weight": [
+      "证券行业若继续净流出或仅少数券商个股上涨，降低“流动性净投放=券商整体走强”的映射权重。",
+      "汽车后市场若政策利多仍无法带动汽车服务行业和代表股放量，降低政策催化权重。",
+      "国际工程若只有中工国际单股涨停而建筑装饰/工程链资金不扩散，不提高到强主线机会权重。",
+      "资源股承压判断若行业资金转弱但个股换手急升，应降低单纯板块压力的确定性，增加日内量价确认。"
+    ]
+  },
+  "lesson": "今日复盘的核心是结构分化判断有效，但主线排序和大盘强度有偏差：半导体/CPO替代证券、航运、创新药成为收盘更强资金方向；受益栏个股命中率较好，承压栏整体有效但盛和资源反向反弹暴露了资源链细分分化。次日应前置收盘行业资金确认，降低单一龙头对板块主线的放大，继续保持机会栏和压力栏的主线资金门槛。",
+  "compliance_note": "本复盘仅用于研究校准，不构成个性化投资建议，不包含买卖、仓位、止损或目标价指令。"
+}

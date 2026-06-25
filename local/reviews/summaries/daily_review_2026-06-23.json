@@ -1,0 +1,18 @@
+{
+  "frequency": "daily",
+  "summaries": [
+    {
+      "period": "2026-06-23",
+      "review_days": 1,
+      "direction_hit_rate": 0.0,
+      "average_stock_error": 1.82,
+      "sector_hit_rate": 0.8,
+      "sector_sample_count": 5,
+      "stock_hit_rate": 0.9,
+      "stock_sample_count": 10,
+      "lessons": [
+        "今日复盘显示结构筛选有效、压力股更有效，但大盘方向强度低估。后续需在成交放大时区分风险偏好修复与高换手出清；医药小票弹性可作为观察池加权，但不能用单日涨幅放宽基本面和风险门槛。"
+      ]
+    }
+  ]
+}

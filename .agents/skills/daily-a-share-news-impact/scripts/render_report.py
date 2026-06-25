@@ -25,7 +25,7 @@ def text(value: object, default: str = "-") -> str:
 def numeric(value: object, suffix: str = "") -> str:
     if value == "" or value is None:
         return "-"
-    if isinstance(value, int | float):
+    if isinstance(value, (int, float)):
         return f"{value:g}{suffix}"
     return f"{value}{suffix}"
 
@@ -57,13 +57,19 @@ def estimate_market_direction(assembled: dict[str, Any]) -> str:
     positive_score = sum(float(item.get("impact_score", 0)) for item in positive if isinstance(item, dict))
     negative_score = sum(float(item.get("impact_score", 0)) for item in negative if isinstance(item, dict))
     gap = positive_score - negative_score
-    if gap >= 8:
+    threshold_config = assembled.get("threshold_config", {})
+    gaps = threshold_config.get("market_direction_gaps", {}) if isinstance(threshold_config, dict) else {}
+    strong_min = float(gaps.get("strong_min", 8))
+    moderate_strong_min = float(gaps.get("moderate_strong_min", 2))
+    moderate_weak_max = float(gaps.get("moderate_weak_max", -2))
+    weak_max = float(gaps.get("weak_max", -8))
+    if gap >= strong_min:
         return "偏强"
-    if gap >= 2:
+    if gap >= moderate_strong_min:
         return "震荡偏强"
-    if gap <= -8:
+    if gap <= weak_max:
         return "偏弱"
-    if gap <= -2:
+    if gap <= moderate_weak_max:
         return "震荡偏弱"
     return "震荡"
 

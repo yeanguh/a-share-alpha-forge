@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1880" width="1400" height="1880">
+<style>
+text { font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Heiti SC', Arial, sans-serif; fill: #111827; }
+.title { font-size: 34px; font-weight: 700; }
+.subtitle { font-size: 18px; fill: #4b5563; }
+.layer { font-size: 22px; font-weight: 700; }
+.node-title { font-size: 19px; font-weight: 700; }
+.node-sub { font-size: 14px; fill: #4b5563; }
+.small { font-size: 13px; fill: #6b7280; }
+.box { fill: #ffffff; stroke: #d1d5db; stroke-width: 2; rx: 10; ry: 10; }
+.blue { fill: #eff6ff; stroke: #bfdbfe; }
+.green { fill: #f0fdf4; stroke: #bbf7d0; }
+.purple { fill: #faf5ff; stroke: #e9d5ff; }
+.orange { fill: #fff7ed; stroke: #fed7aa; }
+.red { fill: #fef2f2; stroke: #fecaca; }
+.side { fill: #ffffff; stroke: #c4b5fd; stroke-width: 2; stroke-dasharray: 8 6; rx: 10; ry: 10; }
+.commodity { fill: #ffffff; stroke: #fbbf24; stroke-width: 2; stroke-dasharray: 8 6; rx: 10; ry: 10; }
+</style>
+<defs>
+  <marker id="arrow-blue" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#2563eb"/></marker>
+  <marker id="arrow-green" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#16a34a"/></marker>
+  <marker id="arrow-purple" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#9333ea"/></marker>
+  <marker id="arrow-red" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#dc2626"/></marker>
+</defs>
+<rect width="1400" height="1880" fill="#ffffff"/>
+<text x="700" y="56" text-anchor="middle" class="title">液冷服务器产业链全景图谱</text>
+<text x="700" y="88" text-anchor="middle" class="subtitle">AI机架功耗密度提升：冷板/浸没/喷淋路线，连接CDU、冷板、管路、冷却液、测试与运维</text>
+
+<rect x="80" y="130" width="840" height="290" class="blue box"/>
+<text x="110" y="168" class="layer">上游资源、材料与关键部件</text>
+<rect x="120" y="195" width="230" height="82" class="green box"/>
+<text x="235" y="224" text-anchor="middle" class="node-title">金属与结构件</text>
+<text x="235" y="249" text-anchor="middle" class="node-sub">铜/铝/不锈钢、钎焊、机加工</text>
+<text x="235" y="270" text-anchor="middle" class="node-sub">冷板、歧管、快接头</text>
+<rect x="390" y="195" width="230" height="82" class="green box"/>
+<text x="505" y="224" text-anchor="middle" class="node-title">泵阀与传感器</text>
+<text x="505" y="249" text-anchor="middle" class="node-sub">泵、阀、流量/压力/泄漏监测</text>
+<text x="505" y="270" text-anchor="middle" class="node-sub">可靠性与冗余设计</text>
+<rect x="660" y="195" width="220" height="82" class="green box"/>
+<text x="770" y="224" text-anchor="middle" class="node-title">冷却液与化学品</text>
+<text x="770" y="249" text-anchor="middle" class="node-sub">乙二醇/去离子水/氟化液</text>
+<text x="770" y="270" text-anchor="middle" class="node-sub">缓蚀、绝缘、低挥发</text>
+<rect x="120" y="305" width="230" height="82" class="orange box"/>
+<text x="235" y="334" text-anchor="middle" class="node-title">导热与密封材料</text>
+<text x="235" y="359" text-anchor="middle" class="node-sub">TIM、垫片、O形圈、软管</text>
+<text x="235" y="380" text-anchor="middle" class="node-sub">EPDM/FKM/PTFE/PPS</text>
+<rect x="390" y="305" width="230" height="82" class="orange box"/>
+<text x="505" y="334" text-anchor="middle" class="node-title">换热器与风液复合</text>
+<text x="505" y="359" text-anchor="middle" class="node-sub">干冷器、冷却塔、板换</text>
+<text x="505" y="380" text-anchor="middle" class="node-sub">自然冷却与余热回收</text>
+<rect x="660" y="305" width="220" height="82" class="orange box"/>
+<text x="770" y="334" text-anchor="middle" class="node-title">检测与施工耗材</text>
+<text x="770" y="359" text-anchor="middle" class="node-sub">气密/质谱检漏、过滤、补液</text>
+<text x="770" y="380" text-anchor="middle" class="node-sub">安装调试、运维备件</text>
+
+<rect x="80" y="505" width="840" height="305" class="blue box"/>
+<text x="110" y="543" class="layer">中游液冷系统集成</text>
+<rect x="120" y="575" width="230" height="82" class="blue box"/>
+<text x="235" y="604" text-anchor="middle" class="node-title">冷板式液冷</text>
+<text x="235" y="629" text-anchor="middle" class="node-sub">GPU/CPU冷板 + 机柜管路</text>
+<text x="235" y="650" text-anchor="middle" class="node-sub">当前AI服务器主线</text>
+<rect x="390" y="575" width="230" height="82" class="blue box"/>
+<text x="505" y="604" text-anchor="middle" class="node-title">CDU与二次侧</text>
+<text x="505" y="629" text-anchor="middle" class="node-sub">泵、板换、控制、冗余</text>
+<text x="505" y="650" text-anchor="middle" class="node-sub">连接机柜与冷源</text>
+<rect x="660" y="575" width="220" height="82" class="blue box"/>
+<text x="770" y="604" text-anchor="middle" class="node-title">浸没/喷淋路线</text>
+<text x="770" y="629" text-anchor="middle" class="node-sub">更高热流密度场景</text>
+<text x="770" y="650" text-anchor="middle" class="node-sub">冷却液成本与兼容性敏感</text>
+<rect x="120" y="685" width="230" height="82" class="purple box"/>
+<text x="235" y="714" text-anchor="middle" class="node-title">机柜与Manifold</text>
+<text x="235" y="739" text-anchor="middle" class="node-sub">快接、盲插、漏液隔离</text>
+<text x="235" y="760" text-anchor="middle" class="node-sub">标准化交付能力</text>
+<rect x="390" y="685" width="230" height="82" class="purple box"/>
+<text x="505" y="714" text-anchor="middle" class="node-title">控制软件与监控</text>
+<text x="505" y="739" text-anchor="middle" class="node-sub">温度/流量/压差闭环</text>
+<text x="505" y="760" text-anchor="middle" class="node-sub">故障预警、能效优化</text>
+<rect x="660" y="685" width="220" height="82" class="purple box"/>
+<text x="770" y="714" text-anchor="middle" class="node-title">测试认证与交付</text>
+<text x="770" y="739" text-anchor="middle" class="node-sub">气密、热循环、腐蚀、振动</text>
+<text x="770" y="760" text-anchor="middle" class="node-sub">客户验证周期是壁垒</text>
+
+<rect x="80" y="890" width="840" height="275" class="blue box"/>
+<text x="110" y="928" class="layer">下游服务器、机房与运营</text>
+<rect x="120" y="960" width="230" height="82" class="green box"/>
+<text x="235" y="989" text-anchor="middle" class="node-title">AI服务器/整机厂</text>
+<text x="235" y="1014" text-anchor="middle" class="node-sub">GPU服务器、NVL机架</text>
+<text x="235" y="1035" text-anchor="middle" class="node-sub">液冷设计前置绑定</text>
+<rect x="390" y="960" width="230" height="82" class="green box"/>
+<text x="505" y="989" text-anchor="middle" class="node-title">AIDC/云厂商</text>
+<text x="505" y="1014" text-anchor="middle" class="node-sub">算力集群采购与运维</text>
+<text x="505" y="1035" text-anchor="middle" class="node-sub">PUE与机架功率约束</text>
+<rect x="660" y="960" width="220" height="82" class="green box"/>
+<text x="770" y="989" text-anchor="middle" class="node-title">机房工程与运维</text>
+<text x="770" y="1014" text-anchor="middle" class="node-sub">管网、冷源、消防、补液</text>
+<text x="770" y="1035" text-anchor="middle" class="node-sub">从设备销售到服务收入</text>
+<rect x="255" y="1070" width="230" height="62" class="orange box"/>
+<text x="370" y="1097" text-anchor="middle" class="node-title">核心指标</text>
+<text x="370" y="1122" text-anchor="middle" class="node-sub">机架kW、PUE、良率、漏液率</text>
+<rect x="515" y="1070" width="230" height="62" class="red box"/>
+<text x="630" y="1097" text-anchor="middle" class="node-title">风险约束</text>
+<text x="630" y="1122" text-anchor="middle" class="node-sub">CAPEX节奏、价格、可靠性事故</text>
+
+<rect x="975" y="130" width="330" height="405" class="side"/>
+<text x="1005" y="168" class="layer">相邻基础设施</text>
+<text x="1015" y="215" class="node-title">电力链</text>
+<text x="1015" y="242" class="node-sub">UPS、配电、母线、电源模块</text>
+<text x="1015" y="292" class="node-title">网络与光模块</text>
+<text x="1015" y="319" class="node-sub">800G/1.6T互连、交换机/NIC</text>
+<text x="1015" y="369" class="node-title">储能与调峰</text>
+<text x="1015" y="396" class="node-sub">园区电力容量与峰谷优化</text>
+<text x="1015" y="446" class="node-title">IDC开发运营</text>
+<text x="1015" y="473" class="node-sub">客户验证、交付能力、运维服务</text>
+
+<rect x="975" y="610" width="330" height="300" class="commodity"/>
+<text x="1005" y="648" class="layer">商品背景与待验证链路</text>
+<text x="1015" y="695" class="node-title">铜、铝、不锈钢</text>
+<text x="1015" y="722" class="node-sub">成本弹性存在，但差异化弱</text>
+<text x="1015" y="772" class="node-title">氟化液/电子化学品</text>
+<text x="1015" y="799" class="node-sub">浸没式相关度高，冷板主线较弱</text>
+<text x="1015" y="849" class="node-title">软管/密封件</text>
+<text x="1015" y="876" class="node-sub">需验证服务器客户与料号</text>
+
+<path d="M500 420 L500 505" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow-blue)"/>
+<path d="M500 810 L500 890" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow-blue)"/>
+<path d="M920 340 C990 340 1000 340 1040 340" stroke="#9333ea" stroke-width="2.5" fill="none" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
+<path d="M920 700 C990 700 1000 735 1040 735" stroke="#dc2626" stroke-width="2.5" fill="none" stroke-dasharray="8 6" marker-end="url(#arrow-red)"/>
+<path d="M235 277 L235 575" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+<path d="M505 277 L505 575" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+<path d="M770 277 L770 575" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+
+<rect x="80" y="1255" width="1225" height="430" class="box"/>
+<text x="110" y="1295" class="layer">A股映射：按直接暴露排序</text>
+<rect x="120" y="1325" width="240" height="88" class="blue box"/>
+<text x="240" y="1357" text-anchor="middle" class="node-title">核心系统商</text>
+<text x="240" y="1384" text-anchor="middle" class="node-sub">英维克、申菱环境、高澜股份</text>
+<rect x="395" y="1325" width="240" height="88" class="green box"/>
+<text x="515" y="1357" text-anchor="middle" class="node-title">温控设备/冷源</text>
+<text x="515" y="1384" text-anchor="middle" class="node-sub">同飞股份、佳力图、科华数据</text>
+<rect x="670" y="1325" width="240" height="88" class="orange box"/>
+<text x="790" y="1357" text-anchor="middle" class="node-title">材料与部件</text>
+<text x="790" y="1384" text-anchor="middle" class="node-sub">飞荣达、科创新源、川环科技</text>
+<rect x="945" y="1325" width="240" height="88" class="purple box"/>
+<text x="1065" y="1357" text-anchor="middle" class="node-title">测试/整机/运营</text>
+<text x="1065" y="1384" text-anchor="middle" class="node-sub">强瑞技术、浪潮信息、润泽科技</text>
+<path d="M240 1413 L240 1480 L515 1480" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#arrow-blue)"/>
+<path d="M515 1413 L515 1480 L790 1480" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+<path d="M790 1413 L790 1480 L1065 1480" stroke="#9333ea" stroke-width="2" fill="none" marker-end="url(#arrow-purple)"/>
+<text x="120" y="1535" class="node-title">读图方法</text>
+<text x="120" y="1570" class="node-sub">主链看冷板/CDU/系统集成的客户认证和规模交付；上游看泵阀、快接、密封、TIM、冷却液的可靠性。</text>
+<text x="120" y="1600" class="node-sub">相邻链路受同一AI算力资本开支拉动，但不应替代液冷服务器主链排序。</text>
+<text x="120" y="1630" class="node-sub">商品背景输入只有在价格、国产替代或客户认证形成约束时，才进入核心投资线索。</text>
+
+<g transform="translate(90,1740)">
+  <line x1="0" y1="8" x2="40" y2="8" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text x="55" y="14" class="small">主链传导</text>
+  <line x1="180" y1="8" x2="220" y2="8" stroke="#16a34a" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="235" y="14" class="small">关键上游输入</text>
+  <line x1="390" y1="8" x2="430" y2="8" stroke="#9333ea" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
+  <text x="445" y="14" class="small">相邻基础设施</text>
+  <line x1="630" y1="8" x2="670" y2="8" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#arrow-red)"/>
+  <text x="685" y="14" class="small">约束/待验证</text>
+</g>
+</svg>

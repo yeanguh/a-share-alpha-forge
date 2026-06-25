@@ -1,0 +1,18 @@
+{
+  "frequency": "daily",
+  "summaries": [
+    {
+      "period": "2026-06-22",
+      "review_days": 1,
+      "direction_hit_rate": 0.0,
+      "average_stock_error": 1.79,
+      "sector_hit_rate": 0.6,
+      "sector_sample_count": 5,
+      "stock_hit_rate": 1.0,
+      "stock_sample_count": 5,
+      "lessons": [
+        "今日复盘的核心不是机会列失效，而是大盘方向和资金扩散被低估。次日应把午后权重板块资金、行业净流持续性和开盘后承接质量前置；高估值高拥挤观察股即使单日上涨，也只能作为弹性偏差样本继续跟踪。"
+      ]
+    }
+  ]
+}

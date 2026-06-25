@@ -1,0 +1,172 @@
+{
+  "topic": "optical-module-chain-analysis",
+  "generated_at": "2026-06-24T00:00:00+08:00",
+  "notes": [
+    "Reader-facing report uses assets/ relative image paths only.",
+    "Runtime adapter diagnostics are intentionally kept out of report.md."
+  ],
+  "sources": [
+    {
+      "tool": "web",
+      "function_or_path": "NVIDIA AI networking public materials",
+      "subject": "AI data center networking and Spectrum-X direction",
+      "status": "ok",
+      "rows": null,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "OFC and supplier public materials",
+      "subject": "1.6T, 200G/lane, silicon photonics, CPO route",
+      "status": "ok",
+      "rows": null,
+      "error": null,
+      "confidence": "Medium"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "Marvell public materials",
+      "subject": "1.6T DSP route",
+      "status": "fallback",
+      "rows": null,
+      "error": null,
+      "confidence": "Medium"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "300308 中际旭创",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "300502 新易盛",
+      "status": "ok",
+      "rows": 3,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "300394 天孚通信",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "002281 光迅科技",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "688498 源杰科技",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "688313 仕佳光子",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "300620 光库科技",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "301205 联特科技",
+      "status": "ok",
+      "rows": 3,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "603083 剑桥科技",
+      "status": "ok",
+      "rows": 3,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "300548 长芯博创",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "002463 沪电股份",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "600183 生益科技",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "akshare",
+      "function_or_path": "main business text",
+      "subject": "shortlisted optical module A-share companies",
+      "status": "ok",
+      "rows": 14,
+      "error": null,
+      "confidence": "Medium"
+    },
+    {
+      "tool": "efinance",
+      "function_or_path": "quote snapshot",
+      "subject": "shortlisted A-share quotes",
+      "status": "ok",
+      "rows": 14,
+      "error": null,
+      "confidence": "Medium"
+    },
+    {
+      "tool": "efinance",
+      "function_or_path": "base info",
+      "subject": "shortlisted A-share valuation/financial snapshot",
+      "status": "ok",
+      "rows": 14,
+      "error": null,
+      "confidence": "Medium"
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 2100" width="1500" height="2100">
+<style>
+text { font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Heiti SC', Arial, sans-serif; fill: #111827; }
+.title { font-size: 38px; font-weight: 700; }
+.subtitle { font-size: 19px; fill: #4b5563; }
+.layer { font-size: 24px; font-weight: 700; }
+.node-title { font-size: 20px; font-weight: 700; }
+.node-sub { font-size: 15px; fill: #4b5563; }
+.small { font-size: 13px; fill: #6b7280; }
+.box { fill: #ffffff; stroke: #d1d5db; stroke-width: 2; rx: 10; ry: 10; }
+.blue { fill: #eff6ff; stroke: #bfdbfe; }
+.green { fill: #f0fdf4; stroke: #bbf7d0; }
+.purple { fill: #faf5ff; stroke: #e9d5ff; }
+.orange { fill: #fff7ed; stroke: #fed7aa; }
+.red { fill: #fef2f2; stroke: #fecaca; }
+.yellow { fill: #fefce8; stroke: #fde68a; }
+.side { fill: #ffffff; stroke: #c4b5fd; stroke-width: 2; stroke-dasharray: 8 6; rx: 10; ry: 10; }
+.commodity { fill: #ffffff; stroke: #f59e0b; stroke-width: 2; stroke-dasharray: 8 6; rx: 10; ry: 10; }
+</style>
+<defs>
+  <marker id="arrow-blue" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#2563eb"/></marker>
+  <marker id="arrow-green" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#16a34a"/></marker>
+  <marker id="arrow-purple" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#9333ea"/></marker>
+  <marker id="arrow-red" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#dc2626"/></marker>
+</defs>
+<rect width="1500" height="2100" fill="#ffffff"/>
+<text x="750" y="58" text-anchor="middle" class="title">先进封装产业链全景图谱</text>
+<text x="750" y="93" text-anchor="middle" class="subtitle">AI/HPC、HBM与Chiplet驱动：材料、设备、载板、封测和下游算力芯片协同升级</text>
+
+<rect x="80" y="135" width="940" height="430" class="blue box"/>
+<text x="115" y="174" class="layer">上游资源、材料、设备与制程要素</text>
+<rect x="120" y="210" width="250" height="84" class="yellow box"/>
+<text x="245" y="241" text-anchor="middle" class="node-title">基础材料/资源</text>
+<text x="245" y="267" text-anchor="middle" class="node-sub">铜、钨、钽、磷/氟化学品</text>
+<text x="245" y="289" text-anchor="middle" class="node-sub">玻纤、环氧/PI/PPO树脂</text>
+<rect x="405" y="210" width="250" height="84" class="green box"/>
+<text x="530" y="241" text-anchor="middle" class="node-title">封装材料</text>
+<text x="530" y="267" text-anchor="middle" class="node-sub">EMC、Underfill、TIM</text>
+<text x="530" y="289" text-anchor="middle" class="node-sub">临时键合胶、PI、焊球</text>
+<rect x="690" y="210" width="250" height="84" class="green box"/>
+<text x="815" y="241" text-anchor="middle" class="node-title">湿法/CMP/靶材</text>
+<text x="815" y="267" text-anchor="middle" class="node-sub">电镀液、CMP液/垫</text>
+<text x="815" y="289" text-anchor="middle" class="node-sub">铜/钽/钨靶材、电子气</text>
+<rect x="120" y="325" width="250" height="84" class="orange box"/>
+<text x="245" y="356" text-anchor="middle" class="node-title">封装基板/板材</text>
+<text x="245" y="382" text-anchor="middle" class="node-sub">ABF/BT、FCBGA、IC载板</text>
+<text x="245" y="404" text-anchor="middle" class="node-sub">低CTE、低翘曲、细线路</text>
+<rect x="405" y="325" width="250" height="84" class="orange box"/>
+<text x="530" y="356" text-anchor="middle" class="node-title">关键设备</text>
+<text x="530" y="382" text-anchor="middle" class="node-sub">CMP、减薄、划片、键合</text>
+<text x="530" y="404" text-anchor="middle" class="node-sub">刻蚀、沉积、直写光刻</text>
+<rect x="690" y="325" width="250" height="84" class="orange box"/>
+<text x="815" y="356" text-anchor="middle" class="node-title">测试/量测</text>
+<text x="815" y="382" text-anchor="middle" class="node-sub">ATE、探针、AOI、X-ray</text>
+<text x="815" y="404" text-anchor="middle" class="node-sub">KGD与良率闭环</text>
+<rect x="210" y="445" width="275" height="58" class="purple box"/>
+<text x="347" y="480" text-anchor="middle" class="node-title">A股：深南、兴森、生益、南亚</text>
+<rect x="535" y="445" width="310" height="58" class="purple box"/>
+<text x="690" y="480" text-anchor="middle" class="node-title">A股：华海诚科、德邦、安集、鼎龙</text>
+
+<rect x="80" y="655" width="940" height="390" class="blue box"/>
+<text x="115" y="694" class="layer">中游先进封装路线与制造环节</text>
+<rect x="120" y="730" width="250" height="92" class="blue box"/>
+<text x="245" y="762" text-anchor="middle" class="node-title">2.5D/硅中介层/RDL</text>
+<text x="245" y="790" text-anchor="middle" class="node-sub">CoWoS-like、Chiplet、HBM互连</text>
+<text x="245" y="813" text-anchor="middle" class="node-sub">大尺寸、细线宽、翘曲控制</text>
+<rect x="405" y="730" width="250" height="92" class="blue box"/>
+<text x="530" y="762" text-anchor="middle" class="node-title">3D/TSV/Hybrid Bonding</text>
+<text x="530" y="790" text-anchor="middle" class="node-sub">晶圆键合、TSV、电镀/CMP</text>
+<text x="530" y="813" text-anchor="middle" class="node-sub">对准精度与良率最关键</text>
+<rect x="690" y="730" width="250" height="92" class="blue box"/>
+<text x="815" y="762" text-anchor="middle" class="node-title">FOWLP/FOPLP/SiP</text>
+<text x="815" y="790" text-anchor="middle" class="node-sub">扇出、面板级、系统级封装</text>
+<text x="815" y="813" text-anchor="middle" class="node-sub">成本/面积/异构集成优化</text>
+<rect x="120" y="858" width="250" height="70" class="purple box"/>
+<text x="245" y="887" text-anchor="middle" class="node-title">OSAT核心厂</text>
+<text x="245" y="914" text-anchor="middle" class="node-sub">长电、通富、华天、甬矽</text>
+<rect x="405" y="858" width="250" height="70" class="purple box"/>
+<text x="530" y="887" text-anchor="middle" class="node-title">WLP/传感器/特色封装</text>
+<text x="530" y="914" text-anchor="middle" class="node-sub">晶方、气派等分化</text>
+<rect x="690" y="858" width="250" height="70" class="purple box"/>
+<text x="815" y="887" text-anchor="middle" class="node-title">核心约束</text>
+<text x="815" y="914" text-anchor="middle" class="node-sub">工艺整合、产能爬坡、客户认证</text>
+
+<rect x="80" y="1140" width="940" height="300" class="blue box"/>
+<text x="115" y="1179" class="layer">下游应用与需求牵引</text>
+<rect x="120" y="1215" width="250" height="92" class="green box"/>
+<text x="245" y="1247" text-anchor="middle" class="node-title">AI/HPC GPU与ASIC</text>
+<text x="245" y="1275" text-anchor="middle" class="node-sub">Chiplet、大算力、HBM带宽</text>
+<text x="245" y="1298" text-anchor="middle" class="node-sub">带动2.5D/3D封装</text>
+<rect x="405" y="1215" width="250" height="92" class="green box"/>
+<text x="530" y="1247" text-anchor="middle" class="node-title">HBM与高带宽存储</text>
+<text x="530" y="1275" text-anchor="middle" class="node-sub">TSV堆叠、KGD测试</text>
+<text x="530" y="1298" text-anchor="middle" class="node-sub">与中介层/基板协同</text>
+<rect x="690" y="1215" width="250" height="92" class="green box"/>
+<text x="815" y="1247" text-anchor="middle" class="node-title">国产先进制程补位</text>
+<text x="815" y="1275" text-anchor="middle" class="node-sub">以封装提升系统性能</text>
+<text x="815" y="1298" text-anchor="middle" class="node-sub">汽车/边缘AI扩散</text>
+<rect x="260" y="1340" width="250" height="58" class="red box"/>
+<text x="385" y="1375" text-anchor="middle" class="node-title">验证：订单、产能、良率</text>
+<rect x="555" y="1340" width="250" height="58" class="red box"/>
+<text x="680" y="1375" text-anchor="middle" class="node-title">风险：过热、Capex节奏</text>
+
+<rect x="1075" y="135" width="345" height="520" class="side"/>
+<text x="1105" y="174" class="layer">关键卡点</text>
+<text x="1115" y="225" class="node-title">2.5D工艺整合</text>
+<text x="1115" y="252" class="node-sub">大面积中介层、RDL与翘曲控制</text>
+<text x="1115" y="307" class="node-title">高端封装基板</text>
+<text x="1115" y="334" class="node-sub">ABF/FCBGA、细线路和低良率爬坡</text>
+<text x="1115" y="389" class="node-title">材料体系</text>
+<text x="1115" y="416" class="node-sub">Underfill、EMC、TIM、临时键合胶</text>
+<text x="1115" y="471" class="node-title">设备与测试</text>
+<text x="1115" y="498" class="node-sub">CMP/键合/电镀/ATE/量测国产化</text>
+<text x="1115" y="553" class="node-title">客户认证</text>
+<text x="1115" y="580" class="node-sub">AI芯片链条认证长，订单兑现滞后</text>
+
+<rect x="1075" y="715" width="345" height="390" class="commodity"/>
+<text x="1105" y="754" class="layer">上游五层扫描</text>
+<text x="1115" y="804" class="node-title">Product BOM</text>
+<text x="1115" y="831" class="node-sub">载板、Underfill、EMC、TIM、焊球</text>
+<text x="1115" y="884" class="node-title">Manufacturing Process</text>
+<text x="1115" y="911" class="node-sub">电镀、CMP、键合、减薄、划片</text>
+<text x="1115" y="964" class="node-title">Package/Board Materials</text>
+<text x="1115" y="991" class="node-sub">ABF/BT、电子布、树脂、铜箔</text>
+<text x="1115" y="1044" class="node-title">Resource/feedstock</text>
+<text x="1115" y="1071" class="node-sub">铜、钨、钽、磷/氟化学品、玻纤</text>
+
+<path d="M550 565 L550 655" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow-blue)"/>
+<path d="M550 1045 L550 1140" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow-blue)"/>
+<path d="M1020 370 C1080 370 1090 380 1125 380" stroke="#9333ea" stroke-width="2.5" fill="none" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
+<path d="M1020 860 C1085 860 1090 890 1125 890" stroke="#dc2626" stroke-width="2.5" fill="none" stroke-dasharray="8 6" marker-end="url(#arrow-red)"/>
+<path d="M245 294 L245 730" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+<path d="M530 294 L530 730" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+<path d="M815 294 L815 730" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+
+<rect x="80" y="1540" width="1340" height="395" class="box"/>
+<text x="115" y="1582" class="layer">A股映射：按主链暴露与卡点相关性排序</text>
+<rect x="120" y="1620" width="250" height="88" class="blue box"/>
+<text x="245" y="1653" text-anchor="middle" class="node-title">封测核心厂</text>
+<text x="245" y="1681" text-anchor="middle" class="node-sub">长电、通富、华天、甬矽</text>
+<rect x="405" y="1620" width="250" height="88" class="green box"/>
+<text x="530" y="1653" text-anchor="middle" class="node-title">载板/板材</text>
+<text x="530" y="1681" text-anchor="middle" class="node-sub">深南、兴森、生益、南亚</text>
+<rect x="690" y="1620" width="250" height="88" class="orange box"/>
+<text x="815" y="1653" text-anchor="middle" class="node-title">封装材料</text>
+<text x="815" y="1681" text-anchor="middle" class="node-sub">华海诚科、德邦、鼎龙、安集</text>
+<rect x="975" y="1620" width="250" height="88" class="purple box"/>
+<text x="1100" y="1653" text-anchor="middle" class="node-title">设备/测试</text>
+<text x="1100" y="1681" text-anchor="middle" class="node-sub">华海清科、长川、芯碁、北方华创</text>
+<text x="120" y="1772" class="node-title">读图方法</text>
+<text x="120" y="1808" class="node-sub">短期看OSAT先进封装收入占比、封装基板扩产和HBM/AI芯片客户验证；中期看材料与设备国产替代能否进入关键料号和量产线。</text>
+<text x="120" y="1839" class="node-sub">国内A股并不等同于完整复制海外CoWoS/HBM生态，主线应拆成封测能力、载板/材料、设备/测试和下游AI芯片需求四段验证。</text>
+<text x="120" y="1870" class="node-sub">资源材料如钨、磷化学品、树脂、电子布等必须通过“材料规格-封装环节-客户认证”链路验证，不能只按概念归因。</text>
+
+<g transform="translate(95,2018)">
+  <line x1="0" y1="8" x2="42" y2="8" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text x="58" y="14" class="small">主链传导</text>
+  <line x1="185" y1="8" x2="227" y2="8" stroke="#16a34a" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="243" y="14" class="small">关键上游输入</text>
+  <line x1="410" y1="8" x2="452" y2="8" stroke="#9333ea" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#arrow-purple)"/>
+  <text x="468" y="14" class="small">核心卡点</text>
+  <line x1="610" y1="8" x2="652" y2="8" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#arrow-red)"/>
+  <text x="668" y="14" class="small">待验证/约束</text>
+</g>
+</svg>

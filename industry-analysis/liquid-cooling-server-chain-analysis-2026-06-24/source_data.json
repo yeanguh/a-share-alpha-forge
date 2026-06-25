@@ -1,0 +1,145 @@
+{
+  "topic": "liquid-cooling-server-chain-analysis",
+  "generated_at": "2026-06-24T00:00:00+08:00",
+  "notes": [
+    "Reader-facing report uses relative image paths only.",
+    "Runtime adapter diagnostics are intentionally kept out of report.md."
+  ],
+  "sources": [
+    {
+      "tool": "web",
+      "function_or_path": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/",
+      "subject": "GB200 NVL72 official page",
+      "status": "ok",
+      "rows": null,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "https://www.nvidia.com/en-us/data-center/gb300-nvl72/",
+      "subject": "GB300 NVL72 official page",
+      "status": "ok",
+      "rows": null,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
+      "subject": "Vera Rubin NVL72 official page",
+      "status": "ok",
+      "rows": null,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "002837 英维克",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "300499 高澜股份",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "301018 申菱环境",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "300990 同飞股份",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "300602 飞荣达",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "300731 科创新源",
+      "status": "ok",
+      "rows": 3,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "CNINFO 2025 annual report",
+      "subject": "301128 强瑞技术",
+      "status": "ok",
+      "rows": 2,
+      "error": null,
+      "confidence": "High"
+    },
+    {
+      "tool": "akshare",
+      "function_or_path": "main business text",
+      "subject": "002837/300499/301018/300990/300602/300731/301128/000977",
+      "status": "ok",
+      "rows": 8,
+      "error": null,
+      "confidence": "Medium"
+    },
+    {
+      "tool": "efinance",
+      "function_or_path": "quote snapshot",
+      "subject": "shortlisted A-share quotes",
+      "status": "ok",
+      "rows": 12,
+      "error": null,
+      "confidence": "Medium"
+    },
+    {
+      "tool": "efinance",
+      "function_or_path": "base info",
+      "subject": "shortlisted A-share valuation/financial snapshot",
+      "status": "ok",
+      "rows": 12,
+      "error": null,
+      "confidence": "Medium"
+    },
+    {
+      "tool": "akshare",
+      "function_or_path": "cninfo profile",
+      "subject": "shortlisted A-share company profiles",
+      "status": "ok",
+      "rows": 12,
+      "error": null,
+      "confidence": "Medium"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "policy/industry public materials",
+      "subject": "green data center and liquid cooling policy direction",
+      "status": "fallback",
+      "rows": null,
+      "error": null,
+      "confidence": "Medium"
+    }
+  ]
+}

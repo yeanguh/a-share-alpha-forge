@@ -39,7 +39,7 @@ def require_bool(value: object, field_name: str) -> bool:
 
 
 def require_number(value: object, field_name: str) -> float:
-    if not isinstance(value, int | float):
+    if not isinstance(value, (int, float)):
         raise ValueError(f"`{field_name}` must be a number")
     return float(value)
 

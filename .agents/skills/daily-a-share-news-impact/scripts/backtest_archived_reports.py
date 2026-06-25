@@ -8,32 +8,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any
-from urllib import request
+
+from tencent_quote import DailyBar, Quote, fetch_kline, fetch_quote
 
 DEFAULT_ROOT = Path("local")
 DEFAULT_REVIEW_ROOT = DEFAULT_ROOT / "reviews"
-DEFAULT_TIMEOUT_SECONDS = 10
-
-
-@dataclass(frozen=True)
-class Quote:
-    ticker: str
-    name: str
-    last_price: float
-    pct_today: float
-    turnover_rate: float
-    market_cap_billion: float
-    timestamp: str
-
-
-@dataclass(frozen=True)
-class DailyBar:
-    trade_date: str
-    open_price: float
-    close_price: float
-    high_price: float
-    low_price: float
-    volume: float
 
 
 @dataclass(frozen=True)
@@ -46,60 +25,6 @@ class StockPick:
     expected_positive: bool
     eligible_for_recommendation: str
     exclusion_reason: str
-
-
-def a_share_symbol(code: str) -> str:
-    normalized = code.strip().lower().replace(".sz", "").replace(".sh", "")
-    if normalized.startswith(("sh", "sz")):
-        return normalized
-    if normalized.startswith(("6", "9")):
-        return f"sh{normalized}"
-    return f"sz{normalized}"
-
-
-def http_get_text(url: str, encoding: str = "utf-8") -> str:
-    req = request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with request.urlopen(req, timeout=DEFAULT_TIMEOUT_SECONDS) as response:
-        return response.read().decode(encoding, errors="replace")
-
-
-def fetch_tencent_quote(ticker: str) -> Quote:
-    symbol = a_share_symbol(ticker)
-    text = http_get_text(f"https://qt.gtimg.cn/q={symbol}", "gbk")
-    marker = f"v_{symbol}="
-    if marker not in text:
-        raise ValueError(f"Tencent quote response did not include `{marker}`")
-    body = text.split('="', 1)[1].rsplit('";', 1)[0]
-    fields = body.split("~")
-    if len(fields) <= 45:
-        raise ValueError(f"Tencent quote response for `{ticker}` is missing fields")
-    return Quote(
-        ticker=ticker,
-        name=fields[1],
-        last_price=float(fields[3]),
-        pct_today=float(fields[32]),
-        turnover_rate=float(fields[38]),
-        market_cap_billion=float(fields[45]),
-        timestamp=fields[30],
-    )
-
-
-def fetch_tencent_kline(ticker: str, days: int) -> list[DailyBar]:
-    symbol = a_share_symbol(ticker)
-    text = http_get_text(f"https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param={symbol},day,,,{days},qfq")
-    payload = json.loads(text)
-    rows = payload["data"][symbol].get("qfqday") or payload["data"][symbol].get("day") or []
-    return [
-        DailyBar(
-            trade_date=str(row[0]),
-            open_price=float(row[1]),
-            close_price=float(row[2]),
-            high_price=float(row[3]),
-            low_price=float(row[4]),
-            volume=float(row[5]),
-        )
-        for row in rows
-    ]
 
 
 def parse_date(value: str) -> datetime:
@@ -301,9 +226,9 @@ def evaluate_pick(
         "horizon_trading_days": "" if horizon_trading_days is None else horizon_trading_days,
         "return_since_report_open_pct": return_pct,
         "directional_return_pct": directional_return_pct,
-        "today_pct": quote.pct_today,
+        "today_pct": quote.pct_change,
         "turnover_rate": quote.turnover_rate,
-        "market_cap_billion": quote.market_cap_billion,
+        "market_cap_billion": quote.total_market_cap_billion,
         "quote_time": quote.timestamp,
     }
 
@@ -408,8 +333,8 @@ def backtest_command(args: argparse.Namespace) -> None:
         picks.extend(load_stock_picks(day_dir, args.include_leaders, args.include_candidates))
 
     tickers = sorted({pick.ticker for pick in picks})
-    quotes = {ticker: fetch_tencent_quote(ticker) for ticker in tickers}
-    klines = {ticker: fetch_tencent_kline(ticker, args.kline_days) for ticker in tickers}
+    quotes = {ticker: fetch_quote(ticker) for ticker in tickers}
+    klines = {ticker: fetch_kline(ticker, args.kline_days) for ticker in tickers}
     rows = [
         evaluate_pick(
             pick,

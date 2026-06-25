@@ -32,7 +32,7 @@ def get_value(config: dict[str, Any], *path: str) -> Any:
 
 def get_number(config: dict[str, Any], *path: str) -> float:
     value = get_value(config, *path)
-    if not isinstance(value, int | float):
+    if not isinstance(value, (int, float)):
         raise ValueError(f"`{'.'.join(path)}` must be numeric")
     return float(value)
 

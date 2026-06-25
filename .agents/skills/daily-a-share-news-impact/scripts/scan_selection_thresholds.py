@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import itertools
 import json
 import sys
@@ -9,7 +10,18 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from score_stocks import is_bse_ticker, is_st_stock_name, is_star_market_ticker
+from rank_news import weighted_impact_score
+from score_stocks import (
+    GateContext,
+    GateFailure,
+    compute_beneficiary_quality_score,
+    derive_research_rating,
+    evaluate_stock_gates,
+    is_bse_ticker,
+    is_st_stock_name,
+    is_star_market_ticker,
+    retail_voc_quality_score,
+)
 from threshold_config import get_number, load_thresholds
 
 DEFAULT_ROOT = Path("local")
@@ -20,6 +32,8 @@ DEFAULT_MAX_MARKET_CAP_BILLION = get_number(DEFAULT_THRESHOLDS, "market_cap_bill
 VALID_ROLE_SCOPES = {"all", "beneficiary", "pressure"}
 RESOURCE_MARKERS = ("有色", "金属", "稀土", "钨", "锡", "铝", "煤", "钢铁")
 OBSERVATION_PRESSURE_MARKERS = ("高位", "拥挤", "过热", "追涨", "证伪", "传闻落空", "澄清", "辟谣")
+CROWDING_MARKERS = ("高位", "拥挤", "过热", "追涨")
+DISCONFIRMATION_MARKERS = ("证伪", "传闻落空", "澄清", "辟谣")
 
 
 @dataclass(frozen=True)
@@ -59,6 +73,7 @@ class Sample:
     retail_sentiment: float
     capital_recognition: float
     event_alignment: float
+    institutional_trend_score: float
     risk_score: float
     sector_impact_score: float
     sector_price_volume: float
@@ -78,21 +93,19 @@ class Sample:
 
     @property
     def retail_voc_quality_score(self) -> float:
-        if self.retail_sentiment == 0:
-            return 2.2
-        distance_from_balanced = abs(self.retail_sentiment - 3.0)
-        return round(max(1.0, 4.0 - 1.2 * distance_from_balanced), 2)
+        return retail_voc_quality_score(self.retail_sentiment)
 
     @property
     def beneficiary_quality_score(self) -> float:
-        return round(
-            0.27 * self.trend_score
-            + 0.22 * self.volume_score
-            + 0.27 * self.capital_recognition
-            + 0.18 * self.event_alignment
-            + 0.06 * self.retail_voc_quality_score
-            - 0.20 * self.risk_score,
-            2,
+        return compute_beneficiary_quality_score(
+            trend=self.trend_score,
+            volume=self.volume_score,
+            capital_recognition=self.capital_recognition,
+            event_alignment=self.event_alignment,
+            institutional_trend=self.institutional_trend_score,
+            retail_sentiment=self.retail_sentiment,
+            risk=self.risk_score,
+            config=DEFAULT_THRESHOLDS,
         )
 
 
@@ -105,14 +118,14 @@ def load_json_object(path: Path) -> dict[str, Any]:
 
 def number_field(payload: dict[str, Any], field_name: str) -> float:
     value = payload.get(field_name)
-    if not isinstance(value, int | float):
+    if not isinstance(value, (int, float)):
         raise ValueError(f"`{field_name}` must be numeric")
     return float(value)
 
 
 def optional_market_cap(payload: dict[str, Any]) -> float | None:
     value = payload.get("market_cap_billion")
-    return float(value) if isinstance(value, int | float) else None
+    return float(value) if isinstance(value, (int, float)) else None
 
 
 def allowed_security(sample: Sample) -> bool:
@@ -128,15 +141,15 @@ def role_in_scope(sample: Sample, role_scope: str) -> bool:
 
 
 def impact_score(payload: dict[str, Any]) -> float:
-    return round(
-        0.30 * number_field(payload, "magnitude")
-        + 0.18 * number_field(payload, "breadth")
-        + 0.12 * number_field(payload, "immediacy")
-        + 0.15 * number_field(payload, "confidence")
-        + 0.08 * number_field(payload, "novelty")
-        + 0.07 * number_field(payload, "liquidity")
-        + 0.10 * number_field(payload, "price_volume"),
-        2,
+    return weighted_impact_score(
+        magnitude=number_field(payload, "magnitude"),
+        breadth=number_field(payload, "breadth"),
+        immediacy=number_field(payload, "immediacy"),
+        confidence=number_field(payload, "confidence"),
+        novelty=number_field(payload, "novelty"),
+        liquidity=number_field(payload, "liquidity"),
+        price_volume=number_field(payload, "price_volume"),
+        config=DEFAULT_THRESHOLDS,
     )
 
 
@@ -219,6 +232,7 @@ def load_samples(root: Path, outcomes: dict[tuple[str, str, str], dict[str, Any]
                 retail_sentiment=number_field(stock, "retail_sentiment"),
                 capital_recognition=number_field(stock, "capital_recognition"),
                 event_alignment=number_field(stock, "event_alignment"),
+                institutional_trend_score=float(stock.get("institutional_trend_score", 0) or 0),
                 risk_score=number_field(stock, "risk_score"),
                 sector_impact_score=float(sector_score.get("impact_score", 0)),
                 sector_price_volume=float(sector_score.get("price_volume", 0)),
@@ -240,97 +254,103 @@ def load_samples(root: Path, outcomes: dict[tuple[str, str, str], dict[str, Any]
 
 
 def passes_profile(sample: Sample, profile: ThresholdProfile) -> bool:
-    if sample.role == "beneficiary":
-        if sample.event_alignment < profile.beneficiary_event:
-            return False
-        if sample.trend_score < profile.beneficiary_trend:
-            return False
-        if sample.volume_score < profile.beneficiary_volume:
-            return False
-        if sample.capital_recognition < profile.beneficiary_capital:
-            return False
-        if sample.beneficiary_quality_score < profile.beneficiary_quality_min:
-            return False
-        if sample.risk_score > profile.beneficiary_risk_max:
-            return False
-        if sample.sector_impact_score < profile.beneficiary_sector_impact:
-            return False
-        if sample.sector_price_volume < profile.beneficiary_sector_price_volume:
-            return False
-        if sample.sector_liquidity < profile.beneficiary_sector_liquidity:
-            return False
-        if sample.retail_sentiment >= 4.5 and (sample.capital_recognition < 3.8 or sample.volume_score < 3.4):
-            return False
-        if sample.is_resource:
-            return (
-                sample.trend_score >= profile.resource_trend
-                and sample.volume_score >= profile.resource_volume
-                and sample.capital_recognition >= profile.resource_capital
-            )
-        return True
-    if sample.role == "pressure":
-        if sample.event_alignment < 3.5:
-            return False
-        if sample.trend_score > profile.pressure_trend_max:
-            return False
-        if sample.capital_recognition > profile.pressure_capital_max:
-            return False
-        if sample.volume_score < profile.pressure_volume_min and sample.risk_score < 3.8:
-            return False
-        if sample.is_observation_pressure:
-            return (
-                sample.trend_score <= profile.observation_pressure_trend_max
-                and sample.capital_recognition <= profile.observation_pressure_capital_max
-            )
-        return True
-    return False
+    return not profile_failures(sample, profile)
 
 
 def profile_failure_reasons(sample: Sample, profile: ThresholdProfile) -> list[str]:
-    reasons: list[str] = []
-    if sample.role == "beneficiary":
-        if sample.event_alignment < profile.beneficiary_event:
-            reasons.append("event_alignment_below_profile")
-        if sample.trend_score < profile.beneficiary_trend:
-            reasons.append("trend_score_below_profile")
-        if sample.volume_score < profile.beneficiary_volume:
-            reasons.append("volume_score_below_profile")
-        if sample.capital_recognition < profile.beneficiary_capital:
-            reasons.append("capital_recognition_below_profile")
-        if sample.beneficiary_quality_score < profile.beneficiary_quality_min:
-            reasons.append("beneficiary_quality_score_below_profile")
-        if sample.risk_score > profile.beneficiary_risk_max:
-            reasons.append("risk_score_above_profile")
-        if sample.sector_impact_score < profile.beneficiary_sector_impact:
-            reasons.append("sector_impact_score_below_profile")
-        if sample.sector_price_volume < profile.beneficiary_sector_price_volume:
-            reasons.append("sector_price_volume_below_profile")
-        if sample.sector_liquidity < profile.beneficiary_sector_liquidity:
-            reasons.append("sector_liquidity_below_profile")
-        if sample.retail_sentiment >= 4.5 and (sample.capital_recognition < 3.8 or sample.volume_score < 3.4):
-            reasons.append("retail_crowding_without_capital_or_volume_confirmation")
-        if sample.is_resource and sample.trend_score < profile.resource_trend:
-            reasons.append("resource_trend_below_profile")
-        if sample.is_resource and sample.volume_score < profile.resource_volume:
-            reasons.append("resource_volume_below_profile")
-        if sample.is_resource and sample.capital_recognition < profile.resource_capital:
-            reasons.append("resource_capital_below_profile")
-        return reasons
-    if sample.role == "pressure":
-        if sample.event_alignment < 3.5:
-            reasons.append("event_alignment_below_profile")
-        if sample.trend_score > profile.pressure_trend_max:
-            reasons.append("pressure_trend_score_above_profile")
-        if sample.capital_recognition > profile.pressure_capital_max:
-            reasons.append("pressure_capital_recognition_above_profile")
-        if sample.volume_score < profile.pressure_volume_min and sample.risk_score < 3.8:
-            reasons.append("pressure_volume_and_risk_confirmation_below_profile")
-        if sample.is_observation_pressure and sample.trend_score > profile.observation_pressure_trend_max:
-            reasons.append("observation_pressure_trend_score_above_profile")
-        if sample.is_observation_pressure and sample.capital_recognition > profile.observation_pressure_capital_max:
-            reasons.append("observation_pressure_capital_recognition_above_profile")
-        return reasons
-    return ["role_out_of_profile_scope"]
+    return [failure.code for failure in profile_failures(sample, profile)]
+
+
+def profile_to_config(profile: ThresholdProfile, base: dict[str, Any]) -> dict[str, Any]:
+    config = copy.deepcopy(base)
+    beneficiary = config["stock_gates"]["beneficiary"]
+    beneficiary["event_alignment_min"] = profile.beneficiary_event
+    beneficiary["trend_min"] = profile.beneficiary_trend
+    beneficiary["volume_min"] = profile.beneficiary_volume
+    beneficiary["capital_recognition_min"] = profile.beneficiary_capital
+    beneficiary["risk_max"] = profile.beneficiary_risk_max
+    resource = config["stock_gates"]["resource_beneficiary"]
+    resource["trend_min"] = profile.resource_trend
+    resource["volume_min"] = profile.resource_volume
+    resource["capital_recognition_min"] = profile.resource_capital
+    pressure = config["stock_gates"]["pressure"]
+    pressure["trend_max"] = profile.pressure_trend_max
+    pressure["capital_recognition_max"] = profile.pressure_capital_max
+    pressure["volume_min"] = profile.pressure_volume_min
+    observation = config["stock_gates"]["observation_pressure"]
+    observation["trend_max"] = profile.observation_pressure_trend_max
+    observation["capital_recognition_max"] = profile.observation_pressure_capital_max
+    sector = config["sector_gates"]["beneficiary"]
+    sector["impact_score_min"] = profile.beneficiary_sector_impact
+    sector["price_volume_min"] = profile.beneficiary_sector_price_volume
+    sector["liquidity_min"] = profile.beneficiary_sector_liquidity
+    return config
+
+
+def sample_gate_context(sample: Sample, config: dict[str, Any]) -> GateContext:
+    research_weights = config["scoring_weights"]["research_score"]
+    research_score = round(
+        research_weights["trend"] * sample.trend_score
+        + research_weights["volume"] * sample.volume_score
+        + research_weights["retail_voc_quality"] * sample.retail_voc_quality_score
+        + research_weights["capital_recognition"] * sample.capital_recognition
+        + research_weights["event_alignment"] * sample.event_alignment
+        + research_weights["institutional_trend"] * sample.institutional_trend_score
+        + research_weights["risk"] * sample.risk_score,
+        2,
+    )
+    rating = derive_research_rating(
+        research_score=research_score,
+        risk_score=sample.risk_score,
+        capital_recognition=sample.capital_recognition,
+        config=config,
+    )
+    return GateContext(
+        role=sample.role,
+        trend=sample.trend_score,
+        volume=sample.volume_score,
+        retail_sentiment=sample.retail_sentiment,
+        capital_recognition=sample.capital_recognition,
+        event_alignment=sample.event_alignment,
+        institutional_trend=sample.institutional_trend_score,
+        risk=sample.risk_score,
+        research_rating=rating,
+        cyclical_resource=sample.is_resource,
+        crowding_risk=any(marker in sample.sector for marker in CROWDING_MARKERS),
+        disconfirmation_risk=any(marker in sample.sector for marker in DISCONFIRMATION_MARKERS),
+        excluded_security_reason="",
+    )
+
+
+def sector_gate_failures(sample: Sample, profile: ThresholdProfile) -> list[GateFailure]:
+    if sample.role != "beneficiary":
+        return []
+    failures: list[GateFailure] = []
+    if sample.sector_impact_score < profile.beneficiary_sector_impact:
+        failures.append(GateFailure("sector_impact_below_profile", "板块影响分数不足"))
+    if sample.sector_price_volume < profile.beneficiary_sector_price_volume:
+        failures.append(GateFailure("sector_price_volume_below_profile", "板块量价确认不足"))
+    if sample.sector_liquidity < profile.beneficiary_sector_liquidity:
+        failures.append(GateFailure("sector_liquidity_below_profile", "板块流动性不足"))
+    return failures
+
+
+def quality_gate_failure(sample: Sample, profile: ThresholdProfile) -> list[GateFailure]:
+    if sample.role != "beneficiary" or profile.beneficiary_quality_min <= 0:
+        return []
+    if sample.beneficiary_quality_score < profile.beneficiary_quality_min:
+        return [GateFailure("beneficiary_quality_score_below_profile", "受益质量分数不足")]
+    return []
+
+
+def profile_failures(sample: Sample, profile: ThresholdProfile) -> list[GateFailure]:
+    config = profile_to_config(profile, DEFAULT_THRESHOLDS)
+    ctx = sample_gate_context(sample, config)
+    return [
+        *evaluate_stock_gates(ctx, config),
+        *sector_gate_failures(sample, profile),
+        *quality_gate_failure(sample, profile),
+    ]
 
 
 def summarize(samples: list[Sample]) -> dict[str, Any]:

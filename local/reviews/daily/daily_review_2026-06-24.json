@@ -1,0 +1,18 @@
+{
+  "frequency": "daily",
+  "summaries": [
+    {
+      "period": "2026-06-24",
+      "review_days": 1,
+      "direction_hit_rate": 0.0,
+      "average_stock_error": 1.52,
+      "sector_hit_rate": 0.6,
+      "sector_sample_count": 5,
+      "stock_hit_rate": 0.8,
+      "stock_sample_count": 10,
+      "lessons": [
+        "今日复盘的核心是结构分化判断有效，但主线排序和大盘强度有偏差：半导体/CPO替代证券、航运、创新药成为收盘更强资金方向；受益栏个股命中率较好，承压栏整体有效但盛和资源反向反弹暴露了资源链细分分化。次日应前置收盘行业资金确认，降低单一龙头对板块主线的放大，继续保持机会栏和压力栏的主线资金门槛。"
+      ]
+    }
+  ]
+}

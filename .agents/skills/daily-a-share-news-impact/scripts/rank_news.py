@@ -7,12 +7,39 @@ import sys
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 from zoneinfo import ZoneInfo
+
+from threshold_config import load_thresholds
 
 CHINA_TZ = ZoneInfo("Asia/Shanghai")
 Direction = Literal["positive", "negative", "mixed"]
 TradingCalendar = set[date]
+DEFAULT_THRESHOLDS = load_thresholds()
+
+
+def weighted_impact_score(
+    *,
+    magnitude: float,
+    breadth: float,
+    immediacy: float,
+    confidence: float,
+    novelty: float,
+    liquidity: float,
+    price_volume: float,
+    config: dict[str, Any] | None = None,
+) -> float:
+    weights = (config or DEFAULT_THRESHOLDS)["scoring_weights"]["impact_score"]
+    return round(
+        weights["magnitude"] * magnitude
+        + weights["breadth"] * breadth
+        + weights["immediacy"] * immediacy
+        + weights["confidence"] * confidence
+        + weights["novelty"] * novelty
+        + weights["liquidity"] * liquidity
+        + weights["price_volume"] * price_volume,
+        2,
+    )
 
 
 @dataclass(frozen=True)
@@ -43,15 +70,14 @@ class Candidate:
 
     @property
     def impact_score(self) -> float:
-        return round(
-            0.30 * self.magnitude
-            + 0.18 * self.breadth
-            + 0.12 * self.immediacy
-            + 0.15 * self.confidence
-            + 0.08 * self.novelty
-            + 0.07 * self.liquidity
-            + 0.10 * self.price_volume,
-            2,
+        return weighted_impact_score(
+            magnitude=self.magnitude,
+            breadth=self.breadth,
+            immediacy=self.immediacy,
+            confidence=self.confidence,
+            novelty=self.novelty,
+            liquidity=self.liquidity,
+            price_volume=self.price_volume,
         )
 
     def to_ranked_dict(self, rank: int) -> dict[str, float | int | str]:
@@ -138,7 +164,7 @@ def parse_now(value: str | None) -> datetime | None:
 
 
 def require_score(value: object, field_name: str) -> float:
-    if not isinstance(value, int | float):
+    if not isinstance(value, (int, float)):
         raise ValueError(f"`{field_name}` must be a number from 0 to 5")
     score = float(value)
     if score < 0 or score > 5:

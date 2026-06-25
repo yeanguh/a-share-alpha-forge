@@ -1,0 +1,105 @@
+{
+  "report": "industry-analysis/liquid-cooling-server-chain-analysis-2026-06-24/report.md",
+  "source_data": "industry-analysis/liquid-cooling-server-chain-analysis-2026-06-24/source_data.json",
+  "passed": true,
+  "score": 16,
+  "total": 16,
+  "checks": [
+    {
+      "name": "stable_report_sections",
+      "passed": true,
+      "evidence": "sections ok",
+      "severity": "error"
+    },
+    {
+      "name": "core_conclusion_depth",
+      "passed": true,
+      "evidence": "numbered_points=5; signal_terms=['价值', '核心', '机会', '风险', '瓶颈', '弹性', '受益', '不确定']",
+      "severity": "error"
+    },
+    {
+      "name": "rendered_visual_assets",
+      "passed": true,
+      "evidence": "existing_images=['industry-analysis/liquid-cooling-server-chain-analysis-2026-06-24/assets/liquid-cooling-server-chain.png']; missing_images=[]",
+      "severity": "error"
+    },
+    {
+      "name": "valid_image_files",
+      "passed": true,
+      "evidence": "checked=['industry-analysis/liquid-cooling-server-chain-analysis-2026-06-24/assets/liquid-cooling-server-chain.png: 1800x2417']; failures=[]",
+      "severity": "error"
+    },
+    {
+      "name": "relative_markdown_image_refs",
+      "passed": true,
+      "evidence": "all image refs are relative assets paths",
+      "severity": "error"
+    },
+    {
+      "name": "no_adapter_logs_in_report",
+      "passed": true,
+      "evidence": "no forbidden runtime patterns",
+      "severity": "error"
+    },
+    {
+      "name": "investment_opportunity_framing",
+      "passed": true,
+      "evidence": "found_terms=['投资线索', '核心环节龙头', '关键技术突破者', '重要配套', '待验证']",
+      "severity": "error"
+    },
+    {
+      "name": "investment_opportunity_table",
+      "passed": true,
+      "evidence": "found=['| 公司 | 代码 | 产业链结论 | 财务质量 | 当前估值 | 技术面/趋势 | 买点区间 | 止损/失效条件 | 目标价/空间 | 综合判断 |']",
+      "severity": "error"
+    },
+    {
+      "name": "claim_level_source_summary",
+      "passed": true,
+      "evidence": "found=['| 结论/数据 | 来源 | 日期 | 置信度 |']",
+      "severity": "error"
+    },
+    {
+      "name": "canonical_company_mapping_table",
+      "passed": true,
+      "evidence": "9-column A-share mapping header present",
+      "severity": "error"
+    },
+    {
+      "name": "core_value_distribution_table",
+      "passed": true,
+      "evidence": "core value table header present",
+      "severity": "error"
+    },
+    {
+      "name": "upstream_discovery_table",
+      "passed": true,
+      "evidence": "upstream table header present",
+      "severity": "error"
+    },
+    {
+      "name": "source_trail_present",
+      "passed": true,
+      "evidence": "source_entries=15",
+      "severity": "error"
+    },
+    {
+      "name": "high_confidence_sources",
+      "passed": true,
+      "evidence": "high_confidence_ok_sources=10",
+      "severity": "error"
+    },
+    {
+      "name": "medium_or_high_evidence_base",
+      "passed": true,
+      "evidence": "medium_or_high_sources=15",
+      "severity": "error"
+    },
+    {
+      "name": "filing_or_authoritative_evidence",
+      "passed": true,
+      "evidence": "authoritative_like_sources=13",
+      "severity": "error"
+    }
+  ]
+}

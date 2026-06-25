@@ -1,0 +1,18 @@
+{
+  "frequency": "daily",
+  "summaries": [
+    {
+      "period": "2026-06-23",
+      "review_days": 1,
+      "direction_hit_rate": 0.0,
+      "average_stock_error": 1.37,
+      "sector_hit_rate": 0.8,
+      "sector_sample_count": 5,
+      "stock_hit_rate": 0.8,
+      "stock_sample_count": 10,
+      "lessons": [
+        "今日复盘的核心是结构判断优于大盘强度判断：承压栏和Top5中的医药/银行命中较好，但“震荡”低估了高β下跌，券商链泛化过强。次日应把行业净流入/净流出收盘确认前置，受益栏更重视板块级资金，承压栏可继续保持严格但对资源、PCB高估值链提高行业资金权重。"
+      ]
+    }
+  ]
+}

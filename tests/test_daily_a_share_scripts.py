@@ -14,6 +14,7 @@ import rank_news
 import render_report
 import review_archive
 import run_daily_report
+import scan_selection_thresholds
 from score_stocks import MarketCapRange, load_observations
 from threshold_config import load_thresholds
 
@@ -420,3 +421,149 @@ def test_star_bse_and_st_stocks_are_excluded(tmp_path: Path) -> None:
     assert "北交所股票排除" in reasons[1]
     assert observations[2].eligible_for_recommendation is False
     assert "ST/退市风险股票排除" in reasons[2]
+
+
+def _sample_from_stock(item: dict[str, object]) -> scan_selection_thresholds.Sample:
+    return scan_selection_thresholds.Sample(
+        report_date="2026-06-12",
+        ticker=str(item["ticker"]),
+        name=str(item["name"]),
+        sector=str(item["sector"]),
+        role="beneficiary",
+        trend_score=float(item["trend_score"]),
+        volume_score=float(item["volume_score"]),
+        retail_sentiment=float(item["retail_sentiment"]),
+        capital_recognition=float(item["capital_recognition"]),
+        event_alignment=float(item["event_alignment"]),
+        institutional_trend_score=float(item["institutional_trend_score"]),
+        risk_score=float(item["risk_score"]),
+        sector_impact_score=4.3,
+        sector_price_volume=4.3,
+        sector_liquidity=4.3,
+        market_cap_billion=float(item["market_cap_billion"]),
+        hit=True,
+        return_pct=0.0,
+        directional_return_pct=0.0,
+    )
+
+
+def test_scan_quality_score_matches_production_scoring(tmp_path: Path) -> None:
+    item = stock()
+    path = write_json(tmp_path / "stocks.json", [item])
+
+    observation = load_observations(path, MarketCapRange())[0]
+    sample = _sample_from_stock(item)
+
+    assert sample.beneficiary_quality_score == observation.beneficiary_quality_score
+    assert sample.retail_voc_quality_score == observation.retail_voc_quality_score
+
+
+def test_scan_impact_score_matches_rank_news(tmp_path: Path) -> None:
+    item = candidate("半导体材料", "positive", 4.3)
+
+    assert scan_selection_thresholds.impact_score(item) == rank_news.weighted_impact_score(
+        magnitude=float(item["magnitude"]),
+        breadth=float(item["breadth"]),
+        immediacy=float(item["immediacy"]),
+        confidence=float(item["confidence"]),
+        novelty=float(item["novelty"]),
+        liquidity=float(item["liquidity"]),
+        price_volume=float(item["price_volume"]),
+    )
+
+
+def test_scan_gate_matches_production_decision(tmp_path: Path) -> None:
+    accepted = stock()
+    rejected = stock(ticker="600000", name="浦发银行")
+    rejected["capital_recognition"] = 2.5
+    rejected["event_alignment"] = 2.5
+    path = write_json(tmp_path / "stocks.json", [accepted, rejected])
+
+    observations = load_observations(path, MarketCapRange())
+    profile = scan_selection_thresholds.current_production_profile()
+
+    for item, observation in zip([accepted, rejected], observations):
+        sample = _sample_from_stock(item)
+        assert scan_selection_thresholds.passes_profile(sample, profile) == observation.eligible_for_recommendation
+
+
+def test_exclusion_reason_aligns_with_eligibility(tmp_path: Path) -> None:
+    eligible_item = stock()
+    blocked_item = stock(ticker="600000", name="浦发银行")
+    blocked_item["capital_recognition"] = 2.5
+    path = write_json(tmp_path / "stocks.json", [eligible_item, blocked_item])
+
+    observations = load_observations(path, MarketCapRange())
+
+    eligible, blocked = observations
+    assert eligible.eligible_for_recommendation is True
+    assert eligible.exclusion_reason == ""
+    assert blocked.eligible_for_recommendation is False
+    assert blocked.exclusion_reason != ""
+
+
+def test_tencent_quote_parses_public_payload() -> None:
+    from tencent_quote import parse_quote
+
+    fields = ["1"] + ["0"] * 60
+    fields[1] = "贵州茅台"
+    fields[2] = "600519"
+    fields[3] = "1750.50"
+    fields[4] = "1700.00"
+    fields[30] = "20260624150000"
+    fields[32] = "2.97"
+    fields[38] = "0.85"
+    fields[44] = "20000.0"
+    fields[45] = "22000.0"
+    payload = 'v_sh600519="' + "~".join(fields) + '";'
+
+    quote = parse_quote(payload, "sh600519")
+
+    assert quote.ticker == "600519"
+    assert quote.name == "贵州茅台"
+    assert quote.last_price == 1750.50
+    assert quote.previous_close == 1700.00
+    assert quote.pct_change == 2.97
+    assert quote.turnover_rate == 0.85
+    assert quote.float_market_cap_billion == 20000.0
+    assert quote.total_market_cap_billion == 22000.0
+    assert quote.timestamp == "20260624150000"
+    snapshot = quote.to_snapshot()
+    assert snapshot["source"] == "tencent_public_quote"
+
+
+def test_render_report_uses_market_direction_gaps_from_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("TMPDIR", str(tmp_path))
+    config = load_thresholds()
+    config["version"] = "test-strong-direction"
+    config["market_direction_gaps"] = {
+        "strong_min": 0.0,
+        "moderate_strong_min": -1000.0,
+        "moderate_weak_max": -1001.0,
+        "weak_max": -1002.0,
+    }
+    config_path = write_json(tmp_path / "thresholds.json", config)
+    input_path = write_json(tmp_path / "bundle.json", bundle())
+    output_path = tmp_path / "assembled.json"
+
+    assemble_report_data.assemble_command(
+        argparse.Namespace(
+            input=str(input_path),
+            output=str(output_path),
+            threshold_config=str(config_path),
+            top_positive_sectors=None,
+            top_negative_sectors=None,
+            top_positive=None,
+            top_negative=None,
+            min_beneficiary_sector_impact=None,
+            min_beneficiary_sector_price_volume=None,
+            min_beneficiary_sector_liquidity=None,
+            top_mainline_sectors=None,
+            top_leading_stocks=None,
+            min_market_cap_billion=None,
+            max_market_cap_billion=None,
+        )
+    )
+
+    payload = json.loads(output_path.read_text(encoding="utf-8"))
+    assert render_report.estimate_market_direction(payload) == "偏强"

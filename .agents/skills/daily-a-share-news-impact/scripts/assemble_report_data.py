@@ -345,6 +345,7 @@ def assemble_command(args: argparse.Namespace) -> None:
                 "price_volume_min": min_beneficiary_sector_price_volume,
                 "liquidity_min": min_beneficiary_sector_liquidity,
             },
+            "market_direction_gaps": threshold_config.get("market_direction_gaps", {}),
         },
         "fund_flow": fund_flow,
         "sector_rankings": {

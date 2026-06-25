@@ -1,0 +1,1705 @@
+{
+  "window": {
+    "start": "2026-06-22T09:30:00+08:00",
+    "end": "2026-06-23T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "fund_flow": {
+    "direction": "拥挤分化",
+    "pbc_open_market_operation_summary": "中国人民银行6月23日以固定利率、数量招标方式开展5245亿元7天期逆回购，利率1.40%；对照6月16日4495亿元7天期逆回购到期测算，单日净投放约750亿元。",
+    "turnover_summary": "截至11:30左右，腾讯/新浪全A快照口径显示沪深主要指数成交显著放大，深市股票成交约4927亿元；全A快照合计约2.3万亿元，公开源口径可能存在指数/市场重复统计，按“高活跃、强分化”处理。",
+    "main_flow_summary": "同花顺行业口径显示净流入居前为银行、化学制药、中药、港口航运、证券；净流出集中在工业金属、元件、小金属、电池、贵金属、光伏设备和军工装备。",
+    "sector_flow_summary": "上涨扩散集中在医药和金融防御，科技内部只有半导体测试等少数分支保持强势；资源、PCB、新能源资金撤退更集中。",
+    "breadth_summary": "截至11:30左右，主板/创业板等非北交所A股约3126家上涨、1970家下跌、110家平，涨停约114家、跌停约22家；上证指数-0.37%，深成指-1.83%，创业板指-2.27%，科创50-0.42%。",
+    "data_quality": "partial"
+  },
+  "candidates": [
+    {
+      "title": "创新药/医药链逆势领涨，化学制药、生物制品、医疗服务涨幅居前",
+      "direction": "positive",
+      "magnitude": 4.6,
+      "breadth": 4.3,
+      "immediacy": 4.4,
+      "confidence": 4.2,
+      "novelty": 3.7,
+      "liquidity": 4.5,
+      "price_volume": 4.5,
+      "affected_sectors": [
+        "创新药/化学制药"
+      ],
+      "logic": "医药方向在指数回落时仍扩散上涨，化学制药涨4.14%、生物制品涨3.50%、医疗服务涨2.85%，说明资金在高波动环境中切换到政策和业绩兼具方向。",
+      "short_impact": "偏利好医药主线，但涨停股较多，需防短线拥挤。",
+      "source": "同花顺行业汇总/新浪全A快照，截至2026-06-23 11:30"
+    },
+    {
+      "title": "半导体测试设备景气与业绩预期强化，长川科技等高辨识度品种延续强趋势",
+      "direction": "positive",
+      "magnitude": 4.4,
+      "breadth": 3.7,
+      "immediacy": 4.3,
+      "confidence": 4.0,
+      "novelty": 4.0,
+      "liquidity": 4.4,
+      "price_volume": 4.1,
+      "affected_sectors": [
+        "半导体测试设备"
+      ],
+      "logic": "AI算力芯片、存储和先进封装扩产带动测试设备需求，龙头14日涨幅和相对强度继续确认。",
+      "short_impact": "偏利好半导体设备/测试，但估值高位限制扩散。",
+      "source": "财联社/同花顺题材驱动；腾讯日K，截至2026-06-23 12:05"
+    },
+    {
+      "title": "半日成交活跃且证券板块领涨，券商和互联网金融承担风险偏好修复读数",
+      "direction": "positive",
+      "magnitude": 4.2,
+      "breadth": 4.2,
+      "immediacy": 4.1,
+      "confidence": 4.1,
+      "novelty": 3.5,
+      "liquidity": 4.6,
+      "price_volume": 4.2,
+      "affected_sectors": [
+        "证券/互联网金融"
+      ],
+      "logic": "两市成交大幅放大，证券板块涨1.64%、成交710.72亿元，长江证券涨停，说明资金把高换手行情映射到券商链。",
+      "short_impact": "偏利好券商和互联网金融，持续性取决于成交额能否维持。",
+      "source": "同花顺行业汇总/腾讯指数快照，截至2026-06-23 11:30"
+    },
+    {
+      "title": "银行板块42家上涨且净流入居前，防御和高股息资金继续承接指数",
+      "direction": "positive",
+      "magnitude": 3.9,
+      "breadth": 4.0,
+      "immediacy": 3.8,
+      "confidence": 4.0,
+      "novelty": 3.2,
+      "liquidity": 4.4,
+      "price_volume": 3.7,
+      "affected_sectors": [
+        "银行高股息"
+      ],
+      "logic": "银行板块涨1.62%、42家上涨、净流入21.23亿元，对上证指数形成缓冲。",
+      "short_impact": "偏利好指数稳定，但更偏防御主线。",
+      "source": "同花顺行业汇总，截至2026-06-23 11:30"
+    },
+    {
+      "title": "两部门推动猪价回到合理水平，生猪产能去化预期升温",
+      "direction": "positive",
+      "magnitude": 3.9,
+      "breadth": 3.5,
+      "immediacy": 3.8,
+      "confidence": 4.3,
+      "novelty": 3.8,
+      "liquidity": 3.5,
+      "price_volume": 3.4,
+      "affected_sectors": [
+        "生猪产能去化"
+      ],
+      "logic": "政策目标指向供给收缩和价格修复，养殖业上涨1.88%，但主力资金仍小幅净流出，验证不足。",
+      "short_impact": "偏利好养殖链观察，个股需等待更强资金确认。",
+      "source": "农业农村部/国家发改委新闻，2026-06-22；同花顺行业汇总"
+    },
+    {
+      "title": "央行6月23日开展5245亿元7天期逆回购，较6月16日到期量测算净投放约750亿元",
+      "direction": "positive",
+      "magnitude": 3.8,
+      "breadth": 4.5,
+      "immediacy": 3.8,
+      "confidence": 5.0,
+      "novelty": 3.2,
+      "liquidity": 4.5,
+      "price_volume": 3.2,
+      "affected_sectors": [
+        "证券/互联网金融",
+        "银行高股息"
+      ],
+      "logic": "公开市场净投放缓和短端流动性，支持成交活跃和金融板块风险偏好。",
+      "short_impact": "温和利好流动性读数，单独不足以形成强主线。",
+      "source": "中国人民银行公开市场业务交易公告[2026]第119号、第114号"
+    },
+    {
+      "title": "医药商业、中药和医疗器械同步上涨，医药链从创新药向泛医药扩散",
+      "direction": "positive",
+      "magnitude": 3.8,
+      "breadth": 4.0,
+      "immediacy": 3.7,
+      "confidence": 3.9,
+      "novelty": 3.4,
+      "liquidity": 3.8,
+      "price_volume": 4.0,
+      "affected_sectors": [
+        "创新药/化学制药"
+      ],
+      "logic": "中药涨2.83%、医药商业涨2.67%、医疗器械涨2.16%，板块广度优于多数成长方向。",
+      "short_impact": "利好医药链扩散，但需要区分业绩和题材弹性。",
+      "source": "同花顺行业汇总，截至2026-06-23 11:30"
+    },
+    {
+      "title": "纺织制造、港口航运等低位顺周期方向获得局部承接",
+      "direction": "positive",
+      "magnitude": 3.4,
+      "breadth": 3.3,
+      "immediacy": 3.2,
+      "confidence": 3.6,
+      "novelty": 3.1,
+      "liquidity": 3.3,
+      "price_volume": 3.3,
+      "affected_sectors": [
+        "出口链/低位顺周期"
+      ],
+      "logic": "纺织制造涨2.29%、港口航运涨1.60%，显示部分资金从高位科技撤出后寻找低位扩散。",
+      "short_impact": "短期偏观察，不进入个股机会筛选。",
+      "source": "同花顺行业汇总，截至2026-06-23 11:30"
+    },
+    {
+      "title": "汽车消费相关发布会预期带来题材关注，但汽车链资金确认有限",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.6,
+      "immediacy": 3.5,
+      "confidence": 3.7,
+      "novelty": 3.4,
+      "liquidity": 3.6,
+      "price_volume": 2.9,
+      "affected_sectors": [
+        "汽车消费"
+      ],
+      "logic": "汽车服务及其他涨1.63%，但整车/零部件未形成强主线，更多是事件预期观察。",
+      "short_impact": "利好预期仍需发布会内容和板块量价确认。",
+      "source": "国新办/商务部发布会预告；同花顺行业汇总"
+    },
+    {
+      "title": "商业航天融资和产业政策线索持续发酵，但军工装备盘面未确认",
+      "direction": "positive",
+      "magnitude": 3.4,
+      "breadth": 3.4,
+      "immediacy": 3.3,
+      "confidence": 3.5,
+      "novelty": 3.5,
+      "liquidity": 3.4,
+      "price_volume": 2.3,
+      "affected_sectors": [
+        "军工装备/商业航天"
+      ],
+      "logic": "商业航天融资讨论提升产业关注度，但军工装备跌1.03%、净流出34.89亿元，正向事件被资金否定。",
+      "short_impact": "仅作主题跟踪，暂不进入正向个股筛选。",
+      "source": "财联社/同花顺题材驱动；同花顺行业汇总"
+    },
+    {
+      "title": "贵金属、小金属和工业金属领跌，资源股出现高位集中回撤",
+      "direction": "negative",
+      "magnitude": 4.7,
+      "breadth": 4.4,
+      "immediacy": 4.6,
+      "confidence": 4.3,
+      "novelty": 3.8,
+      "liquidity": 4.6,
+      "price_volume": 4.6,
+      "affected_sectors": [
+        "有色贵金属/资源股"
+      ],
+      "logic": "贵金属跌6.82%，小金属跌4.02%，工业金属跌3.98%，并伴随主力净流出，显示资源主线出现资金撤退。",
+      "short_impact": "短线偏空资源股和战略金属，需观察商品价格是否止跌。",
+      "source": "同花顺行业汇总/新浪全A快照，截至2026-06-23 11:30"
+    },
+    {
+      "title": "PCB/元件高位分歧加剧，胜宏科技、深南电路等强势链回撤",
+      "direction": "negative",
+      "magnitude": 4.5,
+      "breadth": 4.1,
+      "immediacy": 4.5,
+      "confidence": 4.1,
+      "novelty": 3.6,
+      "liquidity": 4.6,
+      "price_volume": 4.3,
+      "affected_sectors": [
+        "PCB/元件"
+      ],
+      "logic": "元件板块跌3.71%、净流出67亿元，前期AI硬件高位股出现明显资金兑现。",
+      "short_impact": "偏空高位PCB和AI硬件扩散，强趋势股转风险跟踪。",
+      "source": "同花顺行业汇总/腾讯日K，截至2026-06-23 11:30"
+    },
+    {
+      "title": "光伏设备和电池继续净流出，新能源链资金承接不足",
+      "direction": "negative",
+      "magnitude": 4.2,
+      "breadth": 4.1,
+      "immediacy": 4.0,
+      "confidence": 4.0,
+      "novelty": 3.4,
+      "liquidity": 4.4,
+      "price_volume": 3.8,
+      "affected_sectors": [
+        "光伏设备",
+        "电池"
+      ],
+      "logic": "光伏设备净流出40亿元，电池净流出57.03亿元；阳光电源、宁德时代等权重表现偏弱。",
+      "short_impact": "偏空新能源链短线情绪。",
+      "source": "同花顺行业汇总/腾讯行情，截至2026-06-23 11:30"
+    },
+    {
+      "title": "军工装备在商业航天题材中出现资金背离，板块净流出居前",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 3.9,
+      "confidence": 3.8,
+      "novelty": 3.4,
+      "liquidity": 4.0,
+      "price_volume": 3.6,
+      "affected_sectors": [
+        "军工装备/商业航天"
+      ],
+      "logic": "军工装备跌1.03%、净流出34.89亿元，商业航天关注度未转化为板块承接。",
+      "short_impact": "短线偏空军工装备题材扩散。",
+      "source": "同花顺行业汇总，截至2026-06-23 11:30"
+    },
+    {
+      "title": "婴幼儿纸尿裤甲酰胺事件引发监管核查，个护链面临舆情和合规压力",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.2,
+      "immediacy": 4.0,
+      "confidence": 4.2,
+      "novelty": 4.0,
+      "liquidity": 3.0,
+      "price_volume": 3.2,
+      "affected_sectors": [
+        "婴幼儿个护"
+      ],
+      "logic": "监管核查提升个护和纸尿裤企业舆情风险，行业虽上涨但相关个股需单独识别。",
+      "short_impact": "偏空相关个护品牌和供应链情绪。",
+      "source": "央视新闻/市场监管相关通报，2026-06-23"
+    },
+    {
+      "title": "其他电源设备、电池和能源金属同步走弱，新能源上游风险扩散",
+      "direction": "negative",
+      "magnitude": 3.9,
+      "breadth": 3.8,
+      "immediacy": 3.8,
+      "confidence": 3.8,
+      "novelty": 3.3,
+      "liquidity": 3.8,
+      "price_volume": 3.7,
+      "affected_sectors": [
+        "电池",
+        "光伏设备"
+      ],
+      "logic": "新能源负面不止于单一环节，其他电源设备跌1.08%、能源金属跌3.98%。",
+      "short_impact": "偏空新能源链扩散。",
+      "source": "同花顺行业汇总，截至2026-06-23 11:30"
+    },
+    {
+      "title": "退市和立案类风险股跌幅居前，问题股风险偏好继续收缩",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.5,
+      "immediacy": 4.1,
+      "confidence": 4.0,
+      "novelty": 3.5,
+      "liquidity": 3.3,
+      "price_volume": 4.1,
+      "affected_sectors": [
+        "问题股/监管风险"
+      ],
+      "logic": "恒久退、国华退极端下跌，新赛股份跌停，反映退市和信披风险仍被快速出清。",
+      "short_impact": "偏空低质量壳资源和问题股情绪。",
+      "source": "新浪全A快照/公司公告线索，截至2026-06-23 11:30"
+    },
+    {
+      "title": "电子化学品和半导体材料内部剧烈分化，科技股并非全面扩散",
+      "direction": "negative",
+      "magnitude": 3.6,
+      "breadth": 3.6,
+      "immediacy": 3.7,
+      "confidence": 3.7,
+      "novelty": 3.2,
+      "liquidity": 4.0,
+      "price_volume": 3.2,
+      "affected_sectors": [
+        "半导体测试设备",
+        "PCB/元件"
+      ],
+      "logic": "半导体测试强但电子化学品跌1.63%，说明资金只认可少数高确定分支。",
+      "short_impact": "偏空泛科技普涨扩散。",
+      "source": "同花顺行业汇总，截至2026-06-23 11:30"
+    },
+    {
+      "title": "保险和游戏板块回落，风险偏好仍未全面扩散",
+      "direction": "negative",
+      "magnitude": 3.4,
+      "breadth": 3.5,
+      "immediacy": 3.5,
+      "confidence": 3.6,
+      "novelty": 3.0,
+      "liquidity": 3.6,
+      "price_volume": 3.2,
+      "affected_sectors": [
+        "保险/游戏"
+      ],
+      "logic": "保险跌0.98%、游戏跌0.68%，说明金融内部和TMT内部仍有分化。",
+      "short_impact": "偏空非主线方向。",
+      "source": "同花顺行业汇总，截至2026-06-23 11:30"
+    },
+    {
+      "title": "指数层面深成指和创业板指半日显著回落，高β成长承压",
+      "direction": "negative",
+      "magnitude": 4.1,
+      "breadth": 4.4,
+      "immediacy": 4.2,
+      "confidence": 4.2,
+      "novelty": 3.4,
+      "liquidity": 4.6,
+      "price_volume": 4.0,
+      "affected_sectors": [
+        "高β成长"
+      ],
+      "logic": "深成指-1.83%、创业板指-2.27%，与上证-0.37%形成分化，成长高β承压。",
+      "short_impact": "偏空创业板和高估值成长扩散。",
+      "source": "腾讯指数快照，截至2026-06-23 12:05"
+    }
+  ],
+  "sector_candidates": [
+    {
+      "title": "创新药/化学制药",
+      "direction": "positive",
+      "magnitude": 4.6,
+      "breadth": 4.3,
+      "immediacy": 4.4,
+      "confidence": 4.2,
+      "novelty": 3.7,
+      "liquidity": 4.5,
+      "price_volume": 4.5
+    },
+    {
+      "title": "半导体测试设备",
+      "direction": "positive",
+      "magnitude": 4.4,
+      "breadth": 3.7,
+      "immediacy": 4.3,
+      "confidence": 4.0,
+      "novelty": 4.0,
+      "liquidity": 4.4,
+      "price_volume": 4.1
+    },
+    {
+      "title": "证券/互联网金融",
+      "direction": "positive",
+      "magnitude": 4.2,
+      "breadth": 4.2,
+      "immediacy": 4.1,
+      "confidence": 4.1,
+      "novelty": 3.5,
+      "liquidity": 4.6,
+      "price_volume": 4.2
+    },
+    {
+      "title": "银行高股息",
+      "direction": "positive",
+      "magnitude": 3.9,
+      "breadth": 4.0,
+      "immediacy": 3.8,
+      "confidence": 4.0,
+      "novelty": 3.2,
+      "liquidity": 4.4,
+      "price_volume": 3.7
+    },
+    {
+      "title": "生猪产能去化",
+      "direction": "positive",
+      "magnitude": 3.9,
+      "breadth": 3.5,
+      "immediacy": 3.8,
+      "confidence": 4.3,
+      "novelty": 3.8,
+      "liquidity": 3.5,
+      "price_volume": 3.4
+    },
+    {
+      "title": "出口链/低位顺周期",
+      "direction": "positive",
+      "magnitude": 3.4,
+      "breadth": 3.3,
+      "immediacy": 3.2,
+      "confidence": 3.6,
+      "novelty": 3.1,
+      "liquidity": 3.3,
+      "price_volume": 3.3
+    },
+    {
+      "title": "汽车消费",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.6,
+      "immediacy": 3.5,
+      "confidence": 3.7,
+      "novelty": 3.4,
+      "liquidity": 3.6,
+      "price_volume": 2.9
+    },
+    {
+      "title": "军工装备/商业航天",
+      "direction": "positive",
+      "magnitude": 3.4,
+      "breadth": 3.4,
+      "immediacy": 3.3,
+      "confidence": 3.5,
+      "novelty": 3.5,
+      "liquidity": 3.4,
+      "price_volume": 2.3
+    },
+    {
+      "title": "有色贵金属/资源股",
+      "direction": "negative",
+      "magnitude": 4.7,
+      "breadth": 4.4,
+      "immediacy": 4.6,
+      "confidence": 4.3,
+      "novelty": 3.8,
+      "liquidity": 4.6,
+      "price_volume": 4.6
+    },
+    {
+      "title": "PCB/元件",
+      "direction": "negative",
+      "magnitude": 4.5,
+      "breadth": 4.1,
+      "immediacy": 4.5,
+      "confidence": 4.1,
+      "novelty": 3.6,
+      "liquidity": 4.6,
+      "price_volume": 4.3
+    },
+    {
+      "title": "光伏设备",
+      "direction": "negative",
+      "magnitude": 4.2,
+      "breadth": 4.1,
+      "immediacy": 4.0,
+      "confidence": 4.0,
+      "novelty": 3.4,
+      "liquidity": 4.4,
+      "price_volume": 3.8
+    },
+    {
+      "title": "电池",
+      "direction": "negative",
+      "magnitude": 4.1,
+      "breadth": 4.1,
+      "immediacy": 4.0,
+      "confidence": 4.0,
+      "novelty": 3.4,
+      "liquidity": 4.4,
+      "price_volume": 3.8
+    },
+    {
+      "title": "军工装备/商业航天",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 3.9,
+      "confidence": 3.8,
+      "novelty": 3.4,
+      "liquidity": 4.0,
+      "price_volume": 3.6
+    },
+    {
+      "title": "婴幼儿个护",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.2,
+      "immediacy": 4.0,
+      "confidence": 4.2,
+      "novelty": 4.0,
+      "liquidity": 3.0,
+      "price_volume": 3.2
+    },
+    {
+      "title": "问题股/监管风险",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.5,
+      "immediacy": 4.1,
+      "confidence": 4.0,
+      "novelty": 3.5,
+      "liquidity": 3.3,
+      "price_volume": 4.1
+    },
+    {
+      "title": "高β成长",
+      "direction": "negative",
+      "magnitude": 4.1,
+      "breadth": 4.4,
+      "immediacy": 4.2,
+      "confidence": 4.2,
+      "novelty": 3.4,
+      "liquidity": 4.6,
+      "price_volume": 4.0
+    }
+  ],
+  "stocks": [
+    {
+      "ticker": "300604",
+      "name": "长川科技",
+      "sector": "半导体测试设备",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1355.88,
+      "trend_score": 4.6,
+      "volume_score": 3.6,
+      "retail_sentiment": 4.2,
+      "capital_recognition": 4.3,
+      "event_alignment": 4.5,
+      "institutional_trend_score": 4.1,
+      "risk_score": 3.8,
+      "retail_voc_summary": "半导体测试设备热度高，散户追随增强，但主线和14日趋势仍有资金确认。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120506",
+        "quote": {
+          "latest": 277.01,
+          "change_pct": 3.17,
+          "turnover_10k": 890596.0,
+          "market_cap_billion": 1355.88,
+          "pe_ttm": 111.73,
+          "pb": 34.94
+        },
+        "kline_summary": {
+          "chg14_pct": 29.35,
+          "volume_ratio": 1.15
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 352540319.34,
+          "net_profit_yoy": 2.17602047,
+          "ocf_per_share": -0.33,
+          "deduct_profit_yoy": 612.2694,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "000783",
+      "name": "长江证券",
+      "sector": "证券/互联网金融",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 523.14,
+      "trend_score": 4.6,
+      "volume_score": 3.6,
+      "retail_sentiment": 4.6,
+      "capital_recognition": 3.9,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 4.2,
+      "risk_score": 3.7,
+      "retail_voc_summary": "涨停带动券商短线追涨，情绪偏热但成交额和板块资金同步确认。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120548",
+        "quote": {
+          "latest": 9.46,
+          "change_pct": 10.0,
+          "turnover_10k": 126798.0,
+          "market_cap_billion": 523.14,
+          "pe_ttm": 12.45,
+          "pb": 1.49
+        },
+        "kline_summary": {
+          "chg14_pct": 24.97,
+          "volume_ratio": 1.2
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 1486264121.61,
+          "net_profit_yoy": 0.51727361,
+          "ocf_per_share": 2.4374,
+          "deduct_profit_yoy": 51.9666,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600030",
+      "name": "中信证券",
+      "sector": "证券/互联网金融",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 3482.49,
+      "trend_score": 4.2,
+      "volume_score": 3.6,
+      "retail_sentiment": 3.8,
+      "capital_recognition": 3.8,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 4.0,
+      "risk_score": 3.2,
+      "retail_voc_summary": "券商权重承接相对稳健，讨论热度中等。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120525",
+        "quote": {
+          "latest": 28.6,
+          "change_pct": -0.14,
+          "turnover_10k": 791028.0,
+          "market_cap_billion": 3482.49,
+          "pe_ttm": 12.58,
+          "pb": 1.48
+        },
+        "kline_summary": {
+          "chg14_pct": 13.54,
+          "volume_ratio": 1.28
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 10216128310.91,
+          "net_profit_yoy": 0.54601822,
+          "ocf_per_share": 5.0714,
+          "deduct_profit_yoy": 56.9661,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300059",
+      "name": "东方财富",
+      "sector": "证券/互联网金融",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 2834.9,
+      "trend_score": 4.2,
+      "volume_score": 4.5,
+      "retail_sentiment": 4.3,
+      "capital_recognition": 3.8,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 4.2,
+      "risk_score": 3.8,
+      "retail_voc_summary": "互联网金融热度高，成交放大确认但波动风险偏高。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120539",
+        "quote": {
+          "latest": 21.23,
+          "change_pct": 1.24,
+          "turnover_10k": 1756776.0,
+          "market_cap_billion": 2834.9,
+          "pe_ttm": 25.63,
+          "pb": 3.5
+        },
+        "kline_summary": {
+          "chg14_pct": 12.27,
+          "volume_ratio": 2.09
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 3737779855.92,
+          "net_profit_yoy": 0.37669892,
+          "ocf_per_share": 1.9257,
+          "deduct_profit_yoy": 36.949,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600276",
+      "name": "恒瑞医药",
+      "sector": "创新药/化学制药",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 3184.4,
+      "trend_score": 3.8,
+      "volume_score": 3.1,
+      "retail_sentiment": 3.5,
+      "capital_recognition": 4.2,
+      "event_alignment": 4.3,
+      "institutional_trend_score": 3.7,
+      "risk_score": 3.2,
+      "retail_voc_summary": "创新药核心资产关注度提升，但当日量能未明显放大。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120526",
+        "quote": {
+          "latest": 49.92,
+          "change_pct": 1.13,
+          "turnover_10k": 374021.0,
+          "market_cap_billion": 3184.4,
+          "pe_ttm": 40.81,
+          "pb": 5.31
+        },
+        "kline_summary": {
+          "chg14_pct": 5.76,
+          "volume_ratio": 1.01
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 2282268233.13,
+          "net_profit_yoy": 0.21782317,
+          "ocf_per_share": 0.1185,
+          "deduct_profit_yoy": 16.5896,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300558",
+      "name": "贝达药业",
+      "sector": "创新药/化学制药",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 248.83,
+      "trend_score": 4.6,
+      "volume_score": 3.1,
+      "retail_sentiment": 4.0,
+      "capital_recognition": 3.7,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 4.1,
+      "risk_score": 3.7,
+      "retail_voc_summary": "创新药弹性股热度升温，14日趋势强但量能确认仍不足。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120542",
+        "quote": {
+          "latest": 59.33,
+          "change_pct": 1.33,
+          "turnover_10k": 104450.0,
+          "market_cap_billion": 248.83,
+          "pe_ttm": 56.58,
+          "pb": 3.71
+        },
+        "kline_summary": {
+          "chg14_pct": 24.51,
+          "volume_ratio": 0.97
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 235916857.98,
+          "net_profit_yoy": 1.35706651,
+          "ocf_per_share": 0.6265,
+          "deduct_profit_yoy": 26.0166,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "603259",
+      "name": "药明康德",
+      "sector": "创新药/化学制药",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 2664.71,
+      "trend_score": 3.8,
+      "volume_score": 2.5,
+      "retail_sentiment": 3.4,
+      "capital_recognition": 3.9,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 3.5,
+      "risk_score": 3.5,
+      "retail_voc_summary": "CXO方向关注改善，但当日成交量低于近14日均量。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120520",
+        "quote": {
+          "latest": 107.74,
+          "change_pct": 0.85,
+          "turnover_10k": 391510.0,
+          "market_cap_billion": 2664.71,
+          "pe_ttm": 15.97,
+          "pb": 4.04
+        },
+        "kline_summary": {
+          "chg14_pct": 8.99,
+          "volume_ratio": 0.79
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 4651517987.76,
+          "net_profit_yoy": null,
+          "ocf_per_share": null,
+          "deduct_profit_yoy": null,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "000756",
+      "name": "新华制药",
+      "sector": "创新药/化学制药",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 67.05,
+      "trend_score": 3.2,
+      "volume_score": 4.5,
+      "retail_sentiment": 4.7,
+      "capital_recognition": 4.2,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 3.5,
+      "risk_score": 4.0,
+      "retail_voc_summary": "涨停后追涨情绪较强，风险收益不对称上升。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120521",
+        "quote": {
+          "latest": 13.44,
+          "change_pct": 9.98,
+          "turnover_10k": 12477.0,
+          "market_cap_billion": 67.05,
+          "pe_ttm": 35.78,
+          "pb": 1.75
+        },
+        "kline_summary": {
+          "chg14_pct": 2.21,
+          "volume_ratio": 2.22
+        },
+        "fundamental_context": {
+          "status": "not_checked"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300149",
+      "name": "睿智医药",
+      "sector": "创新药/化学制药",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 43.38,
+      "trend_score": 4.2,
+      "volume_score": 4.5,
+      "retail_sentiment": 4.8,
+      "capital_recognition": 4.1,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 4.2,
+      "risk_score": 4.2,
+      "retail_voc_summary": "20%涨停带来极端热度，负PE和小市值降低质量门槛通过率。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120533",
+        "quote": {
+          "latest": 9.14,
+          "change_pct": 19.95,
+          "turnover_10k": 28905.0,
+          "market_cap_billion": 43.38,
+          "pe_ttm": -399.72,
+          "pb": 3.55
+        },
+        "kline_summary": {
+          "chg14_pct": 10.39,
+          "volume_ratio": 3.63
+        },
+        "fundamental_context": {
+          "status": "not_checked"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300485",
+      "name": "赛升药业",
+      "sector": "创新药/化学制药",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 26.48,
+      "trend_score": 4.2,
+      "volume_score": 4.5,
+      "retail_sentiment": 4.8,
+      "capital_recognition": 3.8,
+      "event_alignment": 3.7,
+      "institutional_trend_score": 4.2,
+      "risk_score": 4.3,
+      "retail_voc_summary": "高弹性涨幅引发短线追逐，基本面和估值口径较弱。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120527",
+        "quote": {
+          "latest": 9.67,
+          "change_pct": 18.07,
+          "turnover_10k": 18744.0,
+          "market_cap_billion": 26.48,
+          "pe_ttm": -224.62,
+          "pb": 1.39
+        },
+        "kline_summary": {
+          "chg14_pct": 11.15,
+          "volume_ratio": 4.17
+        },
+        "fundamental_context": {
+          "status": "not_checked"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "601398",
+      "name": "工商银行",
+      "sector": "银行高股息",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 19897.38,
+      "trend_score": 3.2,
+      "volume_score": 2.5,
+      "retail_sentiment": 2.8,
+      "capital_recognition": 4.1,
+      "event_alignment": 3.6,
+      "institutional_trend_score": 3.0,
+      "risk_score": 2.6,
+      "retail_voc_summary": "高股息防御资金承接，散户情绪不拥挤。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120509",
+        "quote": {
+          "latest": 7.38,
+          "change_pct": 2.5,
+          "turnover_10k": 231981.0,
+          "market_cap_billion": 19897.38,
+          "pe_ttm": 7.08,
+          "pb": 0.68
+        },
+        "kline_summary": {
+          "chg14_pct": 1.37,
+          "volume_ratio": 0.83
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 86941000000.0,
+          "net_profit_yoy": 0.0330933,
+          "ocf_per_share": 3.9738,
+          "deduct_profit_yoy": 3.49,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600036",
+      "name": "招商银行",
+      "sector": "银行高股息",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 7793.62,
+      "trend_score": 2.7,
+      "volume_score": 2.5,
+      "retail_sentiment": 2.8,
+      "capital_recognition": 4.1,
+      "event_alignment": 3.6,
+      "institutional_trend_score": 2.8,
+      "risk_score": 2.8,
+      "retail_voc_summary": "银行主线稳定但个股14日趋势偏弱。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120500",
+        "quote": {
+          "latest": 37.78,
+          "change_pct": 0.35,
+          "turnover_10k": 227232.0,
+          "market_cap_billion": 7793.62,
+          "pe_ttm": 6.32,
+          "pb": 0.84
+        },
+        "kline_summary": {
+          "chg14_pct": -1.87,
+          "volume_ratio": 0.71
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 37852000000.0,
+          "net_profit_yoy": 0.01517996,
+          "ocf_per_share": 4.99,
+          "deduct_profit_yoy": 1.7746,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002714",
+      "name": "牧原股份",
+      "sector": "生猪产能去化",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1290.16,
+      "trend_score": 2.2,
+      "volume_score": 3.1,
+      "retail_sentiment": 3.2,
+      "capital_recognition": 3.0,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 2.5,
+      "risk_score": 3.4,
+      "retail_voc_summary": "政策利好明确，但股价仍弱，主力确认不足。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120518",
+        "quote": {
+          "latest": 33.95,
+          "change_pct": 0.0,
+          "turnover_10k": 145923.0,
+          "market_cap_billion": 1290.16,
+          "pe_ttm": 20.04,
+          "pb": 2.34
+        },
+        "kline_summary": {
+          "chg14_pct": -6.22,
+          "volume_ratio": 0.91
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": -1214841304.35,
+          "net_profit_yoy": -1.27050002,
+          "ocf_per_share": -0.1594,
+          "deduct_profit_yoy": -125.315,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "605296",
+      "name": "神农集团",
+      "sector": "生猪产能去化",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 134.26,
+      "trend_score": 2.7,
+      "volume_score": 2.5,
+      "retail_sentiment": 3.5,
+      "capital_recognition": 3.0,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 2.7,
+      "risk_score": 3.6,
+      "retail_voc_summary": "养殖弹性存在，但量价和资金确认不足。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120515",
+        "quote": {
+          "latest": 25.92,
+          "change_pct": 1.89,
+          "turnover_10k": 4077.0,
+          "market_cap_billion": 134.26,
+          "pe_ttm": -25.28,
+          "pb": 3.18
+        },
+        "kline_summary": {
+          "chg14_pct": -2.26,
+          "volume_ratio": 0.78
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": -648352132.21,
+          "net_profit_yoy": -3.83616289,
+          "ocf_per_share": -0.2426,
+          "deduct_profit_yoy": -385.6628,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "601899",
+      "name": "紫金矿业",
+      "sector": "有色贵金属/资源股",
+      "directional_role": "pressure",
+      "market_cap_billion": 5830.31,
+      "trend_score": 2.0,
+      "volume_score": 3.4,
+      "retail_sentiment": 3.8,
+      "capital_recognition": 2.2,
+      "event_alignment": 4.2,
+      "institutional_trend_score": 2.5,
+      "risk_score": 4.2,
+      "retail_voc_summary": "资源股热度从追涨转向兑现，单日跌幅和板块净流出确认风险。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120502",
+        "quote": {
+          "latest": 28.3,
+          "change_pct": -7.03,
+          "turnover_10k": 837898.0,
+          "market_cap_billion": 5830.31,
+          "pe_ttm": 12.2,
+          "pb": 3.81
+        },
+        "kline_summary": {
+          "chg14_pct": -9.5,
+          "volume_ratio": 0.87
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 20079391507.0,
+          "net_profit_yoy": 0.97500066,
+          "ocf_per_share": 1.0467,
+          "deduct_profit_yoy": 86.8066,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "603993",
+      "name": "洛阳钼业",
+      "sector": "有色贵金属/资源股",
+      "directional_role": "pressure",
+      "market_cap_billion": 3457.25,
+      "trend_score": 2.0,
+      "volume_score": 3.4,
+      "retail_sentiment": 3.7,
+      "capital_recognition": 2.2,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 2.8,
+      "risk_score": 4.1,
+      "retail_voc_summary": "工业金属和钼铜链承压，资金撤退明显。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120528",
+        "quote": {
+          "latest": 19.8,
+          "change_pct": -8.55,
+          "turnover_10k": 855609.0,
+          "market_cap_billion": 3457.25,
+          "pe_ttm": 17.54,
+          "pb": 5.12
+        },
+        "kline_summary": {
+          "chg14_pct": -0.45,
+          "volume_ratio": 1.1
+        },
+        "fundamental_context": {
+          "status": "not_checked"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600547",
+      "name": "山东黄金",
+      "sector": "有色贵金属/资源股",
+      "directional_role": "pressure",
+      "market_cap_billion": 918.79,
+      "trend_score": 2.6,
+      "volume_score": 3.6,
+      "retail_sentiment": 3.5,
+      "capital_recognition": 2.9,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 2.4,
+      "risk_score": 3.7,
+      "retail_voc_summary": "贵金属主线跌幅居前，避险交易降温。（同类风险样本，降为观察，不进入承压列。）",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120500",
+        "quote": {
+          "latest": 25.42,
+          "change_pct": -6.85,
+          "turnover_10k": 170728.0,
+          "market_cap_billion": 918.79,
+          "pe_ttm": 22.72,
+          "pb": 3.66
+        },
+        "kline_summary": {
+          "chg14_pct": -13.51,
+          "volume_ratio": 1.17
+        },
+        "fundamental_context": {
+          "status": "not_checked"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600489",
+      "name": "中金黄金",
+      "sector": "有色贵金属/资源股",
+      "directional_role": "pressure",
+      "market_cap_billion": 989.34,
+      "trend_score": 2.6,
+      "volume_score": 3.4,
+      "retail_sentiment": 3.5,
+      "capital_recognition": 2.9,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 2.4,
+      "risk_score": 3.7,
+      "retail_voc_summary": "金价/贵金属权益回撤共振，短线风险确认。（同类风险样本，降为观察，不进入承压列。）",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120505",
+        "quote": {
+          "latest": 20.41,
+          "change_pct": -8.31,
+          "turnover_10k": 158738.0,
+          "market_cap_billion": 989.34,
+          "pe_ttm": 15.76,
+          "pb": 3.02
+        },
+        "kline_summary": {
+          "chg14_pct": -11.76,
+          "volume_ratio": 1.04
+        },
+        "fundamental_context": {
+          "status": "not_checked"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "sector": "PCB/元件",
+      "directional_role": "pressure",
+      "market_cap_billion": 2703.47,
+      "trend_score": 2.2,
+      "volume_score": 2.5,
+      "retail_sentiment": 4.2,
+      "capital_recognition": 1.9,
+      "event_alignment": 4.2,
+      "institutional_trend_score": 2.6,
+      "risk_score": 4.3,
+      "retail_voc_summary": "AI PCB高位关注仍高，但主力和价格开始背离。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120539",
+        "quote": {
+          "latest": 140.6,
+          "change_pct": -3.21,
+          "turnover_10k": 742109.0,
+          "market_cap_billion": 2703.47,
+          "pe_ttm": 62.89,
+          "pb": 17.09
+        },
+        "kline_summary": {
+          "chg14_pct": 8.32,
+          "volume_ratio": 0.53
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 1242081367.0,
+          "net_profit_yoy": 0.62903309,
+          "ocf_per_share": 0.2656,
+          "deduct_profit_yoy": 56.0157,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300476",
+      "name": "胜宏科技",
+      "sector": "PCB/元件",
+      "directional_role": "pressure",
+      "market_cap_billion": 2969.35,
+      "trend_score": 2.0,
+      "volume_score": 2.5,
+      "retail_sentiment": 4.5,
+      "capital_recognition": 1.7,
+      "event_alignment": 4.3,
+      "institutional_trend_score": 2.2,
+      "risk_score": 4.4,
+      "retail_voc_summary": "前期强势股高位回撤，散户热度与资金弱化冲突。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120551",
+        "quote": {
+          "latest": 343.2,
+          "change_pct": -6.08,
+          "turnover_10k": 1168090.0,
+          "market_cap_billion": 2969.35,
+          "pe_ttm": 72.07,
+          "pb": 21.53
+        },
+        "kline_summary": {
+          "chg14_pct": -2.9,
+          "volume_ratio": 0.75
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 1288427592.46,
+          "net_profit_yoy": 0.39947999,
+          "ocf_per_share": 2.4258,
+          "deduct_profit_yoy": 36.0701,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600183",
+      "name": "生益科技",
+      "sector": "PCB/元件",
+      "directional_role": "pressure",
+      "market_cap_billion": 4070.65,
+      "trend_score": 2.6,
+      "volume_score": 2.5,
+      "retail_sentiment": 4.2,
+      "capital_recognition": 2.9,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 2.4,
+      "risk_score": 3.7,
+      "retail_voc_summary": "PCB材料高位兑现，估值和拥挤风险上升。（同类风险样本，降为观察，不进入承压列。）",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120504",
+        "quote": {
+          "latest": 170.0,
+          "change_pct": -7.86,
+          "turnover_10k": 1095227.0,
+          "market_cap_billion": 4070.65,
+          "pe_ttm": 105.12,
+          "pb": 25.83
+        },
+        "kline_summary": {
+          "chg14_pct": 21.18,
+          "volume_ratio": 0.73
+        },
+        "fundamental_context": {
+          "status": "not_checked"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002916",
+      "name": "深南电路",
+      "sector": "PCB/元件",
+      "directional_role": "pressure",
+      "market_cap_billion": 2859.81,
+      "trend_score": 2.6,
+      "volume_score": 2.5,
+      "retail_sentiment": 4.2,
+      "capital_recognition": 2.9,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 2.4,
+      "risk_score": 3.7,
+      "retail_voc_summary": "PCB链跟随板块回落，短线资金承接不足。（同类风险样本，降为观察，不进入承压列。）",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120530",
+        "quote": {
+          "latest": 430.17,
+          "change_pct": -5.94,
+          "turnover_10k": 469468.0,
+          "market_cap_billion": 2859.81,
+          "pe_ttm": 80.62,
+          "pb": 17.81
+        },
+        "kline_summary": {
+          "chg14_pct": 12.61,
+          "volume_ratio": 0.73
+        },
+        "fundamental_context": {
+          "status": "not_checked"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300274",
+      "name": "阳光电源",
+      "sector": "光伏设备",
+      "directional_role": "pressure",
+      "market_cap_billion": 2464.0,
+      "trend_score": 2.0,
+      "volume_score": 2.5,
+      "retail_sentiment": 3.6,
+      "capital_recognition": 2.0,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 2.2,
+      "risk_score": 4.0,
+      "retail_voc_summary": "光伏设备净流出且14日走势转弱。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120539",
+        "quote": {
+          "latest": 155.21,
+          "change_pct": -5.05,
+          "turnover_10k": 771424.0,
+          "market_cap_billion": 2464.0,
+          "pe_ttm": 26.98,
+          "pb": 6.81
+        },
+        "kline_summary": {
+          "chg14_pct": -9.13,
+          "volume_ratio": 0.71
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 2291269562.74,
+          "net_profit_yoy": -0.40115703,
+          "ocf_per_share": 0.5829,
+          "deduct_profit_yoy": -44.7185,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300750",
+      "name": "宁德时代",
+      "sector": "电池",
+      "directional_role": "pressure",
+      "market_cap_billion": 17095.73,
+      "trend_score": 2.2,
+      "volume_score": 2.5,
+      "retail_sentiment": 3.3,
+      "capital_recognition": 2.2,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 2.4,
+      "risk_score": 3.8,
+      "retail_voc_summary": "电池权重走势走弱，行业净流出压制风险偏好。",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120551",
+        "quote": {
+          "latest": 401.59,
+          "change_pct": -1.81,
+          "turnover_10k": 797867.0,
+          "market_cap_billion": 17095.73,
+          "pe_ttm": 23.53,
+          "pb": 5.69
+        },
+        "kline_summary": {
+          "chg14_pct": -5.82,
+          "volume_ratio": 0.57
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 20737710000.0,
+          "net_profit_yoy": 0.48523716,
+          "ocf_per_share": 7.3796,
+          "deduct_profit_yoy": 52.9493,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "605009",
+      "name": "豪悦护理",
+      "sector": "婴幼儿个护",
+      "directional_role": "pressure",
+      "market_cap_billion": 50.99,
+      "trend_score": 2.8,
+      "volume_score": 4.1,
+      "retail_sentiment": 4.1,
+      "capital_recognition": 2.9,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 2.8,
+      "risk_score": 3.7,
+      "retail_voc_summary": "纸尿裤事件提升舆情风险，但股价短线反弹，承压证据仍需复核。（同类风险样本，降为观察，不进入承压列。）",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120513",
+        "quote": {
+          "latest": 23.71,
+          "change_pct": 6.85,
+          "turnover_10k": 6707.0,
+          "market_cap_billion": 50.99,
+          "pe_ttm": 22.67,
+          "pb": 1.46
+        },
+        "kline_summary": {
+          "chg14_pct": -5.01,
+          "volume_ratio": 1.66
+        },
+        "fundamental_context": {
+          "revenue": null,
+          "revenue_yoy": null,
+          "net_profit": 83510842.68,
+          "net_profit_yoy": -0.07836198,
+          "ocf_per_share": 0.9421,
+          "deduct_profit_yoy": -7.6434,
+          "status": "available"
+        },
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600118",
+      "name": "中国卫星",
+      "sector": "军工装备/商业航天",
+      "directional_role": "pressure",
+      "market_cap_billion": 860.85,
+      "trend_score": 2.6,
+      "volume_score": 2.5,
+      "retail_sentiment": 3.8,
+      "capital_recognition": 2.9,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 2.2,
+      "risk_score": 3.7,
+      "retail_voc_summary": "商业航天题材关注与军工装备资金流向背离。（同类风险样本，降为观察，不进入承压列。）",
+      "external_data": {
+        "source": "tencent_quote+qfq_kline+ths_financial_abstract",
+        "data_time": "20260623120506",
+        "quote": {
+          "latest": 72.8,
+          "change_pct": -3.96,
+          "turnover_10k": 198445.0,
+          "market_cap_billion": 860.85,
+          "pe_ttm": 5071.02,
+          "pb": 13.61
+        },
+        "kline_summary": {
+          "chg14_pct": -10.76,
+          "volume_ratio": 0.54
+        },
+        "fundamental_context": {
+          "status": "not_checked"
+        },
+        "data_quality": "partial"
+      }
+    }
+  ],
+  "evidence_gaps": [
+    "Reuters/Caixin/Cailian direct article pages were not reliably opened through the available search interface; report uses official PBOC, MOA/NDRC, CCTV-style public-source checks plus THS/Sina/Tencent free market data, and records the authority-check access gap.",
+    "Eastmoney push2 endpoints disconnected from local runtime; no-key Tencent K-line and akshare Sina/THS snapshots were used as fallback.",
+    "Northbound real-time net-buy data was not stably available from free no-key sources in this run.",
+    "Several akshare individual-info valuation endpoints failed; PE/PB/market cap are primarily from Tencent quote fields.",
+    "Market turnover sources have different aggregation scopes; report uses direction/relative activity instead of a single exact all-market turnover number."
+  ],
+  "optional_data_sources": {
+    "akshare_dependency": {
+      "status": "installed",
+      "detail": "akshare=1.18.64, pandas=3.0.0, numpy=2.4.1"
+    },
+    "akshare_fetch": {
+      "status": "partial",
+      "detail": "akshare Sina/THS market snapshots and THS financial abstract available; Eastmoney individual info endpoints disconnected."
+    },
+    "sina_quote": {
+      "status": "available",
+      "detail": "akshare stock_zh_a_spot returned full A-share intraday quote snapshot."
+    },
+    "tencent_quote": {
+      "status": "available",
+      "detail": "Tencent public quote and qfq daily K-line endpoints returned stock snapshots and 35 daily bars."
+    },
+    "eastmoney_quote": {
+      "status": "fetch_failed",
+      "detail": "push2.eastmoney.com remote disconnected in this run."
+    },
+    "itick": {
+      "status": "missing_credentials",
+      "detail": "ITICK_API_TOKEN is not set."
+    },
+    "zhitu": {
+      "status": "missing_credentials",
+      "detail": "ZHITU_API_TOKEN is not set; demo endpoint not used."
+    },
+    "baostock": {
+      "status": "missing_dependency",
+      "detail": "baostock is not installed."
+    }
+  },
+  "supplemental_stock_analysis": [
+    {
+      "stock": "300604 长川科技",
+      "latest_price": 277.01,
+      "valuation_metrics": "PE 111.73 / PB 34.94",
+      "financial_health": "2026Q1归母净利同比217.6%，扣非增速612.3%，OCF/股-0.33。",
+      "valuation_summary": "以半导体设备区间看 PE/PB 偏高，更多依赖业绩兑现。",
+      "risk_note": "PE/PB显著高位，经营现金流为负，波动风险高。",
+      "judgement": "证据更强：半导体测试设备主线、14日趋势和资金认可共振，但估值处于高位。"
+    },
+    {
+      "stock": "000783 长江证券",
+      "latest_price": 9.46,
+      "valuation_metrics": "PE 12.45 / PB 1.49",
+      "financial_health": "2026Q1归母净利同比51.7%，扣非增速52.0%，OCF/股2.4374。",
+      "valuation_summary": "PE/PB处于券商可比区间，估值不构成主要矛盾。",
+      "risk_note": "涨停后追涨情绪偏热。",
+      "judgement": "证据更强：证券板块强势和涨停确认风险偏好修复，但短线拥挤。"
+    },
+    {
+      "stock": "600030 中信证券",
+      "latest_price": 28.6,
+      "valuation_metrics": "PE 12.58 / PB 1.48",
+      "financial_health": "2026Q1归母净利同比54.6%，扣非增速57.0%，OCF/股5.0714。",
+      "valuation_summary": "PE/PB处于券商可比区间。",
+      "risk_note": "大市值券商弹性有限，需看成交额持续性。",
+      "judgement": "证据更强：券商权重有趋势和财务支撑，弹性弱于长江证券。"
+    },
+    {
+      "stock": "300059 东方财富",
+      "latest_price": 21.23,
+      "valuation_metrics": "PE 25.63 / PB 3.5",
+      "financial_health": "2026Q1归母净利同比37.7%，扣非增速36.9%，OCF/股1.9257。",
+      "valuation_summary": "PE/PB高于传统券商，适合做情绪温度计。",
+      "risk_note": "PB较券商高，交易属性强。",
+      "judgement": "证据更强：互联网金融高弹性与成交放大共振，但波动更高。"
+    },
+    {
+      "stock": "600276 恒瑞医药",
+      "latest_price": 49.92,
+      "valuation_metrics": "PE 40.81 / PB 5.31",
+      "financial_health": "2026Q1归母净利同比21.8%，扣非增速16.6%，OCF/股0.1185。",
+      "valuation_summary": "创新药龙头溢价存在，当前偏合理偏高。",
+      "risk_note": "PE/PB高于普通医药估值中枢。",
+      "judgement": "仅观察：医药核心资产受益主线，但量能未通过机会门槛。"
+    },
+    {
+      "stock": "300558 贝达药业",
+      "latest_price": 59.33,
+      "valuation_metrics": "PE 56.58 / PB 3.71",
+      "financial_health": "2026Q1归母净利同比135.7%，扣非增速26.0%，OCF/股0.6265。",
+      "valuation_summary": "PE高于医药合理区间。",
+      "risk_note": "创新药弹性股估值较高。",
+      "judgement": "仅观察：14日趋势强，量能确认不足。"
+    },
+    {
+      "stock": "603259 药明康德",
+      "latest_price": 107.74,
+      "valuation_metrics": "PE 15.97 / PB 4.04",
+      "financial_health": "2026Q1归母净利同比缺口，扣非增速缺口，OCF/股缺口。",
+      "valuation_summary": "PE不高，PB偏高，估值分化。",
+      "risk_note": "外部订单和政策扰动仍需跟踪。",
+      "judgement": "仅观察：CXO基本面体量强，但当日量能不足。"
+    },
+    {
+      "stock": "601899 紫金矿业",
+      "latest_price": 28.3,
+      "valuation_metrics": "PE 12.2 / PB 3.81",
+      "financial_health": "2026Q1归母净利同比97.5%，扣非增速86.8%，OCF/股1.0467。",
+      "valuation_summary": "PE不高但PB和商品周期风险需折价。",
+      "risk_note": "周期资源对商品价格和海外风险偏好敏感。",
+      "judgement": "负向风险证据更强：资源股回撤与行业净流出同步。"
+    },
+    {
+      "stock": "300476 胜宏科技",
+      "latest_price": 343.2,
+      "valuation_metrics": "PE 72.07 / PB 21.53",
+      "financial_health": "2026Q1归母净利同比39.9%，扣非增速36.1%，OCF/股2.4258。",
+      "valuation_summary": "估值依赖AI硬件景气持续。",
+      "risk_note": "PE/PB高位，跌幅确认高位兑现。",
+      "judgement": "负向风险证据更强：PCB高位回撤，估值和筹码拥挤。"
+    },
+    {
+      "stock": "300274 阳光电源",
+      "latest_price": 155.21,
+      "valuation_metrics": "PE 26.98 / PB 6.81",
+      "financial_health": "2026Q1归母净利同比-40.1%，扣非增速-44.7%，OCF/股0.5829。",
+      "valuation_summary": "PE尚可但PB偏高，基本面拐点未确认。",
+      "risk_note": "Q1利润下滑，板块净流出。",
+      "judgement": "负向风险证据较强：光伏设备资金流出且14日趋势转弱。"
+    }
+  ],
+  "supplemental_conclusion": {
+    "as_of": "2026-06-23 11:30-12:05（北京时间）公开行情快照",
+    "method_note": "使用 china-stock-analysis 可用的同花顺财务摘要、akshare 新浪/同花顺行情，以及 china-stock-price-analysis 的 PE/PB 相对估值框架；未使用 QVeris 或付费终端。",
+    "stronger_evidence": [
+      "正向证据更强：300604 长川科技、000783 长江证券、600030 中信证券、300059 东方财富。它们来自已入选主线，且趋势、资金认可和事件关联同时达标。",
+      "负向风险证据更强：601899 紫金矿业、603993 洛阳钼业、300476 胜宏科技、300274 阳光电源。它们所属板块净流出与个股回撤同步，适合作为风险跟踪样本。"
+    ],
+    "observation_only": [
+      "600276 恒瑞医药、300558 贝达药业、603259 药明康德：主线成立但量能或估值确认不足。",
+      "000756 新华制药、300149 睿智医药、300485 赛升药业：短线弹性强但散户热度和估值/盈利质量风险偏高。",
+      "601398 工商银行、600036 招商银行、002714 牧原股份、605296 神农集团：板块或政策逻辑存在，但个股14日量价确认不足。",
+      "605009 豪悦护理、600118 中国卫星等：负面事件或板块资金背离相关，但个股承压证据尚不如资源、PCB、新能源权重清晰。"
+    ],
+    "notes": [
+      "所有结论均为非个性化研究分层，不包含买卖、仓位、止损或目标价指令。",
+      "15:00 后应补充 close_review.json，检验医药/券商强势和资源/PCB回撤是否延续到收盘。"
+    ]
+  }
+}

@@ -6,60 +6,9 @@ import json
 import sys
 from pathlib import Path
 from typing import Any
-from urllib import error, request
+from urllib import error
 
-DEFAULT_TIMEOUT_SECONDS = 10
-
-
-def a_share_symbol(code: str) -> str:
-    normalized = code.strip().lower().replace(".sz", "").replace(".sh", "")
-    if normalized.startswith(("sh", "sz")):
-        return normalized
-    if normalized.startswith(("6", "9")):
-        return f"sh{normalized}"
-    return f"sz{normalized}"
-
-
-def http_get_bytes(url: str) -> bytes:
-    req = request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with request.urlopen(req, timeout=DEFAULT_TIMEOUT_SECONDS) as response:
-        return response.read()
-
-
-def parse_tencent_quote(text: str, symbol: str) -> dict[str, float | str]:
-    marker = f"v_{symbol}="
-    if marker not in text:
-        raise ValueError(f"Tencent quote response did not include `{marker}`")
-    body = text.split('="', 1)[1].rsplit('";', 1)[0]
-    fields = body.split("~")
-    if len(fields) <= 45:
-        raise ValueError("Tencent quote response did not include market-cap fields")
-
-    def number(index: int, field_name: str) -> float:
-        try:
-            return float(fields[index])
-        except ValueError as exc:
-            raise ValueError(f"Tencent quote field `{field_name}` is not numeric") from exc
-
-    return {
-        "source": "tencent_public_quote",
-        "symbol": symbol,
-        "name": fields[1],
-        "ticker": fields[2],
-        "last_price": number(3, "last_price"),
-        "previous_close": number(4, "previous_close"),
-        "pct_change": number(32, "pct_change"),
-        "turnover_rate": number(38, "turnover_rate"),
-        "float_market_cap_billion": number(44, "float_market_cap_billion"),
-        "total_market_cap_billion": number(45, "total_market_cap_billion"),
-        "timestamp": fields[30],
-    }
-
-
-def fetch_tencent_quote(code: str) -> dict[str, float | str]:
-    symbol = a_share_symbol(code)
-    text = http_get_bytes(f"https://qt.gtimg.cn/q={symbol}").decode("gbk", errors="replace")
-    return parse_tencent_quote(text, symbol)
+from tencent_quote import fetch_quote
 
 
 def load_bundle(path: Path) -> dict[str, Any]:
@@ -80,16 +29,17 @@ def enrich_stock(stock: dict[str, Any], refresh: bool) -> tuple[dict[str, Any], 
         return stock, None
 
     try:
-        quote = fetch_tencent_quote(ticker)
+        quote = fetch_quote(ticker)
     except (OSError, error.URLError, ValueError) as exc:
         return stock, f"{ticker}: Tencent quote fetch failed: {exc}"
 
     enriched = dict(stock)
-    enriched["market_cap_billion"] = quote["total_market_cap_billion"]
+    snapshot = quote.to_snapshot()
+    enriched["market_cap_billion"] = snapshot["total_market_cap_billion"]
     external_data = enriched.get("external_data")
     if not isinstance(external_data, dict):
         external_data = {}
-    external_data["quote_snapshot"] = quote
+    external_data["quote_snapshot"] = snapshot
     enriched["external_data"] = external_data
     return enriched, None
 

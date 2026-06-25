@@ -1,0 +1,265 @@
+{
+  "topic": "先进封装产业链分析",
+  "generated_at": "2026-06-25",
+  "data_policy": {
+    "frequency": "low",
+    "notes": "行情与主营信息采用低频采样；接口状态和失败细节仅保存在源数据，不写入报告正文。"
+  },
+  "adapter_health": {
+    "akshare_main_business": "available",
+    "akshare_cninfo_disclosure": "available",
+    "efinance_quote_snapshot": "available",
+    "efinance_base_info": "available",
+    "baostock_daily": "available",
+    "adata_probe": "available",
+    "akshare_concept_cons": "failed during probe; not used for final conclusions"
+  },
+  "sources": [
+    {
+      "id": "src-600584-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "长电科技主营业务",
+      "evidence": "一站式芯片成品制造，微系统集成、晶圆中测、封装、测试；产品含先进封装、传统封装。"
+    },
+    {
+      "id": "src-002156-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "通富微电主营业务",
+      "evidence": "集成电路封装测试，一站式服务。"
+    },
+    {
+      "id": "src-002185-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "华天科技主营业务",
+      "evidence": "集成电路封装测试，产品覆盖FC、MCM、SiP、WLP、TSV、Bumping、FO、PLP、2.5D/3D等。"
+    },
+    {
+      "id": "src-688362-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "甬矽电子主营业务",
+      "evidence": "封装测试；FC、SiP、Bumping/WLP、QFN/DFN、MEMS。"
+    },
+    {
+      "id": "src-603005-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "晶方科技主营业务",
+      "evidence": "传感器封测；WLP、Fan-out chip-scale packages、optical devices。"
+    },
+    {
+      "id": "src-002916-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "深南电路主营业务",
+      "evidence": "PCB、封装基板、电子装联。"
+    },
+    {
+      "id": "src-002436-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "兴森科技主营业务",
+      "evidence": "PCB、IC封装基板、半导体测试板；产品含ATE测试板、CSP封装基板、FCBGA封装基板。"
+    },
+    {
+      "id": "src-600183-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "生益科技主营业务",
+      "evidence": "覆铜板、粘结片、PCB；经营范围含电子玻璃布、环氧树脂、铜箔等。"
+    },
+    {
+      "id": "src-688519-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "南亚新材主营业务",
+      "evidence": "CCL/prepreg，高速、高频、HDI、IC基板材料。"
+    },
+    {
+      "id": "src-688535-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "华海诚科主营业务",
+      "evidence": "半导体封装材料，环氧塑封料、电子胶黏剂。"
+    },
+    {
+      "id": "src-688035-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "德邦科技主营业务",
+      "evidence": "高端电子封装材料；IC封装材料、导电/导热/电磁屏蔽/结构粘合/密封材料。"
+    },
+    {
+      "id": "src-300054-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "鼎龙股份主营业务",
+      "evidence": "CMP抛光垫/液、CMP清洗液、YPI、PSPI、临时键合胶、半导体封装PI等。"
+    },
+    {
+      "id": "src-688019-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "安集科技主营业务",
+      "evidence": "化学机械抛光液、功能性湿电子化学品、电镀液及添加剂。"
+    },
+    {
+      "id": "src-300666-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "江丰电子主营业务",
+      "evidence": "超高纯金属溅射靶材和半导体精密零部件；产品含铜、钽、钨等靶材。"
+    },
+    {
+      "id": "src-equipment-main",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-06-25",
+      "title": "设备与测试公司主营业务",
+      "evidence": "华海清科、长川科技、芯碁微装、中微公司、北方华创、拓荆科技主营覆盖CMP/减薄/划切、测试机/AOI、直写光刻、刻蚀/薄膜/沉积等设备。"
+    },
+    {
+      "id": "src-quotes-20260625",
+      "tool": "akshare",
+      "status": "ok",
+      "confidence": "Medium",
+      "date": "2026-06-25",
+      "title": "A股行情与估值快照",
+      "evidence": "采样获取长电科技、通富微电、华天科技、深南电路、兴森科技、华海诚科、鼎龙股份、华海清科、长川科技等价格、涨跌幅、PE/PB和财务指标。"
+    }
+  ],
+  "companies": [
+    {
+      "code": "600584",
+      "name": "长电科技",
+      "role": "封测核心厂"
+    },
+    {
+      "code": "002156",
+      "name": "通富微电",
+      "role": "封测核心厂"
+    },
+    {
+      "code": "002185",
+      "name": "华天科技",
+      "role": "封测核心厂"
+    },
+    {
+      "code": "688362",
+      "name": "甬矽电子",
+      "role": "封测挑战者"
+    },
+    {
+      "code": "603005",
+      "name": "晶方科技",
+      "role": "特色封装"
+    },
+    {
+      "code": "002916",
+      "name": "深南电路",
+      "role": "封装基板"
+    },
+    {
+      "code": "002436",
+      "name": "兴森科技",
+      "role": "封装基板/测试板"
+    },
+    {
+      "code": "600183",
+      "name": "生益科技",
+      "role": "CCL/电子布/树脂"
+    },
+    {
+      "code": "688519",
+      "name": "南亚新材",
+      "role": "CCL/IC载板材料"
+    },
+    {
+      "code": "688535",
+      "name": "华海诚科",
+      "role": "封装材料"
+    },
+    {
+      "code": "688035",
+      "name": "德邦科技",
+      "role": "封装材料"
+    },
+    {
+      "code": "300054",
+      "name": "鼎龙股份",
+      "role": "CMP/先进封装材料"
+    },
+    {
+      "code": "688019",
+      "name": "安集科技",
+      "role": "CMP/湿法材料"
+    },
+    {
+      "code": "300666",
+      "name": "江丰电子",
+      "role": "靶材"
+    },
+    {
+      "code": "688120",
+      "name": "华海清科",
+      "role": "CMP/减薄/划切设备"
+    },
+    {
+      "code": "300604",
+      "name": "长川科技",
+      "role": "测试设备"
+    },
+    {
+      "code": "688630",
+      "name": "芯碁微装",
+      "role": "直写光刻/载板设备"
+    },
+    {
+      "code": "688012",
+      "name": "中微公司",
+      "role": "刻蚀/薄膜设备"
+    },
+    {
+      "code": "002371",
+      "name": "北方华创",
+      "role": "半导体装备"
+    },
+    {
+      "code": "688072",
+      "name": "拓荆科技",
+      "role": "沉积/三维集成设备"
+    }
+  ]
+}

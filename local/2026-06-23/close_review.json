@@ -1,0 +1,300 @@
+{
+  "review_time": "2026-06-23T15:26:34+08:00",
+  "report_date": "2026-06-23",
+  "source_data": {
+    "market_snapshot": "tmp/close_market_2026-06-23.json",
+    "morning_market_snapshot": "tmp/automation_a_2026-06-23_market_snapshot.json",
+    "morning_report": "local/2026-06-23/report.md",
+    "assembled": "local/2026-06-23/assembled.json"
+  },
+  "direction_hit": false,
+  "direction_hit_label": "部分命中：结构分化和压力方向命中，但宽基下跌幅度强于“震荡”表述",
+  "direction_reason": "早盘结论为震荡、资金拥挤分化；收盘上证指数-1.37%、深证成指-3.17%、创业板指-3.84%、科创50-1.68%，高β成长跌幅明显扩大，方向强度被低估。但医药/银行防御走强，资源、PCB、光伏、电池等承压方向延续，结构分化判断成立。",
+  "average_stock_error": 1.37,
+  "average_beneficiary_error": 0.86,
+  "average_pressure_error": 1.7,
+  "closing_market": {
+    "index_summary": "上证指数-1.36%；深证成指-3.17%；创业板指-3.83%；科创50-1.68%",
+    "index_amount_billion_yuan_sum_reference": 45292.18,
+    "breadth_summary": "A股快照2764家上涨、2643家下跌、120家平，粗略涨停138家、跌停67家，成交额合计约34656.65亿元（Sina全A快照口径）。",
+    "fund_flow_summary": "净流入主要在银行、化学制药、医疗服务、中药等防御/医药方向；净流出集中在通信设备、工业金属、元件、电池、小金属、消费电子、贵金属和半导体。",
+    "data_quality_note": "指数来自 akshare Sina 指数快照；股票宽度来自 akshare Sina A股快照；行业资金来自 akshare 同花顺即时行业资金。Tencent 指数 HTTPS 证书校验失败，仅保留 raw fallback 缺口。"
+  },
+  "sector_hits": [
+    {
+      "sector": "创新药/化学制药",
+      "hit": true,
+      "hit_level": "strong",
+      "actual_move": "化学制药+3.68%、净流+3.46亿元；生物制品+2.96%、净流+0.43亿元；医疗服务+2.39%、净流+2.05亿元；中药+2.18%、净流+1.80亿元",
+      "reason": "医药链收盘涨幅显著强于宽基高β指数，化学制药、生物制品、医疗服务、中药均为正，早盘主线方向命中；净流入不算极端，强度主要来自防御切换和弹性个股。"
+    },
+    {
+      "sector": "半导体测试设备",
+      "hit": true,
+      "hit_level": "partial",
+      "actual_move": "半导体+0.25%、净流-63.27亿元；长川科技收盘+4.06%。",
+      "reason": "长川科技等高辨识度个股命中，但半导体行业仅小涨且资金净流出，板块级主线没有充分扩散。"
+    },
+    {
+      "sector": "证券/互联网金融",
+      "hit": true,
+      "hit_level": "partial",
+      "actual_move": "证券+0.92%、净流-29.02亿元；长江证券涨停，东方财富-0.33%、中信证券-1.12%。",
+      "reason": "券商存在个股龙头命中，但行业净流出，互联网金融与权重券商未跟随，早盘“成交活跃利好券商链”的泛化偏强。"
+    },
+    {
+      "sector": "银行高股息",
+      "hit": true,
+      "hit_level": "strong",
+      "actual_move": "银行+1.56%、净流+29.09亿元；工商银行收盘+2.50%。",
+      "reason": "银行成为少数明确净流入板块，对上证指数形成缓冲，防御主线命中。"
+    },
+    {
+      "sector": "生猪产能去化",
+      "hit": false,
+      "hit_level": "weak",
+      "actual_move": "养殖业+1.26%、净流-3.35亿元；牧原股份-2.74%、神农集团+0.83%。",
+      "reason": "养殖业价格为正但资金净流出，代表股分化，政策线索没有形成可验证主线。"
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "300604",
+      "name": "长川科技",
+      "sector": "半导体",
+      "role": "beneficiary",
+      "hit": true,
+      "morning_change_pct": 3.17,
+      "actual_change_pct": 4.063,
+      "open_to_close_pct": 3.489,
+      "turnover_amount_billion_yuan": 127.02,
+      "actual_move": "收盘+4.06%，开盘到收盘+3.49%，成交约127.02亿元",
+      "explanation": "半导体测试设备个股辨识度仍强，全天相对半导体板块明显强，但半导体行业净流出说明扩散不足。",
+      "fundamental_valuation_note": "长川科技：PE约111.73倍，PB约34.94倍，14日涨跌约+29.35%，量比1.15。"
+    },
+    {
+      "ticker": "300059",
+      "name": "东方财富",
+      "sector": "证券",
+      "role": "beneficiary",
+      "hit": false,
+      "morning_change_pct": 1.24,
+      "actual_change_pct": -0.334,
+      "open_to_close_pct": 1.162,
+      "turnover_amount_billion_yuan": 234.94,
+      "actual_move": "收盘-0.33%，开盘到收盘+1.16%，成交约234.94亿元",
+      "explanation": "互联网金融早盘放量后收盘转小跌，开盘到收盘为正但未形成日涨幅命中，反映券商/金融科技板块资金承接不足。",
+      "fundamental_valuation_note": "东方财富：PE约25.63倍，PB约3.50倍，14日涨跌约+12.27%，量比2.09。"
+    },
+    {
+      "ticker": "000783",
+      "name": "长江证券",
+      "sector": "证券",
+      "role": "beneficiary",
+      "hit": true,
+      "morning_change_pct": 10.0,
+      "actual_change_pct": 10.0,
+      "open_to_close_pct": 6.173,
+      "turnover_amount_billion_yuan": 28.39,
+      "actual_move": "收盘+10.00%，开盘到收盘+6.17%，成交约28.39亿元",
+      "explanation": "涨停维持到收盘，是券商链少数强辨识度样本，个股命中强于板块。",
+      "fundamental_valuation_note": "长江证券：PE约12.45倍，PB约1.49倍，14日涨跌约+24.97%，量比1.20。"
+    },
+    {
+      "ticker": "600030",
+      "name": "中信证券",
+      "sector": "证券",
+      "role": "beneficiary",
+      "hit": false,
+      "morning_change_pct": -0.14,
+      "actual_change_pct": -1.117,
+      "open_to_close_pct": -1.324,
+      "turnover_amount_billion_yuan": 111.78,
+      "actual_move": "收盘-1.12%，开盘到收盘-1.32%，成交约111.78亿元",
+      "explanation": "大市值券商收跌，证券板块收盘净流出，早盘把成交活跃直接映射到券商权重股偏乐观。",
+      "fundamental_valuation_note": "中信证券：PE约12.58倍，PB约1.48倍，14日涨跌约+13.54%，量比1.28。"
+    },
+    {
+      "ticker": "603993",
+      "name": "洛阳钼业",
+      "sector": "有色金属",
+      "role": "pressure",
+      "hit": true,
+      "morning_change_pct": -8.55,
+      "actual_change_pct": -9.977,
+      "open_to_close_pct": -9.769,
+      "turnover_amount_billion_yuan": 111.27,
+      "actual_move": "收盘-9.98%，开盘到收盘-9.77%，成交约111.27亿元",
+      "explanation": "工业金属、小金属、贵金属资金继续大幅流出，洛阳钼业接近跌停，压力命中。",
+      "fundamental_valuation_note": "洛阳钼业：PE约17.54倍，PB约5.12倍，14日涨跌约-0.45%，量比1.10。"
+    },
+    {
+      "ticker": "601899",
+      "name": "紫金矿业",
+      "sector": "有色金属",
+      "role": "pressure",
+      "hit": true,
+      "morning_change_pct": -7.03,
+      "actual_change_pct": -8.837,
+      "open_to_close_pct": -7.346,
+      "turnover_amount_billion_yuan": 140.86,
+      "actual_move": "收盘-8.84%，开盘到收盘-7.35%，成交约140.86亿元",
+      "explanation": "资源权重跟随贵金属/工业金属回撤，低PE未抵消商品周期和资金撤退压力。",
+      "fundamental_valuation_note": "紫金矿业：PE约12.20倍，PB约3.81倍，14日涨跌约-9.50%，量比0.87。"
+    },
+    {
+      "ticker": "300750",
+      "name": "宁德时代",
+      "sector": "电池",
+      "role": "pressure",
+      "hit": true,
+      "morning_change_pct": -1.81,
+      "actual_change_pct": -4.027,
+      "open_to_close_pct": -4.499,
+      "turnover_amount_billion_yuan": 149.58,
+      "actual_move": "收盘-4.03%，开盘到收盘-4.50%，成交约149.58亿元",
+      "explanation": "电池板块净流出扩大，宁德时代午后跌幅加深，压力命中。",
+      "fundamental_valuation_note": "宁德时代：PE约23.53倍，PB约5.69倍，14日涨跌约-5.82%，量比0.57。"
+    },
+    {
+      "ticker": "300274",
+      "name": "阳光电源",
+      "sector": "光伏设备",
+      "role": "pressure",
+      "hit": true,
+      "morning_change_pct": -5.05,
+      "actual_change_pct": -7.011,
+      "open_to_close_pct": -5.59,
+      "turnover_amount_billion_yuan": 127.77,
+      "actual_move": "收盘-7.01%，开盘到收盘-5.59%，成交约127.77亿元",
+      "explanation": "光伏设备继续负收益且净流出，阳光电源跌幅扩大，压力命中。",
+      "fundamental_valuation_note": "阳光电源：PE约26.98倍，PB约6.81倍，14日涨跌约-9.13%，量比0.71。"
+    },
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "sector": "元件",
+      "role": "pressure",
+      "hit": true,
+      "morning_change_pct": -3.21,
+      "actual_change_pct": -4.654,
+      "open_to_close_pct": -4.483,
+      "turnover_amount_billion_yuan": 116.31,
+      "actual_move": "收盘-4.65%，开盘到收盘-4.48%，成交约116.31亿元",
+      "explanation": "元件板块高位回撤，沪电股份收盘跌幅扩大，压力命中。",
+      "fundamental_valuation_note": "沪电股份：PE约62.89倍，PB约17.09倍，14日涨跌约+8.32%，量比0.53。"
+    },
+    {
+      "ticker": "300476",
+      "name": "胜宏科技",
+      "sector": "元件",
+      "role": "pressure",
+      "hit": true,
+      "morning_change_pct": -6.08,
+      "actual_change_pct": -7.444,
+      "open_to_close_pct": -6.056,
+      "turnover_amount_billion_yuan": 180.44,
+      "actual_move": "收盘-7.44%，开盘到收盘-6.06%，成交约180.44亿元",
+      "explanation": "PCB高位兑现继续，胜宏科技高估值与拥挤筹码放大回撤，压力命中。",
+      "fundamental_valuation_note": "胜宏科技：PE约72.07倍，PB约21.53倍，14日涨跌约-2.90%，量比0.75。"
+    }
+  ],
+  "observation_deviations": [
+    {
+      "ticker": "300149",
+      "name": "睿智医药",
+      "type": "未入选观察股正向偏差",
+      "actual_move": "收盘+19.95%，开盘到收盘+20.74%，成交约3.30亿元",
+      "explanation": "医疗服务与创新药情绪扩散到高弹性小市值，早盘因风险过高未纳入机会列，收盘涨幅显著偏离。该偏差更多来自题材弹性和量能冲击，不宜单日反推放松风险门槛。",
+      "fundamental_valuation_note": "睿智医药：PE约-399.72倍，PB约3.55倍，14日涨跌约+10.39%，量比3.63。PE为负，说明盈利端不支持常规PE估值；量比大幅放大，偏短线资金驱动。"
+    },
+    {
+      "ticker": "300485",
+      "name": "赛升药业",
+      "type": "未入选观察股正向偏差",
+      "actual_move": "收盘+18.44%，开盘到收盘+18.58%，成交约2.78亿元",
+      "explanation": "生物制品强势扩散，赛升药业高弹性放量上涨；早盘排除原因是风险评分偏高，收盘验证了弹性但没有消除基本面和盈利质量约束。",
+      "fundamental_valuation_note": "赛升药业：PE约-224.62倍，PB约1.39倍，14日涨跌约+11.15%，量比4.17。PE为负，小市值弹性较强；量价确认强，但更适合作为情绪样本。"
+    },
+    {
+      "ticker": "000756",
+      "name": "新华制药",
+      "type": "未入选观察股正向偏差",
+      "actual_move": "收盘+9.98%，开盘到收盘+6.75%，成交约1.41亿元",
+      "explanation": "化学制药主线延续，新华制药涨停维持；早盘因风险高未入机会列，收盘显示医药链的个股扩散强于门槛预估。",
+      "fundamental_valuation_note": "新华制药：PE约35.78倍，PB约1.75倍，14日涨跌约+2.21%，量比2.22。PE/PB不算极端，但风险评分和短线拥挤仍是约束。"
+    },
+    {
+      "ticker": "600489",
+      "name": "中金黄金",
+      "type": "未入选承压观察股负向偏差",
+      "actual_move": "收盘-10.02%，开盘到收盘-9.37%，成交约24.89亿元",
+      "explanation": "贵金属行业收盘-8.60%、净流出约65.34亿元，中金黄金跌停附近，早盘未纳入承压栏低估了资源链日内加速杀跌。",
+      "fundamental_valuation_note": "中金黄金：PE约15.76倍，PB约3.02倍，14日涨跌约-11.76%，量比1.04。PE不高但周期股在商品价格和资金退潮阶段更应看PB、趋势和行业资金。"
+    },
+    {
+      "ticker": "600547",
+      "name": "山东黄金",
+      "type": "未入选承压观察股负向偏差",
+      "actual_move": "收盘-8.90%，开盘到收盘-7.93%，成交约27.30亿元",
+      "explanation": "黄金股跟随贵金属大幅回落，虽早盘承压证据未达最强门槛，收盘行业资金和价格共同证实风险扩散。",
+      "fundamental_valuation_note": "山东黄金：PE约22.72倍，PB约3.66倍，14日涨跌约-13.51%，量比1.17。估值不极端，但14日趋势已弱，商品β风险主导。"
+    },
+    {
+      "ticker": "600183",
+      "name": "生益科技",
+      "type": "未入选承压观察股负向偏差",
+      "actual_move": "收盘-9.01%，开盘到收盘-6.22%，成交约171.18亿元",
+      "explanation": "元件板块净流出约117.75亿元，生益科技高位回撤明显；早盘未纳入承压栏偏保守，说明高估值PCB链在资金流出扩大时应提高压力权重。",
+      "fundamental_valuation_note": "生益科技：PE约105.12倍，PB约25.83倍，14日涨跌约+21.18%，量比0.73。PE/PB显著高位，前期14日涨幅仍高，筹码兑现压力大。"
+    },
+    {
+      "ticker": "002916",
+      "name": "深南电路",
+      "type": "未入选承压观察股负向偏差",
+      "actual_move": "收盘-6.85%，开盘到收盘-4.87%，成交约66.39亿元",
+      "explanation": "深南电路跟随PCB/元件回撤，板块资金流出和高估值共同解释收盘弱势。",
+      "fundamental_valuation_note": "深南电路：PE约80.62倍，PB约17.81倍，14日涨跌约+12.61%，量比0.73。PE/PB偏高，量能未显著放大但价格已破坏，说明资金流向比单股量比更关键。"
+    },
+    {
+      "ticker": "605009",
+      "name": "豪悦护理",
+      "type": "承压观察股反向偏差",
+      "actual_move": "收盘+4.51%，开盘到收盘+5.55%，成交约0.85亿元",
+      "explanation": "婴幼儿个护负面事件没有转化成收盘承压，个股反而放量上涨；早盘未入承压栏是正确的，事件舆情需等待行业资金和个股趋势共同验证。",
+      "fundamental_valuation_note": "豪悦护理：PE约22.67倍，PB约1.46倍，14日涨跌约-5.01%，量比1.66。PE/PB处于普通消费制造区间，低市值和低成交使单日波动不宜外推。"
+    }
+  ],
+  "pressure_column_review": {
+    "morning_pressure_count": 6,
+    "hit": true,
+    "reason": "6只承压股全部收跌且均超过0.5%，资源、PCB/元件、光伏和电池的行业资金流出与个股回撤同步，承压栏本日命中强于受益栏。"
+  },
+  "fund_flow_bias": {
+    "hit_level": "partial",
+    "bias": "早盘正确识别拥挤分化和资源/PCB/新能源撤退，但低估了午后高β指数继续下探，也高估了证券/互联网金融的板块级资金持续性；实际净流入更集中在银行和医药防御。"
+  },
+  "main_bias_causes": [
+    "早盘把成交额放大对券商链的映射权重偏高，收盘证券行业虽上涨但净流出，只有长江证券个股强。",
+    "医药链收盘扩散强于预期，但主要集中在高弹性和部分盈利质量较弱个股，风险门槛造成机会遗漏。",
+    "资源、PCB/元件、光伏、电池的行业净流出继续扩大，压力方向判断正确，且部分未入选承压观察股也显著下跌。",
+    "上证由银行防御支撑但深成指/创业板大跌，早盘“震荡”没有充分表达高β方向的下行强度。",
+    "免费接口中行业资金为即时同花顺口径，北向/ETF等资金细项缺口仍降低资金判断精度。"
+  ],
+  "next_day_weight_conditions": {
+    "raise_weight": [
+      "医药链若继续满足化学制药/生物制品/医疗服务同步上涨且净流入为正，可提高主线持续性权重，但高风险小市值仍只作观察。",
+      "银行高股息若继续净流入且宽基承压，可提高防御资金权重。",
+      "资源、PCB/元件、光伏、电池若行业净流出继续居前且代表股弱于宽基，应继续提高承压验证权重。",
+      "半导体测试设备只有在半导体行业资金转正、长川科技之外出现扩散时，才提高板块级权重。"
+    ],
+    "lower_weight": [
+      "证券/互联网金融若行业净流出而仅个别股涨停，降低“成交活跃=券商整体机会”的权重。",
+      "生猪产能去化若养殖业净流出、牧原股份继续弱于板块，降低政策线索权重。",
+      "对医药小市值亏损股，不因单日涨停放松基本面、估值和风险门槛。",
+      "宽基若继续创业板/深成指弱于上证，降低成长高β受益映射，提高防御与承压分层。"
+    ]
+  },
+  "lesson": "今日复盘的核心是结构判断优于大盘强度判断：承压栏和Top5中的医药/银行命中较好，但“震荡”低估了高β下跌，券商链泛化过强。次日应把行业净流入/净流出收盘确认前置，受益栏更重视板块级资金，承压栏可继续保持严格但对资源、PCB高估值链提高行业资金权重。",
+  "compliance_note": "本复盘仅用于研究校准，不构成个性化投资建议，不包含买卖、仓位、止损或目标价指令。"
+}

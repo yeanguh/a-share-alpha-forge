@@ -36,6 +36,153 @@ def is_st_stock_name(value: str) -> bool:
     return any(marker in normalized for marker in ST_MARKERS)
 
 
+def retail_voc_quality_score(retail_sentiment: float) -> float:
+    if retail_sentiment == 0:
+        return 2.2
+    distance_from_balanced = abs(retail_sentiment - 3.0)
+    return round(max(1.0, 4.0 - 1.2 * distance_from_balanced), 2)
+
+
+@dataclass(frozen=True)
+class GateFailure:
+    code: str
+    reason: str
+
+
+def derive_research_rating(
+    *,
+    research_score: float,
+    risk_score: float,
+    capital_recognition: float,
+    config: dict[str, Any],
+) -> str:
+    rating = config["research_rating"]
+    if risk_score >= rating["risk_avoidance_risk_min"] and research_score < rating["risk_avoidance_score_max"]:
+        return "风险回避"
+    if (
+        research_score >= rating["high_attention_score_min"]
+        and capital_recognition >= rating["high_attention_capital_min"]
+        and risk_score <= rating["high_attention_risk_max"]
+    ):
+        return "高关注"
+    if research_score >= rating["attention_score_min"] and risk_score <= rating["attention_risk_max"]:
+        return "关注"
+    if research_score >= rating["neutral_score_min"]:
+        return "中性观察"
+    if risk_score >= rating["risk_avoidance_fallback_risk_min"]:
+        return "风险回避"
+    return "谨慎观察"
+
+
+def compute_beneficiary_quality_score(
+    *,
+    trend: float,
+    volume: float,
+    capital_recognition: float,
+    event_alignment: float,
+    institutional_trend: float,
+    retail_sentiment: float,
+    risk: float,
+    config: dict[str, Any],
+) -> float:
+    weights = config["scoring_weights"]["beneficiary_quality_score"]
+    return round(
+        weights["trend"] * trend
+        + weights["volume"] * volume
+        + weights["capital_recognition"] * capital_recognition
+        + weights["event_alignment"] * event_alignment
+        + weights["institutional_trend"] * institutional_trend
+        + weights["retail_voc_quality"] * retail_voc_quality_score(retail_sentiment)
+        + weights["risk"] * risk,
+        2,
+    )
+
+
+@dataclass(frozen=True)
+class GateContext:
+    role: str
+    trend: float
+    volume: float
+    retail_sentiment: float
+    capital_recognition: float
+    event_alignment: float
+    institutional_trend: float
+    risk: float
+    research_rating: str
+    cyclical_resource: bool
+    crowding_risk: bool
+    disconfirmation_risk: bool
+    excluded_security_reason: str
+
+
+SUPPORTIVE_PRESSURE_RATINGS = frozenset({"风险回避", "谨慎观察", "中性观察"})
+
+
+def evaluate_stock_gates(ctx: GateContext, config: dict[str, Any]) -> list[GateFailure]:
+    failures: list[GateFailure] = []
+    if ctx.excluded_security_reason:
+        failures.append(GateFailure("excluded_security", ctx.excluded_security_reason))
+    if ctx.role not in {"beneficiary", "pressure"}:
+        failures.append(GateFailure("role_invalid", "未设置受益/承压角色"))
+        return failures
+    if ctx.role == "beneficiary":
+        gates = config["stock_gates"]["beneficiary"]
+        if ctx.event_alignment < gates["event_alignment_min"]:
+            failures.append(GateFailure("event_alignment_below", "事件关联不足"))
+        if ctx.trend < gates["trend_min"]:
+            failures.append(GateFailure("trend_below", "14日走势不足"))
+        if ctx.volume < gates["volume_min"]:
+            failures.append(GateFailure("volume_below", "量能确认不足"))
+        if ctx.capital_recognition < gates["capital_recognition_min"]:
+            failures.append(GateFailure("capital_below", "资金认可度不足"))
+        if ctx.cyclical_resource:
+            resource = config["stock_gates"]["resource_beneficiary"]
+            if (
+                ctx.trend < resource["trend_min"]
+                or ctx.volume < resource["volume_min"]
+                or ctx.capital_recognition < resource["capital_recognition_min"]
+            ):
+                failures.append(GateFailure("resource_confirmation_below", "周期资源需更强量价/资金确认"))
+        if ctx.retail_sentiment >= gates["retail_hot_min"] and (
+            ctx.capital_recognition < gates["retail_hot_capital_min"]
+            or ctx.volume < gates["retail_hot_volume_min"]
+        ):
+            failures.append(GateFailure("retail_hot_unconfirmed", "散户情绪过热但主力/量能确认不足"))
+        if ctx.risk > gates["risk_max"]:
+            failures.append(GateFailure("risk_above", "风险过高"))
+        if ctx.research_rating == "风险回避":
+            failures.append(GateFailure("research_rating_risk_avoidance", "综合评级为风险回避"))
+        return failures
+    pressure_gates = config["stock_gates"]["pressure"]
+    observation_gates = config["stock_gates"]["observation_pressure"]
+    if ctx.event_alignment < pressure_gates["event_alignment_min"]:
+        failures.append(GateFailure("event_alignment_below", "事件关联不足"))
+    if ctx.trend > pressure_gates["trend_max"]:
+        failures.append(GateFailure("pressure_trend_above", "14日承压走势不足"))
+    if ctx.capital_recognition > pressure_gates["capital_recognition_max"]:
+        failures.append(GateFailure("pressure_capital_above", "资金弱化不足"))
+    if ctx.volume < pressure_gates["volume_min"] and ctx.risk < pressure_gates["risk_min"]:
+        failures.append(GateFailure("pressure_volume_or_risk_below", "承压量能/风险确认不足"))
+    if (
+        ctx.trend >= pressure_gates["strong_mainline_trend_min"]
+        and ctx.capital_recognition >= pressure_gates["strong_mainline_capital_min"]
+    ):
+        failures.append(GateFailure("strong_mainline_reverse", "强主线反向风险，转观察"))
+    if ctx.crowding_risk and (
+        ctx.trend > observation_gates["trend_max"]
+        or ctx.capital_recognition > observation_gates["capital_recognition_max"]
+    ):
+        failures.append(GateFailure("crowding_observation_only", "高位拥挤仅作风险观察"))
+    if ctx.disconfirmation_risk and (
+        ctx.trend > observation_gates["trend_max"]
+        or ctx.capital_recognition > observation_gates["capital_recognition_max"]
+    ):
+        failures.append(GateFailure("disconfirmation_observation_only", "题材证伪需破位确认"))
+    if ctx.research_rating not in SUPPORTIVE_PRESSURE_RATINGS:
+        failures.append(GateFailure("research_rating_unsupportive", "综合评级未支持承压"))
+    return failures
+
+
 @dataclass(frozen=True)
 class MarketCapRange:
     minimum_billion: float = MIN_MARKET_CAP_BILLION
@@ -111,10 +258,7 @@ class StockObservation:
 
     @property
     def retail_voc_quality_score(self) -> float:
-        if self.retail_sentiment == 0:
-            return 2.2
-        distance_from_balanced = abs(self.retail_sentiment - 3.0)
-        return round(max(1.0, 4.0 - 1.2 * distance_from_balanced), 2)
+        return retail_voc_quality_score(self.retail_sentiment)
 
     @property
     def research_score(self) -> float:
@@ -132,31 +276,47 @@ class StockObservation:
 
     @property
     def beneficiary_quality_score(self) -> float:
-        weights = self.threshold_config["scoring_weights"]["beneficiary_quality_score"]
-        return round(
-            weights["trend"] * self.trend_score
-            + weights["volume"] * self.volume_score
-            + weights["capital_recognition"] * self.capital_recognition
-            + weights["event_alignment"] * self.event_alignment
-            + weights["institutional_trend"] * self.institutional_trend_score
-            + weights["retail_voc_quality"] * self.retail_voc_quality_score
-            + weights["risk"] * self.risk_score,
-            2,
+        return compute_beneficiary_quality_score(
+            trend=self.trend_score,
+            volume=self.volume_score,
+            capital_recognition=self.capital_recognition,
+            event_alignment=self.event_alignment,
+            institutional_trend=self.institutional_trend_score,
+            retail_sentiment=self.retail_sentiment,
+            risk=self.risk_score,
+            config=self.threshold_config,
         )
 
     @property
     def research_rating(self) -> str:
-        if self.risk_score >= 4.2 and self.research_score < 3.2:
-            return "风险回避"
-        if self.research_score >= 3.8 and self.capital_recognition >= 3.5 and self.risk_score <= 3.2:
-            return "高关注"
-        if self.research_score >= 3.2 and self.risk_score <= 3.8:
-            return "关注"
-        if self.research_score >= 2.6:
-            return "中性观察"
-        if self.risk_score >= 3.8:
-            return "风险回避"
-        return "谨慎观察"
+        return derive_research_rating(
+            research_score=self.research_score,
+            risk_score=self.risk_score,
+            capital_recognition=self.capital_recognition,
+            config=self.threshold_config,
+        )
+
+    @property
+    def gate_context(self) -> GateContext:
+        return GateContext(
+            role=self.directional_role,
+            trend=self.trend_score,
+            volume=self.volume_score,
+            retail_sentiment=self.retail_sentiment,
+            capital_recognition=self.capital_recognition,
+            event_alignment=self.event_alignment,
+            institutional_trend=self.institutional_trend_score,
+            risk=self.risk_score,
+            research_rating=self.research_rating,
+            cyclical_resource=self.cyclical_resource_sector,
+            crowding_risk=self.crowding_risk_sector,
+            disconfirmation_risk=self.disconfirmation_risk_sector,
+            excluded_security_reason=self.excluded_security_reason,
+        )
+
+    @property
+    def gate_failures(self) -> list[GateFailure]:
+        return evaluate_stock_gates(self.gate_context, self.threshold_config)
 
     @property
     def operation_tendency(self) -> str:
@@ -182,54 +342,7 @@ class StockObservation:
 
     @property
     def eligible_for_recommendation(self) -> bool:
-        if self.excluded_security:
-            return False
-        if self.directional_role == "beneficiary":
-            return (
-                self.event_alignment >= self.threshold("stock_gates", "beneficiary", "event_alignment_min")
-                and self.trend_score >= self.threshold("stock_gates", "beneficiary", "trend_min")
-                and self.volume_score >= self.threshold("stock_gates", "beneficiary", "volume_min")
-                and self.capital_recognition >= self.threshold("stock_gates", "beneficiary", "capital_recognition_min")
-                and (
-                    not self.cyclical_resource_sector
-                    or (
-                        self.trend_score >= self.threshold("stock_gates", "resource_beneficiary", "trend_min")
-                        and self.volume_score >= self.threshold("stock_gates", "resource_beneficiary", "volume_min")
-                        and self.capital_recognition
-                        >= self.threshold("stock_gates", "resource_beneficiary", "capital_recognition_min")
-                    )
-                )
-                and (
-                    self.retail_sentiment < self.threshold("stock_gates", "beneficiary", "retail_hot_min")
-                    or (
-                        self.capital_recognition
-                        >= self.threshold("stock_gates", "beneficiary", "retail_hot_capital_min")
-                        and self.volume_score >= self.threshold("stock_gates", "beneficiary", "retail_hot_volume_min")
-                    )
-                )
-                and self.risk_score <= self.threshold("stock_gates", "beneficiary", "risk_max")
-                and self.research_rating != "风险回避"
-            )
-        if self.directional_role == "pressure":
-            return (
-                self.event_alignment >= self.threshold("stock_gates", "pressure", "event_alignment_min")
-                and self.trend_score <= self.threshold("stock_gates", "pressure", "trend_max")
-                and self.capital_recognition <= self.threshold("stock_gates", "pressure", "capital_recognition_max")
-                and (
-                    self.volume_score >= self.threshold("stock_gates", "pressure", "volume_min")
-                    or self.risk_score >= self.threshold("stock_gates", "pressure", "risk_min")
-                )
-                and (
-                    not self.observation_only_pressure_sector
-                    or (
-                        self.trend_score <= self.threshold("stock_gates", "observation_pressure", "trend_max")
-                        and self.capital_recognition
-                        <= self.threshold("stock_gates", "observation_pressure", "capital_recognition_max")
-                    )
-                )
-                and self.research_rating in {"风险回避", "谨慎观察", "中性观察"}
-            )
-        return False
+        return not self.gate_failures
 
     @property
     def market_cap_in_range(self) -> bool:
@@ -237,69 +350,7 @@ class StockObservation:
 
     @property
     def exclusion_reason(self) -> str:
-        if self.eligible_for_recommendation:
-            return ""
-        reasons: list[str] = []
-        if self.excluded_security_reason:
-            reasons.append(self.excluded_security_reason)
-        if self.directional_role not in {"beneficiary", "pressure"}:
-            reasons.append("未设置受益/承压角色")
-        if self.event_alignment < self.threshold("stock_gates", "beneficiary", "event_alignment_min"):
-            reasons.append("事件关联不足")
-        if self.directional_role == "beneficiary":
-            if self.trend_score < self.threshold("stock_gates", "beneficiary", "trend_min"):
-                reasons.append("14日走势不足")
-            if self.volume_score < self.threshold("stock_gates", "beneficiary", "volume_min"):
-                reasons.append("量能确认不足")
-            if self.capital_recognition < self.threshold("stock_gates", "beneficiary", "capital_recognition_min"):
-                reasons.append("资金认可度不足")
-            if self.cyclical_resource_sector and (
-                self.trend_score < self.threshold("stock_gates", "resource_beneficiary", "trend_min")
-                or self.volume_score < self.threshold("stock_gates", "resource_beneficiary", "volume_min")
-                or self.capital_recognition
-                < self.threshold("stock_gates", "resource_beneficiary", "capital_recognition_min")
-            ):
-                reasons.append("周期资源需更强量价/资金确认")
-            if self.retail_sentiment >= self.threshold("stock_gates", "beneficiary", "retail_hot_min") and (
-                self.capital_recognition < self.threshold("stock_gates", "beneficiary", "retail_hot_capital_min")
-                or self.volume_score < self.threshold("stock_gates", "beneficiary", "retail_hot_volume_min")
-            ):
-                reasons.append("散户情绪过热但主力/量能确认不足")
-            if self.risk_score > self.threshold("stock_gates", "beneficiary", "risk_max"):
-                reasons.append("风险过高")
-            if self.research_rating == "风险回避":
-                reasons.append("综合评级为风险回避")
-        if self.directional_role == "pressure":
-            if self.trend_score > self.threshold("stock_gates", "pressure", "trend_max"):
-                reasons.append("14日承压走势不足")
-            if self.capital_recognition > self.threshold("stock_gates", "pressure", "capital_recognition_max"):
-                reasons.append("资金弱化不足")
-            if (
-                self.volume_score < self.threshold("stock_gates", "pressure", "volume_min")
-                and self.risk_score < self.threshold("stock_gates", "pressure", "risk_min")
-            ):
-                reasons.append("承压量能/风险确认不足")
-            if (
-                self.trend_score >= self.threshold("stock_gates", "pressure", "strong_mainline_trend_min")
-                and self.capital_recognition
-                >= self.threshold("stock_gates", "pressure", "strong_mainline_capital_min")
-            ):
-                reasons.append("强主线反向风险，转观察")
-            if self.crowding_risk_sector and (
-                self.trend_score > self.threshold("stock_gates", "observation_pressure", "trend_max")
-                or self.capital_recognition
-                > self.threshold("stock_gates", "observation_pressure", "capital_recognition_max")
-            ):
-                reasons.append("高位拥挤仅作风险观察")
-            if self.disconfirmation_risk_sector and (
-                self.trend_score > self.threshold("stock_gates", "observation_pressure", "trend_max")
-                or self.capital_recognition
-                > self.threshold("stock_gates", "observation_pressure", "capital_recognition_max")
-            ):
-                reasons.append("题材证伪需破位确认")
-            if self.research_rating not in {"风险回避", "谨慎观察", "中性观察"}:
-                reasons.append("综合评级未支持承压")
-        return "、".join(reasons)
+        return "、".join(failure.reason for failure in self.gate_failures)
 
     def to_dict(self) -> dict[str, Any]:
         payload: dict[str, Any] = {
@@ -331,7 +382,7 @@ class StockObservation:
 
 
 def require_score(value: object, field_name: str) -> float:
-    if not isinstance(value, int | float):
+    if not isinstance(value, (int, float)):
         raise ValueError(f"`{field_name}` must be a number from 0 to 5")
     score = float(value)
     if score < 0 or score > 5:
@@ -342,7 +393,7 @@ def require_score(value: object, field_name: str) -> float:
 def require_optional_market_cap(value: object) -> float | None:
     if value is None or value == "":
         return None
-    if not isinstance(value, int | float):
+    if not isinstance(value, (int, float)):
         raise ValueError("`market_cap_billion` must be a number when present")
     market_cap = float(value)
     if market_cap <= 0:

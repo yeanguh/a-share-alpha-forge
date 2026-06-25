@@ -57,6 +57,15 @@
     }
   },
   "scoring_weights": {
+    "impact_score": {
+      "magnitude": 0.30,
+      "breadth": 0.18,
+      "immediacy": 0.12,
+      "confidence": 0.15,
+      "novelty": 0.08,
+      "liquidity": 0.07,
+      "price_volume": 0.10
+    },
     "research_score": {
       "trend": 0.16,
       "volume": 0.12,
@@ -75,6 +84,23 @@
       "retail_voc_quality": 0.06,
       "risk": -0.20
     }
+  },
+  "research_rating": {
+    "risk_avoidance_risk_min": 4.2,
+    "risk_avoidance_score_max": 3.2,
+    "high_attention_score_min": 3.8,
+    "high_attention_capital_min": 3.5,
+    "high_attention_risk_max": 3.2,
+    "attention_score_min": 3.2,
+    "attention_risk_max": 3.8,
+    "neutral_score_min": 2.6,
+    "risk_avoidance_fallback_risk_min": 3.8
+  },
+  "market_direction_gaps": {
+    "strong_min": 8,
+    "moderate_strong_min": 2,
+    "moderate_weak_max": -2,
+    "weak_max": -8
   },
   "top_limits": {
     "positive_sectors": 10,

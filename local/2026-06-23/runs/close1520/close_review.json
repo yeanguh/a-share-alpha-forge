@@ -1,0 +1,270 @@
+{
+  "review_time": "2026-06-23T15:20:30+08:00",
+  "report_date": "2026-06-23",
+  "review_type": "post_close_daily_review",
+  "source_artifacts": {
+    "report": "local/2026-06-23/report.md",
+    "assembled": "local/2026-06-23/assembled.json",
+    "input_bundle": "local/2026-06-23/input_bundle.json"
+  },
+  "market_data_source": "Tencent public quote endpoint qt.gtimg.cn parsed after 15:15 China time; web authority checks used for market narrative; Eastmoney/akshare board endpoints disconnected in this runtime.",
+  "direction_hit": false,
+  "direction_hit_detail": "早盘方向为震荡、资金为拥挤分化；收盘上证指数-1.37%、深成指-3.17%、创业板指-3.84%、科创50-1.68%，指数强度明显弱于震荡判断，但医药、防御和承压链条的结构分化判断有效。",
+  "average_stock_error": 1.82,
+  "average_stock_error_note": "仅有1只入选个股未达到同向0.5%阈值：600030中信证券从开盘到收盘-1.32%，相对受益阈值误差1.82个百分点。",
+  "selected_stock_summary": {
+    "selected_hit_rate": 0.9,
+    "selected_average_directional_return_pct": 4.725,
+    "beneficiary_hit_rate": 0.75,
+    "beneficiary_average_return_pct": 2.375,
+    "pressure_hit_rate": 1.0,
+    "pressure_average_return_pct": -6.292
+  },
+  "market_close": {
+    "indices": [
+      {
+        "name": "上证指数",
+        "code": "000001",
+        "close": 4106.25,
+        "change_pct": -1.37
+      },
+      {
+        "name": "深证成指",
+        "code": "399001",
+        "close": 15854.2,
+        "change_pct": -3.17
+      },
+      {
+        "name": "创业板指",
+        "code": "399006",
+        "close": 4192.19,
+        "change_pct": -3.84
+      },
+      {
+        "name": "科创50",
+        "code": "000688",
+        "close": 1916.21,
+        "change_pct": -1.68
+      }
+    ],
+    "market_readout": "成交活跃未转化为普涨，高beta成长和高位资源/PCB/新能源链收盘继续承压；医药和少数防御金融相对占优。"
+  },
+  "sector_hits": [
+    {
+      "sector": "创新药/化学制药",
+      "rank": 1,
+      "hit": true,
+      "hit_level": "strong_but_crowded",
+      "reason": "医药方向逆势保留主线，新华制药+9.98%、睿智医药+19.95%、赛升药业+18.44%；但核心大市值恒瑞医药、药明康德收盘走弱，说明弹性主要集中在短线高风险品种。"
+    },
+    {
+      "sector": "半导体测试设备",
+      "rank": 2,
+      "hit": true,
+      "hit_level": "narrow_hit",
+      "reason": "长川科技收盘+4.06%、从开盘到收盘+3.49%，主线样本命中；但泛科技和高beta成长收盘走弱，主题宽度不足。"
+    },
+    {
+      "sector": "证券/互联网金融",
+      "rank": 3,
+      "hit": true,
+      "hit_level": "partial",
+      "reason": "长江证券涨停、东方财富从开盘到收盘+1.16%，但中信证券-1.32%，板块更像活跃成交的局部映射而非全面风险偏好修复。"
+    },
+    {
+      "sector": "银行高股息",
+      "rank": 4,
+      "hit": true,
+      "hit_level": "defensive_partial",
+      "reason": "工商银行+2.50%体现防御资金承接，但招商银行-0.66%，银行内部分化；早盘未把银行列入机会股是保守但可解释。"
+    },
+    {
+      "sector": "生猪产能去化",
+      "rank": 5,
+      "hit": false,
+      "hit_level": "miss",
+      "reason": "牧原股份收盘-2.74%、从开盘到收盘-3.39%，神农集团仅+0.83%；政策逻辑未转化为当日资金承接。"
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "300604",
+      "name": "长川科技",
+      "role": "beneficiary",
+      "sector": "半导体测试设备",
+      "hit": true,
+      "actual_move": "收盘+4.06%，开盘至收盘+3.49%，换手9.30%",
+      "explanation": "趋势、主线和资金认可共振，尽管PE 112.69、PB 35.24偏高，短线仍获得辨识度溢价。"
+    },
+    {
+      "ticker": "300059",
+      "name": "东方财富",
+      "role": "beneficiary",
+      "sector": "证券/互联网金融",
+      "hit": true,
+      "actual_move": "收盘-0.33%，开盘至收盘+1.16%，换手8.26%",
+      "explanation": "相对指数抗跌且盘中承接尚可，但收盘未能维持日涨幅，说明互联网金融只适合作为风险偏好温度计。"
+    },
+    {
+      "ticker": "000783",
+      "name": "长江证券",
+      "role": "beneficiary",
+      "sector": "证券/互联网金融",
+      "hit": true,
+      "actual_move": "收盘+10.00%，开盘至收盘+6.17%，换手5.46%",
+      "explanation": "券商弹性样本命中，涨停确认成交活跃行情仍被局部认可。"
+    },
+    {
+      "ticker": "600030",
+      "name": "中信证券",
+      "role": "beneficiary",
+      "sector": "证券/互联网金融",
+      "hit": false,
+      "actual_move": "收盘-1.12%，开盘至收盘-1.32%，换手3.20%",
+      "explanation": "权重券商未能抵御指数下行，弹性弱于长江证券；PE 12.46、PB 1.47不贵，但行情偏向短线弹性而非稳健权重。"
+    },
+    {
+      "ticker": "603993",
+      "name": "洛阳钼业",
+      "role": "pressure",
+      "sector": "有色贵金属/资源股",
+      "hit": true,
+      "actual_move": "收盘-9.98%，开盘至收盘-9.77%",
+      "explanation": "资源股高位集中回撤判断命中。"
+    },
+    {
+      "ticker": "601899",
+      "name": "紫金矿业",
+      "role": "pressure",
+      "sector": "有色贵金属/资源股",
+      "hit": true,
+      "actual_move": "收盘-8.84%，开盘至收盘-7.35%",
+      "explanation": "周期资源的资金撤退与商品风险偏好回落共振。"
+    },
+    {
+      "ticker": "300750",
+      "name": "宁德时代",
+      "role": "pressure",
+      "sector": "电池",
+      "hit": true,
+      "actual_move": "收盘-4.03%，开盘至收盘-4.50%",
+      "explanation": "新能源权重承压延续。"
+    },
+    {
+      "ticker": "300274",
+      "name": "阳光电源",
+      "role": "pressure",
+      "sector": "光伏设备",
+      "hit": true,
+      "actual_move": "收盘-7.01%，开盘至收盘-5.59%",
+      "explanation": "Q1利润下滑、PB 6.67偏高与板块资金撤退共同放大回撤。"
+    },
+    {
+      "ticker": "002463",
+      "name": "沪电股份",
+      "role": "pressure",
+      "sector": "PCB/元件",
+      "hit": true,
+      "actual_move": "收盘-4.65%，开盘至收盘-4.48%",
+      "explanation": "AI PCB高位分歧判断命中。"
+    },
+    {
+      "ticker": "300476",
+      "name": "胜宏科技",
+      "role": "pressure",
+      "sector": "PCB/元件",
+      "hit": true,
+      "actual_move": "收盘-7.44%，开盘至收盘-6.06%",
+      "explanation": "PE 71.02、PB 21.22仍依赖景气兑现，高位筹码松动后回撤显著。"
+    }
+  ],
+  "watch_deviations": [
+    {
+      "ticker": "300149",
+      "name": "睿智医药",
+      "sector": "创新药/化学制药",
+      "directional_role": "beneficiary",
+      "actual_move": "收盘+19.95%，开盘至收盘+20.74%，换手7.94%",
+      "morning_exclusion": "风险过高、综合评级为风险回避",
+      "deviation": "未入选但显著上涨",
+      "framework_explanation": "按估值框架，PE为-399.72、PB 3.55，盈利端估值不可用且基本面质量缺口大；按量价框架，14日放量和当日涨停说明资金短炒有效。偏差来自风控门槛压制了高弹性医药小票。"
+    },
+    {
+      "ticker": "300485",
+      "name": "赛升药业",
+      "sector": "创新药/化学制药",
+      "directional_role": "beneficiary",
+      "actual_move": "收盘+18.44%，开盘至收盘+18.58%，换手10.95%",
+      "morning_exclusion": "风险过高、综合评级为风险回避",
+      "deviation": "未入选但显著上涨",
+      "framework_explanation": "PE为-225.32、PB 1.39，盈利端质量弱；但当日换手和价格强度确认短线资金拥挤。该类样本应作为情绪弹性观察，而不是直接放宽机会门槛。"
+    },
+    {
+      "ticker": "000756",
+      "name": "新华制药",
+      "sector": "创新药/化学制药",
+      "directional_role": "beneficiary",
+      "actual_move": "收盘+9.98%，开盘至收盘+6.75%",
+      "morning_exclusion": "风险过高",
+      "deviation": "未入选但上涨",
+      "framework_explanation": "PE 35.78、PB 1.75，相对医药区间估值并非极端，但早盘风险分数高。收盘表现提示医药弹性股的量价权重在强主线日需要更细分，而非只用风险分一刀切。"
+    },
+    {
+      "ticker": "605009",
+      "name": "豪悦护理",
+      "sector": "婴幼儿个护",
+      "directional_role": "pressure",
+      "actual_move": "收盘+4.51%，开盘至收盘+5.55%",
+      "morning_exclusion": "14日承压走势不足、资金弱化不足",
+      "deviation": "负面观察未兑现且反向上涨",
+      "framework_explanation": "PE 22.18、PB 1.43，估值不极端；早盘没有放入承压列是正确的，说明舆情事件若缺少价格和主力弱化，不能提升为承压主线。"
+    },
+    {
+      "ticker": "601398",
+      "name": "工商银行",
+      "sector": "银行高股息",
+      "directional_role": "beneficiary",
+      "actual_move": "收盘+2.50%，开盘至收盘+2.36%",
+      "morning_exclusion": "量能确认不足、未通过资讯板块筛选",
+      "deviation": "未入选但防御表现较强",
+      "framework_explanation": "PE 7.08、PB 0.68符合银行低估值防御框架；但换手0.20%偏低，适合提升为大盘风险对冲观察，不宜替代主线机会。"
+    },
+    {
+      "ticker": "002714",
+      "name": "牧原股份",
+      "sector": "生猪产能去化",
+      "directional_role": "beneficiary",
+      "actual_move": "收盘-2.74%，开盘至收盘-3.39%",
+      "morning_exclusion": "14日走势不足、量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "deviation": "观察方向继续被验证为弱",
+      "framework_explanation": "PE 19.49、PB 2.27不构成当日催化，早盘归为观察是正确的；政策逻辑需要价格和主力资金确认后再提高权重。"
+    }
+  ],
+  "fund_flow_review": {
+    "morning_judgment": "拥挤分化",
+    "close_result": "拥挤分化命中，但风险强度低估。成交活跃更多体现资金从高位资源、PCB、新能源和创业板权重撤出，流入医药弹性、防御银行和少数券商弹性样本。",
+    "hit": true,
+    "bias": "早盘把成交放大解释为风险偏好修复的权重偏高，对午后高beta杀跌和资源/PCB连锁回撤的强度估计不足。"
+  },
+  "main_bias_causes": [
+    "午后指数跌幅扩大，深成指和创业板指明显弱于早盘快照，导致大盘方向从震荡变为偏弱。",
+    "资金不是普遍增量进攻，而是高度切换：医药弹性、个别券商和银行防御强，资源、PCB、新能源权重集中回撤。",
+    "早盘对医药小市值弹性股的风险惩罚有效控制了质量风险，但错过了当日极端短线弹性。",
+    "高成交额被过度解释为风险偏好改善，实际更接近高换手出清和主线切换。"
+  ],
+  "next_day_weight_conditions": {
+    "increase_weight": [
+      "医药主线若继续出现板块级放量、非ST/非高风险样本扩散，并且核心龙头不再弱于弹性小票，可提高创新药/化学制药主线持续性权重。",
+      "银行高股息若在指数继续偏弱时保持正收益且成交温和放大，可提高防御稳定器权重，但仍不替代主线机会。",
+      "承压方向若资源、PCB、新能源继续放量下跌且主力弱化未修复，应继续提高负向风险读数权重。",
+      "券商若成交额维持高位且不只依赖单一涨停弹性，可保留证券/互联网金融风险偏好温度计权重。"
+    ],
+    "decrease_weight": [
+      "生猪产能去化若仍无价格和主力资金确认，应降低政策事件权重。",
+      "仅有舆情或事件、但个股价格未弱化的承压候选应降低权重，豪悦护理是今日反例。",
+      "高PE/PB且基本面质量缺口的医药弹性股即使单日强势，也不应因一日噪音直接放宽机会门槛。",
+      "当深成指/创业板相对上证继续显著走弱时，降低高beta成长受益股权重。"
+    ]
+  },
+  "lesson": "今日复盘显示结构筛选有效、压力股更有效，但大盘方向强度低估。后续需在成交放大时区分风险偏好修复与高换手出清；医药小票弹性可作为观察池加权，但不能用单日涨幅放宽基本面和风险门槛。"
+}
