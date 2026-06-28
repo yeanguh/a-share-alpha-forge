@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 2200" width="1600" height="2200">
+<style>
+text { font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Heiti SC', Arial, sans-serif; fill: #172033; }
+.title { font-size: 42px; font-weight: 800; }
+.subtitle { font-size: 20px; fill: #475569; }
+.card-title { font-size: 24px; font-weight: 800; }
+.big { font-size: 34px; font-weight: 900; }
+.small { font-size: 15px; fill: #334155; }
+.tiny { font-size: 13px; fill: #64748b; }
+.section { font-size: 23px; font-weight: 800; }
+.node { font-size: 18px; font-weight: 800; }
+.note { font-size: 15px; fill: #475569; }
+.panel { fill: #fffaf0; stroke: #1f2937; stroke-width: 2.2; rx: 12; ry: 12; }
+.titleband { fill: #dbeafe; stroke: #1f2937; stroke-width: 3; rx: 4; ry: 4; }
+.blue { fill: #dbeafe; stroke: #93c5fd; stroke-width: 2; rx: 10; ry: 10; }
+.green { fill: #dcfce7; stroke: #86efac; stroke-width: 2; rx: 10; ry: 10; }
+.purple { fill: #ede9fe; stroke: #c4b5fd; stroke-width: 2; rx: 10; ry: 10; }
+.orange { fill: #ffedd5; stroke: #fdba74; stroke-width: 2; rx: 10; ry: 10; }
+.red { fill: #fee2e2; stroke: #fca5a5; stroke-width: 2; rx: 10; ry: 10; }
+.gray { fill: #f3f4f6; stroke: #d1d5db; stroke-width: 2; rx: 10; ry: 10; }
+.cream { fill: #fef3c7; stroke: #fbbf24; stroke-width: 2; rx: 10; ry: 10; }
+.glass { fill: #e0f2fe; stroke: #0369a1; stroke-width: 2; rx: 14; ry: 14; }
+</style>
+<defs>
+  <marker id="arrow-blue" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#2563eb"/></marker>
+  <marker id="arrow-green" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#16a34a"/></marker>
+  <marker id="arrow-red" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#dc2626"/></marker>
+  <linearGradient id="glassgrad" x1="0" x2="1" y1="0" y2="1">
+    <stop offset="0" stop-color="#f0f9ff"/>
+    <stop offset="0.52" stop-color="#bae6fd"/>
+    <stop offset="1" stop-color="#38bdf8"/>
+  </linearGradient>
+</defs>
+<rect width="1600" height="2200" fill="#fbf7ee"/>
+<rect x="28" y="28" width="1544" height="2144" fill="none" stroke="#1f2937" stroke-width="3"/>
+
+<rect x="210" y="68" width="1180" height="86" class="titleband"/>
+<text x="800" y="124" text-anchor="middle" class="title">1分钟拆解产业链：康宁 GlassBridge 玻璃桥</text>
+<text x="800" y="190" text-anchor="middle" class="subtitle">玻璃波导 + 可插拔光纤到PIC连接，指向硅光/CPO；A股映射以光器件、玻璃基板与TGV设备为主</text>
+
+<g transform="translate(64,240)">
+  <rect x="0" y="0" width="310" height="220" class="blue"/>
+  <text x="155" y="44" text-anchor="middle" class="card-title">需求触发</text>
+  <text x="155" y="98" text-anchor="middle" class="big">AI带宽</text>
+  <text x="155" y="134" text-anchor="middle" class="small">交换芯片功耗与I/O密度上升</text>
+  <text x="155" y="164" text-anchor="middle" class="small">推动CPO/NPO光互连</text>
+</g>
+<g transform="translate(430,240)">
+  <rect x="0" y="0" width="310" height="220" class="green"/>
+  <text x="155" y="44" text-anchor="middle" class="card-title">技术本体</text>
+  <text x="155" y="98" text-anchor="middle" class="big">Fiber-to-PIC</text>
+  <text x="155" y="134" text-anchor="middle" class="small">玻璃波导边耦合</text>
+  <text x="155" y="164" text-anchor="middle" class="small">可拆卸高通道连接</text>
+</g>
+<g transform="translate(796,240)">
+  <rect x="0" y="0" width="310" height="220" class="purple"/>
+  <text x="155" y="44" text-anchor="middle" class="card-title">制造方式</text>
+  <text x="155" y="98" text-anchor="middle" class="big">Wafer-based</text>
+  <text x="155" y="134" text-anchor="middle" class="small">精密玻璃加工与对准</text>
+  <text x="155" y="164" text-anchor="middle" class="small">良率/一致性决定放量</text>
+</g>
+<g transform="translate(1162,240)">
+  <rect x="0" y="0" width="310" height="220" class="orange"/>
+  <text x="155" y="44" text-anchor="middle" class="card-title">A股映射</text>
+  <text x="155" y="98" text-anchor="middle" class="big">间接为主</text>
+  <text x="155" y="134" text-anchor="middle" class="small">FAU/光模块/玻璃基板/TGV</text>
+  <text x="155" y="164" text-anchor="middle" class="small">需过滤概念标签</text>
+</g>
+
+<rect x="70" y="520" width="330" height="610" class="panel"/>
+<text x="235" y="564" text-anchor="middle" class="section">上游：材料与制程</text>
+<rect x="105" y="595" width="260" height="108" class="cream"/>
+<text x="235" y="628" text-anchor="middle" class="node">特种玻璃母材</text>
+<text x="235" y="656" text-anchor="middle" class="note">低损耗/低缺陷/热稳定</text>
+<text x="235" y="682" text-anchor="middle" class="note">康宁原厂优势最强</text>
+<rect x="105" y="730" width="260" height="108" class="blue"/>
+<text x="235" y="763" text-anchor="middle" class="node">玻璃波导加工</text>
+<text x="235" y="791" text-anchor="middle" class="note">离子交换/激光/刻蚀</text>
+<text x="235" y="817" text-anchor="middle" class="note">光损耗与一致性卡点</text>
+<rect x="105" y="865" width="260" height="108" class="green"/>
+<text x="235" y="898" text-anchor="middle" class="node">TGV/RDL相邻链</text>
+<text x="235" y="926" text-anchor="middle" class="note">钻孔/金属化/电镀</text>
+<text x="235" y="952" text-anchor="middle" class="note">玻璃基板国产替代窗口</text>
+<rect x="105" y="1000" width="260" height="92" class="red"/>
+<text x="235" y="1034" text-anchor="middle" class="node">检测与装配</text>
+<text x="235" y="1064" text-anchor="middle" class="note">光耦合、MT兼容、可靠性</text>
+
+<rect x="1188" y="520" width="330" height="610" class="panel"/>
+<text x="1353" y="564" text-anchor="middle" class="section">下游：应用牵引</text>
+<rect x="1223" y="595" width="260" height="108" class="green"/>
+<text x="1353" y="628" text-anchor="middle" class="node">GF Fotonix / PIC</text>
+<text x="1353" y="656" text-anchor="middle" class="note">硅光平台的光纤接口</text>
+<text x="1353" y="682" text-anchor="middle" class="note">原厂协同验证关键</text>
+<rect x="1223" y="730" width="260" height="108" class="blue"/>
+<text x="1353" y="763" text-anchor="middle" class="node">CPO / NPO</text>
+<text x="1353" y="791" text-anchor="middle" class="note">交换芯片近封装光I/O</text>
+<text x="1353" y="817" text-anchor="middle" class="note">功耗与密度驱动</text>
+<rect x="1223" y="865" width="260" height="108" class="purple"/>
+<text x="1353" y="898" text-anchor="middle" class="node">AI数据中心</text>
+<text x="1353" y="926" text-anchor="middle" class="note">800G/1.6T及后续代际</text>
+<text x="1353" y="952" text-anchor="middle" class="note">光模块与连接升级</text>
+<rect x="1223" y="1000" width="260" height="92" class="orange"/>
+<text x="1353" y="1034" text-anchor="middle" class="node">国内替代窗口</text>
+<text x="1353" y="1064" text-anchor="middle" class="note">材料、设备、无源器件分段突破</text>
+
+<g transform="translate(458,540)">
+  <rect x="0" y="0" width="660" height="570" class="panel"/>
+  <text x="330" y="44" text-anchor="middle" class="section">中间：玻璃桥把光纤接到光子芯片</text>
+  <rect x="116" y="108" width="428" height="210" fill="url(#glassgrad)" stroke="#0369a1" stroke-width="3" rx="18"/>
+  <text x="330" y="160" text-anchor="middle" style="font-size:48px;font-weight:900;fill:#075985;">GlassBridge</text>
+  <path d="M160 230 C230 185 290 275 360 230 S470 190 510 240" stroke="#2563eb" stroke-width="8" fill="none"/>
+  <text x="330" y="295" text-anchor="middle" class="node">玻璃波导 / 边耦合 / 可拆光连接</text>
+  <rect x="72" y="370" width="150" height="78" class="blue"/>
+  <text x="147" y="402" text-anchor="middle" class="node">光纤阵列</text>
+  <text x="147" y="430" text-anchor="middle" class="note">FAU/MT</text>
+  <rect x="255" y="370" width="150" height="78" class="green"/>
+  <text x="330" y="402" text-anchor="middle" class="node">玻璃桥</text>
+  <text x="330" y="430" text-anchor="middle" class="note">低损耗对准</text>
+  <rect x="438" y="370" width="150" height="78" class="purple"/>
+  <text x="513" y="402" text-anchor="middle" class="node">硅光PIC</text>
+  <text x="513" y="430" text-anchor="middle" class="note">光引擎/CPO</text>
+  <path d="M222 409 L255 409" stroke="#2563eb" stroke-width="4" marker-end="url(#arrow-blue)"/>
+  <path d="M405 409 L438 409" stroke="#16a34a" stroke-width="4" marker-end="url(#arrow-green)"/>
+  <text x="330" y="508" text-anchor="middle" class="card-title">关键验证：插入损耗、通道密度、可插拔可靠性、自动化装配良率</text>
+</g>
+
+<path d="M400 810 C440 795 440 795 458 795" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow-blue)"/>
+<text x="410" y="770" class="node">材料/工艺</text>
+<path d="M1118 820 C1160 820 1160 820 1188 820" stroke="#16a34a" stroke-width="3" fill="none" marker-end="url(#arrow-green)"/>
+<text x="1128" y="790" class="node">应用牵引</text>
+<path d="M1118 1040 C1160 1040 1160 1040 1188 1040" stroke="#dc2626" stroke-width="3" fill="none" marker-end="url(#arrow-red)"/>
+<text x="1128" y="1010" class="node">待验证</text>
+
+<rect x="70" y="1190" width="1448" height="310" class="panel"/>
+<text x="100" y="1232" class="section">A股卡位：直接度从光器件到玻璃基相邻链递减</text>
+<rect x="105" y="1265" width="225" height="118" class="green"/>
+<text x="217" y="1304" text-anchor="middle" class="node">天孚通信</text>
+<text x="217" y="1332" text-anchor="middle" class="note">FAU/无源器件</text>
+<text x="217" y="1359" text-anchor="middle" class="note">最接近连接环节</text>
+<rect x="365" y="1265" width="225" height="118" class="blue"/>
+<text x="477" y="1304" text-anchor="middle" class="node">光迅科技</text>
+<text x="477" y="1332" text-anchor="middle" class="note">光芯片/器件/模块</text>
+<text x="477" y="1359" text-anchor="middle" class="note">下游平台型</text>
+<rect x="625" y="1265" width="225" height="118" class="purple"/>
+<text x="737" y="1304" text-anchor="middle" class="node">沃格光电</text>
+<text x="737" y="1332" text-anchor="middle" class="note">玻璃基/TGV</text>
+<text x="737" y="1359" text-anchor="middle" class="note">相邻高弹性</text>
+<rect x="885" y="1265" width="225" height="118" class="orange"/>
+<text x="997" y="1304" text-anchor="middle" class="node">德龙/东威</text>
+<text x="997" y="1332" text-anchor="middle" class="note">激光/电镀设备</text>
+<text x="997" y="1359" text-anchor="middle" class="note">工艺设备侧</text>
+<rect x="1145" y="1265" width="225" height="118" class="gray"/>
+<text x="1257" y="1304" text-anchor="middle" class="node">中际/新易盛</text>
+<text x="1257" y="1332" text-anchor="middle" class="note">光模块需求端</text>
+<text x="1257" y="1359" text-anchor="middle" class="note">间接受益</text>
+<text x="105" y="1436" class="note">读图：康宁GlassBridge本体由康宁和代工平台协同验证；A股更多是连接器件、光模块需求、玻璃基板/TGV设备的国产替代映射。</text>
+
+<rect x="70" y="1548" width="700" height="425" class="panel"/>
+<text x="105" y="1592" class="section">核心驱动</text>
+<text x="120" y="1640" class="node">1. AI交换芯片I/O密度提升，铜互连距离与功耗压力增大</text>
+<text x="120" y="1684" class="node">2. CPO/NPO要求光连接更靠近芯片，低损耗和可维护性同时重要</text>
+<text x="120" y="1728" class="node">3. 玻璃材料具备尺寸稳定、光学透明、精密加工平台优势</text>
+<text x="120" y="1772" class="node">4. 量产壁垒在光损耗、被动对准、可靠性和自动装配</text>
+<text x="120" y="1816" class="node">5. 国内机会分散在FAU、硅光模块、玻璃基板和TGV设备</text>
+<text x="120" y="1860" class="node">6. 投资排序必须把原厂技术、相邻链和概念标签分开</text>
+
+<rect x="818" y="1548" width="700" height="425" class="panel"/>
+<text x="853" y="1592" class="section">关键时间表</text>
+<text x="868" y="1640" class="node">2025：康宁与GF披露可拆卸Fiber-to-PIC协同方案</text>
+<text x="868" y="1684" class="node">2025-2026：ECOC/GF技术峰会样品验证窗口</text>
+<text x="868" y="1728" class="node">2026：AI网络向1.6T/3.2T与CPO路线继续演进</text>
+<text x="868" y="1772" class="node">2026-2027：国内TGV/玻璃基板小批送样与客户验证</text>
+<text x="868" y="1816" class="node">后续：看光损耗、可靠性、客户认证和量产成本</text>
+<text x="868" y="1860" class="node">风险：CPO节奏慢于预期或玻璃桥被其他耦合方案替代</text>
+
+<rect x="70" y="2015" width="1448" height="96" class="titleband"/>
+<text x="794" y="2055" text-anchor="middle" class="card-title">核心结论：GlassBridge是AI光互连的连接工艺创新，不是单纯玻璃基板概念；</text>
+<text x="794" y="2088" text-anchor="middle" class="card-title">A股机会应按FAU/光器件、玻璃基板、TGV设备、光模块需求端分层跟踪。</text>
+<text x="70" y="2152" class="tiny">数据来源：Corning、GlobalFoundries、Intel、公司年报/公告/投关公开资料、行业公开资料；截至 2026-06-26。未披露收入处均按待核验处理。</text>
+</svg>

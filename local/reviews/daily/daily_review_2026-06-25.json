@@ -1,0 +1,18 @@
+{
+  "frequency": "daily",
+  "summaries": [
+    {
+      "period": "2026-06-25",
+      "review_days": 1,
+      "direction_hit_rate": 0.0,
+      "average_stock_error": 0.0,
+      "sector_hit_rate": 1.0,
+      "sector_sample_count": 5,
+      "stock_hit_rate": 1.0,
+      "stock_sample_count": 8,
+      "lessons": [
+        "今天早盘个股筛选质量较高，受益栏和压力栏全部命中；主要需要校准的是指数方向强度、玻纤单股强势的观察升级条件，以及资源链从贵金属/油气向钴镍铜扩散时的承压识别。"
+      ]
+    }
+  ]
+}

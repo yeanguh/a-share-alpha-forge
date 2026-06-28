@@ -76,12 +76,6 @@ def default_data_fetcher() -> Path | None:
 
 
 def akshare_fetch_status(code: str | None, data_type: str, data_fetcher: Path | None = None) -> dict[str, object]:
-    dependency = akshare_dependency_status()
-    if dependency["status"] != "installed":
-        return {
-            "status": "not_checked",
-            "detail": "akshare fetch probe skipped because `akshare` is not installed.",
-        }
     if not code:
         return {"status": "not_checked", "detail": "No probe code provided."}
     fetcher = data_fetcher or default_data_fetcher()
@@ -89,6 +83,12 @@ def akshare_fetch_status(code: str | None, data_type: str, data_fetcher: Path | 
         return {
             "status": "not_checked",
             "detail": "No data fetcher configured; set `ASHARE_DATA_FETCHER` or pass `--data-fetcher`.",
+        }
+    dependency = akshare_dependency_status()
+    if dependency["status"] != "installed":
+        return {
+            "status": "missing_dependency",
+            "detail": "akshare fetch probe skipped because `akshare` is not installed.",
         }
     if not fetcher.exists():
         return {"status": "missing_script", "detail": f"`{fetcher}` does not exist."}
@@ -178,6 +178,27 @@ def eastmoney_quote_status(code: str | None) -> dict[str, str]:
     return {"status": "fetch_failed", "detail": json.dumps(payload, ensure_ascii=False)[:200]}
 
 
+def mootdx_status(code: str | None) -> dict[str, str]:
+    version = package_version("mootdx")
+    if version is None:
+        return {"status": "missing_dependency", "detail": "`mootdx` is not installed."}
+    if not code:
+        return {"status": "not_checked", "detail": f"mootdx={version}; no probe code provided."}
+    try:
+        from mootdx.quotes import Quotes
+
+        client = Quotes.factory(market="std")
+        try:
+            frame = client.quotes([a_share_region_and_code(code)[1]])
+        finally:
+            client.close()
+    except Exception as exc:  # noqa: BLE001
+        return {"status": "fetch_failed", "detail": f"mootdx={version}; {type(exc).__name__}: {exc}"}
+    if frame is not None and not frame.empty:
+        return {"status": "available", "detail": f"mootdx={version}; Tongdaxin quote returned data."}
+    return {"status": "fetch_failed", "detail": f"mootdx={version}; empty quote frame."}
+
+
 def itick_status(code: str | None) -> dict[str, str]:
     token = os.getenv("ITICK_API_TOKEN")
     if not token:
@@ -236,6 +257,70 @@ def baostock_status() -> dict[str, str]:
     }
 
 
+def iwencai_status() -> dict[str, str]:
+    api_key = os.getenv("IWENCAI_API_KEY")
+    pywencai_version = package_version("pywencai")
+    if api_key:
+        detail = "`IWENCAI_API_KEY` is set"
+        if pywencai_version:
+            detail += f"; pywencai={pywencai_version}"
+        return {"status": "available", "detail": detail}
+    if pywencai_version:
+        return {
+            "status": "missing_credentials",
+            "detail": f"pywencai={pywencai_version}; `IWENCAI_API_KEY` is not set.",
+        }
+    return {
+        "status": "missing_credentials",
+        "detail": "`IWENCAI_API_KEY` is not set; use generated WenCai queries or AkShare reports as fallback.",
+    }
+
+
+def module_health(result: dict[str, dict[str, object]]) -> dict[str, object]:
+    return {
+        "realtime_quote": {
+            "primary": ["mootdx"],
+            "fallback": ["tencent_quote", "eastmoney_quote", "sina_quote", "baostock"],
+            "usable": any(
+                result.get(name, {}).get("status") == "available"
+                for name in ("mootdx", "tencent_quote", "eastmoney_quote", "sina_quote", "baostock")
+            ),
+        },
+        "valuation": {
+            "primary": ["tencent_quote", "eastmoney_quote"],
+            "fallback": ["akshare_fetch"],
+            "usable": any(
+                result.get(name, {}).get("status") == "available"
+                for name in ("tencent_quote", "eastmoney_quote", "akshare_fetch")
+            ),
+        },
+        "research_reports": {
+            "primary": ["akshare"],
+            "fallback": ["iwencai_api_when_configured"],
+            "usable": result.get("akshare_dependency", {}).get("status") == "installed"
+            or result.get("iwencai", {}).get("status") == "available",
+        },
+        "news": {
+            "primary": ["akshare"],
+            "fallback": ["manual_authority_checks"],
+            "usable": result.get("akshare_dependency", {}).get("status") == "installed",
+        },
+        "basic_data": {
+            "primary": ["mootdx", "akshare"],
+            "fallback": ["tencent_quote", "eastmoney_quote", "baostock"],
+            "usable": any(
+                result.get(name, {}).get("status") in {"available", "installed"}
+                for name in ("mootdx", "akshare_dependency", "tencent_quote", "eastmoney_quote", "baostock")
+            ),
+        },
+        "announcements": {
+            "primary": ["akshare_cninfo"],
+            "fallback": ["akshare_eastmoney_notice"],
+            "usable": result.get("akshare_dependency", {}).get("status") == "installed",
+        },
+    }
+
+
 def collect_error_messages(value: object) -> list[str]:
     messages: list[str] = []
     if isinstance(value, dict):
@@ -256,12 +341,14 @@ def check_command(args: argparse.Namespace) -> None:
     result = {
         "akshare_dependency": akshare_dependency_status(),
         "akshare_fetch": akshare_fetch_status(args.akshare_code, args.akshare_data_type, data_fetcher),
+        "mootdx": mootdx_status(quote_code),
         "sina_quote": sina_quote_status(quote_code),
         "tencent_quote": tencent_quote_status(quote_code),
         "eastmoney_quote": eastmoney_quote_status(quote_code),
         "itick": itick_status(quote_code),
         "zhitu": zhitu_status(quote_code),
         "baostock": baostock_status(),
+        "iwencai": iwencai_status(),
     }
     if args.include_paid:
         result = {
@@ -269,6 +356,7 @@ def check_command(args: argparse.Namespace) -> None:
             **result,
             "tushare": tushare_status(),
         }
+    result["module_health"] = module_health(result)
     write_json(result)
 
 

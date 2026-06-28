@@ -148,6 +148,28 @@ Use `fireworks-tech-graph` for report figures. Generate local SVG and PNG files 
 
 Only use Mermaid for quick scratch notes or when the user explicitly asks for Mermaid source; do not leave Mermaid as the final report chart when a rendered analysis figure is expected.
 
+#### 产业链投研信息图绘制规范
+
+When the report is meant to be shared, when the user asks for a more
+professional figure, or when the user provides an infographic sample, read
+`visual-infographic.md` and make the first figure a professional research
+infographic rather than a plain flow chart.
+
+Required content:
+
+- Title band: `1分钟拆解产业链：<主题>` or `<主题>产业链投研拆解`.
+- Top trigger cards: 3-5 cards with the largest quantified claims or strongest drivers, such as `用量提升`, `单价提升`, `市场空间`, `国产替代`, `技术迭代`.
+- Central visual: a simple product/process/chain focal illustration. It should help readers understand the physical product, process, or value focus.
+- Side analysis rails: left side for量价拆解、产业阶段、BOM/材料/工艺; right side for应用主线、需求驱动、国产替代、风险或替代路线.
+- Company cards: 4-8 representative A-share companies grouped by role, e.g. 龙头、材料、设备、挑战者、待验证.
+- Bottom blocks: `核心驱动` and `关键时间表`, followed by one conclusion strip.
+- Footer: compact source note only; no raw adapter logs.
+
+The infographic must contain at least one of each: quantitative anchor, chain
+stage judgment, company-position judgment, timing/catalyst, and risk/caveat.
+If exact numbers are unavailable, mark the claim as定性 or待核验 instead of
+inventing precision.
+
 #### 产业链全景图谱绘制规范
 
 Default to a **Chinese, vertical, top-to-bottom** full-chain map for Chinese reports. The figure should make the hierarchy obvious before readers look at tables.

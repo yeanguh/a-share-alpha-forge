@@ -1,6 +1,6 @@
 ---
 name: china-stock-price-analysis
-description: 通用A股股价查询与估值分析技能，支持通过QVeris获取实时股价，应用相对估值法（PE/PB/PS）进行估值分析。使用当用户询问A股个股股价、估值分析时触发。
+description: 通用A股股价查询与估值分析技能，按通达讯mootdx、腾讯财经、东方财富公开行情的降级链路获取实时股价和PE/PB/市值，并应用相对估值法进行估值分析。使用当用户询问A股个股股价、估值分析时触发。
 ---
 
 # A股股价查询与估值分析技能
@@ -9,11 +9,11 @@ description: 通用A股股价查询与估值分析技能，支持通过QVeris获
 
 ### 方式一：脚本自动化分析（推荐）
 
-使用固化的Python脚本自动完成估值计算，准确高效，脚本直接调用QVeris API获取行情：
+使用固化的Python脚本自动完成估值计算。脚本按模块化数据源降级：优先 `mootdx`/通达讯获取实时行情、盘口和K线相关字段；腾讯财经公开行情补实时价格、市值；东方财富公开行情补 PE/PB/市值。每个来源的状态会输出到报告中。
 
 ```bash
 # 直接运行，一步到位
-python skills/china-stock-price-analysis/scripts/stock_analyze.py 002475.SZ \
+uv run python .agents/skills/china-stock-price-analysis/scripts/stock_analyze.py 002475.SZ \
   --industry "消费电子龙头" \
   --eps-expected 2.3 \
   --ebitda 260 \
@@ -23,7 +23,7 @@ python skills/china-stock-price-analysis/scripts/stock_analyze.py 002475.SZ \
 
 也支持从JSON文件读取已有行情数据：
 ```bash
-python skills/china-stock-price-analysis/scripts/stock_analyze.py 002475.SZ \
+uv run python .agents/skills/china-stock-price-analysis/scripts/stock_analyze.py 002475.SZ \
   --json quote.json \
   --industry "消费电子龙头" \
   --eps-expected 2.3 \
@@ -31,16 +31,17 @@ python skills/china-stock-price-analysis/scripts/stock_analyze.py 002475.SZ \
 ```
 
 脚本自动完成：
-1. 直接调用QVeris API获取最新实时行情
-2. PE/PB估值判断，对比行业预设合理区间
-3. 业绩预期法计算合理估值区间
-4. EV/EBITDA计算（若提供EBITDA数据）
-5. 一致性预期上涨空间计算
-6. 输出**完整markdown分级结构分析报告**，包含所有计算步骤展示方便核对
+1. 按 `mootdx -> 腾讯财经 -> 东方财富` 获取最新行情、PE/PB和市值
+2. 输出各来源 `available/failed` 状态，便于判断降级是否发生
+3. PE/PB估值判断，对比行业预设合理区间
+4. 业绩预期法计算合理估值区间
+5. EV/EBITDA计算（若提供EBITDA数据）
+6. 一致性预期上涨空间计算
+7. 输出结构化 Markdown 分析报告，包含数据源状态和计算步骤
 
 ### 方式二：手动分析
 
-1. **工具选择**: 优先使用 QVeris 查找A股实时行情工具 `ths_ifind.real_time_quotation.v1`
+1. **工具选择**: 优先使用 `mootdx` 获取行情；若失败，使用腾讯财经公开行情；估值字段用腾讯财经和东方财富互补
 2. **输入参数**: A股股票代码，格式如 `002475.SZ`、`600519.SH`
 3. **结果提取**: 获取最新价、涨跌幅、成交量、成交额等核心数据展示
 
@@ -64,7 +65,7 @@ python skills/china-stock-price-analysis/scripts/stock_analyze.py 002475.SZ \
 ## 使用流程
 
 1. **获取股票代码**：确认用户询问的股票及代码（格式 `.SZ`/`.SH` 后缀）
-2. **查询实时行情**：调用QVeris工具获取最新股价
+2. **查询实时行情**：按 `mootdx -> 腾讯财经 -> 东方财富` 降级链获取最新股价
 3. **估值分析**：
    - 获取最新财报EPS、BVPS、每股营收数据
    - 计算当前PE/PB/PS

@@ -1,4 +1,4 @@
 interface:
   display_name: "产业链分析"
   short_description: "产业链、低频公共数据源与A股映射"
-  default_prompt: "Use $industry-chain-analysis to map an industry chain, collect low-frequency AkShare/baostock/adata-backed A-share evidence, identify key companies, and add valuation or trading follow-through when needed."
+  default_prompt: "Use $industry-chain-analysis to map an industry chain, collect filing-first A-share evidence, use module-specific public-data fallbacks from the data-source matrix, identify key companies, and add valuation or trading follow-through when needed."

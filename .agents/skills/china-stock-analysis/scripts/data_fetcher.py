@@ -11,6 +11,7 @@ import json
 import sys
 import time
 import os
+from urllib import request
 from datetime import datetime, timedelta
 from typing import Optional, Callable
 from functools import wraps
@@ -56,6 +57,54 @@ def safe_float(value) -> Optional[float]:
         return None
 
 
+def a_share_symbol(code: str) -> str:
+    """Normalize a 6-digit A-share code to Tencent quote symbol form."""
+    normalized = code.strip().lower().replace(".sz", "").replace(".sh", "")
+    if normalized.startswith(("sh", "sz")):
+        return normalized
+    if normalized.startswith(("6", "9")):
+        return f"sh{normalized}"
+    return f"sz{normalized}"
+
+
+def fetch_tencent_basic_quote(code: str) -> dict:
+    """Fetch no-key Tencent quote fields used as basic-info fallback."""
+    symbol = a_share_symbol(code)
+    url = f"https://qt.gtimg.cn/q={symbol}"
+    req = request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with request.urlopen(req, timeout=10) as response:
+        text = response.read().decode("gbk", errors="replace")
+    marker = f"v_{symbol}="
+    if marker not in text:
+        raise ValueError(f"Tencent quote response missing {marker}")
+    fields = text.split('="', 1)[1].rsplit('";', 1)[0].split("~")
+    return {
+        "name": fields[1] if len(fields) > 1 else "",
+        "latest_price": safe_float(fields[3] if len(fields) > 3 else None),
+        "market_cap": (safe_float(fields[45] if len(fields) > 45 else None) or 0) * 100000000,
+        "float_cap": (safe_float(fields[44] if len(fields) > 44 else None) or 0) * 100000000,
+        "pe_ttm": safe_float(fields[39] if len(fields) > 39 else None),
+        "pb": safe_float(fields[46] if len(fields) > 46 else None),
+    }
+
+
+def fetch_cninfo_profile(code: str) -> dict:
+    """Fetch CNINFO company profile through AkShare as stable basic-data fallback."""
+    df = ak.stock_profile_cninfo(symbol=code)
+    if df is None or df.empty:
+        return {}
+    row = df.iloc[0].to_dict()
+    return {
+        "name": row.get("A股简称", ""),
+        "industry": row.get("所属行业", ""),
+        "listing_date": row.get("上市日期", ""),
+        "company_name": row.get("公司名称", ""),
+        "main_business": row.get("主营业务", ""),
+        "business_scope": row.get("经营范围", ""),
+        "source": "akshare_cninfo_profile",
+    }
+
+
 def get_cache_path(code: str, data_type: str) -> str:
     """获取缓存文件路径"""
     cache_dir = os.path.join(os.path.dirname(__file__), '.cache')
@@ -89,6 +138,7 @@ def save_cache(code: str, data_type: str, data: dict):
 @retry_on_failure(max_retries=2, delay=1.0)
 def get_stock_info(code: str) -> dict:
     """获取股票基本信息"""
+    fallback_errors = []
     try:
         df = ak.stock_individual_info_em(symbol=code)
         info = {}
@@ -115,7 +165,46 @@ def get_stock_info(code: str) -> dict:
             "listing_date": info.get("上市时间", "")
         }
     except Exception as e:
-        return {"code": code, "error": str(e)}
+        fallback_errors.append(f"stock_individual_info_em: {type(e).__name__}: {e}")
+
+    try:
+        profile = fetch_cninfo_profile(code)
+    except Exception as e:
+        profile = {}
+        fallback_errors.append(f"stock_profile_cninfo: {type(e).__name__}: {e}")
+
+    try:
+        quote = fetch_tencent_basic_quote(code)
+    except Exception as e:
+        quote = {}
+        fallback_errors.append(f"tencent_quote: {type(e).__name__}: {e}")
+
+    if profile or quote:
+        return {
+            "code": code,
+            "name": quote.get("name") or profile.get("name", ""),
+            "industry": profile.get("industry", ""),
+            "market_cap": quote.get("market_cap"),
+            "float_cap": quote.get("float_cap"),
+            "total_shares": None,
+            "float_shares": None,
+            "pe_ttm": quote.get("pe_ttm"),
+            "pb": quote.get("pb"),
+            "listing_date": profile.get("listing_date", ""),
+            "company_name": profile.get("company_name", ""),
+            "main_business": profile.get("main_business", ""),
+            "source": "+".join(
+                source
+                for source in [
+                    profile.get("source") if profile else None,
+                    "tencent_public_quote" if quote else None,
+                ]
+                if source
+            ),
+            "fallback_errors": fallback_errors,
+        }
+
+    return {"code": code, "error": "; ".join(fallback_errors)}
 
 
 @retry_on_failure(max_retries=2, delay=1.0)
@@ -165,22 +254,23 @@ def get_valuation_data(code: str) -> dict:
     result = {}
 
     try:
-        df = ak.stock_a_ttm_lyr(symbol=code)
+        df = ak.stock_a_ttm_lyr()
         if df is None or df.empty:
             return result
 
         latest = df.iloc[-1].to_dict()
-        result["latest"] = latest
+        result["market_latest"] = latest
         result["history_count"] = len(df)
+        result["note"] = "akshare stock_a_ttm_lyr currently returns full-market PE history; single-stock PE/PB comes from basic_info quote fallback."
 
-        for col in ['pe_ttm', 'pb']:
+        for col in ["middlePETTM", "averagePETTM", "middlePELYR", "averagePELYR"]:
             val = latest.get(col)
-            if val and not pd.isna(val):
+            if val is not None and not pd.isna(val):
                 result[f"{col}_percentile"] = (df[col].dropna() < val).mean() * 100
 
     except Exception as e:
         result["error"] = str(e)
-        result["note"] = "估值历史数据获取失败，将使用基本信息中的估值"
+        result["note"] = "市场估值历史数据获取失败，将使用基本信息中的个股估值"
 
     return result
 

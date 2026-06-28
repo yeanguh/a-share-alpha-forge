@@ -26,26 +26,33 @@ lower the confidence label.
 Use free available sources for routine daily runs before falling back to
 qualitative summaries:
 
+- `mootdx` / 通达讯: preferred realtime quote, five-level order book, transaction
+  detail, and K-line channel when installed and reachable. Use it first for
+  price/volume confirmation, then cross-check key fields with Tencent or
+  Eastmoney.
+- Tencent public quote API: no-key quote text for spot price, market cap,
+  float market cap, and one-day direction. This is the primary no-key fallback
+  when `mootdx` or akshare endpoints are unavailable.
+- Eastmoney public quote API: no-key JSON quote source for PE/PB, market cap,
+  and quote cross-check.
 - `china-stock-analysis`: akshare `stock_zh_a_hist` through
   `scripts/data_fetcher.py --data-type valuation` for latest price, latest
   change, volume, turnover, 60-day high/low, 20-day average volume, and the
   latest 30 daily bars. Use the latest 14 bars from this output for the daily
   K-line check.
-- `china-stock-analysis`: akshare `stock_individual_info_em` through
+- `china-stock-analysis`: akshare `stock_individual_info_em`, CNINFO profile,
+  and Tencent fallback through
   `--data-type basic` for industry, market cap, float cap, PE, PB, listing
   date, and sector-mapping cross-checks.
+- Sina public quote API: reachable no-key quote cross-check. Keep it below
+  Tencent and Eastmoney because it is not the preferred module pairing.
+- Baostock: no-key daily historical K-line fallback when installed.
 - `iTick`: REST quote/K-line endpoints when a free `ITICK_API_TOKEN` is
   configured.
 - `Zhitu`: REST real-time quote, technical indicator, and fund-flow-style
   endpoints when a free `ZHITU_API_TOKEN` is configured. Treat the public demo
   token as connectivity evidence only; do not use demo responses for stock
   conclusions.
-- Sina public quote API: no-key real-time quote text for spot-price and one-day
-  direction cross-checks.
-- Tencent public quote API: no-key quote text as the second public quote
-  cross-check.
-- Eastmoney public quote API: no-key JSON quote source when reachable.
-- Baostock: no-key daily historical K-line fallback when installed.
 
 Paid interfaces such as QVeris, paid Tushare Pro tiers, terminal feeds, or
 similar commercial APIs are excluded from routine daily runs. Use them only if
@@ -59,13 +66,14 @@ status into `evidence_gaps` and lower data quality to `partial` or `limited`.
 
 For stock-level quote and K-line data, use this order:
 
-1. akshare through `china-stock-analysis`.
-2. Sina public quote API.
-3. Tencent public quote API.
-4. Eastmoney public quote API.
-5. Baostock when installed.
-6. iTick when a free `ITICK_API_TOKEN` is set.
-7. Zhitu when a free `ZHITU_API_TOKEN` is set.
+1. `mootdx` / 通达讯.
+2. Tencent public quote API.
+3. Eastmoney public quote API.
+4. akshare through `china-stock-analysis`.
+5. Sina public quote API.
+6. Baostock when installed.
+7. iTick when a free `ITICK_API_TOKEN` is set.
+8. Zhitu when a free `ZHITU_API_TOKEN` is set.
 
 For a final report, prefer at least two available sources for price and volume
 confirmation. If only no-key public quote APIs are available, use them for spot

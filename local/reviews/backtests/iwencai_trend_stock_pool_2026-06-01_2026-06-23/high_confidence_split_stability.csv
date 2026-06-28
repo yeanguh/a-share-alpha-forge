@@ -1,0 +1,3 @@
+﻿bucket,split_date,samples,days,hit_rate_3d,avg_3d_ret_pct,median_3d_ret_pct,worst_3d_ret_pct
+first_half,2026-06-10,9,4,77.78,3.99,3.295,-6.469
+second_half,2026-06-10,13,5,76.92,4.473,4.946,-7.118

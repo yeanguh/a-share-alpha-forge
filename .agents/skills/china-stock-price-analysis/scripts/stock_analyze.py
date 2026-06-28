@@ -1,18 +1,25 @@
 #!/usr/bin/env python3
+"""A-share quote and valuation helper with module-level fallback sources.
+
+Realtime quote path:
+1. mootdx/Tongdaxin for realtime price, order book, and K-line style fields.
+2. Tencent public quote for no-key realtime quote and market-cap fields.
+3. Eastmoney public quote for PE/PB/market-cap valuation fields.
+
+The script keeps paid or credentialed sources out of the default path. If a
+source fails, the report records the failure and continues with the next source.
 """
-A股股价多维度估值分析脚本
-直接调用QVeris API获取实时行情，执行多维度估值计算，输出格式化报告。
-"""
+
+from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
-from typing import Dict, Optional, Any
+from dataclasses import asdict, dataclass, field
+from typing import Any
+from urllib import request
 
-import requests
 
-# 行业默认合理PE区间
 INDUSTRY_PE_RANGES = {
     "消费电子龙头": (20, 30),
     "白酒龙头": (25, 35),
@@ -24,7 +31,6 @@ INDUSTRY_PE_RANGES = {
     "新能源": (25, 40),
 }
 
-# 行业默认合理PB区间
 INDUSTRY_PB_RANGES = {
     "消费电子龙头": (3, 5),
     "白酒龙头": (5, 10),
@@ -35,259 +41,259 @@ INDUSTRY_PB_RANGES = {
 }
 
 
-class AStockAnalyzer:
-    """A股多维度估值分析器"""
-
-    def __init__(self, qveris_api_key: Optional[str] = None):
-        self.qveris_api_key = qveris_api_key or os.getenv("QVERIS_API_KEY")
-        if not self.qveris_api_key:
-            raise ValueError("QVERIS_API_KEY environment variable is required")
-        
-        self.base_url = "https://qveris.ai/api/v1"
-        self.tool_id = "thsifind.real_time_quotation.v1"
-
-    def get_real_time_quote(self, code: str, discovery_id: Optional[str] = None) -> Dict[str, Any]:
-        """直接调用QVeris API获取实时行情数据"""
-        url = f"{self.base_url}/tools/execute"
-        headers = {
-            "Authorization": f"Bearer {self.qveris_api_key}",
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "tool_id": self.tool_id,
-            "search_id": discovery_id,
-            "parameters": {"codes": code}
-        }
-        
-        response = requests.post(url, json=payload, headers=headers, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-        
-        if not data.get("success"):
-            raise ValueError(f"QVeris API request failed: {data}")
-        
-        result = data["result"]
-        if result.get("status_code") != 200 or not result.get("data"):
-            raise ValueError(f"QVeris tool execution failed: {result}")
-        
-        return result["data"][0][0]  # 返回第一个股票的数据
-
-    @staticmethod
-    def judge_pe(pe: float, industry: str) -> str:
-        """根据PE判断估值"""
-        if industry not in INDUSTRY_PE_RANGES:
-            return f"PE {pe:.2f} (行业{industry}无预设区间)"
-        
-        low, high = INDUSTRY_PE_RANGES[industry]
-        if pe < low:
-            return f"PE {pe:.2f} → **低估** (区间 {low}~{high})"
-        elif pe <= high:
-            mid = (low + high) / 2
-            if pe < mid:
-                return f"PE {pe:.2f} → **合理偏低** (区间 {low}~{high})"
-            else:
-                return f"PE {pe:.2f} → **合理偏高** (区间 {low}~{high})"
-        else:
-            return f"PE {pe:.2f} → **高估** (区间 {low}~{high})"
-
-    @staticmethod
-    def judge_pb(pb: float, industry: str) -> str:
-        """根据PB判断估值"""
-        if industry not in INDUSTRY_PB_RANGES:
-            return f"PB {pb:.2f} (行业{industry}无预设区间)"
-        
-        low, high = INDUSTRY_PB_RANGES[industry]
-        if pb < low:
-            return f"PB {pb:.2f} → **低估** (区间 {low}~{high})"
-        elif pb <= high:
-            return f"PB {pb:.2f} → **合理** (区间 {low}~{high})"
-        else:
-            return f"PB {pb:.2f} → **高估** (区间 {low}~{high})"
-
-    @staticmethod
-    def judge_pe(pe: float, industry: str) -> str:
-        """根据PE判断估值"""
-        if industry not in INDUSTRY_PE_RANGES:
-            return f"PE {pe:.2f} (行业{industry}无预设区间)"
-        
-        low, high = INDUSTRY_PE_RANGES[industry]
-        if pe < low:
-            return f"PE {pe:.2f} → **低估** (区间 {low}~{high})"
-        elif pe <= high:
-            mid = (low + high) / 2
-            if pe < mid:
-                return f"PE {pe:.2f} → **合理偏低** (区间 {low}~{high})"
-            else:
-                return f"PE {pe:.2f} → **合理偏高** (区间 {low}~{high})"
-        else:
-            return f"PE {pe:.2f} → **高估** (区间 {low}~{high})"
-
-    @staticmethod
-    def judge_pb(pb: float, industry: str) -> str:
-        """根据PB判断估值"""
-        if industry not in INDUSTRY_PB_RANGES:
-            return f"PB {pb:.2f} (行业{industry}无预设区间)"
-        
-        low, high = INDUSTRY_PB_RANGES[industry]
-        if pb < low:
-            return f"PB {pb:.2f} → **低估** (区间 {low}~{high})"
-        elif pb <= high:
-            return f"PB {pb:.2f} → **合理** (区间 {low}~{high})"
-        else:
-            return f"PB {pb:.2f} → **高估** (区间 {low}~{high})"
-
-    @staticmethod
-    def calculate_ev_ebitda(market_cap: float, net_debt: float, ebitda: float) -> Dict[str, float]:
-        """计算EV/EBITDA"""
-        ev = market_cap + net_debt
-        ev_ebitda = ev / ebitda
-        return {
-            "ev": ev,
-            "ebitda": ebitda,
-            "ev_ebitda": ev_ebitda
-        }
-
-    @staticmethod
-    def expected_valuation(eps_expected: float, industry: str) -> Dict[str, float]:
-        """业绩预期法计算合理估值区间"""
-        if industry not in INDUSTRY_PE_RANGES:
-            return {}
-        low_pe, high_pe = INDUSTRY_PE_RANGES[industry]
-        low_val = eps_expected * low_pe
-        high_val = eps_expected * high_pe
-        mid_val = (low_val + high_val) / 2
-        return {
-            "low": low_val,
-            "high": high_val,
-            "mid": mid_val
-        }
-
-    def analyze(self, quote: Dict[str, Any], industry: str, 
-                eps_expected: Optional[float] = None,
-                ebitda: Optional[float] = None,
-                net_debt: float = 0,
-                consensus_target: Optional[float] = None) -> Dict[str, Any]:
-        """完整分析流程
-        quote: 已从QVeris获取的实时行情数据
-        """
-        result = {
-            "code": quote["thscode"],
-            "industry": industry,
-            "quote": quote,
-            "pe_judge": self.judge_pe(quote["pe_ttm"], industry),
-            "pb_judge": self.judge_pb(quote["pbr_lf"], industry),
-        }
-
-        # 业绩预期法估值
-        if eps_expected is not None:
-            val_range = self.expected_valuation(eps_expected, industry)
-            result["expected_valuation"] = val_range
-            current_price = quote["latest"]
-            if val_range:
-                if current_price < val_range["low"]:
-                    result["expected_comment"] = "当前价格低于合理估值下限，具备安全边际"
-                elif current_price > val_range["high"]:
-                    result["expected_comment"] = "当前价格高于合理估值上限，需警惕回调"
-                else:
-                    result["expected_comment"] = f"当前价格落在合理估值区间，中枢 {val_range['mid']:.2f}"
-
-        # EV/EBITDA分析
-        if ebitda is not None:
-            market_cap = quote["mv"]
-            ev_data = self.calculate_ev_ebitda(market_cap, net_debt, ebitda)
-            result["ev_ebitda"] = ev_data
-
-        # 一致性预期空间
-        if consensus_target is not None:
-            current_price = quote["latest"]
-            upside = (consensus_target - current_price) / current_price * 100
-            result["consensus_target"] = {
-                "price": consensus_target,
-                "upside_pct": upside
-            }
-
-        return result
-
-    @staticmethod
-    def print_report(result: Dict[str, Any]):
-        """打印分析报告"""
-        quote = result["quote"]
-        print("\n" + "=" * 60)
-        print(f"📊 {result['code']} 估值分析报告")
-        print(f"⏱  数据时间: {quote['time']}")
-        print("=" * 60)
-        
-        print(f"\n📍 当前股价: {quote['latest']:.2f} 元")
-        print(f"📈 涨跌幅: {quote['changeRatio']:.2f}%")
-        print(f"💰 成交额: {quote['amount'] / 100000000:.2f} 亿元")
-        print(f"🏬 总市值: {quote['mv'] / 100000000:.2f} 亿元")
-        
-        print("\n📊 估值判断:")
-        print(f"  {result['pe_judge']}")
-        print(f"  {result['pb_judge']}")
-
-        if "expected_valuation" in result and result["expected_valuation"]:
-            ev = result["expected_valuation"]
-            print(f"\n🎯 业绩预期法合理区间: {ev['low']:.2f} ~ {ev['high']:.2f} 元 (中枢 {ev['mid']:.2f})")
-            print(f"💬 {result['expected_comment']}")
-
-        if "ev_ebitda" in result:
-            ed = result["ev_ebitda"]
-            print(f"\n🔢 EV/EBITDA = {ed['ev_ebitda']:.2f}x")
-            print(f"   (EV: {ed['ev']/100000000:.0f}亿, EBITDA: {ed['ebitda']:.0f}亿)")
-
-        if "consensus_target" in result:
-            ct = result["consensus_target"]
-            print(f"\n🌟 券商一致性目标价: {ct['price']:.2f} 元 → 预期上涨空间: {ct['upside_pct']:.1f}%")
-
-        print("\n" + "=" * 60 + "\n")
+@dataclass
+class SourceStatus:
+    source: str
+    status: str
+    detail: str
 
 
-def main():
-    parser = argparse.ArgumentParser(description="A股多维度估值分析")
-    parser.add_argument("code", help="股票代码，如 002475.SZ")
-    parser.add_argument("--industry", default="消费电子龙头", help="行业分类，默认: 消费电子龙头")
-    parser.add_argument("--eps-expected", type=float, help="一致预期EPS（当年/下一年）")
+@dataclass
+class QuoteSnapshot:
+    code: str
+    name: str = ""
+    latest: float | None = None
+    previous_close: float | None = None
+    change_pct: float | None = None
+    volume: float | None = None
+    amount: float | None = None
+    market_cap: float | None = None
+    float_market_cap: float | None = None
+    pe_ttm: float | None = None
+    pb: float | None = None
+    timestamp: str = ""
+    source: str = ""
+    sources: list[SourceStatus] = field(default_factory=list)
+
+
+def safe_float(value: Any) -> float | None:
+    if value in (None, "", "--"):
+        return None
+    try:
+        return float(str(value).replace(",", "").replace("%", ""))
+    except (TypeError, ValueError):
+        return None
+
+
+def raw_code(code: str) -> str:
+    normalized = code.strip().lower().replace(".sz", "").replace(".sh", "")
+    if normalized.startswith(("sh", "sz")):
+        return normalized[2:]
+    return normalized.zfill(6)
+
+
+def tencent_symbol(code: str) -> str:
+    normalized = raw_code(code)
+    return f"sh{normalized}" if normalized.startswith(("6", "9")) else f"sz{normalized}"
+
+
+def eastmoney_secid(code: str) -> str:
+    normalized = raw_code(code)
+    market_id = "1" if normalized.startswith(("6", "9")) else "0"
+    return f"{market_id}.{normalized}"
+
+
+def http_get_text(url: str, *, encoding: str = "utf-8") -> str:
+    req = request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with request.urlopen(req, timeout=10) as response:
+        return response.read().decode(encoding, errors="replace")
+
+
+def apply_mootdx_quote(snapshot: QuoteSnapshot) -> SourceStatus:
+    try:
+        from mootdx.quotes import Quotes
+
+        client = Quotes.factory(market="std")
+        try:
+            frame = client.quotes([raw_code(snapshot.code)])
+        finally:
+            client.close()
+        if frame is None or frame.empty:
+            return SourceStatus("mootdx", "failed", "empty quote frame")
+        row = frame.iloc[0].to_dict()
+        snapshot.latest = safe_float(row.get("price")) or snapshot.latest
+        snapshot.previous_close = safe_float(row.get("last_close")) or snapshot.previous_close
+        snapshot.volume = safe_float(row.get("vol")) or snapshot.volume
+        snapshot.amount = safe_float(row.get("amount")) or snapshot.amount
+        snapshot.timestamp = str(row.get("servertime") or snapshot.timestamp)
+        if snapshot.latest is not None and snapshot.previous_close:
+            snapshot.change_pct = (snapshot.latest - snapshot.previous_close) / snapshot.previous_close * 100
+        snapshot.source = snapshot.source or "mootdx"
+        return SourceStatus("mootdx", "available", "quote/order-book fields fetched")
+    except Exception as exc:  # noqa: BLE001
+        return SourceStatus("mootdx", "failed", f"{type(exc).__name__}: {exc}")
+
+
+def apply_tencent_quote(snapshot: QuoteSnapshot) -> SourceStatus:
+    try:
+        symbol = tencent_symbol(snapshot.code)
+        text = http_get_text(f"https://qt.gtimg.cn/q={symbol}", encoding="gbk")
+        marker = f"v_{symbol}="
+        if marker not in text:
+            return SourceStatus("tencent", "failed", f"missing {marker}")
+        fields = text.split('="', 1)[1].rsplit('";', 1)[0].split("~")
+        snapshot.name = snapshot.name or fields[1]
+        snapshot.latest = snapshot.latest or safe_float(fields[3])
+        snapshot.previous_close = snapshot.previous_close or safe_float(fields[4])
+        snapshot.change_pct = snapshot.change_pct if snapshot.change_pct is not None else safe_float(fields[32])
+        snapshot.volume = snapshot.volume or safe_float(fields[36])
+        snapshot.amount = snapshot.amount or safe_float(fields[37])
+        snapshot.float_market_cap = snapshot.float_market_cap or (safe_float(fields[44]) or 0) * 100000000
+        snapshot.market_cap = snapshot.market_cap or (safe_float(fields[45]) or 0) * 100000000
+        snapshot.pe_ttm = snapshot.pe_ttm or safe_float(fields[39])
+        snapshot.pb = snapshot.pb or safe_float(fields[46])
+        snapshot.timestamp = snapshot.timestamp or fields[30]
+        snapshot.source = snapshot.source or "tencent"
+        return SourceStatus("tencent", "available", "public quote fields fetched")
+    except Exception as exc:  # noqa: BLE001
+        return SourceStatus("tencent", "failed", f"{type(exc).__name__}: {exc}")
+
+
+def apply_eastmoney_quote(snapshot: QuoteSnapshot) -> SourceStatus:
+    try:
+        fields = "f43,f47,f48,f57,f58,f60,f116,f117,f162,f167,f168,f170"
+        url = f"https://push2.eastmoney.com/api/qt/stock/get?secid={eastmoney_secid(snapshot.code)}&fields={fields}"
+        payload = json.loads(http_get_text(url))
+        data = payload.get("data") if isinstance(payload, dict) else None
+        if not isinstance(data, dict):
+            return SourceStatus("eastmoney", "failed", "empty quote payload")
+        snapshot.name = snapshot.name or str(data.get("f58") or "")
+        snapshot.latest = snapshot.latest or ((safe_float(data.get("f43")) or 0) / 100)
+        snapshot.previous_close = snapshot.previous_close or ((safe_float(data.get("f60")) or 0) / 100)
+        snapshot.change_pct = snapshot.change_pct if snapshot.change_pct is not None else ((safe_float(data.get("f170")) or 0) / 100)
+        snapshot.volume = snapshot.volume or safe_float(data.get("f47"))
+        snapshot.amount = snapshot.amount or safe_float(data.get("f48"))
+        snapshot.market_cap = snapshot.market_cap or safe_float(data.get("f116"))
+        snapshot.float_market_cap = snapshot.float_market_cap or safe_float(data.get("f117"))
+        snapshot.pe_ttm = snapshot.pe_ttm or ((safe_float(data.get("f162")) or 0) / 100)
+        snapshot.pb = snapshot.pb or ((safe_float(data.get("f167")) or 0) / 100)
+        snapshot.source = snapshot.source or "eastmoney"
+        return SourceStatus("eastmoney", "available", "valuation fields fetched")
+    except Exception as exc:  # noqa: BLE001
+        return SourceStatus("eastmoney", "failed", f"{type(exc).__name__}: {exc}")
+
+
+def load_quote(code: str, json_path: str | None = None) -> QuoteSnapshot:
+    if json_path:
+        with open(json_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if "quote" in data:
+            data = data["quote"]
+        return QuoteSnapshot(
+            code=str(data.get("code") or data.get("thscode") or code),
+            name=str(data.get("name") or ""),
+            latest=safe_float(data.get("latest") or data.get("last_price")),
+            previous_close=safe_float(data.get("previous_close")),
+            change_pct=safe_float(data.get("change_pct") or data.get("changeRatio")),
+            volume=safe_float(data.get("volume")),
+            amount=safe_float(data.get("amount")),
+            market_cap=safe_float(data.get("market_cap") or data.get("mv")),
+            float_market_cap=safe_float(data.get("float_market_cap")),
+            pe_ttm=safe_float(data.get("pe_ttm")),
+            pb=safe_float(data.get("pb") or data.get("pbr_lf")),
+            timestamp=str(data.get("timestamp") or data.get("time") or ""),
+            source=str(data.get("source") or "json"),
+        )
+
+    snapshot = QuoteSnapshot(code=raw_code(code))
+    for fetcher in (apply_mootdx_quote, apply_tencent_quote, apply_eastmoney_quote):
+        status = fetcher(snapshot)
+        snapshot.sources.append(status)
+    if snapshot.latest is None:
+        details = "; ".join(f"{s.source}: {s.detail}" for s in snapshot.sources)
+        raise RuntimeError(f"No quote source available for {code}: {details}")
+    return snapshot
+
+
+def judge_multiple(value: float | None, industry: str, ranges: dict[str, tuple[float, float]], label: str) -> str:
+    if value is None:
+        return f"{label}: 缺少数据"
+    if industry not in ranges:
+        return f"{label} {value:.2f}: 行业 {industry} 无预设区间"
+    low, high = ranges[industry]
+    if value < low:
+        return f"{label} {value:.2f}: 低于参考区间 {low}~{high}"
+    if value <= high:
+        return f"{label} {value:.2f}: 位于参考区间 {low}~{high}"
+    return f"{label} {value:.2f}: 高于参考区间 {low}~{high}"
+
+
+def expected_valuation(eps_expected: float | None, industry: str) -> dict[str, float]:
+    if eps_expected is None or industry not in INDUSTRY_PE_RANGES:
+        return {}
+    low_pe, high_pe = INDUSTRY_PE_RANGES[industry]
+    return {
+        "low": eps_expected * low_pe,
+        "high": eps_expected * high_pe,
+        "mid": eps_expected * (low_pe + high_pe) / 2,
+    }
+
+
+def print_report(snapshot: QuoteSnapshot, industry: str, eps_expected: float | None, ebitda: float | None, net_debt: float, consensus_target: float | None) -> None:
+    print(f"# {snapshot.code} {snapshot.name} 估值分析")
+    print()
+    print(f"- 行业口径: {industry}")
+    print(f"- 最新价: {snapshot.latest:.2f} 元")
+    if snapshot.change_pct is not None:
+        print(f"- 涨跌幅: {snapshot.change_pct:.2f}%")
+    if snapshot.amount is not None:
+        print(f"- 成交额: {snapshot.amount / 100000000:.2f} 亿元")
+    if snapshot.market_cap is not None:
+        print(f"- 总市值: {snapshot.market_cap / 100000000:.2f} 亿元")
+    print(f"- 数据主源: {snapshot.source or 'fallback'}")
+    if snapshot.timestamp:
+        print(f"- 数据时间: {snapshot.timestamp}")
+    print()
+    print("## 数据源状态")
+    for status in snapshot.sources:
+        print(f"- {status.source}: {status.status} ({status.detail})")
+    print()
+    print("## 相对估值")
+    print(f"- {judge_multiple(snapshot.pe_ttm, industry, INDUSTRY_PE_RANGES, 'PE TTM')}")
+    print(f"- {judge_multiple(snapshot.pb, industry, INDUSTRY_PB_RANGES, 'PB')}")
+    val_range = expected_valuation(eps_expected, industry)
+    if val_range and snapshot.latest is not None:
+        print()
+        print("## 业绩预期法")
+        print(f"- 合理区间: {val_range['low']:.2f}~{val_range['high']:.2f} 元，中枢 {val_range['mid']:.2f} 元")
+        print(f"- 当前价相对中枢: {(snapshot.latest / val_range['mid'] - 1) * 100:.1f}%")
+    if ebitda and snapshot.market_cap:
+        ev = snapshot.market_cap + net_debt
+        print()
+        print("## EV/EBITDA")
+        print(f"- EV/EBITDA: {ev / ebitda:.2f}x")
+    if consensus_target and snapshot.latest:
+        print()
+        print("## 一致目标价")
+        print(f"- 目标价 {consensus_target:.2f} 元，对应空间 {(consensus_target / snapshot.latest - 1) * 100:.1f}%")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="A股股价与估值分析")
+    parser.add_argument("code", help="股票代码，如 002475.SZ 或 600519")
+    parser.add_argument("--industry", default="消费电子龙头", help="行业分类")
+    parser.add_argument("--eps-expected", type=float, help="一致预期EPS")
     parser.add_argument("--ebitda", type=float, help="年度EBITDA（亿元）")
-    parser.add_argument("--net-debt", type=float, default=0, help="净负债（亿元），默认: 0")
+    parser.add_argument("--net-debt", type=float, default=0, help="净负债（亿元）")
     parser.add_argument("--consensus-target", type=float, help="券商一致目标价")
-    # 也支持从JSON文件读取（可选）
-    parser.add_argument("--json", help="从JSON文件读取行情数据（可选）")
+    parser.add_argument("--json", help="从JSON文件读取行情数据")
+    parser.add_argument("--dump-json", help="额外保存标准化行情快照")
     args = parser.parse_args()
 
-    try:
-        # 从JSON文件读取或直接API获取
-        if args.json:
-            with open(args.json, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                if "data" in data:
-                    quote = data["data"][0][0]
-                else:
-                    quote = data
-            analyzer = AStockAnalyzer(qveris_api_key=os.getenv("QVERIS_API_KEY", "json-input"))
-        else:
-            analyzer = AStockAnalyzer()
-            # 我们之前discovery得到的discovery_id
-            discovery_id = "c2ab2fb6-2e95-448f-a095-6362d2151496"
-            quote = analyzer.get_real_time_quote(args.code, discovery_id)
-
-        # 转换EBITDA和净负债到元（API返回市值单位是元）
-        ebitda = args.ebitda * 100000000 if args.ebitda else None
-        net_debt = args.net_debt * 100000000 if args.net_debt else 0
-
-        result = analyzer.analyze(
-            quote=quote,
-            industry=args.industry,
-            eps_expected=args.eps_expected,
-            ebitda=ebitda,
-            net_debt=net_debt,
-            consensus_target=args.consensus_target
-        )
-        analyzer.print_report(result)
-    except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
+    snapshot = load_quote(args.code, args.json)
+    if args.dump_json:
+        with open(args.dump_json, "w", encoding="utf-8") as f:
+            json.dump(asdict(snapshot), f, ensure_ascii=False, indent=2)
+    print_report(
+        snapshot,
+        args.industry,
+        args.eps_expected,
+        args.ebitda * 100000000 if args.ebitda else None,
+        args.net_debt * 100000000,
+        args.consensus_target,
+    )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

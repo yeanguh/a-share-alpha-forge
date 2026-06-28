@@ -1,0 +1,343 @@
+{
+  "review_time": "2026-06-26T15:28:10+08:00",
+  "report_date": "2026-06-26",
+  "source_files": [
+    "local/2026-06-26/report.md",
+    "local/2026-06-26/assembled.json",
+    "local/2026-06-26/input_bundle.json"
+  ],
+  "data_sources": [
+    "Tencent public quote snapshots for indices/stocks after 15:15 CST",
+    "Sina Market Center hs_a breadth snapshot after 15:22 CST",
+    "Persisted morning report/assembled/input bundle"
+  ],
+  "data_quality": "partial_free_public_quotes",
+  "direction_forecast": "震荡偏强",
+  "actual_market_summary": "上证指数-2.26%，深成指-3.44%，创业板指-4.07%，沪深300-3.03%；新浪hs_a样本5527只中789只上涨、4676只下跌、62只平盘，非北交所口径涨停约84只、跌停约74只。",
+  "direction_hit": false,
+  "average_stock_error": 1.91,
+  "market_indices": [
+    {
+      "symbol": "sh000001",
+      "name": "上证指数",
+      "close": 4027.26,
+      "pct_change": -2.26,
+      "amount_10k_yuan": 162119571.0,
+      "timestamp": "20260626152200"
+    },
+    {
+      "symbol": "sz399001",
+      "name": "深证成指",
+      "close": 15782.22,
+      "pct_change": -3.44,
+      "amount_10k_yuan": 193121476.0,
+      "timestamp": "20260626152157"
+    },
+    {
+      "symbol": "sz399006",
+      "name": "创业板指",
+      "close": 4194.21,
+      "pct_change": -4.07,
+      "amount_10k_yuan": 93248291.0,
+      "timestamp": "20260626152112"
+    },
+    {
+      "symbol": "sh000300",
+      "name": "沪深300",
+      "close": 4868.22,
+      "pct_change": -3.03,
+      "amount_10k_yuan": 106808266.0,
+      "timestamp": "20260626152200"
+    },
+    {
+      "symbol": "sh000852",
+      "name": "中证1000",
+      "close": 8601.41,
+      "pct_change": -2.54,
+      "amount_10k_yuan": 75546411.0,
+      "timestamp": "20260626152200"
+    },
+    {
+      "symbol": "sh000688",
+      "name": "科创50",
+      "close": 2032.28,
+      "pct_change": -1.65,
+      "amount_10k_yuan": 20172751.0,
+      "timestamp": "20260626152200"
+    }
+  ],
+  "market_breadth": {
+    "source": "sina_market_center_hs_a",
+    "row_count": 5527,
+    "up": 789,
+    "down": 4676,
+    "flat": 62,
+    "limit_up_ge_9p8_non_bj": 84,
+    "limit_down_le_minus_9p8_non_bj": 74,
+    "sample_time": "15:22:18-15:24:45"
+  },
+  "fund_flow_review": {
+    "morning_judgment": "拥挤分化，短期震荡偏强",
+    "post_close_judgment": "净流出扩散叠加少数强主题抵抗",
+    "hit": false,
+    "reason": "成交额代理仍高，但指数和上涨家数同时恶化，强主题未能扩散；完整主力资金、ETF、融资融券和北向拆分未稳定取得。",
+    "next_day_weight_change": "降低单日高开涨停/高估值强势股权重，提高宽基指数、全市场涨跌家数、14日均量放大且收盘站稳强度的确认权重。"
+  },
+  "sector_hits": [
+    {
+      "sector": "存储芯片",
+      "hit": true,
+      "reason": "雅克科技收涨4.18%，兆易创新仅小跌0.67%，在指数大跌中相对强；但龙头内部分化，命中强度为部分命中。",
+      "representatives": [
+        "603986 -0.67%",
+        "002409 +4.18%"
+      ]
+    },
+    {
+      "sector": "先进封装",
+      "hit": false,
+      "reason": "长电科技收跌3.15%，与沪深300跌幅接近且放量换手，早盘强主线未延续到收盘。",
+      "representatives": [
+        "600584 -3.15%"
+      ]
+    },
+    {
+      "sector": "AI硬件",
+      "hit": false,
+      "reason": "观察代表中际旭创收跌5.25%，高估值拥挤风险压过产业景气叙事。",
+      "representatives": [
+        "300308 -5.25%"
+      ]
+    },
+    {
+      "sector": "新型能源体系",
+      "hit": false,
+      "reason": "中证新能跌3.41%，CS新能车跌6.23%；隆基绿能小涨0.48%属于个股韧性，不足以确认板块主线。",
+      "representatives": [
+        "399808 -3.41%",
+        "399976 -6.23%",
+        "601012 +0.48%"
+      ]
+    },
+    {
+      "sector": "脑机接口",
+      "hit": false,
+      "reason": "观察代表创新医疗收跌8.14%，题材政策热度未转化为收盘资金承接。",
+      "representatives": [
+        "002173 -8.14%"
+      ]
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "role": "beneficiary",
+      "hit": false,
+      "actual_move": "-0.67%",
+      "reason": "早盘强势涨停预期在收盘转为小幅下跌，日内高位回落明显。"
+    },
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "role": "beneficiary",
+      "hit": false,
+      "actual_move": "-3.15%",
+      "reason": "早盘接近涨停的先进封装龙头收盘转跌，放量换手说明分歧显著放大。"
+    },
+    {
+      "ticker": "002409",
+      "name": "雅克科技",
+      "role": "beneficiary",
+      "hit": true,
+      "actual_move": "+4.18%",
+      "reason": "方向命中但强度低于早盘涨停预期，量能未明显高于14日均量。"
+    },
+    {
+      "ticker": "601988",
+      "name": "中国银行",
+      "role": "pressure",
+      "hit": true,
+      "actual_move": "-0.52%",
+      "reason": "承压方向命中但幅度很弱，低估值/高股息属性对合规事件形成缓冲。"
+    }
+  ],
+  "selected_stock_quotes": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "role": "beneficiary",
+      "sector": "存储芯片",
+      "expected_direction": "positive",
+      "morning_change_pct": 9.99,
+      "close": 770.0,
+      "pct_change": -0.67,
+      "turnover_rate": 7.39,
+      "amount_10k_yuan": 3741830.0,
+      "volume_vs_prev14_avg": 1.03,
+      "pe": 310.484,
+      "pb": 21.38,
+      "hit": false,
+      "deviation": "早盘强势涨停预期在收盘转为小幅下跌，日内高位回落明显。"
+    },
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "role": "beneficiary",
+      "sector": "先进封装",
+      "expected_direction": "positive",
+      "morning_change_pct": 9.99,
+      "close": 100.89,
+      "pct_change": -3.15,
+      "turnover_rate": 18.77,
+      "amount_10k_yuan": 3522870.0,
+      "volume_vs_prev14_avg": 1.76,
+      "pe": 115.966,
+      "pb": 6.276,
+      "hit": false,
+      "deviation": "早盘接近涨停的先进封装龙头收盘转跌，放量换手说明分歧显著放大。"
+    },
+    {
+      "ticker": "002409",
+      "name": "雅克科技",
+      "role": "beneficiary",
+      "sector": "存储芯片",
+      "expected_direction": "positive",
+      "morning_change_pct": 10.0,
+      "close": 188.6,
+      "pct_change": 4.18,
+      "turnover_rate": 11.18,
+      "amount_10k_yuan": 668084.0,
+      "volume_vs_prev14_avg": 0.96,
+      "pe": 89.733,
+      "pb": 11.08,
+      "hit": true,
+      "deviation": "方向命中但强度低于早盘涨停预期，量能未明显高于14日均量。"
+    },
+    {
+      "ticker": "601988",
+      "name": "中国银行",
+      "role": "pressure",
+      "sector": "银行合规风险",
+      "expected_direction": "negative",
+      "morning_change_pct": null,
+      "close": 5.76,
+      "pct_change": -0.52,
+      "turnover_rate": 0.15,
+      "amount_10k_yuan": 188611.0,
+      "volume_vs_prev14_avg": 0.99,
+      "pe": 7.784,
+      "pb": 0.679,
+      "hit": true,
+      "deviation": "承压方向命中但幅度很弱，低估值/高股息属性对合规事件形成缓冲。"
+    }
+  ],
+  "observation_stock_bias": [
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "AI硬件",
+      "excluded_reason": "散户情绪过热但主力/量能确认不足、风险过高、未通过资讯板块筛选",
+      "pct_change": -5.25,
+      "turnover_rate": 3.18,
+      "pe": 127.948,
+      "pb": 39.295,
+      "assessment": "排除有效；高估值与拥挤交易在指数回落时放大波动。"
+    },
+    {
+      "ticker": "002472",
+      "name": "双环传动",
+      "sector": "机器人",
+      "excluded_reason": "量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "pct_change": -5.76,
+      "turnover_rate": 4.53,
+      "pe": 24.767,
+      "pb": 3.064,
+      "assessment": "排除有效；机器人主题未获日内资金扩散。"
+    },
+    {
+      "ticker": "002173",
+      "name": "创新医疗",
+      "sector": "脑机接口",
+      "excluded_reason": "资金认可度不足、风险过高、综合评级为风险回避、未通过资讯板块筛选",
+      "pct_change": -8.14,
+      "turnover_rate": 9.35,
+      "pe": -201.75,
+      "pb": 4.129,
+      "assessment": "排除有效；题材热度大于基本面兑现，放量回落。"
+    },
+    {
+      "ticker": "600029",
+      "name": "南方航空",
+      "sector": "航空",
+      "excluded_reason": "14日走势不足、量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "pct_change": -3.05,
+      "turnover_rate": 0.91,
+      "pe": 108.2,
+      "pb": 2.645,
+      "assessment": "排除有效；油价回落未抵消大盘风险偏好下降。"
+    },
+    {
+      "ticker": "600938",
+      "name": "中国海油",
+      "sector": "油气开采",
+      "excluded_reason": "14日承压走势不足、资金弱化不足",
+      "pct_change": -1.3,
+      "turnover_rate": 2.13,
+      "pe": 10.65,
+      "pb": 1.554,
+      "assessment": "压力观察基本命中但幅度有限，高分红/资源股属性有缓冲。"
+    },
+    {
+      "ticker": "601012",
+      "name": "隆基绿能",
+      "sector": "新型能源体系",
+      "excluded_reason": "14日走势不足、量能确认不足、资金认可度不足、风险过高、综合评级为风险回避、未通过资讯板块筛选",
+      "pct_change": 0.48,
+      "turnover_rate": 2.99,
+      "pe": -14.906,
+      "pb": 1.902,
+      "assessment": "小幅偏离，未构成重大漏选；政策线未扩散为新能源指数级机会。"
+    }
+  ],
+  "major_deviations": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "framework_notes": "china-stock-price-analysis显示PE约310倍、PB约21倍，已处高景气溢价；china-stock-analysis框架下，存储周期景气与国产替代逻辑仍在，但估值、库存/现金流复核和日内回落说明财务兑现门槛高。",
+      "price_volume_explanation": "收盘-0.67%，成交额约374.18亿元，量能约为14日均量1.03倍；不是缩量洗盘式确认，而是高位分歧。"
+    },
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "framework_notes": "相对估值PE约116倍、PB约6.28倍，高于成熟封测常规区间；基本面层面大额扩产强化长期能力，但折旧、爬坡和现金流压力使收盘资金没有继续支付早盘溢价。",
+      "price_volume_explanation": "收盘-3.15%，成交额约352.29亿元，换手18.77%，量能约为14日均量1.76倍；放量下跌说明先进封装主线出现强分歧。"
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "framework_notes": "未入选观察股验证了拥挤风险：PE约128倍、PB约39倍，对AI资本开支持续超预期高度敏感。",
+      "price_volume_explanation": "收盘-5.25%，成交额约444.81亿元，量能约为14日均量1.13倍；估值拥挤在指数下行时放大回撤。"
+    }
+  ],
+  "bias_reasons": [
+    "早盘把存储/先进封装的事件强度和早盘涨停动量外推到收盘，低估了高位科技股在宽基指数转弱时的兑现压力。",
+    "资金方向只识别到拥挤分化，没有进一步降级为收盘可能的净流出扩散；全市场宽度风险权重偏低。",
+    "主线板块候选里政策型主题较多，但新型能源体系、脑机接口缺少收盘资金和板块指数确认。",
+    "个股门槛对主力资金确认已偏严格，但对早盘涨幅过大、估值过高且14日量能没有进一步放大的惩罚仍不足。"
+  ],
+  "next_day_weight_adjustments": {
+    "increase_weight_conditions": [
+      "提高全市场涨跌家数、宽基指数收盘位置、跌停数量变化的权重；若上涨家数低于1200且创业板指/深成指跌幅扩大，强主题只能按观察处理。",
+      "提高收盘相对强度和放量不破位权重；候选股需要收盘涨幅仍强于所属指数且量能不呈现放量下跌。",
+      "提高估值兑现约束：半导体/AI硬件若PE/PB显著高于行业常规区间，必须有板块扩散和主力资金净流入确认。",
+      "提高未入选观察股的保护性证据权重；今天中际旭创、双环传动、创新医疗、南方航空的排除理由被收盘验证。"
+    ],
+    "decrease_weight_conditions": [
+      "降低单一公司公告、早盘涨停和热门题材热度的短线权重，尤其在指数开盘后走弱时。",
+      "降低政策长期方向在次日收盘命中的权重，除非同步出现板块指数、ETF或龙头股收盘确认。",
+      "降低高估值拥挤股的机会列容忍度；高散户VOC、估值高和早盘大涨同时出现时，应优先放入风险备注。"
+    ]
+  },
+  "lesson": "早盘方向未命中：存储芯片相对强但先进封装、AI硬件、政策主题未扩散；次日应把宽度恶化和高估值放量回落作为强主题降权条件。"
+}

@@ -27,6 +27,28 @@ Every response or report should follow:
 
 Do not return only a raw list, only a table, or only narrative without evidence.
 
+## Professional Figure Standard
+
+When a Report-mode output includes figures, a plain upstream/midstream/downstream
+box diagram is not enough for a shareable report. Prefer a professional
+投研信息图 when the topic has clear drivers, quantities, prices, substitution
+logic, catalysts, or company mapping.
+
+The primary figure should combine:
+
+- top numeric or keyword trigger cards,
+- a central product/process/chain visual,
+- side rails for量价拆解、应用主线、国产替代、风险,
+- company role cards,
+- a key driver block,
+- a milestone timeline,
+- and a bottom conclusion strip.
+
+Use the pure vertical chain map as a secondary figure or as a compact sub-block
+inside the infographic. Do not let the image become only a decorative flow
+chart; every visual block should carry an analytical claim that is supported
+or explicitly marked待核验.
+
 ## Ranking and Scoring
 
 When the user asks for "最热 / Top N / 排名 / 筛选 / 推荐 / 优势 / 短板 / 核心公司", use a multi-factor view instead of a single metric.

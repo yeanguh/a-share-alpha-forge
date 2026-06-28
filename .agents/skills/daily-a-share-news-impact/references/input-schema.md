@@ -231,7 +231,10 @@ from installed stock-analysis skills:
 - `china-stock-analysis`: akshare basic information, financial statements,
   indicators, valuation history, historical daily bars, shareholder data, and
   dividends.
-- `public_quote_api`: Sina, Tencent, or Eastmoney no-key spot quote data.
+- `mootdx`: Tongdaxin realtime quote, order book, transaction, and K-line
+  payloads when installed and reachable.
+- `public_quote_api`: Tencent, Eastmoney, or lower-priority Sina no-key spot
+  quote data.
 - `itick`: iTick quote or K-line data when `ITICK_API_TOKEN` is configured.
 - `zhitu`: Zhitu quote, technical indicator, or fund-flow-style data when
   `ZHITU_API_TOKEN` is configured. Demo-token responses are connectivity checks
@@ -259,8 +262,8 @@ default to `0` and should be reported as weak institutional-trend confirmation.
 ## Optional Data Sources
 
 Use `optional_data_sources` to store the output of
-`scripts/check_optional_data_sources.py`. This prevents ambiguous report
-language:
+`scripts/check_optional_data_sources.py`, including its `module_health` block.
+This prevents ambiguous report language:
 
 - `missing_credentials`: a free optional API token is absent.
 - `missing_dependency`: akshare or another package is absent.
@@ -273,3 +276,6 @@ language:
 
 If a source is `fetch_failed`, preserve the output file path when available so
 post-run review can inspect the provider error without rerunning the probe.
+If a module in `module_health` has `usable=false`, keep the related report
+section qualitative and set stock-level `data_quality` to `limited` or
+`partial`.

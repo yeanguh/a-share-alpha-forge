@@ -1,6 +1,6 @@
 # Data Sourcing
 
-Single reference for collecting evidence for an industry upstream/downstream analysis and A-share company exposure mapping. Covers source priority, the evidence checklist, the public-data adapters (AkShare / baostock / adata / efinance / SEC EDGAR), and failure handling.
+Single reference for collecting evidence for an industry upstream/downstream analysis and A-share company exposure mapping. Covers source priority, the evidence checklist, the public-data adapters, and failure handling. For module-level source priority across the stock-analysis skills, also read `../../daily-a-share-news-impact/references/data-source-matrix.md`.
 
 The adapter patterns described here are implemented once in `scripts/public_data.py`; prefer importing those helpers over re-writing safe imports, baostock login/logout, or source-trail bookkeeping per output directory. Run `scripts/check_data_sources.py` first to see which adapters are reachable in the current network before deciding online vs. cache.
 
@@ -9,7 +9,7 @@ The adapter patterns described here are implemented once in `scripts/public_data
 1. Primary policy and regulatory sources: State Council, NDRC, MIIT, MOF, PBOC, CSRC, exchange announcements, local government releases, and official standards.
 2. Official statistics and trade data: National Bureau of Statistics, Customs, industry associations, exchange inventory data, and commodity exchange data.
 3. Company evidence: annual reports, interim reports, prospectuses, investor relations records, order announcements, capacity announcements, and official websites.
-4. Industry and market data: association reports, reputable sell-side reports if available to the user, Wind/iFinD/Tushare/AkShare/baostock/adata style public datasets, commodity price providers, and credible specialist media.
+4. Industry and market data: association reports, reputable sell-side reports if available to the user, AkShare/CNINFO, Tongdaxin/mootdx, Tencent/Eastmoney quote data, baostock/adata/efinance style public datasets, commodity price providers, and credible specialist media.
 5. News confirmation: Reuters, Caixin, Cailian Press, Xinhua, Securities Times, Shanghai Securities News, company-confirmed press releases, and other reputable outlets.
 
 The evidence hierarchy for company exposure is: filings > official/company releases > industry association/statistics > public-data adapters > media/third-party estimates.
@@ -46,7 +46,7 @@ Never let public-data labels such as "概念板块成分" or "行业板块成分
 ## Verification Habits
 
 - Check dates. Use the newest available annual/interim report and current policy status. Do not rely on memory for market size, prices, capacity, policy status, executives, or listed-company exposure.
-- Cross-check AkShare, baostock, and adata where they provide similar data. If they disagree or one endpoint fails, keep the successful result but mark the source and confidence; do not silently blend them.
+- Cross-check module-appropriate public data where they provide similar data. For quotes and valuation use mootdx, Tencent, Eastmoney, AkShare, baostock, and efinance in that order; for announcements use CNINFO/Giant Tide through AkShare first. If sources disagree or one endpoint fails, keep the successful result but mark the source and confidence; do not silently blend them.
 - Check units. Normalize tons, GWh, GW, wafers, vehicles, RMB, USD, and capacity utilization before comparing.
 - Distinguish installed capacity, effective capacity, shipments, sales, and orders.
 - Distinguish gross margin, operating margin, spread, and profit per unit.
@@ -60,7 +60,11 @@ Never let public-data labels such as "概念板块成分" or "行业板块成分
 
 | Tool | Use For | Caution |
 | --- | --- | --- |
-| AkShare | Industry board lists, board fund flow, A-share quotes, financial indicators, business introductions, historical prices, CNINFO announcements/company profiles | Some Eastmoney/THS/CNINFO endpoints can return `RemoteDisconnected` or change schema |
+| mootdx / 通达讯 | Realtime quote, order book, K-line, transactions, basic snapshot, announcement-summary discovery | Best for行情; not proof of company exposure; server selection can fail |
+| Tencent finance | PE/PB/market cap, no-key realtime quote, market-cap fallback | Good valuation complement to Tongdaxin; quote fields must be parsed defensively |
+| AkShare | Industry board lists, board fund flow, A-share quotes, financial indicators, business introductions, historical prices, Eastmoney research/news, CNINFO announcements/company profiles | Some Eastmoney/THS/CNINFO endpoints can return `RemoteDisconnected` or change schema |
+| iwencai / 艾问财 | Natural-language cross-theme research-report and topic discovery when API Key is configured | Optional credentialed source; without key use generated query text or user-exported results |
+| CNINFO / 巨潮 | Original A-share filings, announcements, reports, and company profiles | Authoritative for announcements; prefer AkShare wrapper first, direct/manual search if wrapper fails |
 | baostock | Backup for A-share daily K-line, adjustment factors, stock basics, and historical quote cross-checks | Requires login/logout; keep calls low-frequency and candidate-list based |
 | adata | Probe only — inspect top-level API surface to see which functions are available in the installed version. No production adapters are built on adata yet; use AkShare and baostock as the primary public-data adapters. | API surface varies by version; do not rely on adata for critical data paths |
 | efinance | Eastmoney quote snapshot and company base information backup | Endpoint can rate-limit or disconnect; use only for shortlisted companies |

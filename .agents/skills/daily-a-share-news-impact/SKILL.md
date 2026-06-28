@@ -90,14 +90,20 @@ user explicitly asks for them.
    `可能受益A股公司` or `可能承压A股公司` columns. Stocks must also pass the
    sector-first gate.
 13. Enrich selected stocks only with free available data sources using
+    `references/data-source-matrix.md` and
     `references/optional-stock-analysis-skills.md`. Treat valuation and
     fundamental outputs as supporting context only; they must not bypass the
     sector-first, board/ST exclusion, price/volume, retail VOC,
-    capital-recognition, or risk gates. Prefer akshare, Sina, Tencent, Eastmoney,
-    Baostock, or free-token providers when available. Run
+    capital-recognition, or risk gates. Prefer the module-specific chain:
+    mootdx/Tongdaxin plus Tencent for realtime quotes; AKShare plus iwencai
+    when configured for research reports; AKShare for news; Tongdaxin plus
+    AKShare/CNINFO for basic data; CNINFO/Giant Tide for announcements. Keep
+    reachable lower-priority sources as fallbacks instead of removing them. Run
     `scripts/check_optional_data_sources.py` before reporting optional-source
     gaps so the report distinguishes missing dependencies, provider fetch
     failures, demo-only endpoints, and available no-key public quote fallbacks.
+    Read the returned `module_health` block before selecting a source for each
+    module.
     When `market_cap_billion` is missing, run
     `scripts/enrich_stock_observations.py` to fill Tencent no-key quote
     snapshots and total market cap before report assembly.
@@ -184,9 +190,11 @@ user explicitly asks for them.
   cross-market, commodity/FX/rates, and sector-specific channels when relevant.
 - Use market-data tools for current prices, K-line, volume, turnover, futures,
   FX, index moves, and cross-market leads when available.
-- Use only free available data sources for routine daily runs. Exclude QVeris,
-  paid Tushare Pro tiers, paid terminal feeds, and other paid interfaces unless
-  the user explicitly enables paid sources for a special run.
+- Use only free available data sources for routine daily runs. Keep reachable
+  free sources as lower-priority fallbacks when they are not the module's best
+  fit. Exclude QVeris, paid Tushare Pro tiers, paid terminal feeds, and other
+  paid interfaces unless the user explicitly enables paid sources for a special
+  run.
 - Use fund-flow data from market data vendors, exchange summaries, financial
   terminals, or reputable financial media. Prefer direct data over commentary.
 - Cite every retained news item and every non-obvious company mapping.
@@ -218,6 +226,9 @@ user explicitly asks for them.
   retail sentiment, capital recognition, risk/opportunity, and rating rules.
 - `references/input-schema.md`: structured input bundle for repeatable report
   assembly and quality checks.
+- `references/data-source-matrix.md`: module-level source priorities and
+  fallback rules for quote, research report, news, basic-data, and announcement
+  modules.
 - `references/market-data-checklist.md`: K-line and volume confirmation rules.
 - `references/optional-stock-analysis-skills.md`: optional bridge to installed
   stock price, public quote, and fundamental analysis sources.
@@ -236,9 +247,11 @@ user explicitly asks for them.
   candidates, and optional mainline leaders with free realtime Tencent quote and
   K-line data.
 - `scripts/check_optional_data_sources.py`: helper that checks free-source
-  health by default: akshare installation/fetch health, Sina/Tencent/Eastmoney
-  public quote endpoints, iTick/Zhitu token availability, and Baostock
-  readiness. Paid or quasi-paid sources are probed only with `--include-paid`.
+  health by default: akshare installation/fetch health, mootdx/Tongdaxin,
+  Tencent/Eastmoney/Sina public quote endpoints, iTick/Zhitu token
+  availability, iwencai API-key readiness, Baostock readiness, and
+  module-level `module_health`. Paid or quasi-paid sources are probed only with
+  `--include-paid`.
 - `scripts/enrich_stock_observations.py`: helper that enriches report bundles
   with Tencent no-key quote snapshots and total market cap when akshare or
   Eastmoney is unavailable.

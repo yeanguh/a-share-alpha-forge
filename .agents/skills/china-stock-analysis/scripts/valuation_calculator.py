@@ -392,11 +392,11 @@ def main():
     parser.add_argument("--methods", type=str, default="all",
                        help="估值方法: dcf/ddm/relative/all")
     parser.add_argument("--discount-rate", type=float, default=10,
-                       help="折现率 (%)")
+                       help="折现率 (%%)")
     parser.add_argument("--terminal-growth", type=float, default=3,
-                       help="永续增长率 (%)")
+                       help="永续增长率 (%%)")
     parser.add_argument("--margin-of-safety", type=float, default=30,
-                       help="安全边际要求 (%)")
+                       help="安全边际要求 (%%)")
     parser.add_argument("--output", type=str, help="输出文件路径 (JSON)")
 
     args = parser.parse_args()

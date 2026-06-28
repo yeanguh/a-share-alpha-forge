@@ -118,8 +118,8 @@ PS = 当前市值 / 营业收入 = 当前股价 / 每股营收
 ## 完整分析流程
 
 ```
-1. 获取实时股价 → QVeris ths_ifind.real_time_quotation.v1
-2. 获取基本面数据 → EPS, BVPS, EBITDA, 营收, 净负债
+1. 获取实时股价 → mootdx/通达讯，失败时降级到腾讯财经公开行情和东方财富公开行情
+2. 获取估值和基本面数据 → 腾讯/东方财富 PE、PB、市值；AKShare/CNINFO 补财务和公司资料
 3. 多维度估值计算：
    - PE/PB/PS 相对估值
    - EV/EBITDA 倍数估值（如有数据）

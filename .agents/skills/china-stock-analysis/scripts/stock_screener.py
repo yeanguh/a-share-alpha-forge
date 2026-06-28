@@ -10,6 +10,7 @@ import argparse
 import json
 import sys
 import time
+from urllib import request
 from datetime import datetime
 from typing import List, Dict
 from functools import wraps
@@ -111,13 +112,34 @@ class StockScreener:
 
     def _get_custom_stocks_data(self, codes: List[str]) -> pd.DataFrame:
         """获取自定义股票列表数据"""
-        try:
-            all_stocks = self._get_all_stocks_realtime()
-            df = all_stocks[all_stocks['代码'].isin(codes)]
-            return df
-        except Exception as e:
-            print(f"获取自定义股票数据失败: {e}")
-            return pd.DataFrame()
+        rows = []
+        for code in codes:
+            normalized = code.strip().lower().replace(".sh", "").replace(".sz", "")
+            if normalized.startswith(("sh", "sz")):
+                normalized = normalized[2:]
+            normalized = normalized.zfill(6)
+            market_id = "1" if normalized.startswith(("6", "9")) else "0"
+            fields = "f43,f57,f58,f116,f162,f167,f170"
+            url = f"https://push2.eastmoney.com/api/qt/stock/get?secid={market_id}.{normalized}&fields={fields}"
+            try:
+                req = request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+                with request.urlopen(req, timeout=10) as response:
+                    payload = json.loads(response.read().decode("utf-8", errors="replace"))
+                data = payload.get("data") if isinstance(payload, dict) else None
+                if not isinstance(data, dict):
+                    continue
+                rows.append({
+                    "代码": normalized,
+                    "名称": data.get("f58", ""),
+                    "最新价": (float(data.get("f43") or 0) / 100),
+                    "涨跌幅": (float(data.get("f170") or 0) / 100),
+                    "市盈率-动态": (float(data.get("f162") or 0) / 100),
+                    "市净率": (float(data.get("f167") or 0) / 100),
+                    "总市值": float(data.get("f116") or 0),
+                })
+            except Exception as e:
+                print(f"  {normalized} 获取失败: {e}")
+        return pd.DataFrame(rows)
 
     def _apply_numeric_filter(self, df: pd.DataFrame, column: str,
                                min_val: float = None, max_val: float = None) -> pd.DataFrame:
@@ -306,9 +328,9 @@ def main():
     parser.add_argument("--pe-min", type=float, help="最小PE")
     parser.add_argument("--pb-max", type=float, help="最大PB")
     parser.add_argument("--pb-min", type=float, help="最小PB")
-    parser.add_argument("--roe-min", type=float, help="最小ROE (%)")
-    parser.add_argument("--debt-ratio-max", type=float, help="最大资产负债率 (%)")
-    parser.add_argument("--dividend-min", type=float, help="最小股息率 (%)")
+    parser.add_argument("--roe-min", type=float, help="最小ROE (%%)")
+    parser.add_argument("--debt-ratio-max", type=float, help="最大资产负债率 (%%)")
+    parser.add_argument("--dividend-min", type=float, help="最小股息率 (%%)")
     parser.add_argument("--market-cap-min", type=float, help="最小市值 (亿)")
     parser.add_argument("--market-cap-max", type=float, help="最大市值 (亿)")
     parser.add_argument("--sort-by", type=str, default="score",

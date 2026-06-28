@@ -1,0 +1,167 @@
+{
+  "topic": "AI服务器产业链分析",
+  "generated_at": "2026-06-26",
+  "data_policy": {
+    "mode": "Report",
+    "notes": "Reader-facing report excludes raw adapter logs. Sources are summarized at claim level."
+  },
+  "sources": [
+    {
+      "tool": "web",
+      "function_or_path": "NVIDIA product and news pages",
+      "queried_at": "2026-06-26",
+      "subject": "GB200/GB300, Blackwell rack-scale AI systems",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "High"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "Supermicro/Lenovo/HPE/Dell public AI server materials",
+      "queried_at": "2026-06-26",
+      "subject": "AI server and liquid-cooled rack products",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "工业富联/浪潮信息/中科曙光 annual reports and public disclosures",
+      "queried_at": "2026-06-26",
+      "subject": "AI server and cloud computing equipment",
+      "rows": 3,
+      "status": "ok",
+      "error": "",
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "沪电股份/生益科技/深南电路/胜宏科技 annual reports and disclosures",
+      "queried_at": "2026-06-26",
+      "subject": "AI server PCB and CCL exposure",
+      "rows": 4,
+      "status": "ok",
+      "error": "",
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "中际旭创/新易盛/天孚通信/光迅科技 annual reports and disclosures",
+      "queried_at": "2026-06-26",
+      "subject": "AI cluster optical modules and optical devices",
+      "rows": 4,
+      "status": "ok",
+      "error": "",
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "英维克/申菱环境/高澜股份/欧陆通 annual reports and disclosures",
+      "queried_at": "2026-06-26",
+      "subject": "Liquid cooling and power supply exposure",
+      "rows": 4,
+      "status": "ok",
+      "error": "",
+      "confidence": "Medium"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "海光信息/寒武纪 disclosures",
+      "queried_at": "2026-06-26",
+      "subject": "Domestic AI compute chips and servers",
+      "rows": 2,
+      "status": "ok",
+      "error": "",
+      "confidence": "High"
+    },
+    {
+      "tool": "akshare",
+      "function_or_path": "check_data_sources.py health check",
+      "queried_at": "2026-06-26",
+      "subject": "public adapter availability",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "Medium"
+    }
+  ],
+  "companies": [
+    {
+      "code": "601138",
+      "name": "工业富联",
+      "role": "AI服务器ODM/整柜交付核心承接"
+    },
+    {
+      "code": "000977",
+      "name": "浪潮信息",
+      "role": "国内AI服务器整机"
+    },
+    {
+      "code": "603019",
+      "name": "中科曙光",
+      "role": "HPC/AI服务器和国产算力承接"
+    },
+    {
+      "code": "002463",
+      "name": "沪电股份",
+      "role": "高速高层PCB"
+    },
+    {
+      "code": "600183",
+      "name": "生益科技",
+      "role": "高速低损耗CCL"
+    },
+    {
+      "code": "002916",
+      "name": "深南电路",
+      "role": "高多层PCB/封装基板"
+    },
+    {
+      "code": "300476",
+      "name": "胜宏科技",
+      "role": "AI服务器PCB高弹性"
+    },
+    {
+      "code": "300308",
+      "name": "中际旭创",
+      "role": "高速光模块"
+    },
+    {
+      "code": "300502",
+      "name": "新易盛",
+      "role": "高速光模块"
+    },
+    {
+      "code": "300394",
+      "name": "天孚通信",
+      "role": "FAU/微光学/光器件"
+    },
+    {
+      "code": "002837",
+      "name": "英维克",
+      "role": "数据中心液冷/热管理"
+    },
+    {
+      "code": "301018",
+      "name": "申菱环境",
+      "role": "数据中心液冷和精密空调"
+    },
+    {
+      "code": "300870",
+      "name": "欧陆通",
+      "role": "服务器电源"
+    },
+    {
+      "code": "688041",
+      "name": "海光信息",
+      "role": "国产CPU/DCU算力"
+    },
+    {
+      "code": "688256",
+      "name": "寒武纪",
+      "role": "国产AI芯片"
+    }
+  ]
+}

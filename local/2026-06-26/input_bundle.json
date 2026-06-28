@@ -1,0 +1,812 @@
+{
+  "window": {
+    "start": "2026-06-25T09:30:00+08:00",
+    "end": "2026-06-26T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "fund_flow": {
+    "direction": "拥挤分化",
+    "pbc_open_market_operation_summary": "2026-06-26 中国人民银行开展2315亿元7天期逆回购操作，操作利率1.40%；公开信息未见当日逆回购到期，口径上按净投放约2315亿元处理，资金面偏宽但更多体现为短端流动性呵护。",
+    "turnover_summary": "6月25日A股成交额约1.64万亿元，较前日放量约1750亿元；半导体、稀土永磁、券商等方向活跃，但涨跌家数显示分化明显。",
+    "main_flow_summary": "免费源只能取得公开市场评论和板块热度摘要，未取得完整主力/ETF/融资/北向逐项净流入数据；科技硬件、存储、先进封装获得最强交易确认，银行与油气方向受事件扰动。",
+    "sector_flow_summary": "资金集中在存储芯片、先进封装、AI硬件与部分机器人方向；新能源政策方向偏长期，光伏、储能个股仍需量价确认；银行、油气和高位科技存在分歧。",
+    "breadth_summary": "公开盘面摘要显示6月25日全市场约1000只个股上涨、4200只个股下跌，涨停约59只、跌停约10只，属于强主题带动下的拥挤分化。",
+    "data_quality": "partial"
+  },
+  "candidates": [
+    {
+      "title": "央行开展2315亿元7天期逆回购，短端流动性继续呵护",
+      "direction": "positive",
+      "magnitude": 4.2,
+      "breadth": 4.3,
+      "immediacy": 4.5,
+      "confidence": 4.5,
+      "novelty": 3.2,
+      "liquidity": 4.6,
+      "price_volume": 3.7,
+      "affected_sectors": ["券商", "银行", "高股息", "AI硬件"],
+      "logic": "资金面缓冲有助于高成交主题维持活跃，但宽度尚未扩散。",
+      "short_impact": "对指数和风险偏好偏正面，仍需成交额延续。",
+      "source": "中国人民银行公开市场操作公告；财联社公开市场摘要"
+    },
+    {
+      "title": "美光FY26三季报和AI存储需求强化全球存储涨价预期",
+      "direction": "positive",
+      "magnitude": 4.8,
+      "breadth": 4.2,
+      "immediacy": 4.6,
+      "confidence": 4.3,
+      "novelty": 4.0,
+      "liquidity": 4.6,
+      "price_volume": 4.5,
+      "affected_sectors": ["存储芯片", "AI硬件", "半导体设备"],
+      "logic": "AI服务器带动DRAM/HBM和高端存储需求，A股存储设计、封测、材料链直接受益预期升温。",
+      "short_impact": "强主题延续概率高，但需防高位波动。",
+      "source": "Micron FY26 Q3 results；Reuters AI memory coverage；新浪/东方财富盘面摘要"
+    },
+    {
+      "title": "长电科技拟投约78亿元建设高端先进封测工厂",
+      "direction": "positive",
+      "magnitude": 4.4,
+      "breadth": 3.8,
+      "immediacy": 4.1,
+      "confidence": 4.4,
+      "novelty": 4.0,
+      "liquidity": 4.3,
+      "price_volume": 4.2,
+      "affected_sectors": ["先进封装", "存储芯片"],
+      "logic": "资本开支指向高端封测能力扩张，强化国产先进封装产业链景气确认。",
+      "short_impact": "利好先进封装链，但资本开支回报周期需跟踪。",
+      "source": "长电科技公告；证券时报/财联社摘要"
+    },
+    {
+      "title": "发改委、能源局推进新型能源体系建设，非化石能源与电力系统方向获长期政策支撑",
+      "direction": "positive",
+      "magnitude": 4.1,
+      "breadth": 4.6,
+      "immediacy": 3.4,
+      "confidence": 4.4,
+      "novelty": 3.3,
+      "liquidity": 4.1,
+      "price_volume": 2.9,
+      "affected_sectors": ["新型能源体系", "储能", "电网设备", "光伏"],
+      "logic": "政策强化新能源消纳、电力系统与储能建设，但光伏产业链基本面修复仍慢。",
+      "short_impact": "板块偏观察，等待量价和订单确认。",
+      "source": "国家发改委/国家能源局相关政策报道；证券时报"
+    },
+    {
+      "title": "广东发布脑机接口科技与产业协同发展行动计划，医疗器械创新方向获区域政策催化",
+      "direction": "positive",
+      "magnitude": 3.8,
+      "breadth": 3.2,
+      "immediacy": 3.7,
+      "confidence": 4.1,
+      "novelty": 4.0,
+      "liquidity": 3.6,
+      "price_volume": 3.5,
+      "affected_sectors": ["脑机接口", "医疗器械"],
+      "logic": "政策提到项目布局、临床转化、价格项目和医保支付探索，利好具备康复/神经调控/医疗器械基础的公司。",
+      "short_impact": "题材活跃但商业化早期，个股以观察为主。",
+      "source": "广东省政策报道；证券时报/财联社摘要"
+    },
+    {
+      "title": "商务部称中美将就贸易理事会、对等降税、飞机和农产品等领域保持沟通",
+      "direction": "positive",
+      "magnitude": 3.6,
+      "breadth": 4.0,
+      "immediacy": 3.2,
+      "confidence": 4.0,
+      "novelty": 3.4,
+      "liquidity": 4.0,
+      "price_volume": 3.0,
+      "affected_sectors": ["航空", "农产品", "出口链"],
+      "logic": "若关税和采购沟通推进，有助于跨境贸易风险偏好修复；当前仍停留在磋商层面。",
+      "short_impact": "偏情绪修复，需等实质条款。",
+      "source": "商务部例行新闻发布会；Reuters/证券时报摘要"
+    },
+    {
+      "title": "中东停火预期推动国际油价回落，航空航运成本压力阶段缓和",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.6,
+      "immediacy": 3.8,
+      "confidence": 4.0,
+      "novelty": 3.2,
+      "liquidity": 3.8,
+      "price_volume": 2.8,
+      "affected_sectors": ["航空", "航运", "化工下游"],
+      "logic": "油价下行改善燃油成本预期，但需求和汇率因素仍制约航空链弹性。",
+      "short_impact": "对航空成本端偏正面，交易确认不足。",
+      "source": "Reuters油价报道；公开商品行情摘要"
+    },
+    {
+      "title": "人形机器人低价化和量产预期继续发酵",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.4,
+      "immediacy": 3.6,
+      "confidence": 3.5,
+      "novelty": 3.5,
+      "liquidity": 3.9,
+      "price_volume": 3.6,
+      "affected_sectors": ["机器人", "减速器", "工业自动化"],
+      "logic": "成本下降叙事提升产业链关注度，但单一产品信息对业绩的短期传导有限。",
+      "short_impact": "题材交易活跃，偏观察。",
+      "source": "新浪财经盘前摘要；产业链公开报道"
+    },
+    {
+      "title": "AI光模块和算力链延续高景气交易",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 3.5,
+      "immediacy": 4.0,
+      "confidence": 3.8,
+      "novelty": 3.0,
+      "liquidity": 4.5,
+      "price_volume": 3.8,
+      "affected_sectors": ["AI硬件", "光模块"],
+      "logic": "全球AI资本开支预期仍强，光模块高弹性龙头维持高关注。",
+      "short_impact": "趋势仍强但拥挤度高。",
+      "source": "Reuters科技链报道；Yahoo Finance行情快照；A股盘面摘要"
+    },
+    {
+      "title": "国家能源局披露电力装机继续扩张，电网和储能配套需求提升",
+      "direction": "positive",
+      "magnitude": 3.6,
+      "breadth": 4.0,
+      "immediacy": 3.0,
+      "confidence": 3.8,
+      "novelty": 3.0,
+      "liquidity": 3.7,
+      "price_volume": 2.8,
+      "affected_sectors": ["电网设备", "储能"],
+      "logic": "装机扩张带来消纳、电网调节和储能需求，短期仍受新能源链过剩压制。",
+      "short_impact": "政策线索偏中期，短线需量价确认。",
+      "source": "国家能源局数据报道；证券时报"
+    },
+    {
+      "title": "科技硬件方向高位拥挤，半导体多只龙头触及涨停后波动风险上升",
+      "direction": "negative",
+      "magnitude": 4.1,
+      "breadth": 3.7,
+      "immediacy": 4.2,
+      "confidence": 3.8,
+      "novelty": 3.0,
+      "liquidity": 4.3,
+      "price_volume": 4.0,
+      "affected_sectors": ["存储芯片", "先进封装", "AI硬件"],
+      "logic": "强势主题成交高度集中，追涨资金拥挤后易出现剧烈换手。",
+      "short_impact": "高位震荡加剧，不等于趋势反转。",
+      "source": "新浪/东方财富盘面摘要；相关公司异动公告"
+    },
+    {
+      "title": "审计署披露中国银行等金融机构涉税和合规问题，银行治理风险受关注",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 3.6,
+      "immediacy": 4.0,
+      "confidence": 4.2,
+      "novelty": 4.0,
+      "liquidity": 4.5,
+      "price_volume": 3.3,
+      "affected_sectors": ["银行合规风险"],
+      "logic": "大型银行被点名带来短期合规和声誉扰动，需观察是否扩散为监管整改压力。",
+      "short_impact": "对被点名银行偏负面，对高股息银行整体影响需观察。",
+      "source": "审计署相关报告；证券时报/新浪财经摘要"
+    },
+    {
+      "title": "油价回落压制上游油气和煤化工盈利预期",
+      "direction": "negative",
+      "magnitude": 3.6,
+      "breadth": 3.7,
+      "immediacy": 3.7,
+      "confidence": 4.0,
+      "novelty": 3.2,
+      "liquidity": 3.9,
+      "price_volume": 3.0,
+      "affected_sectors": ["油气开采", "煤化工"],
+      "logic": "中东风险溢价下降后，上游资源品弹性回吐。",
+      "short_impact": "油气股承压但需跟踪商品价格二次波动。",
+      "source": "Reuters油价报道；公开商品行情摘要"
+    },
+    {
+      "title": "6月25日A股上涨家数不足，下跌家数显著多于上涨家数",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 4.5,
+      "immediacy": 4.0,
+      "confidence": 3.7,
+      "novelty": 3.0,
+      "liquidity": 4.2,
+      "price_volume": 3.6,
+      "affected_sectors": ["全市场宽度分化"],
+      "logic": "指数和热门板块表现掩盖多数个股偏弱，降低市场方向判断置信度。",
+      "short_impact": "若成交额回落，主题股分化风险上升。",
+      "source": "新浪财经A股盘面摘要"
+    },
+    {
+      "title": "中美贸易沟通仍停留在磋商层面，关税和采购事项尚未落地",
+      "direction": "negative",
+      "magnitude": 3.2,
+      "breadth": 3.8,
+      "immediacy": 3.0,
+      "confidence": 4.0,
+      "novelty": 2.8,
+      "liquidity": 3.8,
+      "price_volume": 2.8,
+      "affected_sectors": ["出口链", "航空"],
+      "logic": "正面预期尚未转化为正式条款，容易出现预期差。",
+      "short_impact": "出口和航空链保持观察。",
+      "source": "商务部发布会；Reuters/证券时报摘要"
+    },
+    {
+      "title": "新型能源政策偏长期，光伏链短期仍受产能和盈利压力约束",
+      "direction": "negative",
+      "magnitude": 3.4,
+      "breadth": 4.0,
+      "immediacy": 3.1,
+      "confidence": 3.7,
+      "novelty": 2.8,
+      "liquidity": 4.0,
+      "price_volume": 2.6,
+      "affected_sectors": ["光伏", "新能源制造"],
+      "logic": "政策催化不能直接消化产能过剩和价格压力，龙头盈利修复仍需时间。",
+      "short_impact": "政策热度可托底，个股弹性需等待业绩改善。",
+      "source": "发改委/能源局政策报道；Yahoo Finance龙头估值快照"
+    },
+    {
+      "title": "脑机接口处于早期商业化阶段，政策热度大于收入兑现",
+      "direction": "negative",
+      "magnitude": 3.0,
+      "breadth": 2.6,
+      "immediacy": 3.2,
+      "confidence": 3.6,
+      "novelty": 3.0,
+      "liquidity": 3.0,
+      "price_volume": 3.0,
+      "affected_sectors": ["脑机接口"],
+      "logic": "区域政策对临床转化有利，但多数标的业绩贡献不清晰。",
+      "short_impact": "容易出现题材脉冲后分化。",
+      "source": "广东政策报道；证券时报"
+    },
+    {
+      "title": "机器人产业链低价化叙事可能压低硬件利润率预期",
+      "direction": "negative",
+      "magnitude": 2.9,
+      "breadth": 3.0,
+      "immediacy": 3.2,
+      "confidence": 3.2,
+      "novelty": 3.2,
+      "liquidity": 3.5,
+      "price_volume": 3.1,
+      "affected_sectors": ["机器人"],
+      "logic": "低价产品利好渗透率，但也可能强化价格竞争和供应链降价压力。",
+      "short_impact": "题材交易为主，需观察订单和毛利率。",
+      "source": "新浪财经盘前摘要；产业链公开报道"
+    },
+    {
+      "title": "先进封装大额资本开支提升折旧和现金流压力",
+      "direction": "negative",
+      "magnitude": 3.0,
+      "breadth": 2.8,
+      "immediacy": 3.2,
+      "confidence": 3.8,
+      "novelty": 3.2,
+      "liquidity": 3.8,
+      "price_volume": 3.5,
+      "affected_sectors": ["先进封装"],
+      "logic": "扩产长期利好能力建设，但短期需消化资本开支、折旧和产能爬坡不确定性。",
+      "short_impact": "强趋势中附带风险提示。",
+      "source": "长电科技公告；公开财务估值快照"
+    },
+    {
+      "title": "半导体和AI硬件估值快速抬升，业绩兑现门槛同步提高",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.6,
+      "immediacy": 3.8,
+      "confidence": 3.6,
+      "novelty": 2.8,
+      "liquidity": 4.2,
+      "price_volume": 3.7,
+      "affected_sectors": ["高位科技估值风险"],
+      "logic": "PE/PB显著高于常规区间，后续需要持续涨价和订单验证。",
+      "short_impact": "强势股以高波动方式消化估值。",
+      "source": "Yahoo Finance/新浪财经估值快照；A股盘面摘要"
+    }
+  ],
+  "sector_candidates": [
+    {
+      "title": "存储芯片",
+      "direction": "positive",
+      "magnitude": 4.8,
+      "breadth": 4.1,
+      "immediacy": 4.6,
+      "confidence": 4.2,
+      "novelty": 4.0,
+      "liquidity": 4.7,
+      "price_volume": 4.5
+    },
+    {
+      "title": "先进封装",
+      "direction": "positive",
+      "magnitude": 4.4,
+      "breadth": 3.8,
+      "immediacy": 4.0,
+      "confidence": 4.4,
+      "novelty": 4.0,
+      "liquidity": 4.4,
+      "price_volume": 4.2
+    },
+    {
+      "title": "AI硬件",
+      "direction": "positive",
+      "magnitude": 4.1,
+      "breadth": 3.8,
+      "immediacy": 4.0,
+      "confidence": 3.8,
+      "novelty": 3.1,
+      "liquidity": 4.6,
+      "price_volume": 3.8
+    },
+    {
+      "title": "新型能源体系",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 4.6,
+      "immediacy": 3.2,
+      "confidence": 4.4,
+      "novelty": 3.4,
+      "liquidity": 4.0,
+      "price_volume": 2.9
+    },
+    {
+      "title": "脑机接口",
+      "direction": "positive",
+      "magnitude": 3.8,
+      "breadth": 3.2,
+      "immediacy": 3.7,
+      "confidence": 4.1,
+      "novelty": 4.0,
+      "liquidity": 3.6,
+      "price_volume": 3.5
+    },
+    {
+      "title": "机器人",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.3,
+      "immediacy": 3.5,
+      "confidence": 3.4,
+      "novelty": 3.4,
+      "liquidity": 3.8,
+      "price_volume": 3.6
+    },
+    {
+      "title": "航空",
+      "direction": "positive",
+      "magnitude": 3.4,
+      "breadth": 3.5,
+      "immediacy": 3.5,
+      "confidence": 3.8,
+      "novelty": 3.0,
+      "liquidity": 3.7,
+      "price_volume": 2.8
+    },
+    {
+      "title": "银行合规风险",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 3.6,
+      "immediacy": 4.0,
+      "confidence": 4.2,
+      "novelty": 4.0,
+      "liquidity": 4.5,
+      "price_volume": 3.3
+    },
+    {
+      "title": "油气开采",
+      "direction": "negative",
+      "magnitude": 3.6,
+      "breadth": 3.6,
+      "immediacy": 3.7,
+      "confidence": 4.0,
+      "novelty": 3.1,
+      "liquidity": 3.9,
+      "price_volume": 3.0
+    },
+    {
+      "title": "全市场宽度分化",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 4.5,
+      "immediacy": 4.0,
+      "confidence": 3.7,
+      "novelty": 3.0,
+      "liquidity": 4.2,
+      "price_volume": 3.6
+    },
+    {
+      "title": "光伏",
+      "direction": "negative",
+      "magnitude": 3.4,
+      "breadth": 4.0,
+      "immediacy": 3.1,
+      "confidence": 3.7,
+      "novelty": 2.8,
+      "liquidity": 4.0,
+      "price_volume": 2.6
+    },
+    {
+      "title": "高位科技估值风险",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 3.6,
+      "immediacy": 3.8,
+      "confidence": 3.6,
+      "novelty": 2.8,
+      "liquidity": 4.2,
+      "price_volume": 3.7
+    }
+  ],
+  "stocks": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "sector": "存储芯片",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 241.9,
+      "trend_score": 4.5,
+      "volume_score": 4.4,
+      "retail_sentiment": 4.6,
+      "retail_voc_summary": "存储芯片热度极高，涨停和高位讨论带来追涨拥挤，但量价与主线一致。",
+      "capital_recognition": 4.1,
+      "event_alignment": 4.5,
+      "institutional_trend_score": 4.0,
+      "risk_score": 3.7,
+      "external_data": {
+        "source": "public_web_quote_snapshot",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "quote": {
+          "latest": 367.18,
+          "change_pct": 9.99,
+          "market_cap": 241870000000
+        },
+        "valuation_context": "PE约200倍、PB约16倍，估值显著高于常规半导体区间，需要持续涨价和盈利兑现。",
+        "fundamental_context": "存储设计龙头，受AI存储和国产替代共同催化；财务健康补充受免费接口网络限制，需后续复核现金流与库存。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "sector": "先进封装",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 166.8,
+      "trend_score": 4.2,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.5,
+      "retail_voc_summary": "先进封装热度升温，公告催化明确；追涨情绪偏热，需要观察换手是否健康。",
+      "capital_recognition": 4.0,
+      "event_alignment": 4.4,
+      "institutional_trend_score": 3.8,
+      "risk_score": 3.6,
+      "external_data": {
+        "source": "public_web_quote_snapshot",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "quote": {
+          "latest": 64.62,
+          "change_pct": 9.99,
+          "market_cap": 166800000000
+        },
+        "valuation_context": "PE约78倍、PB约6.9倍，处于先进封装景气交易状态，估值需由订单和产能利用率消化。",
+        "fundamental_context": "封测龙头，大额扩产强化产业地位，但折旧、现金流和爬坡周期是财务健康风险点。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002409",
+      "name": "雅克科技",
+      "sector": "存储芯片",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 82.4,
+      "trend_score": 4.0,
+      "volume_score": 3.9,
+      "retail_sentiment": 4.2,
+      "retail_voc_summary": "半导体材料和存储链关注度高，情绪热但尚未达到极端一致。",
+      "capital_recognition": 3.8,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 3.7,
+      "risk_score": 3.5,
+      "external_data": {
+        "source": "public_web_quote_snapshot",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "quote": {
+          "latest": 173.0,
+          "change_pct": 10.0,
+          "market_cap": 82360000000
+        },
+        "valuation_context": "PE/PB处于高景气材料链溢价区间，PS暂未取得；估值安全边际弱于事件弹性。",
+        "fundamental_context": "电子材料和半导体材料链受存储景气传导，财务质量需等免费源恢复后补抓近年现金流和盈利波动。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "AI硬件",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 579.0,
+      "trend_score": 3.9,
+      "volume_score": 3.5,
+      "retail_sentiment": 4.8,
+      "retail_voc_summary": "AI光模块讨论热度极高，股价近月涨幅较大且盘中出现回落，拥挤风险高。",
+      "capital_recognition": 3.7,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 3.8,
+      "risk_score": 4.1,
+      "external_data": {
+        "source": "Yahoo Finance quote snapshot",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "quote": {
+          "latest": 522.1,
+          "change_pct": -4.57,
+          "market_cap": 579000000000
+        },
+        "valuation_context": "PE约94倍、PB约20倍，景气弹性强但估值和拥挤度要求持续超预期。",
+        "fundamental_context": "光模块龙头受AI资本开支支撑，短期更多是强趋势观察而非低估价值判断。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "601012",
+      "name": "隆基绿能",
+      "sector": "新型能源体系",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 95.6,
+      "trend_score": 2.3,
+      "volume_score": 2.6,
+      "retail_sentiment": 3.6,
+      "retail_voc_summary": "政策讨论升温，但光伏基本面分歧仍大，市场情绪偏谨慎。",
+      "capital_recognition": 2.7,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 2.2,
+      "risk_score": 4.0,
+      "external_data": {
+        "source": "Yahoo Finance quote snapshot",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "quote": {
+          "latest": 12.61,
+          "change_pct": 1.29,
+          "market_cap": 95600000000
+        },
+        "valuation_context": "PE不可用或为负，PB约2倍、PS约1.6倍；低估判断需要先看到盈利修复。",
+        "fundamental_context": "行业仍受价格和产能周期压制，政策利好更偏长期消纳与需求环境。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002173",
+      "name": "创新医疗",
+      "sector": "脑机接口",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 6.5,
+      "trend_score": 3.5,
+      "volume_score": 3.4,
+      "retail_sentiment": 4.4,
+      "retail_voc_summary": "脑机接口题材关注度快速升温，但公司业绩传导路径需要进一步核验。",
+      "capital_recognition": 3.1,
+      "event_alignment": 3.5,
+      "institutional_trend_score": 2.8,
+      "risk_score": 4.0,
+      "external_data": {
+        "source": "public_theme_mapping",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "valuation_context": "估值和盈利质量数据不足，题材弹性高于基本面证据。",
+        "fundamental_context": "需核验医疗服务/脑机接口相关业务占比和盈利贡献。",
+        "data_quality": "limited"
+      }
+    },
+    {
+      "ticker": "002472",
+      "name": "双环传动",
+      "sector": "机器人",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 31.0,
+      "trend_score": 3.4,
+      "volume_score": 3.2,
+      "retail_sentiment": 3.9,
+      "retail_voc_summary": "机器人和减速器链热度较高，但本次窗口内事件传导偏间接。",
+      "capital_recognition": 3.3,
+      "event_alignment": 3.5,
+      "institutional_trend_score": 3.1,
+      "risk_score": 3.7,
+      "external_data": {
+        "source": "public_theme_mapping",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "valuation_context": "机器人链估值通常高于传统制造，需订单兑现支持。",
+        "fundamental_context": "减速器代表公司，事件关联偏产业趋势，非公司公告。",
+        "data_quality": "limited"
+      }
+    },
+    {
+      "ticker": "600029",
+      "name": "南方航空",
+      "sector": "航空",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 115.0,
+      "trend_score": 2.8,
+      "volume_score": 2.7,
+      "retail_sentiment": 2.8,
+      "retail_voc_summary": "油价回落改善成本预期，但航空链资金热度不高。",
+      "capital_recognition": 2.9,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 2.5,
+      "risk_score": 3.6,
+      "external_data": {
+        "source": "public_theme_mapping",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "valuation_context": "航空周期更适合结合油价、汇率、客座率和现金流观察，PE单项参考意义有限。",
+        "fundamental_context": "成本端受益油价回落，但需求和汇率仍是财务健康关键变量。",
+        "data_quality": "limited"
+      }
+    },
+    {
+      "ticker": "601988",
+      "name": "中国银行",
+      "sector": "银行合规风险",
+      "directional_role": "pressure",
+      "market_cap_billion": 1900.0,
+      "trend_score": 2.2,
+      "volume_score": 3.3,
+      "retail_sentiment": 2.5,
+      "retail_voc_summary": "审计事件带来合规讨论，银行高股息属性仍使分歧存在。",
+      "capital_recognition": 2.4,
+      "event_alignment": 4.5,
+      "institutional_trend_score": 2.0,
+      "risk_score": 4.0,
+      "external_data": {
+        "source": "audit_report_news_mapping",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "valuation_context": "大行通常PE/PB偏低，低估值不能抵消短期合规事件扰动。",
+        "fundamental_context": "资产质量和分红稳定性仍需与审计整改影响分开评估。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600938",
+      "name": "中国海油",
+      "sector": "油气开采",
+      "directional_role": "pressure",
+      "market_cap_billion": 1250.0,
+      "trend_score": 2.7,
+      "volume_score": 2.9,
+      "retail_sentiment": 2.8,
+      "retail_voc_summary": "油价回落削弱上游资源股弹性，但高分红属性提供缓冲。",
+      "capital_recognition": 2.8,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 2.6,
+      "risk_score": 3.8,
+      "external_data": {
+        "source": "commodity_news_mapping",
+        "data_time": "2026-06-26T10:20:00+08:00",
+        "valuation_context": "资源股估值需结合油价中枢和分红持续性，单日油价下跌不足以形成强承压结论。",
+        "fundamental_context": "现金流仍强，但短期商品价格回撤压制风险偏好。",
+        "data_quality": "limited"
+      }
+    }
+  ],
+  "evidence_gaps": [
+    "本地沙箱DNS无法访问东方财富、Sina、Tencent等免费行情源，akshare依赖已安装但抓数失败。",
+    "未获取完整北向资金、ETF申赎、融资融券和逐项主力资金数据；资金判断基于公开盘面摘要和板块热度。",
+    "14个交易日K线/量能为公开行情快照、盘面摘要和网页估值信息交叉判断，未达到full级数据质量。",
+    "Cailian Press、Caixin、Reuters部分内容存在访问限制，已用可访问公开摘要和主来源交叉确认；无法访问处按数据缺口处理。"
+  ],
+  "optional_data_sources": {
+    "akshare_dependency": {
+      "status": "installed",
+      "detail": "akshare=1.18.64, pandas=3.0.0, numpy=2.4.1"
+    },
+    "akshare_fetch": {
+      "status": "fetch_failed",
+      "detail": "DNS/network restricted while requesting Eastmoney through akshare data_fetcher."
+    },
+    "sina_quote": {
+      "status": "fetch_failed",
+      "detail": "DNS/network restricted."
+    },
+    "tencent_quote": {
+      "status": "fetch_failed",
+      "detail": "DNS/network restricted."
+    },
+    "eastmoney_quote": {
+      "status": "fetch_failed",
+      "detail": "DNS/network restricted."
+    },
+    "itick": {
+      "status": "missing_credentials",
+      "detail": "ITICK_API_TOKEN is not set."
+    },
+    "zhitu": {
+      "status": "fetch_failed",
+      "detail": "DNS/network restricted."
+    },
+    "baostock": {
+      "status": "missing_dependency",
+      "detail": "baostock is not installed."
+    }
+  },
+  "supplemental_stock_analysis": [
+    {
+      "stock": "603986 兆易创新",
+      "latest_price": "367.18元，约+9.99%",
+      "valuation_metrics": "PE约200x，PB约16x，PS未取得",
+      "financial_health": "存储设计龙头；财务接口受限，现金流/库存需后续复核",
+      "valuation_summary": "明显高估值景气交易，估值结论依赖存储涨价和盈利兑现",
+      "risk_note": "高位拥挤、估值高、存储价格周期波动",
+      "judgement": "证据较强但非低估，适合主线跟踪"
+    },
+    {
+      "stock": "600584 长电科技",
+      "latest_price": "64.62元，约+9.99%",
+      "valuation_metrics": "PE约78x，PB约6.9x，PS未取得",
+      "financial_health": "先进封装龙头；78亿元扩产强化地位，但折旧和爬坡压力上升",
+      "valuation_summary": "估值偏景气，需订单、产能利用率和盈利改善承接",
+      "risk_note": "资本开支、折旧压力、追涨拥挤",
+      "judgement": "事件与量价证据较强"
+    },
+    {
+      "stock": "002409 雅克科技",
+      "latest_price": "约173.00元，约+10.00%",
+      "valuation_metrics": "PE/PB偏高，PS未取得",
+      "financial_health": "半导体材料链；完整财务接口受限，需补抓现金流和毛利率趋势",
+      "valuation_summary": "估值安全边际弱于事件弹性",
+      "risk_note": "材料链景气波动和高估值回撤",
+      "judgement": "通过主线门槛但数据质量为partial"
+    },
+    {
+      "stock": "300308 中际旭创",
+      "latest_price": "522.10元，约-4.57%",
+      "valuation_metrics": "PE约94x，PB约20x，PS未取得",
+      "financial_health": "AI光模块龙头，受全球AI资本开支支撑",
+      "valuation_summary": "估值高且短线回落，需持续订单兑现",
+      "risk_note": "散户热度极高、估值拥挤、波动放大",
+      "judgement": "仅作观察，不进机会列"
+    },
+    {
+      "stock": "601012 隆基绿能",
+      "latest_price": "12.61元，约+1.29%",
+      "valuation_metrics": "PE不可用/盈利承压，PB约2x，PS约1.6x",
+      "financial_health": "光伏龙头但行业盈利修复仍弱",
+      "valuation_summary": "低价不等于低估，先看盈利和现金流修复",
+      "risk_note": "产能过剩、价格压力、政策传导慢",
+      "judgement": "观察，不进机会列"
+    },
+    {
+      "stock": "601988 中国银行",
+      "latest_price": "公开快照未稳定取得",
+      "valuation_metrics": "大行PE/PB通常偏低，未取得当日精确值",
+      "financial_health": "高股息和资产规模提供缓冲，但审计事件带来合规扰动",
+      "valuation_summary": "低估值不抵消短期事件风险",
+      "risk_note": "涉税/合规整改与声誉压力",
+      "judgement": "风险跟踪"
+    }
+  ],
+  "supplemental_conclusion": {
+    "as_of": "2026-06-26T10:27:48+08:00",
+    "method_note": "使用daily-a-share-news-impact先做新闻-板块-股票门槛筛选，再用china-stock-analysis口径补充基本面/财务健康，用china-stock-price-analysis相对估值框架补充PE/PB/PS；本次未使用QVeris等付费源。",
+    "stronger_evidence": [
+      "603986 兆易创新、600584 长电科技、002409 雅克科技：属于存储芯片/先进封装强主线，事件关联、量价和资金认可度相对更强，但估值均偏景气交易，不能解读为低估。",
+      "601988 中国银行：审计事件关联直接，短期承压证据相对清晰，但低估值和高股息属性可能缓冲冲击，归为风险跟踪而非交易指令。"
+    ],
+    "observation_only": [
+      "300308 中际旭创：AI硬件主线仍强，但估值和散户拥挤度过高，且盘中快照显示回落，未进入机会列。",
+      "601012 隆基绿能：政策方向中长期正面，但14日趋势、资金认可和盈利修复证据不足，未进入机会列。",
+      "002173 创新医疗、002472 双环传动、600029 南方航空、600938 中国海油：事件传导或量价/资金证据不足，仅作主题或风险观察。"
+    ],
+    "notes": [
+      "本日报避免直接给出买卖、仓位、止损或目标价指令；所有个股结论均为非个性化研究分层。",
+      "待本地免费行情源恢复后，应补跑14个交易日K线、主力资金、ETF/融资和完整财务健康检查。"
+    ]
+  }
+}

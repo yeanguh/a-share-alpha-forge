@@ -1,0 +1,150 @@
+{
+  "topic": "康宁GlassBridge玻璃桥技术产业链分析",
+  "generated_at": "2026-06-26",
+  "data_policy": {
+    "mode": "Report",
+    "notes": "Reader-facing report excludes raw public-data adapter logs. Sources are summarized at claim level."
+  },
+  "sources": [
+    {
+      "tool": "web",
+      "function_or_path": "Corning GlassBridge product page",
+      "queried_at": "2026-06-26",
+      "subject": "GlassBridge Fiber-to-PIC Connector Technology",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "High",
+      "url": "https://www.corning.com/oem-solutions/worldwide/en/home/products-solutions/advanced-optics/glassbridge-fiber-to-pic-connector-technology.html"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "GlobalFoundries / GlobeNewswire press release",
+      "queried_at": "2026-06-26",
+      "subject": "GF and Corning detachable fiber connector collaboration",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "High",
+      "url": "https://www.globenewswire.com/"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "Intel advanced packaging glass substrate public materials",
+      "queried_at": "2026-06-26",
+      "subject": "Glass substrates for next-generation advanced packaging",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "High",
+      "url": "https://www.intel.com/"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "天孚通信年度报告/公告",
+      "queried_at": "2026-06-26",
+      "subject": "300394 FAU, micro-optics, optical engine solutions",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "High"
+    },
+    {
+      "tool": "filing",
+      "function_or_path": "光迅科技年度报告/公告",
+      "queried_at": "2026-06-26",
+      "subject": "002281 optical chips, devices, modules and subsystems",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "High"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "沃格光电/通格微公开资料与行业报道",
+      "queried_at": "2026-06-26",
+      "subject": "603773 TGV glass substrate and GCP products",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "Medium"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "德龙激光互动易/公开投关",
+      "queried_at": "2026-06-26",
+      "subject": "688170 TGV glass via laser processing",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "Medium"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "东威科技公开资料/行业会议资料",
+      "queried_at": "2026-06-26",
+      "subject": "688700 TGV/RDL electroplating and via filling",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "Medium"
+    },
+    {
+      "tool": "web",
+      "function_or_path": "Industry reports and conference summaries",
+      "queried_at": "2026-06-26",
+      "subject": "CPO, silicon photonics, glass substrate/TGV adjacency",
+      "rows": 1,
+      "status": "ok",
+      "error": "",
+      "confidence": "Medium"
+    }
+  ],
+  "companies": [
+    {
+      "code": "300394",
+      "name": "天孚通信",
+      "role": "FAU/无源光器件/微光学，重要配套"
+    },
+    {
+      "code": "002281",
+      "name": "光迅科技",
+      "role": "光芯片/器件/模块，硅光相邻平台"
+    },
+    {
+      "code": "603773",
+      "name": "沃格光电",
+      "role": "玻璃基板/TGV相邻链，关键技术挑战者"
+    },
+    {
+      "code": "688170",
+      "name": "德龙激光",
+      "role": "TGV玻璃通孔激光加工设备"
+    },
+    {
+      "code": "688700",
+      "name": "东威科技",
+      "role": "TGV/RDL电镀与金属化设备"
+    },
+    {
+      "code": "688630",
+      "name": "芯碁微装",
+      "role": "RDL/载板曝光设备，相邻设备"
+    },
+    {
+      "code": "300308",
+      "name": "中际旭创",
+      "role": "光模块需求端间接受益"
+    },
+    {
+      "code": "300502",
+      "name": "新易盛",
+      "role": "光模块需求端间接受益"
+    },
+    {
+      "code": "600552",
+      "name": "凯盛科技",
+      "role": "泛特种玻璃，待验证概念"
+    }
+  ]
+}

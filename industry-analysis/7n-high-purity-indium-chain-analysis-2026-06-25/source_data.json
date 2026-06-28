@@ -1,0 +1,122 @@
+{
+  "topic": "7N高纯铟产业链分析",
+  "generated_at": "2026-06-25",
+  "data_policy": {
+    "mode": "Report",
+    "notes": "Reader-facing report excludes raw adapter logs. Sources are summarized at claim level."
+  },
+  "sources": [
+    {
+      "id": "src-usgs-2026-indium",
+      "tool": "web",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026",
+      "title": "USGS Mineral Commodity Summaries 2026: Indium",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-indium.pdf",
+      "evidence": "Indium is mainly recovered from zinc ores; China accounted for about 70% of global production; China imposed export restrictions on indium and related critical minerals in 2025."
+    },
+    {
+      "id": "src-smm-7n-price",
+      "tool": "web",
+      "status": "ok",
+      "confidence": "Medium-High",
+      "date": "2026-06-18",
+      "title": "SMM高纯金属铟价格",
+      "url": "https://hq.smm.cn/h5/high-purity-metal-indium-price-chart",
+      "evidence": "7N高纯铟价格样本5500-5700元/kg，非标品7N样本7800-8200元/kg。"
+    },
+    {
+      "id": "src-gx-indium-7n",
+      "tool": "web",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026",
+      "title": "广西工信厅转载广西日报：高纯铟制备突破",
+      "url": "https://gxt.gxzf.gov.cn/wzsy/zwdt/mtgz/t27187532.shtml",
+      "evidence": "柳州华锡有色设计研究院披露99.99999%高纯铟制备突破，并说明1吨超高纯铟杂质不超过0.1克。"
+    },
+    {
+      "id": "src-indium-corp-high-purity",
+      "tool": "web",
+      "status": "ok",
+      "confidence": "Medium-High",
+      "date": "2026-06-25",
+      "title": "Indium Corporation High-Purity Indium",
+      "url": "https://www.indium.com/products/metals/indium/high-purity-indium/",
+      "evidence": "High-purity indium is used as starting material for indium-based III-V semiconductors including InP, InSb, InGaAs and InGaAsP."
+    },
+    {
+      "id": "src-yunnan-germanium-inp",
+      "tool": "filing",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-04-04",
+      "title": "云南锗业高品质磷化铟单晶片项目公告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-04-04/1225079758.PDF",
+      "evidence": "项目总投资1.8856亿元，建设期18个月，扩建后形成年产45万片折4英寸高品质磷化铟单晶片产能。"
+    },
+    {
+      "id": "src-zhongjinlingnan-annual",
+      "tool": "filing",
+      "status": "ok",
+      "confidence": "High",
+      "date": "2026-04-22",
+      "title": "中金岭南2025年年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-04-22/1225140762.PDF",
+      "evidence": "公司披露综合回收金、银、镓、锗、铟、硒、碲等稀有稀散稀贵金属。"
+    },
+    {
+      "id": "src-tin-industry-investor",
+      "tool": "web",
+      "status": "ok",
+      "confidence": "Medium-High",
+      "date": "2026-02-25",
+      "title": "锡业股份投资者互动信息",
+      "url": "https://finance.eastmoney.com/a/202602253654141395.html",
+      "evidence": "公开投关信息称都龙矿区铟资源储量全球第一，截至2024-12-31铟金属保有资源储量4821吨。"
+    },
+    {
+      "id": "src-zhuzhou-smelter-report",
+      "tool": "web",
+      "status": "ok",
+      "confidence": "Medium",
+      "date": "2026-06-19",
+      "title": "经济观察网：株冶集团铟业务占比报道",
+      "url": "https://www.eeo.com.cn/2026/0619/921737.shtml",
+      "evidence": "报道基于年报口径指出株冶集团铟锭收入占比较低。"
+    }
+  ],
+  "companies": [
+    {
+      "code": "000960",
+      "name": "锡业股份",
+      "role": "资源/原生铟"
+    },
+    {
+      "code": "600301",
+      "name": "华锡有色",
+      "role": "7N高纯提纯技术突破"
+    },
+    {
+      "code": "002428",
+      "name": "云南锗业",
+      "role": "InP下游材料"
+    },
+    {
+      "code": "000060",
+      "name": "中金岭南",
+      "role": "稀散金属综合回收"
+    },
+    {
+      "code": "600961",
+      "name": "株冶集团",
+      "role": "冶炼副产铟"
+    },
+    {
+      "code": "000751",
+      "name": "锌业股份",
+      "role": "待验证冶炼副产"
+    }
+  ]
+}

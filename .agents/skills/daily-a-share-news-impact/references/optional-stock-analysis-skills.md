@@ -25,24 +25,26 @@ Use the result labels consistently:
 
 ## Fallback Priority
 
-Use the following data-source order for daily runs:
+Use `references/data-source-matrix.md` as the module-level source of truth.
+For stock-level optional enrichment, use the following order:
 
 | Priority | Source | Use | Degrade when |
 | --- | --- | --- | --- |
-| 1 | `china-stock-analysis` / akshare | A-share basic, valuation, and historical bars. | Dependency missing or provider/API failure. |
-| 2 | Sina public quote API | No-key spot quote cross-check. | Endpoint fails or returned text cannot be parsed. |
-| 3 | Tencent public quote API | No-key spot quote, total market cap, and float market cap fallback. | Endpoint fails or returned text cannot be parsed. |
-| 4 | Eastmoney public quote API | No-key JSON quote cross-check. | Endpoint rejects or closes the request. |
-| 5 | Baostock | No-key historical daily K-line fallback if installed. | Dependency missing or login/query failure. |
-| 6 | iTick REST API | Real-time quote and K-line when a free `ITICK_API_TOKEN` is set. | Token missing, quota exhausted, or provider failure. |
-| 7 | Zhitu API | Real-time quote, technical indicators, and fund-flow style fields when a free `ZHITU_API_TOKEN` is configured. | Only demo token is available, token missing, or provider failure. |
+| 1 | `mootdx` / 通达讯 | Realtime quote, order book, transactions, and K-line. | Dependency missing, best server unavailable, or returned frame is empty. |
+| 2 | Tencent public quote API | No-key spot quote, total market cap, and float market cap fallback. | Endpoint fails or returned text cannot be parsed. |
+| 3 | Eastmoney public quote API | No-key PE/PB/market-cap quote cross-check. | Endpoint rejects or closes the request. |
+| 4 | `china-stock-analysis` / akshare | A-share basic, valuation, financial statements, and historical bars. | Dependency missing or provider/API failure. |
+| 5 | Sina public quote API | Reachable no-key spot quote cross-check. | Endpoint fails or returned text cannot be parsed. |
+| 6 | Baostock | No-key historical daily K-line fallback if installed. | Dependency missing or login/query failure. |
+| 7 | iTick REST API | Real-time quote and K-line when a free `ITICK_API_TOKEN` is set. | Token missing, quota exhausted, or provider failure. |
+| 8 | Zhitu API | Real-time quote, technical indicators, and fund-flow style fields when a free `ZHITU_API_TOKEN` is configured. | Only demo token is available, token missing, or provider failure. |
 
 Do not use Yahoo Finance, Alpha Vantage, Tiingo, Polygon, or Google Finance as
 primary A-share sources. The referenced articles discuss them as general
 quantitative data sources, but they are better suited to US/global assets or
 require separate API keys. They may only support cross-market context.
 
-When `market_cap_billion` is missing and akshare or Eastmoney fetches fail, run
+When `market_cap_billion` is missing and mootdx/akshare/Eastmoney fetches fail, run
 `scripts/enrich_stock_observations.py` before assembly. It uses Tencent's
 no-key quote endpoint to fill `market_cap_billion` from total market cap and
 stores the parsed quote snapshot under
