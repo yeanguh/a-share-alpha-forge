@@ -23,6 +23,15 @@
       ]
     },
     {
+      "id": "iwencai-trend-stock-pool",
+      "type": "skill",
+      "path": ".agents/skills/iwencai-trend-stock-pool",
+      "summary": "基于 Supermind 三日趋势承接和问财风格条件生成分策略趋势股票池",
+      "entrypoints": [
+        ".agents/skills/iwencai-trend-stock-pool/scripts/build_stock_pools.py"
+      ]
+    },
+    {
       "id": "industry-chain-analysis",
       "type": "skill",
       "path": ".agents/skills/industry-chain-analysis",

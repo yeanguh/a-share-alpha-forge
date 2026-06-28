@@ -9,6 +9,7 @@
 | 看某天日报、复盘、周报 | 交互报告 | `uv run python scripts/stock_workbench.py --open` |
 | 跑统一网页入口 | 工作台 | `uv run python scripts/stock_workbench.py --open` |
 | 生成综合选股池 | `integrated-stock-selection` | `.agents/skills/integrated-stock-selection/scripts/run_integrated_selection.py` |
+| 生成问财趋势承接股票池 | `iwencai-trend-stock-pool` | `.agents/skills/iwencai-trend-stock-pool/scripts/build_stock_pools.py` |
 | 生成或复核 A 股日报 | `daily-a-share-news-impact` | `.agents/skills/daily-a-share-news-impact/` |
 | 分析某只股票价格和估值 | `china-stock-price-analysis` | 工作台“股票分析”或 `stock_analyze.py` |
 | 抓基础面、财务、估值数据 | `china-stock-analysis` | `.agents/skills/china-stock-analysis/scripts/` |
@@ -43,6 +44,21 @@ uv run python .agents/skills/integrated-stock-selection/scripts/run_integrated_s
   --theme 存储芯片 \
   --format markdown \
   --output tmp/integrated-selection/storage-2026-06-26.md
+```
+
+### 问财趋势承接股票池
+
+1. 用 `iwencai-trend-stock-pool` 把 `scripts/supermind/supermind_trend_support_3day.py` 的三日趋势承接逻辑转换为问财语句和本地近似股票池。
+2. 优先看 `main_theme`，再用 `fund_flow`、`broad_trend`、`quality_trend`、`breakout_theme` 做共振确认。
+3. 默认输出放 `tmp/stock_pools_smoke/`；只有明确要归档时才写 `local/stock_pools/YYYY-MM-DD/`。
+
+示例：
+
+```bash
+uv run python .agents/skills/iwencai-trend-stock-pool/scripts/build_stock_pools.py \
+  --strategies main_theme,fund_flow,quality_trend \
+  --max-stocks 300 \
+  --output-dir tmp/stock_pools_smoke
 ```
 
 ### 个股研究

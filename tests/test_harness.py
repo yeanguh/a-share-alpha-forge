@@ -8,6 +8,7 @@ def test_manifest_lists_core_capabilities() -> None:
     capability_ids = {capability["id"] for capability in manifest["capabilities"]}
     assert "daily-a-share-news-impact" in capability_ids
     assert "integrated-stock-selection" in capability_ids
+    assert "iwencai-trend-stock-pool" in capability_ids
     assert "industry-chain-analysis" in capability_ids
     assert "stock-workbench" in capability_ids
     assert "report" in capability_ids

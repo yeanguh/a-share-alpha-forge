@@ -1,0 +1,4 @@
+interface:
+  display_name: "iWenCai Trend Stock Pool"
+  short_description: "基于 Supermind 趋势承接逻辑生成问财股票池。"
+  default_prompt: "Use $iwencai-trend-stock-pool to generate a Supermind-style A-share trend support stock pool."
