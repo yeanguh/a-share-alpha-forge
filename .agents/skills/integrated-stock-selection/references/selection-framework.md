@@ -6,6 +6,7 @@ Use these layers in order:
 
 | Layer | Source | Purpose |
 | --- | --- | --- |
+| Technical first-pass | `iwencai-trend-stock-pool` | Build the initial Supermind-style trend-support pool |
 | Event/theme | `daily-a-share-news-impact` archive | Identify active mainlines and avoid stale concepts |
 | Industry chain | `industry-chain-analysis` reports | Map the theme to real products, links, and listed companies |
 | Bottleneck | `serenity-bottleneck-investing` | Find scarce upstream links with value-capture power |
@@ -18,6 +19,7 @@ Use these layers in order:
 The bundled script converts 0-5 archive scores to a 0-100 research priority:
 
 - Event alignment and mainline strength
+- iWenCai/Supermind trend-support strength
 - Beneficiary quality
 - Capital recognition
 - Trend and volume confirmation
@@ -35,7 +37,7 @@ evidence beside every score so the user can inspect why a name ranked highly.
 | Bucket | Use |
 | --- | --- |
 | Core pool | Strong archive evidence plus acceptable risk; worth immediate deeper research |
-| Watchlist | One or two missing confirmations, high valuation, crowding, or indirect industry exposure |
+| Watchlist | iWenCai-only names, one or two missing confirmations, high valuation, crowding, or indirect industry exposure |
 | Reject/exclusion | Failed gates, ST/delisting risk, missing data, weak relevance, or explicit archive exclusion |
 
 ## Evidence Requirements
@@ -43,6 +45,7 @@ evidence beside every score so the user can inspect why a name ranked highly.
 For each core or watchlist candidate, include:
 
 - Code and name
+- iWenCai source: high confidence, recommendation rank, and strategy hits
 - Theme/sector and source tags
 - Total score and key sub-scores
 - Why it entered the pool

@@ -2,6 +2,7 @@
 
 | Need | Preferred Capability | Notes |
 | --- | --- | --- |
+| First-pass trend-support stock pool | `iwencai-trend-stock-pool` | Run before integrated evaluation unless explicitly skipped |
 | Latest local report or close review | `web-apps/report`, `local/YYYY-MM-DD/` | Use archived facts before web refreshes |
 | Daily mainline and candidate gates | `daily-a-share-news-impact` | Primary source for event alignment and stock gates |
 | Industry chain and A-share mapping | `industry-chain-analysis` | Use for theme-to-company relevance |
@@ -16,10 +17,11 @@
 
 Use the cheapest reliable layer first:
 
-1. Local archive
-2. Local industry report/source data
-3. Existing repo scripts
-4. Public no-key data endpoints
-5. Optional-key or LLM-dependent tools
+1. `iwencai-trend-stock-pool` output, preferably an existing `stock_pools.json`
+2. Local archive
+3. Local industry report/source data
+4. Existing repo scripts
+5. Public no-key data endpoints
+6. Optional-key or LLM-dependent tools
 
 Write temporary outputs to `tmp/integrated-selection/`.

@@ -31,6 +31,57 @@ def test_theme_selection_uses_archive_and_scores_candidates() -> None:
     assert "eligible_beneficiaries" in rows[0]["source_tags"]
 
 
+def test_iwencai_candidates_are_first_pass_and_can_be_core() -> None:
+    module = load_module()
+    _, archive = module.load_archive("2026-06-26")
+    iwencai = {
+        "recommendations": [
+            {
+                "code": "603688.SH",
+                "name": "石英股份",
+                "recommend_rank": 1,
+                "recommendation_score": 650,
+                "score": 4.2,
+                "strategy_hits": [{"strategy_name": "主线三日趋势承接", "rank": 1}],
+                "reason": "命中主线三日趋势承接",
+                "concepts": ["存储芯片", "半导体概念"],
+            }
+        ],
+        "high_confidence_recommendations": [
+            {
+                "code": "603688.SH",
+                "name": "石英股份",
+                "high_confidence_rank": 1,
+                "recommendation_score": 650,
+                "score": 4.2,
+                "reason": "满足高置信度三日上涨过滤",
+                "concepts": ["存储芯片", "半导体概念"],
+            }
+        ],
+        "pools": {
+            "main_theme": [
+                {
+                    "code": "603688.SH",
+                    "name": "石英股份",
+                    "rank": 1,
+                    "strategy": "main_theme",
+                    "strategy_name": "主线三日趋势承接",
+                    "score": 4.2,
+                    "concepts": ["存储芯片", "半导体概念"],
+                }
+            ]
+        },
+    }
+
+    candidates = module.collect_candidates(archive, [], "存储芯片", iwencai)
+    row = module.render_candidate(candidates["603688"])
+
+    assert row["bucket"] == "core"
+    assert "iwencai-trend-stock-pool" in row["source_tags"]
+    assert row["dimensions"]["iwencai"] == 5.0
+    assert "通过问财趋势承接高置信度过滤" in row["reasons"]
+
+
 def test_explicit_codes_do_not_pull_all_industry_companies() -> None:
     module = load_module()
     _, archive = module.load_archive("2026-06-26")
@@ -53,7 +104,8 @@ def test_quote_refresh_can_downgrade_extreme_valuation(tmp_path: Path) -> None:
         "quote": {},
         "quote_refresh": {},
         "reasons": [],
-        "missing_evidence": [],
+        "missing_evidence": ["缺少本次归档行情/估值快照"],
+        "source_tags": ["iwencai-trend-stock-pool"],
     }
 
     module.apply_quote_refresh(row, snapshot)
@@ -62,3 +114,5 @@ def test_quote_refresh_can_downgrade_extreme_valuation(tmp_path: Path) -> None:
     assert row["score"] == 67.0
     assert row["quote"]["pe_ttm"] == 150
     assert "刷新行情显示估值显著偏高" in row["reasons"]
+    assert "缺少本次归档行情/估值快照" not in row["missing_evidence"]
+    assert "估值高位，需要盈利兑现复核" in row["missing_evidence"]

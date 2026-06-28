@@ -31,10 +31,11 @@
 
 ### 综合选股
 
-1. 先用 `integrated-stock-selection` 从最新日报归档生成候选池。
-2. 如果用户给了主题，用 `--theme` 限定主线，并自动叠加已有产业链报告映射。
-3. 核心池只保留已通过日报门禁、量价/资金确认较强且风险未触发排除的股票；观察池保留缺产业链证据、估值过高或趋势确认不足的股票。
-4. 需要当前行情时再加 `--refresh-quotes`，临时快照会写到 `tmp/integrated-selection/`。
+1. 先由 `integrated-stock-selection` 调用或读取 `iwencai-trend-stock-pool`，生成 Supermind 风格趋势承接候选池。
+2. 再用最新日报归档、主题主线、产业链报告和估值风险做二次评估。
+3. 如果用户给了主题，用 `--theme` 限定主线，并自动叠加已有产业链报告映射。
+4. 核心池优先保留同时有问财趋势承接、日报/产业链或高置信度信号，且风险未触发排除的股票；观察池保留缺产业链证据、估值过高或趋势确认不足的股票。
+5. 需要当前行情时再加 `--refresh-quotes`，临时快照会写到 `tmp/integrated-selection/`。
 
 示例：
 
@@ -44,6 +45,14 @@ uv run python .agents/skills/integrated-stock-selection/scripts/run_integrated_s
   --theme 存储芯片 \
   --format markdown \
   --output tmp/integrated-selection/storage-2026-06-26.md
+```
+
+复用已有问财趋势池：
+
+```bash
+uv run python .agents/skills/integrated-stock-selection/scripts/run_integrated_selection.py \
+  --iwencai-json tmp/iwencai-trend-stock-pool/e2e-full/stock_pools.json \
+  --refresh-quotes
 ```
 
 ### 问财趋势承接股票池

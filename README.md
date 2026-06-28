@@ -111,7 +111,7 @@ uv run python .agents/skills/integrated-stock-selection/scripts/run_integrated_s
   --output tmp/integrated-selection/storage-2026-06-26.md
 ```
 
-默认只读取本地归档和产业链源数据；需要当前行情/估值复核时再显式添加 `--refresh-quotes`。
+默认会先运行 `iwencai-trend-stock-pool` 生成趋势承接候选，再叠加本地归档、产业链源数据和可选行情估值复核；需要当前行情/估值复核时再显式添加 `--refresh-quotes`。调试时可以用 `--iwencai-json <stock_pools.json>` 复用已有问财趋势池，或用 `--skip-iwencai` 只评估本地归档。
 
 生成问财趋势承接股票池：
 
