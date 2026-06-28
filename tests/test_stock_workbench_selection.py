@@ -65,10 +65,12 @@ def test_render_selection_markdown_groups_candidates() -> None:
     assert "# 综合选股报告 2026-06-26" in markdown
     assert "## 一、结论概览" in markdown
     assert "## 三、最终名单" in markdown
-    assert "| 核心观察 | 603986 | 兆易创新 | 74.81 | 现价 128；PE 88 | 最终决定：只批准观察仓，不批准核心仓。" in markdown
+    assert "| 核心观察 | 603986 | 兆易创新 | 74.81 | 现价 128；市盈率 88 | 最终决定：只批准观察仓，不批准核心仓。" in markdown
     assert "## 五、执行说明" in markdown
     assert "PM decision statement" not in markdown
     assert "swarm-test" not in markdown
+    assert "NAV" not in markdown
+    assert "WAIT" not in markdown
 
 
 def test_run_integrated_selection_writes_tmp_report(monkeypatch) -> None:
@@ -112,6 +114,33 @@ def test_run_integrated_selection_writes_tmp_report(monkeypatch) -> None:
     assert result["markdown_output"].endswith(".md")
     assert "--refresh-quotes" in result["command"]
     assert "--quote-limit 2" in result["command"]
+
+
+def test_read_selection_result_rerenders_current_markdown(tmp_path, monkeypatch) -> None:
+    module = load_module()
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    output = tmp_path / "tmp" / "workbench" / "integrated_selection_stale.json"
+    output.parent.mkdir(parents=True)
+    output.write_text(
+        """
+{
+  "date": "2026-06-26",
+  "generated_at": "2026-06-28T21:26:13",
+  "summary": {"total": 0, "core": 0, "watch": 0, "reject": 0},
+  "iwencai": {"status": "generated"},
+  "mainlines": [],
+  "candidates": []
+}
+""".strip(),
+        encoding="utf-8",
+    )
+    output.with_suffix(".md").write_text("## 旧版长报告\n", encoding="utf-8")
+
+    result = module.read_selection_result(output)
+
+    assert "## 一、结论概览" in result["markdown"]
+    assert "旧版长报告" not in result["markdown"]
+    assert result["markdown_output"] == "tmp/workbench/integrated_selection_stale.md"
 
 
 def test_vibe_committee_target_formats_a_share_context() -> None:

@@ -1365,7 +1365,17 @@ def compact_text(value: str, limit: int = 120) -> str:
     text = re.sub(r"^#+\s*", "", text, flags=re.M)
     text = re.sub(r"^\s*[-*]\s+", "", text, flags=re.M)
     text = re.sub(r"^\s*\d+[.)]\s+", "", text, flags=re.M)
+    text = re.sub(r"\bWAIT\b", "等待", text, flags=re.I)
+    text = re.sub(r"\bNAV\b", "组合净值", text, flags=re.I)
+    text = re.sub(r"Ground Truth", "数据窗口", text, flags=re.I)
+    text = re.sub(r"Upstream Context", "上游上下文", text, flags=re.I)
+    text = re.sub(r"\breject\b", "暂缓/剔除", text, flags=re.I)
+    text = re.sub(r"\bwatchlist\b", "观察名单", text, flags=re.I)
+    text = re.sub(r"\bPE(?:\s*TTM)?\b", "市盈率", text, flags=re.I)
+    text = re.sub(r"\bPB\b", "市净率", text, flags=re.I)
+    text = re.sub(r"(\d+(?:\.\d+)?)x\b", r"\1 倍", text, flags=re.I)
     text = re.sub(r"\s+", " ", text).strip(" -|")
+    text = text.replace(" / ", "，").replace("/", "，")
     text = text.replace("|", "／")
     return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
 
@@ -1380,11 +1390,15 @@ def first_matching_paragraph(text: str, patterns: tuple[str, ...], fallback: str
         for paragraph in paragraphs:
             if paragraph.lstrip().startswith("#"):
                 continue
+            if "|" in paragraph:
+                continue
             match = re.search(pattern, paragraph, re.I)
             if match and has_chinese(paragraph):
                 return compact_text(paragraph[match.start() :])
     for paragraph in paragraphs:
         if paragraph.lstrip().startswith("#"):
+            continue
+        if "|" in paragraph:
             continue
         cleaned = compact_text(paragraph)
         if cleaned and has_chinese(cleaned) and not cleaned.startswith("#"):
@@ -1395,6 +1409,7 @@ def first_matching_paragraph(text: str, patterns: tuple[str, ...], fallback: str
 def first_matching_sentence(text: str, patterns: tuple[str, ...], fallback: str = "") -> str:
     cleaned = re.sub(r"\*\*([^*]+)\*\*", r"\1", text or "")
     cleaned = re.sub(r"^#+\s*.*$", "", cleaned, flags=re.M)
+    cleaned = "\n".join(line for line in cleaned.splitlines() if "|" not in line)
     sentences = [part.strip() for part in re.split(r"(?<=[。！？；])\s*", cleaned) if part.strip()]
     for pattern in patterns:
         for sentence in sentences:
@@ -1429,9 +1444,9 @@ def valuation_text(row: dict[str, Any]) -> str:
     if quote.get("latest") is not None:
         valuation.append(f"现价 {format_number(quote.get('latest'))}")
     if quote.get("pe_ttm") is not None:
-        valuation.append(f"PE {format_number(quote.get('pe_ttm'))}")
+        valuation.append(f"市盈率 {format_number(quote.get('pe_ttm'))}")
     if quote.get("pb") is not None:
-        valuation.append(f"PB {format_number(quote.get('pb'))}")
+        valuation.append(f"市净率 {format_number(quote.get('pb'))}")
     return "；".join(valuation) or "-"
 
 
@@ -1739,7 +1754,7 @@ def read_selection_result(path: Path) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise FileNotFoundError(f"selection result not found: {path}")
     markdown_path = path.with_suffix(".md")
-    markdown = read_text(markdown_path) or render_selection_markdown(payload)
+    markdown = render_selection_markdown(payload)
     return {
         "output": str(path.relative_to(ROOT)),
         "markdown_output": str(markdown_path.relative_to(ROOT)) if markdown_path.exists() else "",
