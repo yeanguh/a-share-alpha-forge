@@ -19,11 +19,14 @@
 
 | 服务 | 端口 | 健康口径 |
 | --- | --- | --- |
+| 统一工作台 | `8788` | `GET /api/health` 汇总依赖服务健康状态 |
 | 交互报告 | `8765` | `GET /report/` 返回 2xx/3xx |
 | 投资资讯看板 | `8793` | `GET /index.html` 返回 2xx/3xx |
 | Vibe-Trading Wiki | `8088` | `GET /home/` 返回 2xx/3xx |
 | Vibe-Trading 后端 | `8899` | `GET /health` 返回 2xx/3xx |
 | Vibe-Trading 前端 | `4173` | `GET /` 返回 2xx/3xx，API 由前端代理到 `8899` |
+
+工作台可以前台运行，也可以用 `--daemon`/`--stop` 托管到后台；后台日志和 pid 写入 `tmp/workbench/`，不入库。
 
 外部应用保持 submodule 边界；主仓库只维护启动、健康检查、文档和测试入口，不直接改外部源码。Vibe-Trading 的 LLM provider 配置属于本机运行配置，放在 `web-apps/vibe-trading/agent/.env`，不入库。
 

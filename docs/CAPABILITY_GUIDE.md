@@ -60,6 +60,10 @@
 
 改了 `scripts/stock_workbench.py`、web 应用集成、端口、API 或工作台页面时，用 `web`。
 
+### 如何后台运行统一入口？
+
+用 `uv run python scripts/stock_workbench.py --daemon` 启动，用 `uv run python scripts/stock_workbench.py --stop` 停止。运行状态看 `http://127.0.0.1:8788/api/health`。
+
 ### Vibe-Trading 500 怎么判断？
 
 先看 `http://127.0.0.1:8899/health`。如果后端没起来，前端 `/sessions` 会通过 Vite/preview 代理失败并表现为 500；这通常是后端 venv 缺依赖或没有启动，不是 `/sessions` 本身要求 API key。只有聊天、agent、swarm 等 LLM 研究任务需要在 `web-apps/vibe-trading/agent/.env` 配置 provider/key。

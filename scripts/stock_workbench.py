@@ -32,6 +32,8 @@ INVESTMENT_NEWS = ROOT / ".agents" / "skills" / "investment-news"
 VIBE_TRADING = ROOT / "web-apps" / "vibe-trading"
 VIBE_FRONTEND = VIBE_TRADING / "frontend"
 VIBE_WIKI = VIBE_TRADING / "wiki"
+PORTAL_PID = TMP / "portal.pid"
+PORTAL_LOG = TMP / "portal.log"
 
 PORTAL_HTML = r"""<!doctype html>
 <html lang="zh-CN">
@@ -181,6 +183,24 @@ PORTAL_HTML = r"""<!doctype html>
       }
       .badge.good { color: var(--good); border-color: #bcdccc; background: #f1fbf5; }
       .badge.bad { color: var(--bad); border-color: #e7c3c3; background: #fff4f4; }
+      .toast {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 20;
+        max-width: min(420px, calc(100vw - 36px));
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #102018;
+        color: #f3fbf6;
+        padding: 10px 12px;
+        box-shadow: 0 12px 30px rgba(23, 33, 27, .16);
+        opacity: 0;
+        transform: translateY(8px);
+        pointer-events: none;
+        transition: opacity .16s ease, transform .16s ease;
+      }
+      .toast.show { opacity: 1; transform: translateY(0); }
       .list {
         display: grid;
         gap: 8px;
@@ -219,6 +239,7 @@ PORTAL_HTML = r"""<!doctype html>
       .markdown h2 { font-size: 17px; margin: 18px 0 8px; }
       .markdown h3 { font-size: 15px; margin: 16px 0 8px; }
       .markdown p, .markdown li { margin: 5px 0; }
+      .markdown ul { margin: 8px 0 12px; padding-left: 20px; }
       .markdown table { width: 100%; border-collapse: collapse; font-size: 13px; }
       .markdown th, .markdown td { border: 1px solid var(--line); padding: 6px; vertical-align: top; }
       .hidden { display: none !important; }
@@ -261,6 +282,7 @@ PORTAL_HTML = r"""<!doctype html>
         <section id="view-skills" class="view grid hidden"></section>
       </section>
     </main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script>
       const state = { reports: [], industries: [], skills: [], services: [] };
       const $ = (id) => document.getElementById(id);
@@ -268,14 +290,78 @@ PORTAL_HTML = r"""<!doctype html>
 
       function md(text) {
         if (!text) return '<p class="muted">没有内容。</p>';
-        return esc(text).split(/\n/).map((line) => {
-          if (line.startsWith("# ")) return `<h1>${line.slice(2)}</h1>`;
-          if (line.startsWith("## ")) return `<h2>${line.slice(3)}</h2>`;
-          if (line.startsWith("### ")) return `<h3>${line.slice(4)}</h3>`;
-          if (line.startsWith("- ")) return `<li>${line.slice(2)}</li>`;
-          if (/^\|.+\|$/.test(line)) return `<pre>${line}</pre>`;
-          return line.trim() ? `<p>${line}</p>` : "";
-        }).join("");
+        const lines = String(text).replace(/\r\n/g, "\n").split("\n");
+        const out = [];
+        let table = [];
+        let list = [];
+        let code = [];
+        let inCode = false;
+        const flushList = () => {
+          if (!list.length) return;
+          out.push(`<ul>${list.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>`);
+          list = [];
+        };
+        const flushTable = () => {
+          if (!table.length) return;
+          const rows = table.map((line) => line.trim().replace(/^\||\|$/g, "").split("|").map((cell) => esc(cell.trim())));
+          const hasHeader = rows.length > 1 && rows[1].every((cell) => /^:?-{3,}:?$/.test(cell));
+          const bodyRows = hasHeader ? rows.slice(2) : rows;
+          const head = hasHeader ? `<thead><tr>${rows[0].map((cell) => `<th>${cell}</th>`).join("")}</tr></thead>` : "";
+          out.push(`<table>${head}<tbody>${bodyRows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table>`);
+          table = [];
+        };
+        const flushCode = () => {
+          if (!code.length) return;
+          out.push(`<pre>${esc(code.join("\n"))}</pre>`);
+          code = [];
+        };
+        for (const raw of lines) {
+          const line = raw.trimEnd();
+          if (line.startsWith("```")) {
+            flushList();
+            flushTable();
+            if (inCode) {
+              flushCode();
+              inCode = false;
+            } else {
+              inCode = true;
+            }
+            continue;
+          }
+          if (inCode) {
+            code.push(line);
+            continue;
+          }
+          if (/^\|.+\|$/.test(line.trim())) {
+            flushList();
+            table.push(line);
+            continue;
+          }
+          flushTable();
+          const bullet = line.match(/^\s*[-*]\s+(.+)$/);
+          if (bullet) {
+            list.push(bullet[1]);
+            continue;
+          }
+          flushList();
+          if (!line.trim()) continue;
+          if (line.startsWith("### ")) out.push(`<h3>${esc(line.slice(4))}</h3>`);
+          else if (line.startsWith("## ")) out.push(`<h2>${esc(line.slice(3))}</h2>`);
+          else if (line.startsWith("# ")) out.push(`<h1>${esc(line.slice(2))}</h1>`);
+          else out.push(`<p>${esc(line)}</p>`);
+        }
+        flushList();
+        flushTable();
+        flushCode();
+        return out.join("");
+      }
+
+      function showToast(message) {
+        const toast = $("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove("show"), 2600);
       }
 
       async function api(path, options = {}) {
@@ -337,9 +423,9 @@ PORTAL_HTML = r"""<!doctype html>
         try {
           setBusy(btn, true);
           const data = await api("/api/report/rebuild", { method: "POST", body: "{}" });
-          alert(`已重建: days=${data.days}, weeklies=${data.weeklies}, industryReports=${data.industryReports}`);
+          showToast(`已重建: days=${data.days}, weeklies=${data.weeklies}, industryReports=${data.industryReports}`);
         } catch (err) {
-          alert(err.message);
+          showToast(err.message);
         } finally {
           setBusy(btn, false);
         }
@@ -397,7 +483,7 @@ PORTAL_HTML = r"""<!doctype html>
             </div>
             <p class="muted">全量基础面会调用真实远端接口，可能需要数分钟。输出保存在 tmp/workbench。</p>
           </div>
-          <div class="card full"><h2>结果</h2><pre id="stockResult">等待运行。</pre></div>
+          <div class="card full"><h2>结果</h2><div id="stockResult" class="markdown">等待运行。</div></div>
         `;
       }
 
@@ -410,9 +496,9 @@ PORTAL_HTML = r"""<!doctype html>
             eps_expected: $("stockEps").value,
             consensus_target: $("stockTarget").value,
           }) });
-          $("stockResult").textContent = data.markdown || JSON.stringify(data, null, 2);
+          $("stockResult").innerHTML = md(data.markdown || JSON.stringify(data, null, 2));
         } catch (err) {
-          $("stockResult").textContent = err.message;
+          $("stockResult").innerHTML = `<pre>${esc(err.message)}</pre>`;
         } finally {
           setBusy(btn, false);
         }
@@ -434,9 +520,9 @@ PORTAL_HTML = r"""<!doctype html>
             data_type: dataType,
             years: dataType === "all" ? 1 : 3,
           }) });
-          $("stockResult").textContent = JSON.stringify(data, null, 2);
+          $("stockResult").innerHTML = `<pre>${esc(JSON.stringify(data, null, 2))}</pre>`;
         } catch (err) {
-          $("stockResult").textContent = err.message;
+          $("stockResult").innerHTML = `<pre>${esc(err.message)}</pre>`;
         } finally {
           setBusy(btn, false);
         }
@@ -481,8 +567,8 @@ PORTAL_HTML = r"""<!doctype html>
       }
 
       function copyIndustryPrompt() {
-        navigator.clipboard.writeText($("industryPrompt").value || "");
-        alert("已复制。");
+        navigator.clipboard?.writeText($("industryPrompt").value || "");
+        showToast("已复制。");
       }
 
       async function renderNews() {
@@ -809,6 +895,21 @@ class Workbench:
             )
         return statuses
 
+    def health(self) -> dict[str, Any]:
+        services = self.status()
+        enabled = [service for service in services if service["enabled"]]
+        running = [service for service in enabled if service["running"]]
+        return {
+            "status": "healthy" if len(running) == len(enabled) else "degraded",
+            "generated_at": datetime.now().isoformat(timespec="seconds"),
+            "services": services,
+            "summary": {
+                "enabled": len(enabled),
+                "running": len(running),
+                "down": len(enabled) - len(running),
+            },
+        }
+
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
@@ -1015,6 +1116,92 @@ def json_response(handler: BaseHTTPRequestHandler, payload: Any, status: int = 2
     handler.wfile.write(body)
 
 
+def is_pid_running(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
+
+
+def read_portal_pid() -> int | None:
+    if not PORTAL_PID.exists():
+        return None
+    try:
+        return int(PORTAL_PID.read_text(encoding="utf-8").strip())
+    except ValueError:
+        return None
+
+
+def start_daemon(args: argparse.Namespace) -> int:
+    TMP.mkdir(parents=True, exist_ok=True)
+    pid = read_portal_pid()
+    if pid and is_pid_running(pid):
+        print(f"workbench already running pid={pid} url=http://{args.host}:{args.port}/")
+        return 0
+    command = [
+        sys.executable,
+        str(Path(__file__).resolve()),
+        "--host",
+        args.host,
+        "--port",
+        str(args.port),
+    ]
+    if args.no_deps:
+        command.append("--no-deps")
+    if args.no_vibe:
+        command.append("--no-vibe")
+    with PORTAL_LOG.open("ab", buffering=0) as log:
+        proc = subprocess.Popen(
+            command,
+            cwd=str(ROOT),
+            stdin=subprocess.DEVNULL,
+            stdout=log,
+            stderr=subprocess.STDOUT,
+            start_new_session=True,
+            close_fds=True,
+            text=True,
+            env={**os.environ, "PYTHONUTF8": "1"},
+        )
+    PORTAL_PID.write_text(str(proc.pid), encoding="utf-8")
+    deadline = time.time() + 30
+    url = f"http://{args.host}:{args.port}/"
+    while time.time() < deadline:
+        healthy, detail = is_url_healthy(url)
+        if healthy:
+            print(f"workbench started pid={proc.pid} url=http://{args.host}:{args.port}/ log={PORTAL_LOG}")
+            return 0
+        if proc.poll() is not None:
+            print(f"workbench exited early with {proc.returncode}; log={PORTAL_LOG}", file=sys.stderr)
+            return 1
+        time.sleep(0.25)
+    print(f"workbench not healthy after 30s ({detail}); log={PORTAL_LOG}", file=sys.stderr)
+    return 1
+
+
+def stop_daemon() -> int:
+    pid = read_portal_pid()
+    if not pid:
+        print("workbench pid file not found")
+        return 0
+    if not is_pid_running(pid):
+        PORTAL_PID.unlink(missing_ok=True)
+        print(f"stale workbench pid removed: {pid}")
+        return 0
+    os.kill(pid, signal.SIGTERM)
+    deadline = time.time() + 8
+    while time.time() < deadline:
+        if not is_pid_running(pid):
+            PORTAL_PID.unlink(missing_ok=True)
+            print(f"workbench stopped pid={pid}")
+            return 0
+        time.sleep(0.2)
+    os.kill(pid, signal.SIGKILL)
+    PORTAL_PID.unlink(missing_ok=True)
+    print(f"workbench killed pid={pid}")
+    return 0
+
+
 def text_response(handler: BaseHTTPRequestHandler, text: str, content_type: str = "text/html; charset=utf-8") -> None:
     body = text.encode("utf-8")
     handler.send_response(200)
@@ -1087,6 +1274,9 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
             text_response(self, "", "image/x-icon")
         elif path == "/api/status":
             json_response(self, {"services": self.workbench.status()})
+        elif path == "/api/health":
+            payload = self.workbench.health()
+            json_response(self, payload, 200 if payload["status"] == "healthy" else 503)
         elif path == "/api/reports":
             json_response(self, list_reports())
         elif path == "/api/report":
@@ -1219,7 +1409,14 @@ def main() -> int:
     parser.add_argument("--no-deps", action="store_true", help="Do not start dependent web apps.")
     parser.add_argument("--no-vibe", action="store_true", help="Do not start Vibe-Trading frontend preview.")
     parser.add_argument("--open", action="store_true", help="Open the workbench in the default browser.")
+    parser.add_argument("--daemon", action="store_true", help="Start the workbench in the background.")
+    parser.add_argument("--stop", action="store_true", help="Stop a daemonized workbench.")
     args = parser.parse_args()
+
+    if args.stop:
+        return stop_daemon()
+    if args.daemon:
+        return start_daemon(args)
 
     workbench = Workbench(include_vibe=not args.no_vibe)
     if not args.no_deps:

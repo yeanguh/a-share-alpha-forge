@@ -78,9 +78,17 @@ uv run python scripts/run_harness.py --mode smoke
 uv run python scripts/stock_workbench.py --open
 ```
 
+后台启动和停止：
+
+```bash
+uv run python scripts/stock_workbench.py --daemon
+uv run python scripts/stock_workbench.py --stop
+```
+
 默认会启动：
 
 - `http://127.0.0.1:8788/`：统一工作台入口。
+- `http://127.0.0.1:8788/api/health`：统一工作台与依赖服务健康检查。
 - `http://127.0.0.1:8765/report/`：交互报告页。
 - `http://127.0.0.1:8793/index.html`：投资资讯看板。
 - `http://127.0.0.1:8088/home/`：Vibe-Trading Wiki 本地预览。

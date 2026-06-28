@@ -147,6 +147,7 @@
       "include_vibe": true,
       "require_services_running": true,
       "endpoints": [
+        "/api/health",
         "/api/status",
         "/api/reports",
         "/api/skills",
