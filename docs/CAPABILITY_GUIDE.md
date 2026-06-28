@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | 看某天日报、复盘、周报 | 交互报告 | `uv run python scripts/stock_workbench.py --open` |
 | 跑统一网页入口 | 工作台 | `uv run python scripts/stock_workbench.py --open` |
+| 生成综合选股池 | `integrated-stock-selection` | `.agents/skills/integrated-stock-selection/scripts/run_integrated_selection.py` |
 | 生成或复核 A 股日报 | `daily-a-share-news-impact` | `.agents/skills/daily-a-share-news-impact/` |
 | 分析某只股票价格和估值 | `china-stock-price-analysis` | 工作台“股票分析”或 `stock_analyze.py` |
 | 抓基础面、财务、估值数据 | `china-stock-analysis` | `.agents/skills/china-stock-analysis/scripts/` |
@@ -26,6 +27,23 @@
 3. 在“日期报告”查看最新日报和收盘复盘。
 4. 如需生成新日报，按 `daily-a-share-news-impact` 的 `SKILL.md` 准备 bundle 并运行脚本。
 5. 运行 `uv run python scripts/run_harness.py --mode smoke` 确认核心能力没有被改坏。
+
+### 综合选股
+
+1. 先用 `integrated-stock-selection` 从最新日报归档生成候选池。
+2. 如果用户给了主题，用 `--theme` 限定主线，并自动叠加已有产业链报告映射。
+3. 核心池只保留已通过日报门禁、量价/资金确认较强且风险未触发排除的股票；观察池保留缺产业链证据、估值过高或趋势确认不足的股票。
+4. 需要当前行情时再加 `--refresh-quotes`，临时快照会写到 `tmp/integrated-selection/`。
+
+示例：
+
+```bash
+uv run python .agents/skills/integrated-stock-selection/scripts/run_integrated_selection.py \
+  --date 2026-06-26 \
+  --theme 存储芯片 \
+  --format markdown \
+  --output tmp/integrated-selection/storage-2026-06-26.md
+```
 
 ### 个股研究
 

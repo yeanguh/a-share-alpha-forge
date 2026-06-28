@@ -14,6 +14,15 @@
       ]
     },
     {
+      "id": "integrated-stock-selection",
+      "type": "skill",
+      "path": ".agents/skills/integrated-stock-selection",
+      "summary": "整合日报主线、产业链卡口、估值、量价、资金和风险信号生成研究股票池",
+      "entrypoints": [
+        ".agents/skills/integrated-stock-selection/scripts/run_integrated_selection.py"
+      ]
+    },
+    {
       "id": "industry-chain-analysis",
       "type": "skill",
       "path": ".agents/skills/industry-chain-analysis",

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Integrated Stock Selection"
+  short_description: "整合新闻、产业链、估值、量价和风险信号生成A股候选池。"
+  default_prompt: "基于本地日报、产业链报告和行情数据，帮我生成一个A股候选股票池。"
