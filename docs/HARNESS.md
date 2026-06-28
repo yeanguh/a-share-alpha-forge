@@ -66,7 +66,10 @@ uv run python scripts/run_harness.py --mode smoke --check manifest.paths
 - `paths`：检查路径存在。
 - `py_compile`：编译 Python 入口。
 - `command`：运行命令，例如 `pytest` 或报告构建。
-- `workbench`：启动工作台并访问 JSON API。
+- `http`：访问指定 URL 并校验 HTTP 状态和可选文本。
+- `workbench`：启动工作台并访问 JSON API；web 模式会同时拉起依赖服务、检查启用服务都健康，并验证关键外部 URL。
+
+`web` 模式会启动报告页、投资资讯看板、Vibe-Trading Wiki、Vibe-Trading 后端和 Vibe-Trading 前端。Vibe 后端依赖 `web-apps/vibe-trading/.venv/bin/python`，首次运行前按 README 初始化 Python 3.11 venv；缺少 LLM API key 只会影响 agent 类研究任务，不影响 `/health` 和 `/sessions` 健康检查。
 
 ## 接入新能力
 

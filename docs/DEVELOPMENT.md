@@ -32,10 +32,12 @@
 - 外部 web 应用使用 submodule，避免复制源码。
 - 必须在 `README.md` 或 `docs/` 说明启动方式、端口、依赖和已知限制。
 - 如需统一入口，把服务加入 `scripts/stock_workbench.py`，把健康检查加入 `harness/manifest.json`。
+- 外部 web 应用如果有前后端拆分，工作台必须分别建模前端、后端和健康检查，避免只启动前端导致代理端点 500。
 
 ## Python 约定
 
 - 默认 Python 3.11+。
+- Vibe-Trading 后端单独使用 `web-apps/vibe-trading/.venv`，优先用 Python 3.11 创建；该目录是本机依赖环境，不入库。
 - 首选标准库；已有依赖在 `pyproject.toml` 中声明。
 - 脚本必须支持从仓库根目录运行。
 - 文件输出必须可配置，默认不要写仓库根目录。

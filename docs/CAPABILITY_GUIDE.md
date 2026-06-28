@@ -15,7 +15,7 @@
 | 找上游瓶颈、卡口、隐形供应商 | `serenity-bottleneck-investing` | `.agents/skills/serenity-bottleneck-investing/` |
 | 看赛道新闻 | `investment-news` | 工作台“新闻搜索”或 `http://127.0.0.1:8793/index.html` |
 | 使用开源全栈数据方法 | `a-stock-data` | `.agents/skills/a-stock-data/SKILL.md` |
-| 使用 Vibe-Trading 外部应用 | `vibe-trading` | `web-apps/vibe-trading/` submodule |
+| 使用 Vibe-Trading 外部应用 | `vibe-trading` | 工作台或 `web-apps/vibe-trading/` submodule |
 
 ## 推荐工作流
 
@@ -59,6 +59,10 @@
 ### 什么时候用 web？
 
 改了 `scripts/stock_workbench.py`、web 应用集成、端口、API 或工作台页面时，用 `web`。
+
+### Vibe-Trading 500 怎么判断？
+
+先看 `http://127.0.0.1:8899/health`。如果后端没起来，前端 `/sessions` 会通过 Vite/preview 代理失败并表现为 500；这通常是后端 venv 缺依赖或没有启动，不是 `/sessions` 本身要求 API key。只有聊天、agent、swarm 等 LLM 研究任务需要在 `web-apps/vibe-trading/agent/.env` 配置 provider/key。
 
 ### 开源 skill 和自研 skill 重合怎么办？
 

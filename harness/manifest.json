@@ -91,7 +91,7 @@
       "id": "vibe-trading",
       "type": "submodule-web-app",
       "path": "web-apps/vibe-trading",
-      "summary": "外部 Vibe-Trading web 应用和 Wiki",
+      "summary": "外部 Vibe-Trading web 应用、FastAPI 后端和 Wiki",
       "entrypoints": []
     }
   ],
@@ -142,13 +142,28 @@
       "type": "workbench",
       "modes": ["web"],
       "port": 8878,
-      "timeout_seconds": 45,
+      "timeout_seconds": 120,
+      "start_deps": true,
+      "include_vibe": true,
+      "require_services_running": true,
       "endpoints": [
         "/api/status",
         "/api/reports",
         "/api/skills",
         "/api/industries",
         "/api/news/summary"
+      ],
+      "external_urls": [
+        {
+          "url": "http://127.0.0.1:8899/health",
+          "expected_status": 200,
+          "timeout_seconds": 10
+        },
+        {
+          "url": "http://127.0.0.1:4173/sessions",
+          "expected_status": 200,
+          "timeout_seconds": 10
+        }
       ]
     }
   ]

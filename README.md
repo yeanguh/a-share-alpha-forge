@@ -84,9 +84,24 @@ uv run python scripts/stock_workbench.py --open
 - `http://127.0.0.1:8765/report/`：交互报告页。
 - `http://127.0.0.1:8793/index.html`：投资资讯看板。
 - `http://127.0.0.1:8088/home/`：Vibe-Trading Wiki 本地预览。
-- `http://127.0.0.1:4173/`：Vibe-Trading 前端预览（需要该 submodule 已执行 `npm ci && npm run build`）。
+- `http://127.0.0.1:8899/health`：Vibe-Trading FastAPI 后端健康检查。
+- `http://127.0.0.1:4173/`：Vibe-Trading 前端预览（需要该 submodule 已执行前后端依赖安装和前端构建）。
 
 工作台运行股票分析或数据抓取时，输出文件写入 `tmp/workbench/`，不入库。
+
+Vibe-Trading 首次使用建议用 Python 3.11 初始化后端环境：
+
+```bash
+cd web-apps/vibe-trading
+/usr/local/bin/python3.11 -m venv .venv
+.venv/bin/python -m pip install -U pip setuptools wheel
+.venv/bin/python -m pip install -e .
+cd frontend
+npm ci
+npm run build
+```
+
+`/health`、`/sessions` 和基础页面不需要 LLM API key；运行 Vibe 的 agent、swarm 或聊天研究任务时，需要按 `web-apps/vibe-trading/agent/.env.example` 创建 `agent/.env` 并配置 `LANGCHAIN_PROVIDER` 及对应密钥。
 
 生成日报：
 

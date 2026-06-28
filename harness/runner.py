@@ -178,6 +178,31 @@ def fetch_json(url: str, timeout: float = 5) -> dict[str, Any]:
         return json.loads(response.read().decode("utf-8"))
 
 
+def http_check(check: dict[str, Any]) -> CheckResult:
+    started = time.time()
+    url = check["url"]
+    expected_status = int(check.get("expected_status", 200))
+    try:
+        with urllib.request.urlopen(url, timeout=float(check.get("timeout_seconds", 10))) as response:
+            body = response.read(int(check.get("read_bytes", 2048))).decode("utf-8", errors="replace")
+            status = response.getcode()
+        passed = status == expected_status
+        detail = f"HTTP {status}"
+        if check.get("contains") and check["contains"] not in body:
+            passed = False
+            detail = f"{detail}; missing text: {check['contains']}"
+        return CheckResult(
+            check["id"],
+            check["name"],
+            "passed" if passed else "failed",
+            time.time() - started,
+            detail,
+            stdout_tail=tail(body),
+        )
+    except Exception as exc:  # noqa: BLE001
+        return CheckResult(check["id"], check["name"], "failed", time.time() - started, str(exc))
+
+
 def workbench_check(check: dict[str, Any]) -> CheckResult:
     started = time.time()
     port = int(check.get("port", 8878))
@@ -189,9 +214,11 @@ def workbench_check(check: dict[str, Any]) -> CheckResult:
         "scripts/stock_workbench.py",
         "--port",
         str(port),
-        "--no-deps",
-        "--no-vibe",
     ]
+    if not check.get("start_deps", False):
+        command.append("--no-deps")
+    if not check.get("include_vibe", False):
+        command.append("--no-vibe")
     try:
         if not is_port_open(port):
             proc = subprocess.Popen(
@@ -223,6 +250,28 @@ def workbench_check(check: dict[str, Any]) -> CheckResult:
                 fetch_json(base + endpoint)
             except Exception as exc:  # noqa: BLE001
                 failures.append(f"{endpoint}: {exc}")
+        for external in check.get("external_urls", []):
+            url = external["url"]
+            expected_status = int(external.get("expected_status", 200))
+            try:
+                with urllib.request.urlopen(url, timeout=float(external.get("timeout_seconds", 10))) as response:
+                    status_code = response.getcode()
+                if status_code != expected_status:
+                    failures.append(f"{url}: HTTP {status_code}, expected {expected_status}")
+            except Exception as exc:  # noqa: BLE001
+                failures.append(f"{url}: {exc}")
+        if check.get("require_services_running"):
+            try:
+                status_payload = fetch_json(base + "/api/status")
+                down_services = [
+                    item["key"]
+                    for item in status_payload.get("services", [])
+                    if item.get("enabled") and not item.get("running")
+                ]
+                if down_services:
+                    failures.append("services down: " + ", ".join(down_services))
+            except Exception as exc:  # noqa: BLE001
+                failures.append(f"/api/status service check: {exc}")
         status = "passed" if not failures else "failed"
         detail = "all workbench endpoints returned JSON" if not failures else "; ".join(failures)
         return CheckResult(check["id"], check["name"], status, time.time() - started, detail, command=command)
@@ -243,6 +292,8 @@ def run_check(check: dict[str, Any], manifest: dict[str, Any]) -> CheckResult:
         return compile_paths(check, manifest)
     if check_type == "command":
         return command_check(check)
+    if check_type == "http":
+        return http_check(check)
     if check_type == "workbench":
         return workbench_check(check)
     raise ValueError(f"unknown check type: {check_type}")

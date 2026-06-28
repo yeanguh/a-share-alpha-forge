@@ -579,8 +579,11 @@ class Service:
     url: str
     command: list[str] | None = None
     cwd: Path = ROOT
+    env: dict[str, str] = field(default_factory=dict)
     enabled: bool = True
     detail: str = ""
+    health_url: str = ""
+    startup_timeout: int = 15
     process: subprocess.Popen[str] | None = field(default=None, init=False)
 
 
@@ -588,6 +591,19 @@ def is_port_open(port: int, host: str = "127.0.0.1") -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.settimeout(0.25)
         return sock.connect_ex((host, port)) == 0
+
+
+def is_url_healthy(url: str, timeout: float = 2) -> tuple[bool, str]:
+    try:
+        with urllib.request.urlopen(url, timeout=timeout) as response:
+            status = response.getcode()
+            if 200 <= status < 400:
+                return True, f"HTTP {status}"
+            return False, f"HTTP {status}"
+    except urllib.error.HTTPError as exc:
+        return False, f"HTTP {exc.code}"
+    except Exception as exc:  # noqa: BLE001
+        return False, str(exc)
 
 
 def request_json(url: str, timeout: float = 10) -> dict[str, Any]:
@@ -629,6 +645,7 @@ class Workbench:
                 url="http://127.0.0.1:8765/report/",
                 command=[py, "-m", "http.server", "8765", "--directory", "web-apps/report"],
                 detail="日报、复盘、周报、产业链报告",
+                health_url="http://127.0.0.1:8765/report/",
             ),
             Service(
                 key="news",
@@ -637,6 +654,7 @@ class Workbench:
                 url="http://127.0.0.1:8793/index.html",
                 command=["uv", "run", "python", ".agents/skills/investment-news/server.py", "8793"],
                 detail="108+ 新闻源和本地刷新接口",
+                health_url="http://127.0.0.1:8793/index.html",
             ),
             Service(
                 key="wiki",
@@ -645,11 +663,43 @@ class Workbench:
                 url="http://127.0.0.1:8088/home/",
                 command=[py, "-m", "http.server", "8088", "--directory", "web-apps/vibe-trading/wiki"],
                 detail="外部应用文档静态预览",
+                health_url="http://127.0.0.1:8088/home/",
             ),
         ]
         if self.include_vibe:
+            vibe_python = VIBE_TRADING / ".venv" / "bin" / "python"
+            backend_command = None
+            backend_detail = "Vibe-Trading FastAPI 后端；LLM 研究任务需要 agent/.env 中的 provider/key"
+            if vibe_python.exists():
+                backend_command = [
+                    str(vibe_python),
+                    "-c",
+                    "import cli, sys; raise SystemExit(cli.main(sys.argv[1:]))",
+                    "serve",
+                    "--host",
+                    "127.0.0.1",
+                    "--port",
+                    "8899",
+                ]
+            else:
+                backend_detail = "未找到 .venv/bin/python；先在 web-apps/vibe-trading 用 Python 3.11 创建 venv 并 pip install -e ."
+            services.append(
+                Service(
+                    key="vibe_backend",
+                    name="Vibe-Trading 后端",
+                    port=8899,
+                    url="http://127.0.0.1:8899/health",
+                    command=backend_command,
+                    cwd=VIBE_TRADING,
+                    env={"PYTHONPATH": str(VIBE_TRADING / "agent")},
+                    enabled=backend_command is not None,
+                    detail=backend_detail,
+                    health_url="http://127.0.0.1:8899/health",
+                    startup_timeout=90,
+                )
+            )
             command = None
-            detail = "Vibe-Trading 前端预览"
+            detail = "Vibe-Trading 前端预览；/sessions 等接口代理到 127.0.0.1:8899"
             if (VIBE_FRONTEND / "node_modules").exists() and (VIBE_FRONTEND / "dist").exists():
                 command = ["npm", "run", "preview", "--", "--host", "127.0.0.1", "--port", "4173"]
             else:
@@ -664,9 +714,21 @@ class Workbench:
                     cwd=VIBE_FRONTEND,
                     enabled=command is not None,
                     detail=detail,
+                    health_url="http://127.0.0.1:4173/",
+                    startup_timeout=45,
                 )
             )
         return services
+
+    def service_running(self, service: Service) -> tuple[bool, str]:
+        if service.health_url:
+            healthy, detail = is_url_healthy(service.health_url)
+            if healthy:
+                return True, detail
+            if not is_port_open(service.port):
+                return False, detail
+            return False, f"port open, health failed: {detail}"
+        return is_port_open(service.port), "port open" if is_port_open(service.port) else "port closed"
 
     def start_dependencies(self) -> None:
         TMP.mkdir(parents=True, exist_ok=True)
@@ -679,29 +741,39 @@ class Workbench:
             if not service.enabled:
                 print(f"[skip] {service.name}: {service.detail}")
                 continue
-            if is_port_open(service.port):
+            running, _ = self.service_running(service)
+            if running:
                 print(f"[reuse] {service.name}: {service.url}")
                 continue
             if not service.command:
                 print(f"[skip] {service.name}: no command")
                 continue
             print(f"[start] {service.name}: {service.url}")
+            log_path = TMP / f"{service.key}.log"
+            log_file = log_path.open("ab", buffering=0)
             service.process = subprocess.Popen(
                 service.command,
                 cwd=str(service.cwd),
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
+                stdout=log_file,
+                stderr=subprocess.STDOUT,
                 text=True,
-                env={**os.environ, "PYTHONUTF8": "1"},
+                env={**os.environ, "PYTHONUTF8": "1", **service.env},
             )
-            deadline = time.time() + 15
+            log_file.close()
+            deadline = time.time() + service.startup_timeout
             while time.time() < deadline:
-                if is_port_open(service.port):
+                running, _ = self.service_running(service)
+                if running:
                     break
                 if service.process.poll() is not None:
-                    print(f"[warn] {service.name} exited early with {service.process.returncode}", file=sys.stderr)
+                    print(
+                        f"[warn] {service.name} exited early with {service.process.returncode}; log: {log_path}",
+                        file=sys.stderr,
+                    )
                     break
                 time.sleep(0.25)
+            else:
+                print(f"[warn] {service.name} not healthy after {service.startup_timeout}s; log: {log_path}", file=sys.stderr)
 
     def stop(self) -> None:
         for service in reversed(self.services):
@@ -717,18 +789,25 @@ class Workbench:
                     proc.kill()
 
     def status(self) -> list[dict[str, Any]]:
-        return [
-            {
-                "key": service.key,
-                "name": service.name,
-                "port": service.port,
-                "url": service.url,
-                "running": is_port_open(service.port),
-                "enabled": service.enabled,
-                "detail": service.detail,
-            }
-            for service in self.services
-        ]
+        statuses = []
+        for service in self.services:
+            running, health_detail = self.service_running(service) if service.enabled else (False, "disabled")
+            detail = service.detail
+            if service.enabled and service.health_url and not running:
+                detail = f"{detail}；健康检查失败: {health_detail}"
+            statuses.append(
+                {
+                    "key": service.key,
+                    "name": service.name,
+                    "port": service.port,
+                    "url": service.url,
+                    "running": running,
+                    "enabled": service.enabled,
+                    "detail": detail,
+                    "health": health_detail,
+                }
+            )
+        return statuses
 
 
 def read_text(path: Path) -> str:

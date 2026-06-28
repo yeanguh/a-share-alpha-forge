@@ -13,6 +13,20 @@
 | Harness 层 | `harness/` | 描述能力清单，运行结构检查、单测、完整检查和 web 健康检查。 |
 | 文档层 | `README.md`、`docs/` | 面向使用者和开发者的入口、规范和操作指南。 |
 
+## 服务集成
+
+`scripts/stock_workbench.py` 是本地统一入口。它负责先重建可恢复的报告数据，再启动本仓库自研页面和外部 web 应用依赖：
+
+| 服务 | 端口 | 健康口径 |
+| --- | --- | --- |
+| 交互报告 | `8765` | `GET /report/` 返回 2xx/3xx |
+| 投资资讯看板 | `8793` | `GET /index.html` 返回 2xx/3xx |
+| Vibe-Trading Wiki | `8088` | `GET /home/` 返回 2xx/3xx |
+| Vibe-Trading 后端 | `8899` | `GET /health` 返回 2xx/3xx |
+| Vibe-Trading 前端 | `4173` | `GET /` 返回 2xx/3xx，API 由前端代理到 `8899` |
+
+外部应用保持 submodule 边界；主仓库只维护启动、健康检查、文档和测试入口，不直接改外部源码。Vibe-Trading 的 LLM provider 配置属于本机运行配置，放在 `web-apps/vibe-trading/agent/.env`，不入库。
+
 ## 关键约束
 
 - `tmp/` 只放运行产物、临时报告和 harness 输出，不入库。
