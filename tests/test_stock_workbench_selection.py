@@ -38,14 +38,37 @@ def test_render_selection_markdown_groups_candidates() -> None:
                     "quote": {"latest": 128.0, "pe_ttm": 88.0},
                     "reasons": ["已通过日报受益股门禁"],
                     "missing_evidence": ["缺少问财趋势承接信号"],
+                    "vibe_committee_review": {
+                        "status": "completed",
+                        "run_id": "swarm-test",
+                        "final_report": """
+# 603986.SH 兆易创新 — PM最终投资决定与执行计划
+
+## 1. PM decision statement
+
+**最终决定：只批准观察仓，不批准核心仓。** 估值较高，先等待基本面兑现。
+
+## 2. 风险
+
+**估值风险是核心约束。** 若跌破关键支撑应降低仓位。
+""".strip(),
+                    },
                 }
             ],
+            "vibe_committee_review": {
+                "status": "completed",
+                "summary": {"requested": 1, "completed": 1, "failed": 0, "timeout": 0},
+            },
         }
     )
 
     assert "# 综合选股报告 2026-06-26" in markdown
-    assert "## 核心池" in markdown
-    assert "| 603986 | 兆易创新 | 存储芯片 | 74.81 | 价 128.0；PE 88.0 |" in markdown
+    assert "## 一、结论概览" in markdown
+    assert "## 三、最终名单" in markdown
+    assert "| 核心观察 | 603986 | 兆易创新 | 74.81 | 现价 128；PE 88 | 最终决定：只批准观察仓，不批准核心仓。" in markdown
+    assert "## 五、执行说明" in markdown
+    assert "PM decision statement" not in markdown
+    assert "swarm-test" not in markdown
 
 
 def test_run_integrated_selection_writes_tmp_report(monkeypatch) -> None:

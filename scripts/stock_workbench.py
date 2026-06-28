@@ -1359,107 +1359,234 @@ def investment_news_summary() -> dict[str, Any]:
     }
 
 
+def compact_text(value: str, limit: int = 120) -> str:
+    text = re.sub(r"`([^`]+)`", r"\1", value or "")
+    text = re.sub(r"\*\*([^*]+)\*\*", r"\1", text)
+    text = re.sub(r"^#+\s*", "", text, flags=re.M)
+    text = re.sub(r"^\s*[-*]\s+", "", text, flags=re.M)
+    text = re.sub(r"^\s*\d+[.)]\s+", "", text, flags=re.M)
+    text = re.sub(r"\s+", " ", text).strip(" -|")
+    text = text.replace("|", "／")
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
+def has_chinese(value: str) -> bool:
+    return bool(re.search(r"[\u4e00-\u9fff]", value or ""))
+
+
+def first_matching_paragraph(text: str, patterns: tuple[str, ...], fallback: str = "") -> str:
+    paragraphs = [part.strip() for part in re.split(r"\n\s*\n", text or "") if part.strip()]
+    for pattern in patterns:
+        for paragraph in paragraphs:
+            if paragraph.lstrip().startswith("#"):
+                continue
+            match = re.search(pattern, paragraph, re.I)
+            if match and has_chinese(paragraph):
+                return compact_text(paragraph[match.start() :])
+    for paragraph in paragraphs:
+        if paragraph.lstrip().startswith("#"):
+            continue
+        cleaned = compact_text(paragraph)
+        if cleaned and has_chinese(cleaned) and not cleaned.startswith("#"):
+            return cleaned
+    return fallback
+
+
+def first_matching_sentence(text: str, patterns: tuple[str, ...], fallback: str = "") -> str:
+    cleaned = re.sub(r"\*\*([^*]+)\*\*", r"\1", text or "")
+    cleaned = re.sub(r"^#+\s*.*$", "", cleaned, flags=re.M)
+    sentences = [part.strip() for part in re.split(r"(?<=[。！？；])\s*", cleaned) if part.strip()]
+    for pattern in patterns:
+        for sentence in sentences:
+            match = re.search(pattern, sentence, re.I)
+            if match and has_chinese(sentence):
+                start = match.start() if re.search(r"最终|决定|建议", pattern) else 0
+                return compact_text(sentence[start:])
+    return fallback
+
+
+def bucket_label(bucket: str) -> str:
+    return {"core": "核心观察", "watch": "观察等待", "reject": "暂缓/剔除"}.get(bucket, bucket or "-")
+
+
+def status_label(status: str) -> str:
+    return {
+        "completed": "已完成",
+        "failed": "失败",
+        "timeout": "超时",
+        "cancelled": "已取消",
+        "pending": "等待中",
+        "running": "运行中",
+        "not_requested": "未启用",
+        "generated": "已生成",
+        "unknown": "未知",
+    }.get(status, status or "-")
+
+
+def valuation_text(row: dict[str, Any]) -> str:
+    quote = row.get("quote") or {}
+    valuation = []
+    if quote.get("latest") is not None:
+        valuation.append(f"现价 {format_number(quote.get('latest'))}")
+    if quote.get("pe_ttm") is not None:
+        valuation.append(f"PE {format_number(quote.get('pe_ttm'))}")
+    if quote.get("pb") is not None:
+        valuation.append(f"PB {format_number(quote.get('pb'))}")
+    return "；".join(valuation) or "-"
+
+
+def format_number(value: Any) -> str:
+    if not isinstance(value, (float, int)):
+        return str(value)
+    return f"{value:.2f}".rstrip("0").rstrip(".")
+
+
+def local_committee_brief(local: dict[str, Any]) -> dict[str, str]:
+    vetoes = "；".join(local.get("vetoes") or []) or "无"
+    return {
+        "status": "本地初审",
+        "decision": compact_text(f"{local.get('action', '')}。{local.get('advice', '')}"),
+        "risk": compact_text(vetoes),
+        "run": "",
+    }
+
+
+def english_committee_brief(report: str, row: dict[str, Any]) -> dict[str, str]:
+    text = (report or "").lower()
+    bucket = str(row.get("bucket") or "")
+    if "not a core" in text or "not a core position" in text or "not a core investment" in text:
+        decision = "投委会建议：仅可小仓战术参与，不纳入核心仓。"
+    elif "reject" in text or "do not" in text or "not establish" in text:
+        decision = "投委会建议：暂不建立核心多头，等待证据补齐后再复核。"
+    elif "approve" in text and "tactical" in text:
+        decision = "投委会建议：可战术小仓参与，仓位上限从严控制。"
+    elif bucket == "core":
+        decision = "投委会已完成评审，建议保留核心观察但需等待证据确认。"
+    else:
+        decision = "投委会已完成评审，建议保留观察并控制仓位。"
+
+    risk_flags = []
+    if "valuation" in text or "pe ttm" in text or "pb" in text:
+        risk_flags.append("估值容错率偏低")
+    if "missing evidence" in text or "evidence gaps" in text or "not yet verified" in text:
+        risk_flags.append("证据缺口仍需补齐")
+    if "resistance" in text or "support" in text or "breakout" in text:
+        risk_flags.append("突破和支撑位需要继续确认")
+    risk = "；".join(risk_flags) or "需要继续跟踪趋势、估值和基本面兑现。"
+    return {"decision": decision, "risk": risk}
+
+
+def committee_brief(row: dict[str, Any]) -> dict[str, str]:
+    vibe = row.get("vibe_committee_review") or {}
+    local = row.get("committee_review") or {}
+    report = vibe.get("final_report") or ""
+    local_brief = local_committee_brief(local) if local else {}
+    if report:
+        decision = first_matching_sentence(
+            report,
+            ("最终决定", "最终投资决定", "决定：", "建议"),
+            "",
+        )
+        risk = first_matching_sentence(
+            report,
+            ("核心约束", "估值风险", "止损", "硬上限", "不批准", "回撤", "等待"),
+            "",
+        )
+        english_brief = english_committee_brief(report, row)
+        return {
+            "status": status_label(str(vibe.get("status") or "")),
+            "decision": decision if has_chinese(decision) else english_brief["decision"],
+            "risk": risk if has_chinese(risk) else english_brief["risk"],
+            "run": str(vibe.get("run_id") or ""),
+        }
+    if vibe:
+        return {
+            "status": status_label(str(vibe.get("status") or "")),
+            "decision": compact_text(str(vibe.get("error") or "投委会未产出最终报告。")),
+            "risk": "-",
+            "run": str(vibe.get("run_id") or ""),
+        }
+    if local:
+        return local_brief
+    return {"status": "-", "decision": "-", "risk": "-", "run": ""}
+
+
 def render_selection_markdown(payload: dict[str, Any]) -> str:
     summary = payload.get("summary") or {}
+    candidates = payload.get("candidates") or []
+    vibe_committee = payload.get("vibe_committee_review") or {}
+    vibe_summary = vibe_committee.get("summary") or {}
     lines = [
         f"# 综合选股报告 {payload.get('date') or ''}",
         "",
+        "## 一、结论概览",
+        "",
         f"- 生成时间: {payload.get('generated_at') or ''}",
         f"- 主题: {payload.get('theme') or '全部'}",
-        f"- 候选数: {summary.get('total', 0)}，核心池: {summary.get('core', 0)}，观察池: {summary.get('watch', 0)}，排除: {summary.get('reject', 0)}",
-        f"- iWenCai 状态: {(payload.get('iwencai') or {}).get('status', 'unknown')}",
+        f"- 初筛结果: 共 {summary.get('total', 0)} 只，核心 {summary.get('core', 0)} 只，观察 {summary.get('watch', 0)} 只，暂缓/剔除 {summary.get('reject', 0)} 只。",
+        f"- 趋势池状态: {status_label(str((payload.get('iwencai') or {}).get('status', 'unknown')))}",
+        f"- 投委会状态: {status_label(str(vibe_committee.get('status', 'not_requested')))}；完成 {vibe_summary.get('completed', 0)} / {vibe_summary.get('requested', 0)}。",
         "",
-        "## 主线",
+        "## 二、主线背景",
+        "",
     ]
     mainlines = payload.get("mainlines") or []
     if mainlines:
-        for item in mainlines[:8]:
+        for item in mainlines[:5]:
             title = item.get("title") or item.get("sector") or "-"
             score = item.get("impact_score") or item.get("score") or ""
             lines.append(f"- {title}: {score}")
     else:
         lines.append("- 未匹配到主题主线，按股票和产业链证据补充筛选。")
 
-    for bucket, title in (("core", "核心池"), ("watch", "观察池"), ("reject", "排除/待验证")):
-        rows = [row for row in payload.get("candidates", []) if row.get("bucket") == bucket]
-        lines.extend(
-            [
-                "",
-                f"## {title}",
-                "",
-                "| 代码 | 名称 | 主题/行业 | 分数 | 估值 | 证据 | 缺口 |",
-                "| --- | --- | --- | ---: | --- | --- | --- |",
-            ]
-        )
-        if not rows:
-            lines.append("| - | - | - | - | - | - | - |")
-            continue
-        for row in rows:
-            quote = row.get("quote") or {}
-            valuation = []
-            if quote.get("latest") is not None:
-                valuation.append(f"价 {quote.get('latest')}")
-            if quote.get("pe_ttm") is not None:
-                valuation.append(f"PE {quote.get('pe_ttm')}")
-            if quote.get("pb") is not None:
-                valuation.append(f"PB {quote.get('pb')}")
-            evidence = "；".join(str(item) for item in (row.get("reasons") or [])[:3]) or "-"
-            missing = "；".join(str(item) for item in (row.get("missing_evidence") or [])[:3]) or "无"
-            lines.append(
-                "| {code} | {name} | {sector} | {score} | {valuation} | {evidence} | {missing} |".format(
-                    code=row.get("code") or "",
-                    name=row.get("name") or "",
-                    sector=row.get("sector") or "",
-                    score=row.get("score") or "",
-                    valuation="；".join(valuation) or "-",
-                    evidence=evidence,
-                    missing=missing,
-                )
+    lines.extend(
+        [
+            "",
+            "## 三、最终名单",
+            "",
+            "| 分组 | 代码 | 名称 | 分数 | 估值 | 投委会结论 | 主要风险/条件 |",
+            "| --- | --- | --- | ---: | --- | --- | --- |",
+        ]
+    )
+    for row in candidates:
+        brief = committee_brief(row)
+        lines.append(
+            "| {bucket} | {code} | {name} | {score} | {valuation} | {decision} | {risk} |".format(
+                bucket=bucket_label(str(row.get("bucket") or "")),
+                code=row.get("code") or "",
+                name=row.get("name") or "-",
+                score=row.get("score") or "",
+                valuation=valuation_text(row),
+                decision=brief["decision"],
+                risk=brief["risk"],
             )
-    local_committee = payload.get("committee_review") or {}
-    if local_committee:
-        lines.extend(
-            [
-                "",
-                "## 本地投委会初审",
-                "",
-                f"- 模式: {local_committee.get('mode', 'local')}",
-                f"- 说明: {local_committee.get('description', '')}",
-                "",
-                "| 代码 | 名称 | 投委会评分 | 决议 | 建议 | 否决/待补 |",
-                "| --- | --- | ---: | --- | --- | --- |",
-            ]
         )
-        for item in local_committee.get("reviews", []):
-            vetoes = "；".join(item.get("vetoes") or []) or "无"
-            lines.append(
-                f"| {item.get('code', '')} | {item.get('name', '')} | {item.get('committee_score', '')} | {item.get('action', '')} | {item.get('advice', '')} | {vetoes} |"
-            )
-    vibe_committee = payload.get("vibe_committee_review") or {}
+    if not candidates:
+        lines.append("| - | - | - | - | - | - | - |")
+
+    lines.extend(
+        [
+            "",
+            "## 四、待补证据",
+            "",
+            "| 代码 | 需要补充确认 |",
+            "| --- | --- |",
+        ]
+    )
+    for row in candidates:
+        missing = "；".join(str(item) for item in (row.get("missing_evidence") or [])[:4]) or "无"
+        lines.append(f"| {row.get('code') or ''} | {missing} |")
+
     if vibe_committee:
         lines.extend(
             [
                 "",
-                "## Vibe-Trading 投资委员会评审",
+                "## 五、执行说明",
                 "",
-                f"- 状态: {vibe_committee.get('status', 'unknown')}",
-                f"- 预设: {vibe_committee.get('preset', 'investment_committee')}",
-                f"- 评审数量: {len(vibe_committee.get('reviews', []))}",
-                "",
+                f"- 本次要求评审 {vibe_summary.get('requested', 0)} 只，已完成 {vibe_summary.get('completed', 0)} 只，失败 {vibe_summary.get('failed', 0)} 只，超时 {vibe_summary.get('timeout', 0)} 只。",
+                "- 完整投委会原文、运行编号和中间过程已保留在 JSON 文件中，Markdown 只展示便于阅读的中文摘要。",
             ]
         )
-        for item in vibe_committee.get("reviews", []):
-            lines.extend(
-                [
-                    f"### {item.get('code', '')} {item.get('name', '')}",
-                    "",
-                    f"- 运行: {item.get('run_id', '')}",
-                    f"- 状态: {item.get('status', '')}",
-                    "",
-                    item.get("final_report") or item.get("error") or "暂无最终报告。",
-                    "",
-                ]
-            )
     lines.extend(["", "> 仅用于研究和复盘校准，不构成买卖建议。"])
     return "\n".join(lines) + "\n"
 
