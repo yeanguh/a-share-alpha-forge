@@ -1,0 +1,9 @@
+[submodule "web-apps/vibe-trading"]
+	path = web-apps/vibe-trading
+	url = https://github.com/HKUDS/Vibe-Trading.git
+[submodule ".agents/skills/a-stock-data"]
+	path = .agents/skills/a-stock-data
+	url = https://github.com/simonlin1212/a-stock-data.git
+[submodule ".agents/skills/investment-news"]
+	path = .agents/skills/investment-news
+	url = https://github.com/simonlin1212/investment-news.git
