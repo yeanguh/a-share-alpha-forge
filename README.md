@@ -111,6 +111,14 @@ npm run build
 
 `/health`、`/sessions` 和基础页面不需要 LLM API key；运行 Vibe 的 agent、swarm 或聊天研究任务时，需要按 `web-apps/vibe-trading/agent/.env.example` 创建 `agent/.env` 并配置 `LANGCHAIN_PROVIDER` 及对应密钥。
 
+Vibe-Trading 的 Alpha Zoo 使用 `csi300` 时会优先读取本机 `a-data/` 缓存；当前默认识别仓库同级目录 `../a-data`。如果数据放在别处，可以启动前设置：
+
+```bash
+export VIBE_TRADING_A_DATA_DIR=/path/to/a-data
+```
+
+只有本地 `a-data` 不存在或缺历史行情时，才需要配置 `TUSHARE_TOKEN`。
+
 生成日报：
 
 ```bash

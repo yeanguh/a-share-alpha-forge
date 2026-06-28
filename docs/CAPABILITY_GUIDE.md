@@ -68,6 +68,10 @@
 
 先看 `http://127.0.0.1:8899/health`。如果后端没起来，前端 `/sessions` 会通过 Vite/preview 代理失败并表现为 500；这通常是后端 venv 缺依赖或没有启动，不是 `/sessions` 本身要求 API key。只有聊天、agent、swarm 等 LLM 研究任务需要在 `web-apps/vibe-trading/agent/.env` 配置 provider/key。
 
+### Vibe-Trading 为什么还要 Tushare？
+
+Alpha Zoo 的 `csi300` 以前默认走 Tushare。当前集成已改为先读本机 `a-data/`，默认位置是 `stock-analysis` 同级的 `a-data`。如果你的数据目录不在默认位置，设置 `VIBE_TRADING_A_DATA_DIR=/path/to/a-data` 后重启 Vibe 后端即可；只有本地数据不可用时才需要 `TUSHARE_TOKEN`。
+
 ### 开源 skill 和自研 skill 重合怎么办？
 
 开源 skill 优先作为数据源和方法参考；自研 skill 负责本仓库的归档、质量门禁、报告模板和可审计流程。不要直接把开源仓库的运行缓存或生成数据提交进主仓库。
