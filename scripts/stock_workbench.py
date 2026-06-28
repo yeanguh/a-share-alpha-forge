@@ -44,131 +44,243 @@ PORTAL_HTML = r"""<!doctype html>
     <style>
       :root {
         color-scheme: light;
-        --bg: #f6f7f4;
+        --bg: #f4f6f3;
+        --shell: #fbfcfb;
         --panel: #ffffff;
-        --panel-2: #eef4f0;
-        --line: #d8ded7;
-        --text: #17211b;
-        --muted: #65736c;
-        --accent: #0f6b4f;
-        --accent-2: #315f9b;
-        --bad: #a83434;
+        --panel-2: #f6f8f7;
+        --panel-3: #eef3f1;
+        --line: #d9e0dc;
+        --line-strong: #bdcbc4;
+        --text: #18231f;
+        --muted: #66746f;
+        --soft: #89958f;
+        --accent: #11624c;
+        --accent-dark: #0b4435;
+        --blue: #285d92;
+        --amber: #9a6515;
+        --bad: #a83b35;
         --good: #18724f;
+        --shadow: 0 18px 42px rgba(24, 35, 31, .09);
+        --shadow-soft: 0 10px 24px rgba(24, 35, 31, .06);
       }
       * { box-sizing: border-box; }
+      html { background: var(--bg); }
       body {
         margin: 0;
-        background: var(--bg);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,246,243,.96) 320px),
+          var(--bg);
         color: var(--text);
         font: 14px/1.55 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        letter-spacing: 0;
       }
       header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
-        padding: 18px 24px;
-        border-bottom: 1px solid var(--line);
-        background: var(--panel);
+        gap: 18px;
+        min-height: 74px;
+        padding: 16px 26px 16px 30px;
+        border-bottom: 1px solid rgba(217, 224, 220, .86);
+        background: rgba(251, 252, 251, .88);
+        backdrop-filter: blur(18px);
         position: sticky;
         top: 0;
         z-index: 5;
       }
-      h1, h2, h3 { margin: 0; line-height: 1.2; }
-      h1 { font-size: 20px; }
-      h2 { font-size: 16px; }
-      h3 { font-size: 14px; }
+      h1, h2, h3 { margin: 0; line-height: 1.2; letter-spacing: 0; }
+      h1 { font-size: 21px; font-weight: 760; }
+      h2 { font-size: 16px; font-weight: 730; }
+      h3 { font-size: 14px; font-weight: 720; }
       p { margin: 0; }
-      a { color: var(--accent-2); text-decoration: none; }
+      a { color: var(--blue); text-decoration: none; }
       a:hover { text-decoration: underline; }
-      button, input, select, textarea {
-        font: inherit;
-      }
+      button, input, select, textarea { font: inherit; }
       button, .button {
         border: 1px solid var(--line);
-        background: var(--panel);
+        background: linear-gradient(180deg, #fff, #f8faf9);
         color: var(--text);
-        border-radius: 6px;
-        min-height: 34px;
-        padding: 0 12px;
+        border-radius: 7px;
+        min-height: 36px;
+        padding: 0 13px;
         cursor: pointer;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 7px;
         text-decoration: none;
+        font-weight: 640;
+        box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 1px 2px rgba(24,35,31,.04);
+        transition: border-color .14s ease, background .14s ease, color .14s ease, box-shadow .14s ease, transform .14s ease;
+      }
+      button:hover, .button:hover {
+        border-color: var(--line-strong);
+        box-shadow: var(--shadow-soft);
+        text-decoration: none;
+        transform: translateY(-1px);
       }
       button.primary {
         border-color: var(--accent);
-        background: var(--accent);
+        background: linear-gradient(180deg, #17755b, var(--accent-dark));
         color: #fff;
+        box-shadow: 0 8px 18px rgba(17, 98, 76, .18);
       }
-      button:disabled { opacity: .55; cursor: wait; }
+      button:disabled { opacity: .58; cursor: wait; transform: none; }
+      button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+        outline: 3px solid rgba(40, 93, 146, .22);
+        outline-offset: 2px;
+      }
       input, select, textarea {
         width: 100%;
         border: 1px solid var(--line);
-        border-radius: 6px;
+        border-radius: 7px;
         background: #fff;
-        min-height: 34px;
-        padding: 7px 9px;
+        min-height: 38px;
+        padding: 8px 10px;
         color: var(--text);
+        box-shadow: 0 1px 0 rgba(255,255,255,.95) inset;
       }
-      textarea { min-height: 96px; resize: vertical; }
+      input:hover, select:hover, textarea:hover { border-color: var(--line-strong); }
+      textarea { min-height: 104px; resize: vertical; }
       main {
         display: grid;
-        grid-template-columns: 250px minmax(0, 1fr);
-        min-height: calc(100vh - 72px);
+        grid-template-columns: 236px minmax(0, 1fr);
+        min-height: calc(100vh - 74px);
       }
       nav {
-        border-right: 1px solid var(--line);
-        padding: 18px 14px;
-        background: #fbfcfa;
+        border-right: 1px solid rgba(217,224,220,.82);
+        padding: 18px 12px;
+        background: rgba(247, 249, 248, .74);
+        position: sticky;
+        top: 74px;
+        height: calc(100vh - 74px);
       }
       nav button {
         width: 100%;
         justify-content: flex-start;
         border-color: transparent;
         background: transparent;
-        margin-bottom: 5px;
+        box-shadow: none;
+        margin-bottom: 6px;
+        min-height: 40px;
+        color: #41504a;
+        font-weight: 680;
+        position: relative;
+      }
+      nav button:hover {
+        background: rgba(255,255,255,.72);
+        border-color: var(--line);
+        box-shadow: 0 8px 18px rgba(24,35,31,.05);
       }
       nav button.active {
-        background: var(--panel-2);
+        background: #fff;
         border-color: var(--line);
         color: var(--accent);
-        font-weight: 700;
+        box-shadow: var(--shadow-soft);
+      }
+      nav button.active::before {
+        content: "";
+        width: 4px;
+        height: 20px;
+        border-radius: 99px;
+        background: var(--accent);
+        position: absolute;
+        left: -2px;
+        top: 50%;
+        transform: translateY(-50%);
       }
       .content {
-        padding: 22px;
+        min-width: 0;
+        padding: 24px;
         display: grid;
         gap: 18px;
         align-content: start;
       }
       .grid {
         display: grid;
-        grid-template-columns: repeat(12, 1fr);
+        grid-template-columns: repeat(12, minmax(0, 1fr));
         gap: 14px;
       }
       .card {
         grid-column: span 6;
-        background: var(--panel);
-        border: 1px solid var(--line);
+        background: rgba(255,255,255,.96);
+        border: 1px solid rgba(217,224,220,.9);
         border-radius: 8px;
         padding: 16px;
         display: grid;
         gap: 12px;
+        box-shadow: var(--shadow-soft);
+        min-width: 0;
       }
       .card.full { grid-column: 1 / -1; }
       .card.third { grid-column: span 4; }
+      .card .card {
+        box-shadow: none;
+        background: var(--panel-2);
+        border-color: #e3e9e6;
+      }
+      .card > h2:first-child {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 2px;
+      }
+      .section-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+      .section-head p { margin-top: 5px; }
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .service-card {
+        min-height: 112px;
+        border: 1px solid #e0e7e3;
+        border-radius: 8px;
+        background: linear-gradient(180deg, #fbfdfc, #f4f7f5);
+        padding: 14px;
+        display: grid;
+        gap: 8px;
+        align-content: start;
+      }
+      .service-card h3,
+      .quick-card h2 {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+      }
+      .service-card a {
+        font-size: 13px;
+        overflow-wrap: anywhere;
+      }
+      .quick-card {
+        min-height: 166px;
+        align-content: start;
+      }
+      .quick-card button {
+        width: 100%;
+        margin-top: auto;
+      }
       .row {
         display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 12px;
         align-items: end;
       }
-      .field { grid-column: span 4; display: grid; gap: 5px; }
+      .field { grid-column: span 4; display: grid; gap: 6px; min-width: 0; }
       .field.small { grid-column: span 2; }
       .field.wide { grid-column: span 8; }
-      .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+      .field span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 690;
+      }
+      .actions { display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
       .muted { color: var(--muted); }
       .badge {
         display: inline-flex;
@@ -180,21 +292,23 @@ PORTAL_HTML = r"""<!doctype html>
         color: var(--muted);
         background: #fff;
         font-size: 12px;
+        font-weight: 670;
+        white-space: nowrap;
       }
-      .badge.good { color: var(--good); border-color: #bcdccc; background: #f1fbf5; }
-      .badge.bad { color: var(--bad); border-color: #e7c3c3; background: #fff4f4; }
+      .badge.good { color: var(--good); border-color: #bad8c8; background: #eef9f3; }
+      .badge.bad { color: var(--bad); border-color: #e5bfbb; background: #fff3f1; }
       .toast {
         position: fixed;
         right: 18px;
         bottom: 18px;
         z-index: 20;
-        max-width: min(420px, calc(100vw - 36px));
-        border: 1px solid var(--line);
+        max-width: min(440px, calc(100vw - 36px));
+        border: 1px solid rgba(255,255,255,.16);
         border-radius: 8px;
-        background: #102018;
+        background: #14221c;
         color: #f3fbf6;
-        padding: 10px 12px;
-        box-shadow: 0 12px 30px rgba(23, 33, 27, .16);
+        padding: 11px 13px;
+        box-shadow: 0 18px 46px rgba(20, 34, 28, .22);
         opacity: 0;
         transform: translateY(8px);
         pointer-events: none;
@@ -203,51 +317,94 @@ PORTAL_HTML = r"""<!doctype html>
       .toast.show { opacity: 1; transform: translateY(0); }
       .list {
         display: grid;
-        gap: 8px;
-        max-height: 420px;
+        gap: 9px;
+        max-height: 430px;
         overflow: auto;
         padding-right: 4px;
       }
       .item {
         border: 1px solid var(--line);
-        border-radius: 7px;
+        border-radius: 8px;
         background: #fff;
-        padding: 10px;
+        padding: 11px;
         display: grid;
-        gap: 5px;
+        gap: 6px;
+        box-shadow: 0 4px 12px rgba(24,35,31,.035);
       }
       pre {
         margin: 0;
         white-space: pre-wrap;
         word-break: break-word;
-        background: #152019;
+        background: #132019;
         color: #e8f1eb;
-        padding: 14px;
-        border-radius: 7px;
+        padding: 15px;
+        border-radius: 8px;
         max-height: 560px;
         overflow: auto;
+        border: 1px solid rgba(255,255,255,.08);
       }
       .markdown {
         border: 1px solid var(--line);
-        border-radius: 7px;
-        padding: 14px;
+        border-radius: 8px;
+        padding: 18px;
         background: #fff;
-        max-height: 560px;
+        max-height: 620px;
         overflow: auto;
       }
-      .markdown h1 { font-size: 20px; margin: 0 0 12px; }
-      .markdown h2 { font-size: 17px; margin: 18px 0 8px; }
+      .markdown h1 { font-size: 22px; margin: 0 0 14px; }
+      .markdown h2 {
+        font-size: 17px;
+        margin: 22px 0 10px;
+        padding-top: 4px;
+        border-top: 1px solid #edf1ef;
+      }
+      .markdown h2:first-child { border-top: 0; margin-top: 0; }
       .markdown h3 { font-size: 15px; margin: 16px 0 8px; }
-      .markdown p, .markdown li { margin: 5px 0; }
-      .markdown ul { margin: 8px 0 12px; padding-left: 20px; }
-      .markdown table { width: 100%; border-collapse: collapse; font-size: 13px; }
-      .markdown th, .markdown td { border: 1px solid var(--line); padding: 6px; vertical-align: top; }
+      .markdown p, .markdown li { margin: 6px 0; }
+      .markdown ul { margin: 8px 0 14px; padding-left: 20px; }
+      .markdown table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 13px;
+        min-width: 760px;
+      }
+      .markdown table th {
+        background: #f2f6f4;
+        color: #31453c;
+        font-weight: 730;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+      }
+      .markdown th, .markdown td {
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 8px;
+        vertical-align: top;
+      }
+      .markdown th:first-child, .markdown td:first-child { border-left: 1px solid var(--line); }
+      .markdown tr:first-child th { border-top: 1px solid var(--line); }
+      .markdown tr:nth-child(even) td { background: #fbfcfb; }
       .hidden { display: none !important; }
       @media (max-width: 900px) {
+        header { align-items: flex-start; flex-direction: column; padding: 14px 16px; }
         main { grid-template-columns: 1fr; }
-        nav { border-right: 0; border-bottom: 1px solid var(--line); display: flex; gap: 6px; overflow: auto; }
-        nav button { width: auto; white-space: nowrap; }
+        nav {
+          position: static;
+          height: auto;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+          display: flex;
+          gap: 6px;
+          overflow: auto;
+          padding: 10px 12px;
+        }
+        nav button { width: auto; white-space: nowrap; margin: 0; }
+        nav button.active::before { display: none; }
+        .content { padding: 16px; }
         .card, .card.third { grid-column: 1 / -1; }
+        .service-grid { grid-template-columns: 1fr; }
         .field, .field.small, .field.wide { grid-column: 1 / -1; }
       }
     </style>
@@ -395,16 +552,20 @@ PORTAL_HTML = r"""<!doctype html>
       }
 
       function renderHome() {
+        const running = state.services.filter((s) => s.running).length;
         $("view-home").innerHTML = `
           <div class="card full">
-            <h2>服务状态</h2>
-            <div class="grid">
+            <div class="section-head">
+              <div>
+                <h2>服务状态</h2>
+                <p class="muted">本地依赖服务、报告入口和外部应用连接状态。</p>
+              </div>
+              <span class="badge ${running === state.services.length ? "good" : "bad"}">${running}/${state.services.length} 在线</span>
+            </div>
+            <div class="service-grid">
               ${state.services.map((s) => `
-                <div class="card third">
-                  <div class="actions" style="justify-content:space-between">
-                    <h3>${esc(s.name)}</h3>
-                    <span class="badge ${s.running ? "good" : "bad"}">${s.running ? "运行中" : "不可用"}</span>
-                  </div>
+                <div class="service-card">
+                  <h3>${esc(s.name)}<span class="badge ${s.running ? "good" : "bad"}">${s.running ? "运行中" : "不可用"}</span></h3>
                   <p class="muted">${esc(s.detail || "")}</p>
                   ${s.url ? `<a href="${esc(s.url)}" target="_blank">${esc(s.url)}</a>` : ""}
                 </div>
@@ -415,10 +576,10 @@ PORTAL_HTML = r"""<!doctype html>
               <button onclick="rebuildReport(this)">重建报告数据</button>
             </div>
           </div>
-          <div class="card third"><h2>日期报告</h2><p class="muted">查看日报、收盘复盘、周报和产业链报告。</p><button onclick="show('reports')">进入</button></div>
-          <div class="card third"><h2>综合选股</h2><p class="muted">一键运行 iWenCai 趋势池和综合选股，展示核心池、观察池与证据缺口。</p><button onclick="show('selection')">进入</button></div>
-          <div class="card third"><h2>股票分析</h2><p class="muted">实时股价估值、基础数据抓取、财务分析入口。</p><button onclick="show('stocks')">进入</button></div>
-          <div class="card third"><h2>新闻搜索</h2><p class="muted">刷新本地投资资讯，看最近赛道新闻。</p><button onclick="show('news')">进入</button></div>
+          <div class="card third quick-card"><h2>日期报告<span class="badge">Archive</span></h2><p class="muted">查看日报、收盘复盘、周报和产业链报告。</p><button onclick="show('reports')">进入</button></div>
+          <div class="card third quick-card"><h2>综合选股<span class="badge good">Selection</span></h2><p class="muted">一键运行 iWenCai 趋势池和综合选股，展示核心池、观察池与证据缺口。</p><button class="primary" onclick="show('selection')">进入</button></div>
+          <div class="card third quick-card"><h2>股票分析<span class="badge">Quote</span></h2><p class="muted">实时股价估值、基础数据抓取、财务分析入口。</p><button onclick="show('stocks')">进入</button></div>
+          <div class="card third quick-card"><h2>新闻搜索<span class="badge">News</span></h2><p class="muted">刷新本地投资资讯，看最近赛道新闻。</p><button onclick="show('news')">进入</button></div>
         `;
       }
 
