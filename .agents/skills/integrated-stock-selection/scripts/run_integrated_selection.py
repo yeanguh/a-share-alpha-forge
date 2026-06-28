@@ -300,6 +300,31 @@ def refresh_quotes(rows: list[dict[str, Any]], limit: int) -> None:
             "snapshot": str(dump.relative_to(ROOT)) if dump.exists() else "",
             "stderr": result.stderr[-1000:],
         }
+        if result.returncode == 0 and dump.exists():
+            apply_quote_refresh(row, dump)
+
+
+def apply_quote_refresh(row: dict[str, Any], snapshot_path: Path) -> None:
+    snapshot = read_json(snapshot_path)
+    quote = snapshot.get("quote", snapshot)
+    row["quote"].update(
+        {
+            "latest": quote.get("latest"),
+            "change_pct": quote.get("change_pct"),
+            "market_cap": quote.get("market_cap"),
+            "pe_ttm": quote.get("pe_ttm"),
+            "pb": quote.get("pb"),
+        }
+    )
+    row["quote_refresh"]["source"] = quote.get("source", "")
+    pe = as_float(quote.get("pe_ttm"), 0.0)
+    if pe >= 120 and "刷新行情显示估值显著偏高" not in row["reasons"]:
+        row["score"] = round(max(0.0, row["score"] - 5), 2)
+        row["reasons"].append("刷新行情显示估值显著偏高")
+    if pe >= 120 and "估值高位，需要盈利兑现复核" not in row["missing_evidence"]:
+        row["missing_evidence"].append("估值高位，需要盈利兑现复核")
+    if row["bucket"] == "core" and row["score"] < 70:
+        row["bucket"] = "watch"
 
 
 def render_markdown(payload: dict[str, Any]) -> str:

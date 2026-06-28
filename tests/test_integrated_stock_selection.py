@@ -38,3 +38,27 @@ def test_explicit_codes_do_not_pull_all_industry_companies() -> None:
 
     assert "603986" in candidates
     assert "601138" not in candidates
+
+
+def test_quote_refresh_can_downgrade_extreme_valuation(tmp_path: Path) -> None:
+    module = load_module()
+    snapshot = tmp_path / "quote.json"
+    snapshot.write_text(
+        '{"quote":{"latest":10,"change_pct":1.2,"market_cap":1000000000,"pe_ttm":150,"pb":8,"source":"test"}}',
+        encoding="utf-8",
+    )
+    row = {
+        "bucket": "core",
+        "score": 72.0,
+        "quote": {},
+        "quote_refresh": {},
+        "reasons": [],
+        "missing_evidence": [],
+    }
+
+    module.apply_quote_refresh(row, snapshot)
+
+    assert row["bucket"] == "watch"
+    assert row["score"] == 67.0
+    assert row["quote"]["pe_ttm"] == 150
+    assert "刷新行情显示估值显著偏高" in row["reasons"]
