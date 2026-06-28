@@ -16,3 +16,4 @@ __pycache__/
 
 # Local generated data
 tmp/
+local/stock_pools/*/cache/
