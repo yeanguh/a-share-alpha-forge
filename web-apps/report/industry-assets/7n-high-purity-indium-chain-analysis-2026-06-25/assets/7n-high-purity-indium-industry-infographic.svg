@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 2200" width="1600" height="2200">
+<style>
+text { font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Heiti SC', Arial, sans-serif; fill: #15181f; }
+.title { font-size: 42px; font-weight: 800; }
+.subtitle { font-size: 20px; fill: #4b5563; }
+.card-title { font-size: 24px; font-weight: 800; }
+.big { font-size: 34px; font-weight: 900; }
+.small { font-size: 15px; fill: #374151; }
+.tiny { font-size: 13px; fill: #6b7280; }
+.section { font-size: 23px; font-weight: 800; }
+.node { font-size: 18px; font-weight: 800; }
+.note { font-size: 15px; fill: #4b5563; }
+.panel { fill: #fffaf0; stroke: #1f2937; stroke-width: 2.2; rx: 12; ry: 12; }
+.titleband { fill: #d8c4e8; stroke: #1f2937; stroke-width: 3; rx: 4; ry: 4; }
+.blue { fill: #dbeafe; stroke: #93c5fd; stroke-width: 2; rx: 10; ry: 10; }
+.green { fill: #dcfce7; stroke: #86efac; stroke-width: 2; rx: 10; ry: 10; }
+.purple { fill: #ede9fe; stroke: #c4b5fd; stroke-width: 2; rx: 10; ry: 10; }
+.orange { fill: #ffedd5; stroke: #fdba74; stroke-width: 2; rx: 10; ry: 10; }
+.red { fill: #fee2e2; stroke: #fca5a5; stroke-width: 2; rx: 10; ry: 10; }
+.gray { fill: #f3f4f6; stroke: #d1d5db; stroke-width: 2; rx: 10; ry: 10; }
+.cream { fill: #fef3c7; stroke: #fbbf24; stroke-width: 2; rx: 10; ry: 10; }
+.dark { fill: #334155; }
+</style>
+<defs>
+  <marker id="arrow-blue" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#2563eb"/></marker>
+  <marker id="arrow-green" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#16a34a"/></marker>
+  <marker id="arrow-red" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#dc2626"/></marker>
+  <linearGradient id="metal" x1="0" x2="1" y1="0" y2="1">
+    <stop offset="0" stop-color="#f8fafc"/>
+    <stop offset="0.45" stop-color="#cbd5e1"/>
+    <stop offset="1" stop-color="#64748b"/>
+  </linearGradient>
+</defs>
+<rect width="1600" height="2200" fill="#fbf7ee"/>
+<rect x="28" y="28" width="1544" height="2144" fill="none" stroke="#1f2937" stroke-width="3"/>
+
+<rect x="245" y="70" width="1110" height="82" class="titleband"/>
+<text x="800" y="124" text-anchor="middle" class="title">1分钟拆解产业链：7N 高纯铟</text>
+<text x="800" y="188" text-anchor="middle" class="subtitle">稀散伴生资源 → 超高纯提纯 → InP/红外/高端显示材料；核心验证是量产、客户认证与收入占比</text>
+
+<g transform="translate(64,238)">
+  <rect x="0" y="0" width="310" height="220" class="blue"/>
+  <text x="155" y="42" text-anchor="middle" class="card-title">稀散资源</text>
+  <text x="155" y="96" text-anchor="middle" class="big">70%</text>
+  <text x="155" y="132" text-anchor="middle" class="small">中国约占全球铟产量七成</text>
+  <text x="155" y="162" text-anchor="middle" class="small">锌矿伴生回收为主</text>
+</g>
+<g transform="translate(430,238)">
+  <rect x="0" y="0" width="310" height="220" class="green"/>
+  <text x="155" y="42" text-anchor="middle" class="card-title">7N 纯度</text>
+  <text x="155" y="96" text-anchor="middle" class="big">99.99999%</text>
+  <text x="155" y="132" text-anchor="middle" class="small">1吨杂质不超过0.1克</text>
+  <text x="155" y="162" text-anchor="middle" class="small">痕量控制是核心壁垒</text>
+</g>
+<g transform="translate(796,238)">
+  <rect x="0" y="0" width="310" height="220" class="purple"/>
+  <text x="155" y="42" text-anchor="middle" class="card-title">价格溢价</text>
+  <text x="155" y="96" text-anchor="middle" class="big">5600元/kg</text>
+  <text x="155" y="132" text-anchor="middle" class="small">SMM 7N均价样本</text>
+  <text x="155" y="162" text-anchor="middle" class="small">非标品样本至8000元/kg</text>
+</g>
+<g transform="translate(1162,238)">
+  <rect x="0" y="0" width="310" height="220" class="orange"/>
+  <text x="155" y="42" text-anchor="middle" class="card-title">国产替代</text>
+  <text x="155" y="96" text-anchor="middle" class="big">InP</text>
+  <text x="155" y="132" text-anchor="middle" class="small">光通信/红外/高速器件</text>
+  <text x="155" y="162" text-anchor="middle" class="small">客户认证决定兑现</text>
+</g>
+
+<rect x="70" y="520" width="330" height="610" class="panel"/>
+<text x="235" y="564" text-anchor="middle" class="section">左侧：量价与资源约束</text>
+<rect x="105" y="595" width="260" height="108" class="cream"/>
+<text x="235" y="628" text-anchor="middle" class="node">供给：伴生回收</text>
+<text x="235" y="656" text-anchor="middle" class="note">含铟锌矿/锡矿/铅铜矿</text>
+<text x="235" y="682" text-anchor="middle" class="note">主金属周期影响产出</text>
+<rect x="105" y="730" width="260" height="108" class="blue"/>
+<text x="235" y="763" text-anchor="middle" class="node">价格：7N 溢价</text>
+<text x="235" y="791" text-anchor="middle" class="note">高纯度带来材料级定价</text>
+<text x="235" y="817" text-anchor="middle" class="note">非普通资源品逻辑</text>
+<rect x="105" y="865" width="260" height="108" class="red"/>
+<text x="235" y="898" text-anchor="middle" class="node">阶段：技术到量产</text>
+<text x="235" y="926" text-anchor="middle" class="note">突破不等于商业化</text>
+<text x="235" y="952" text-anchor="middle" class="note">产线/订单/收入待核验</text>
+<rect x="105" y="1000" width="260" height="92" class="green"/>
+<text x="235" y="1034" text-anchor="middle" class="node">壁垒：检测与一致性</text>
+<text x="235" y="1064" text-anchor="middle" class="note">GDMS/ICP 痕量杂质控制</text>
+
+<rect x="1188" y="520" width="330" height="610" class="panel"/>
+<text x="1353" y="564" text-anchor="middle" class="section">右侧：应用与替代窗口</text>
+<rect x="1223" y="595" width="260" height="108" class="green"/>
+<text x="1353" y="628" text-anchor="middle" class="node">应用主线：InP</text>
+<text x="1353" y="656" text-anchor="middle" class="note">高速激光器/探测器</text>
+<text x="1353" y="682" text-anchor="middle" class="note">AI 光模块材料链</text>
+<rect x="1223" y="730" width="260" height="108" class="blue"/>
+<text x="1353" y="763" text-anchor="middle" class="node">成熟需求：ITO</text>
+<text x="1353" y="791" text-anchor="middle" class="note">显示透明导电靶材</text>
+<text x="1353" y="817" text-anchor="middle" class="note">量大但壁垒低于InP</text>
+<rect x="1223" y="865" width="260" height="108" class="purple"/>
+<text x="1353" y="898" text-anchor="middle" class="node">国产替代窗口</text>
+<text x="1353" y="926" text-anchor="middle" class="note">出口限制强化供应安全</text>
+<text x="1353" y="952" text-anchor="middle" class="note">客户认证是门槛</text>
+<rect x="1223" y="1000" width="260" height="92" class="red"/>
+<text x="1353" y="1034" text-anchor="middle" class="node">风险：概念泛化</text>
+<text x="1353" y="1064" text-anchor="middle" class="note">有铟不等于有7N收入</text>
+
+<g transform="translate(458,540)">
+  <rect x="0" y="0" width="660" height="570" class="panel"/>
+  <text x="330" y="44" text-anchor="middle" class="section">中间：7N 高纯铟的价值跃迁</text>
+  <rect x="132" y="90" width="396" height="290" fill="#e2e8f0" stroke="#475569" stroke-width="2" rx="16"/>
+  <ellipse cx="330" cy="115" rx="198" ry="46" fill="url(#metal)" stroke="#475569" stroke-width="2"/>
+  <rect x="132" y="115" width="396" height="190" fill="url(#metal)" stroke="#475569" stroke-width="2"/>
+  <ellipse cx="330" cy="305" rx="198" ry="46" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+  <text x="330" y="225" text-anchor="middle" style="font-size:78px;font-weight:900;fill:#7c2d12;">In</text>
+  <text x="330" y="272" text-anchor="middle" class="node">7N 高纯铟锭</text>
+  <circle cx="178" cy="410" r="42" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="178" y="417" text-anchor="middle" class="node">资源</text>
+  <circle cx="330" cy="410" r="42" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="330" y="417" text-anchor="middle" class="node">提纯</text>
+  <circle cx="482" cy="410" r="42" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+  <text x="482" y="417" text-anchor="middle" class="node">认证</text>
+  <path d="M220 410 L288 410" stroke="#2563eb" stroke-width="4" marker-end="url(#arrow-blue)"/>
+  <path d="M372 410 L440 410" stroke="#16a34a" stroke-width="4" marker-end="url(#arrow-green)"/>
+  <text x="330" y="492" text-anchor="middle" class="card-title">资源品 → 半导体材料</text>
+  <text x="330" y="526" text-anchor="middle" class="note">真正的投资验证：量产批次稳定 + 高端客户认证 + 收入占比披露</text>
+</g>
+
+<path d="M400 806 C440 790 440 790 458 790" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow-blue)"/>
+<text x="416" y="764" class="node">量价齐升</text>
+<path d="M1118 820 C1160 820 1160 820 1188 820" stroke="#16a34a" stroke-width="3" fill="none" marker-end="url(#arrow-green)"/>
+<text x="1128" y="790" class="node">国产替代</text>
+<path d="M1118 1040 C1160 1040 1160 1040 1188 1040" stroke="#dc2626" stroke-width="3" fill="none" marker-end="url(#arrow-red)"/>
+<text x="1128" y="1010" class="node">待验证</text>
+
+<rect x="70" y="1190" width="1448" height="310" class="panel"/>
+<text x="100" y="1232" class="section">A股卡位：按产业链直接度排序</text>
+<rect x="105" y="1265" width="225" height="118" class="blue"/>
+<text x="217" y="1304" text-anchor="middle" class="node">锡业股份</text>
+<text x="217" y="1332" text-anchor="middle" class="note">资源/原生铟</text>
+<text x="217" y="1359" text-anchor="middle" class="note">资源龙头</text>
+<rect x="365" y="1265" width="225" height="118" class="green"/>
+<text x="477" y="1304" text-anchor="middle" class="node">华锡有色体系</text>
+<text x="477" y="1332" text-anchor="middle" class="note">7N 技术突破</text>
+<text x="477" y="1359" text-anchor="middle" class="note">量产待核验</text>
+<rect x="625" y="1265" width="225" height="118" class="purple"/>
+<text x="737" y="1304" text-anchor="middle" class="node">云南锗业</text>
+<text x="737" y="1332" text-anchor="middle" class="note">InP 单晶片</text>
+<text x="737" y="1359" text-anchor="middle" class="note">下游材料承接</text>
+<rect x="885" y="1265" width="225" height="118" class="orange"/>
+<text x="997" y="1304" text-anchor="middle" class="node">中金岭南</text>
+<text x="997" y="1332" text-anchor="middle" class="note">稀散金属回收</text>
+<text x="997" y="1359" text-anchor="middle" class="note">占比待核验</text>
+<rect x="1145" y="1265" width="225" height="118" class="gray"/>
+<text x="1257" y="1304" text-anchor="middle" class="node">株冶/锌业</text>
+<text x="1257" y="1332" text-anchor="middle" class="note">冶炼副产弹性</text>
+<text x="1257" y="1359" text-anchor="middle" class="note">不等于7N核心</text>
+<text x="105" y="1436" class="note">读图：资源端提供底座，7N 提纯决定材料溢价，InP/红外/显示决定需求兑现；普通铟锭公司需证明7N收入或下游客户。</text>
+
+<rect x="70" y="1548" width="700" height="425" class="panel"/>
+<text x="105" y="1592" class="section">核心驱动</text>
+<text x="120" y="1640" class="node">1. 伴生资源约束：铟供给不随价格线性扩产</text>
+<text x="120" y="1684" class="node">2. 出口限制：稀散金属供应安全溢价提升</text>
+<text x="120" y="1728" class="node">3. 7N 提纯：从资源品转为高端功能材料</text>
+<text x="120" y="1772" class="node">4. InP 拉动：光通信、红外和高速器件需求</text>
+<text x="120" y="1816" class="node">5. 验证门槛：批量稳定、杂质检测、客户认证</text>
+<text x="120" y="1860" class="node">6. 投资分层：资源、提纯、下游材料分开排序</text>
+
+<rect x="818" y="1548" width="700" height="425" class="panel"/>
+<text x="853" y="1592" class="section">关键时间表</text>
+<text x="868" y="1640" class="node">2025：铟出口限制强化供应安全逻辑</text>
+<text x="868" y="1684" class="node">2026：7N 高纯铟价格样本维持高位</text>
+<text x="868" y="1728" class="node">2026：华锡体系披露 7N 技术突破</text>
+<text x="868" y="1772" class="node">2026-2027：云南锗业 InP 项目建设期</text>
+<text x="868" y="1816" class="node">后续：看7N量产、客户认证、收入占比</text>
+<text x="868" y="1860" class="node">风险：资源概念热度高于业绩兑现</text>
+
+<rect x="70" y="2015" width="1448" height="96" class="titleband"/>
+<text x="794" y="2055" text-anchor="middle" class="card-title">核心结论：7N高纯铟的机会在“资源约束 + 高纯提纯 + InP需求”三段共振；</text>
+<text x="794" y="2088" text-anchor="middle" class="card-title">但必须用量产、认证和收入占比过滤普通铟概念。</text>
+<text x="70" y="2152" class="tiny">数据来源：USGS、SMM、公司公告/年报、公司/行业公开资料；截至 2026-06-25。图中数值为公开样本或披露口径，未披露处以待核验处理。</text>
+</svg>

@@ -11,10 +11,16 @@ import json
 import sys
 import time
 import os
-from urllib import request
 from datetime import datetime, timedelta
+from pathlib import Path
 from typing import Optional, Callable
 from functools import wraps
+
+PROJECT_ROOT = Path(__file__).resolve().parents[4]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.a_share_data import fetch_tencent_quote, safe_float as shared_safe_float
 
 try:
     import akshare as ak
@@ -50,41 +56,21 @@ def safe_float(value) -> Optional[float]:
     try:
         if pd.isna(value):
             return None
-        if isinstance(value, str):
-            value = value.replace('%', '').replace(',', '').replace('亿', '')
-        return float(value)
+        return shared_safe_float(value)
     except (ValueError, TypeError):
         return None
 
 
-def a_share_symbol(code: str) -> str:
-    """Normalize a 6-digit A-share code to Tencent quote symbol form."""
-    normalized = code.strip().lower().replace(".sz", "").replace(".sh", "")
-    if normalized.startswith(("sh", "sz")):
-        return normalized
-    if normalized.startswith(("6", "9")):
-        return f"sh{normalized}"
-    return f"sz{normalized}"
-
-
 def fetch_tencent_basic_quote(code: str) -> dict:
     """Fetch no-key Tencent quote fields used as basic-info fallback."""
-    symbol = a_share_symbol(code)
-    url = f"https://qt.gtimg.cn/q={symbol}"
-    req = request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with request.urlopen(req, timeout=10) as response:
-        text = response.read().decode("gbk", errors="replace")
-    marker = f"v_{symbol}="
-    if marker not in text:
-        raise ValueError(f"Tencent quote response missing {marker}")
-    fields = text.split('="', 1)[1].rsplit('";', 1)[0].split("~")
+    quote = fetch_tencent_quote(code)
     return {
-        "name": fields[1] if len(fields) > 1 else "",
-        "latest_price": safe_float(fields[3] if len(fields) > 3 else None),
-        "market_cap": (safe_float(fields[45] if len(fields) > 45 else None) or 0) * 100000000,
-        "float_cap": (safe_float(fields[44] if len(fields) > 44 else None) or 0) * 100000000,
-        "pe_ttm": safe_float(fields[39] if len(fields) > 39 else None),
-        "pb": safe_float(fields[46] if len(fields) > 46 else None),
+        "name": quote.name,
+        "latest_price": quote.last_price,
+        "market_cap": quote.total_market_cap_billion * 100000000,
+        "float_cap": quote.float_market_cap_billion * 100000000,
+        "pe_ttm": quote.pe_ttm,
+        "pb": quote.pb,
     }
 
 

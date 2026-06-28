@@ -16,8 +16,20 @@ import argparse
 import json
 import sys
 from dataclasses import asdict, dataclass, field
+from pathlib import Path
 from typing import Any
-from urllib import request
+
+PROJECT_ROOT = Path(__file__).resolve().parents[4]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.a_share_data import (
+    a_share_symbol,
+    fetch_eastmoney_quote,
+    fetch_tencent_quote,
+    raw_code,
+    safe_float,
+)
 
 
 INDUSTRY_PE_RANGES = {
@@ -66,37 +78,8 @@ class QuoteSnapshot:
     sources: list[SourceStatus] = field(default_factory=list)
 
 
-def safe_float(value: Any) -> float | None:
-    if value in (None, "", "--"):
-        return None
-    try:
-        return float(str(value).replace(",", "").replace("%", ""))
-    except (TypeError, ValueError):
-        return None
-
-
-def raw_code(code: str) -> str:
-    normalized = code.strip().lower().replace(".sz", "").replace(".sh", "")
-    if normalized.startswith(("sh", "sz")):
-        return normalized[2:]
-    return normalized.zfill(6)
-
-
 def tencent_symbol(code: str) -> str:
-    normalized = raw_code(code)
-    return f"sh{normalized}" if normalized.startswith(("6", "9")) else f"sz{normalized}"
-
-
-def eastmoney_secid(code: str) -> str:
-    normalized = raw_code(code)
-    market_id = "1" if normalized.startswith(("6", "9")) else "0"
-    return f"{market_id}.{normalized}"
-
-
-def http_get_text(url: str, *, encoding: str = "utf-8") -> str:
-    req = request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with request.urlopen(req, timeout=10) as response:
-        return response.read().decode(encoding, errors="replace")
+    return a_share_symbol(code)
 
 
 def apply_mootdx_quote(snapshot: QuoteSnapshot) -> SourceStatus:
@@ -126,23 +109,18 @@ def apply_mootdx_quote(snapshot: QuoteSnapshot) -> SourceStatus:
 
 def apply_tencent_quote(snapshot: QuoteSnapshot) -> SourceStatus:
     try:
-        symbol = tencent_symbol(snapshot.code)
-        text = http_get_text(f"https://qt.gtimg.cn/q={symbol}", encoding="gbk")
-        marker = f"v_{symbol}="
-        if marker not in text:
-            return SourceStatus("tencent", "failed", f"missing {marker}")
-        fields = text.split('="', 1)[1].rsplit('";', 1)[0].split("~")
-        snapshot.name = snapshot.name or fields[1]
-        snapshot.latest = snapshot.latest or safe_float(fields[3])
-        snapshot.previous_close = snapshot.previous_close or safe_float(fields[4])
-        snapshot.change_pct = snapshot.change_pct if snapshot.change_pct is not None else safe_float(fields[32])
-        snapshot.volume = snapshot.volume or safe_float(fields[36])
-        snapshot.amount = snapshot.amount or safe_float(fields[37])
-        snapshot.float_market_cap = snapshot.float_market_cap or (safe_float(fields[44]) or 0) * 100000000
-        snapshot.market_cap = snapshot.market_cap or (safe_float(fields[45]) or 0) * 100000000
-        snapshot.pe_ttm = snapshot.pe_ttm or safe_float(fields[39])
-        snapshot.pb = snapshot.pb or safe_float(fields[46])
-        snapshot.timestamp = snapshot.timestamp or fields[30]
+        quote = fetch_tencent_quote(snapshot.code)
+        snapshot.name = snapshot.name or quote.name
+        snapshot.latest = snapshot.latest or quote.last_price
+        snapshot.previous_close = snapshot.previous_close or quote.previous_close
+        snapshot.change_pct = snapshot.change_pct if snapshot.change_pct is not None else quote.pct_change
+        snapshot.volume = snapshot.volume or quote.volume
+        snapshot.amount = snapshot.amount or quote.amount
+        snapshot.float_market_cap = snapshot.float_market_cap or quote.float_market_cap_billion * 100000000
+        snapshot.market_cap = snapshot.market_cap or quote.total_market_cap_billion * 100000000
+        snapshot.pe_ttm = snapshot.pe_ttm or quote.pe_ttm
+        snapshot.pb = snapshot.pb or quote.pb
+        snapshot.timestamp = snapshot.timestamp or quote.timestamp
         snapshot.source = snapshot.source or "tencent"
         return SourceStatus("tencent", "available", "public quote fields fetched")
     except Exception as exc:  # noqa: BLE001
@@ -151,11 +129,8 @@ def apply_tencent_quote(snapshot: QuoteSnapshot) -> SourceStatus:
 
 def apply_eastmoney_quote(snapshot: QuoteSnapshot) -> SourceStatus:
     try:
-        fields = "f43,f47,f48,f57,f58,f60,f116,f117,f162,f167,f168,f170"
-        url = f"https://push2.eastmoney.com/api/qt/stock/get?secid={eastmoney_secid(snapshot.code)}&fields={fields}"
-        payload = json.loads(http_get_text(url))
-        data = payload.get("data") if isinstance(payload, dict) else None
-        if not isinstance(data, dict):
+        data = fetch_eastmoney_quote(snapshot.code)
+        if not data:
             return SourceStatus("eastmoney", "failed", "empty quote payload")
         snapshot.name = snapshot.name or str(data.get("f58") or "")
         snapshot.latest = snapshot.latest or ((safe_float(data.get("f43")) or 0) / 100)

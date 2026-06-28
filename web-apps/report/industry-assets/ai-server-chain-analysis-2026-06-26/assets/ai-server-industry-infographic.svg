@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 2200" width="1600" height="2200">
+<style>
+text { font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Heiti SC', Arial, sans-serif; fill: #172033; }
+.title { font-size: 42px; font-weight: 800; }
+.subtitle { font-size: 20px; fill: #475569; }
+.card-title { font-size: 24px; font-weight: 800; }
+.big { font-size: 34px; font-weight: 900; }
+.small { font-size: 15px; fill: #334155; }
+.tiny { font-size: 13px; fill: #64748b; }
+.section { font-size: 23px; font-weight: 800; }
+.node { font-size: 18px; font-weight: 800; }
+.note { font-size: 15px; fill: #475569; }
+.panel { fill: #fffaf0; stroke: #1f2937; stroke-width: 2.2; rx: 12; ry: 12; }
+.titleband { fill: #dcfce7; stroke: #1f2937; stroke-width: 3; rx: 4; ry: 4; }
+.blue { fill: #dbeafe; stroke: #93c5fd; stroke-width: 2; rx: 10; ry: 10; }
+.green { fill: #dcfce7; stroke: #86efac; stroke-width: 2; rx: 10; ry: 10; }
+.purple { fill: #ede9fe; stroke: #c4b5fd; stroke-width: 2; rx: 10; ry: 10; }
+.orange { fill: #ffedd5; stroke: #fdba74; stroke-width: 2; rx: 10; ry: 10; }
+.red { fill: #fee2e2; stroke: #fca5a5; stroke-width: 2; rx: 10; ry: 10; }
+.gray { fill: #f3f4f6; stroke: #d1d5db; stroke-width: 2; rx: 10; ry: 10; }
+.cream { fill: #fef3c7; stroke: #fbbf24; stroke-width: 2; rx: 10; ry: 10; }
+</style>
+<defs>
+  <marker id="arrow-blue" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#2563eb"/></marker>
+  <marker id="arrow-green" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#16a34a"/></marker>
+  <marker id="arrow-red" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0 0, 12 4.5, 0 9" fill="#dc2626"/></marker>
+</defs>
+<rect width="1600" height="2200" fill="#fbf7ee"/>
+<rect x="28" y="28" width="1544" height="2144" fill="none" stroke="#1f2937" stroke-width="3"/>
+
+<rect x="245" y="68" width="1110" height="86" class="titleband"/>
+<text x="800" y="124" text-anchor="middle" class="title">1分钟拆解产业链：AI服务器</text>
+<text x="800" y="190" text-anchor="middle" class="subtitle">GPU/HBM是价值核心，整机ODM承接订单，PCB/光模块/液冷/电源共同放大弹性</text>
+
+<g transform="translate(64,240)">
+  <rect x="0" y="0" width="310" height="220" class="blue"/>
+  <text x="155" y="44" text-anchor="middle" class="card-title">算力代际</text>
+  <text x="155" y="98" text-anchor="middle" class="big">GB200/GB300</text>
+  <text x="155" y="134" text-anchor="middle" class="small">机柜级集群成为主线</text>
+  <text x="155" y="164" text-anchor="middle" class="small">GPU/HBM/互连协同升级</text>
+</g>
+<g transform="translate(430,240)">
+  <rect x="0" y="0" width="310" height="220" class="green"/>
+  <text x="155" y="44" text-anchor="middle" class="card-title">价值核心</text>
+  <text x="155" y="98" text-anchor="middle" class="big">GPU+HBM</text>
+  <text x="155" y="134" text-anchor="middle" class="small">BOM占比定性最高</text>
+  <text x="155" y="164" text-anchor="middle" class="small">A股多为间接映射</text>
+</g>
+<g transform="translate(796,240)">
+  <rect x="0" y="0" width="310" height="220" class="purple"/>
+  <text x="155" y="44" text-anchor="middle" class="card-title">系统瓶颈</text>
+  <text x="155" y="98" text-anchor="middle" class="big">液冷+供电</text>
+  <text x="155" y="134" text-anchor="middle" class="small">高功耗机柜倒逼冷板/CDU</text>
+  <text x="155" y="164" text-anchor="middle" class="small">电源与散热共同约束交付</text>
+</g>
+<g transform="translate(1162,240)">
+  <rect x="0" y="0" width="310" height="220" class="orange"/>
+  <text x="155" y="44" text-anchor="middle" class="card-title">网络拉动</text>
+  <text x="155" y="98" text-anchor="middle" class="big">800G/1.6T</text>
+  <text x="155" y="134" text-anchor="middle" class="small">光模块与交换网络升级</text>
+  <text x="155" y="164" text-anchor="middle" class="small">从服务器扩散到集群</text>
+</g>
+
+<rect x="70" y="520" width="330" height="610" class="panel"/>
+<text x="235" y="564" text-anchor="middle" class="section">上游：核心输入</text>
+<rect x="105" y="595" width="260" height="108" class="cream"/>
+<text x="235" y="628" text-anchor="middle" class="node">GPU / HBM</text>
+<text x="235" y="656" text-anchor="middle" class="note">NVIDIA/AMD + SK海力士等</text>
+<text x="235" y="682" text-anchor="middle" class="note">决定成本和交付节奏</text>
+<rect x="105" y="730" width="260" height="108" class="blue"/>
+<text x="235" y="763" text-anchor="middle" class="node">PCB / CCL</text>
+<text x="235" y="791" text-anchor="middle" class="note">高层板、高速低损耗材料</text>
+<text x="235" y="817" text-anchor="middle" class="note">AI主板与交换板受益</text>
+<rect x="105" y="865" width="260" height="108" class="green"/>
+<text x="235" y="898" text-anchor="middle" class="node">电源 / 连接器</text>
+<text x="235" y="926" text-anchor="middle" class="note">高功率PSU/母排/高速线缆</text>
+<text x="235" y="952" text-anchor="middle" class="note">可靠性和效率卡点</text>
+<rect x="105" y="1000" width="260" height="92" class="red"/>
+<text x="235" y="1034" text-anchor="middle" class="node">液冷部件</text>
+<text x="235" y="1064" text-anchor="middle" class="note">冷板/CDU/泵阀/管路</text>
+
+<rect x="1188" y="520" width="330" height="610" class="panel"/>
+<text x="1353" y="564" text-anchor="middle" class="section">下游：需求牵引</text>
+<rect x="1223" y="595" width="260" height="108" class="green"/>
+<text x="1353" y="628" text-anchor="middle" class="node">云厂商Capex</text>
+<text x="1353" y="656" text-anchor="middle" class="note">训练/推理集群扩张</text>
+<text x="1353" y="682" text-anchor="middle" class="note">决定订单能见度</text>
+<rect x="1223" y="730" width="260" height="108" class="blue"/>
+<text x="1353" y="763" text-anchor="middle" class="node">模型迭代</text>
+<text x="1353" y="791" text-anchor="middle" class="note">多模态/长上下文/Agent</text>
+<text x="1353" y="817" text-anchor="middle" class="note">推高算力密度</text>
+<rect x="1223" y="865" width="260" height="108" class="purple"/>
+<text x="1353" y="898" text-anchor="middle" class="node">网络架构</text>
+<text x="1353" y="926" text-anchor="middle" class="note">InfiniBand/Ethernet升级</text>
+<text x="1353" y="952" text-anchor="middle" class="note">光模块高弹性</text>
+<rect x="1223" y="1000" width="260" height="92" class="orange"/>
+<text x="1353" y="1034" text-anchor="middle" class="node">国产算力</text>
+<text x="1353" y="1064" text-anchor="middle" class="note">政策和供应安全支撑</text>
+
+<g transform="translate(458,540)">
+  <rect x="0" y="0" width="660" height="570" class="panel"/>
+  <text x="330" y="44" text-anchor="middle" class="section">中间：AI服务器从单机走向机柜级系统</text>
+  <rect x="190" y="92" width="280" height="350" fill="#e2e8f0" stroke="#334155" stroke-width="3" rx="16"/>
+  <rect x="220" y="130" width="220" height="42" class="blue"/>
+  <rect x="220" y="190" width="220" height="42" class="green"/>
+  <rect x="220" y="250" width="220" height="42" class="purple"/>
+  <rect x="220" y="310" width="220" height="42" class="orange"/>
+  <rect x="220" y="370" width="220" height="42" class="red"/>
+  <text x="330" y="158" text-anchor="middle" class="node">GPU Tray</text>
+  <text x="330" y="218" text-anchor="middle" class="node">Switch Tray</text>
+  <text x="330" y="278" text-anchor="middle" class="node">Power Shelf</text>
+  <text x="330" y="338" text-anchor="middle" class="node">Liquid Cooling</text>
+  <text x="330" y="398" text-anchor="middle" class="node">Optical Network</text>
+  <circle cx="130" cy="230" r="50" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="130" y="224" text-anchor="middle" class="node">算力</text>
+  <text x="130" y="250" text-anchor="middle" class="note">GPU/HBM</text>
+  <circle cx="530" cy="230" r="50" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="530" y="224" text-anchor="middle" class="node">互连</text>
+  <text x="530" y="250" text-anchor="middle" class="note">800G/1.6T</text>
+  <path d="M180 230 L220 230" stroke="#16a34a" stroke-width="4" marker-end="url(#arrow-green)"/>
+  <path d="M440 230 L480 230" stroke="#2563eb" stroke-width="4" marker-end="url(#arrow-blue)"/>
+  <text x="330" y="500" text-anchor="middle" class="card-title">真正的交付能力 = GPU/HBM供给 + ODM集成 + 散热供电 + 网络互连</text>
+</g>
+
+<path d="M400 800 C440 790 440 790 458 790" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow-blue)"/>
+<text x="410" y="765" class="node">高端材料</text>
+<path d="M1118 820 C1160 820 1160 820 1188 820" stroke="#16a34a" stroke-width="3" fill="none" marker-end="url(#arrow-green)"/>
+<text x="1128" y="790" class="node">需求牵引</text>
+<path d="M1118 1040 C1160 1040 1160 1040 1188 1040" stroke="#dc2626" stroke-width="3" fill="none" marker-end="url(#arrow-red)"/>
+<text x="1128" y="1010" class="node">交付风险</text>
+
+<rect x="70" y="1190" width="1448" height="310" class="panel"/>
+<text x="100" y="1232" class="section">A股卡位：按产业链直接度和弹性分层</text>
+<rect x="105" y="1265" width="225" height="118" class="green"/>
+<text x="217" y="1304" text-anchor="middle" class="node">工业富联</text>
+<text x="217" y="1332" text-anchor="middle" class="note">AI服务器ODM</text>
+<text x="217" y="1359" text-anchor="middle" class="note">订单承接核心</text>
+<rect x="365" y="1265" width="225" height="118" class="blue"/>
+<text x="477" y="1304" text-anchor="middle" class="node">浪潮信息/曙光</text>
+<text x="477" y="1332" text-anchor="middle" class="note">服务器整机</text>
+<text x="477" y="1359" text-anchor="middle" class="note">国产算力承接</text>
+<rect x="625" y="1265" width="225" height="118" class="purple"/>
+<text x="737" y="1304" text-anchor="middle" class="node">沪电/生益</text>
+<text x="737" y="1332" text-anchor="middle" class="note">PCB/CCL</text>
+<text x="737" y="1359" text-anchor="middle" class="note">材料升级弹性</text>
+<rect x="885" y="1265" width="225" height="118" class="orange"/>
+<text x="997" y="1304" text-anchor="middle" class="node">中际/新易盛</text>
+<text x="997" y="1332" text-anchor="middle" class="note">高速光模块</text>
+<text x="997" y="1359" text-anchor="middle" class="note">集群网络高弹性</text>
+<rect x="1145" y="1265" width="225" height="118" class="red"/>
+<text x="1257" y="1304" text-anchor="middle" class="node">英维克等</text>
+<text x="1257" y="1332" text-anchor="middle" class="note">液冷/电源</text>
+<text x="1257" y="1359" text-anchor="middle" class="note">机柜级约束</text>
+<text x="105" y="1436" class="note">读图：GPU/HBM价值最高但A股直接度弱；A股机会主要在整机ODM、PCB/CCL、光模块、液冷、电源和国产算力整机。</text>
+
+<rect x="70" y="1548" width="700" height="425" class="panel"/>
+<text x="105" y="1592" class="section">核心驱动</text>
+<text x="120" y="1640" class="node">1. 算力代际升级：GB200/GB300推动服务器走向机柜级交付</text>
+<text x="120" y="1684" class="node">2. 价值集中：GPU/HBM占据最高价值池，供给决定节奏</text>
+<text x="120" y="1728" class="node">3. 材料升级：高层PCB、低损耗CCL、电子布和铜箔受益</text>
+<text x="120" y="1772" class="node">4. 液冷渗透：高功率密度倒逼冷板、CDU、泵阀和管路</text>
+<text x="120" y="1816" class="node">5. 网络扩容：800G/1.6T光模块随集群规模放大</text>
+<text x="120" y="1860" class="node">6. 国产算力：供应安全推动服务器和配套国产替代</text>
+
+<rect x="818" y="1548" width="700" height="425" class="panel"/>
+<text x="853" y="1592" class="section">关键时间表</text>
+<text x="868" y="1640" class="node">2024-2025：GB200/NVL72机柜级AI服务器导入</text>
+<text x="868" y="1684" class="node">2025-2026：GB300/Blackwell Ultra拉动液冷和供电升级</text>
+<text x="868" y="1728" class="node">2026：800G向1.6T光模块迁移，交换网络扩容</text>
+<text x="868" y="1772" class="node">2026-2027：国产AI服务器生态扩容和验证</text>
+<text x="868" y="1816" class="node">后续：看GPU供给、云厂商Capex、ODM毛利和液冷渗透</text>
+<text x="868" y="1860" class="node">风险：GPU供应、资本开支、价格战和技术路线切换</text>
+
+<rect x="70" y="2015" width="1448" height="96" class="titleband"/>
+<text x="794" y="2055" text-anchor="middle" class="card-title">核心结论：AI服务器的A股投资主线不是“谁有服务器概念”，而是能否卡位订单、材料升级、</text>
+<text x="794" y="2088" text-anchor="middle" class="card-title">液冷供电瓶颈和集群网络扩容，并用收入占比与客户验证过滤概念。</text>
+<text x="70" y="2152" class="tiny">数据来源：NVIDIA、Supermicro/Lenovo/HPE公开资料、A股年报/公告、行业公开资料；截至 2026-06-26。未披露处以待核验处理。</text>
+</svg>

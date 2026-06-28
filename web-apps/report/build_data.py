@@ -9,11 +9,12 @@ from pathlib import Path
 from typing import Any
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 LOCAL = ROOT / "local"
 INDUSTRY = ROOT / "industry-analysis"
-OUT = ROOT / "web-report" / "data.js"
-INDUSTRY_ASSETS = ROOT / "web-report" / "industry-assets"
+REPORT_APP = ROOT / "web-apps" / "report"
+OUT = REPORT_APP / "data.js"
+INDUSTRY_ASSETS = REPORT_APP / "industry-assets"
 
 
 def read_text(path: Path) -> str:
