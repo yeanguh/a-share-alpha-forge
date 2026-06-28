@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "capabilities": [
+    {
+      "id": "daily-a-share-news-impact",
+      "type": "skill",
+      "path": ".agents/skills/daily-a-share-news-impact",
+      "summary": "日报、收盘复盘、周报、回测和阈值扫描主流程",
+      "entrypoints": [
+        ".agents/skills/daily-a-share-news-impact/scripts/run_daily_report.py",
+        ".agents/skills/daily-a-share-news-impact/scripts/review_archive.py",
+        ".agents/skills/daily-a-share-news-impact/scripts/backtest_archived_reports.py",
+        ".agents/skills/daily-a-share-news-impact/scripts/scan_selection_thresholds.py"
+      ]
+    },
+    {
+      "id": "industry-chain-analysis",
+      "type": "skill",
+      "path": ".agents/skills/industry-chain-analysis",
+      "summary": "通用产业链、上游瓶颈和 A 股映射研究",
+      "entrypoints": [
+        ".agents/skills/industry-chain-analysis/scripts/check_data_sources.py",
+        ".agents/skills/industry-chain-analysis/scripts/report_quality.py"
+      ]
+    },
+    {
+      "id": "china-stock-analysis",
+      "type": "skill",
+      "path": ".agents/skills/china-stock-analysis",
+      "summary": "A 股基础数据、财务分析、筛选和估值",
+      "entrypoints": [
+        ".agents/skills/china-stock-analysis/scripts/data_fetcher.py",
+        ".agents/skills/china-stock-analysis/scripts/financial_analyzer.py",
+        ".agents/skills/china-stock-analysis/scripts/stock_screener.py",
+        ".agents/skills/china-stock-analysis/scripts/valuation_calculator.py"
+      ]
+    },
+    {
+      "id": "china-stock-price-analysis",
+      "type": "skill",
+      "path": ".agents/skills/china-stock-price-analysis",
+      "summary": "实时行情降级链和相对估值快跑",
+      "entrypoints": [
+        ".agents/skills/china-stock-price-analysis/scripts/stock_analyze.py"
+      ]
+    },
+    {
+      "id": "investment-news",
+      "type": "skill-web",
+      "path": ".agents/skills/investment-news",
+      "summary": "本地投资资讯抓取、摘要和网页看板",
+      "entrypoints": [
+        ".agents/skills/investment-news/server.py",
+        ".agents/skills/investment-news/scripts/fetch.py",
+        ".agents/skills/investment-news/scripts/digest.py"
+      ]
+    },
+    {
+      "id": "a-stock-data",
+      "type": "skill",
+      "path": ".agents/skills/a-stock-data",
+      "summary": "开源 A 股全栈数据工具包能力说明",
+      "entrypoints": []
+    },
+    {
+      "id": "serenity-bottleneck-investing",
+      "type": "skill",
+      "path": ".agents/skills/serenity-bottleneck-investing",
+      "summary": "瓶颈卡口投资方法论和研究备忘录模板",
+      "entrypoints": []
+    },
+    {
+      "id": "report",
+      "type": "web-app",
+      "path": "web-apps/report",
+      "summary": "日报、复盘、周报和产业链交互报告",
+      "entrypoints": [
+        "web-apps/report/build_data.py"
+      ]
+    },
+    {
+      "id": "stock-workbench",
+      "type": "tool",
+      "path": "scripts/stock_workbench.py",
+      "summary": "统一本地工作台和多应用启动入口",
+      "entrypoints": [
+        "scripts/stock_workbench.py"
+      ]
+    },
+    {
+      "id": "vibe-trading",
+      "type": "submodule-web-app",
+      "path": "web-apps/vibe-trading",
+      "summary": "外部 Vibe-Trading web 应用和 Wiki",
+      "entrypoints": []
+    }
+  ],
+  "checks": [
+    {
+      "id": "manifest.paths",
+      "name": "能力路径存在",
+      "type": "paths",
+      "modes": ["smoke", "full"],
+      "paths_from": "capabilities"
+    },
+    {
+      "id": "python.compile.core",
+      "name": "核心 Python 入口可编译",
+      "type": "py_compile",
+      "modes": ["smoke", "full"],
+      "paths": [
+        "scripts/a_share_data.py",
+        "scripts/stock_workbench.py",
+        "scripts/run_harness.py",
+        "harness/runner.py",
+        "web-apps/report/build_data.py"
+      ],
+      "paths_from": "capability_entrypoints"
+    },
+    {
+      "id": "pytest.unit",
+      "name": "单元测试",
+      "type": "command",
+      "modes": ["smoke", "full"],
+      "argv": ["uv", "run", "pytest", "-q"],
+      "timeout_seconds": 180
+    },
+    {
+      "id": "report.build-data",
+      "name": "报告数据可重建",
+      "type": "command",
+      "modes": ["full"],
+      "argv": ["uv", "run", "python", "web-apps/report/build_data.py"],
+      "timeout_seconds": 120,
+      "generated_paths": [
+        "web-apps/report/data.js"
+      ]
+    },
+    {
+      "id": "workbench.api",
+      "name": "统一工作台 API",
+      "type": "workbench",
+      "modes": ["web"],
+      "port": 8878,
+      "timeout_seconds": 45,
+      "endpoints": [
+        "/api/status",
+        "/api/reports",
+        "/api/skills",
+        "/api/industries",
+        "/api/news/summary"
+      ]
+    }
+  ]
+}
