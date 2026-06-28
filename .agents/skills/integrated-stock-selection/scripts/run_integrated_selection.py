@@ -33,6 +33,18 @@ def raw_code(value: object) -> str:
     return digits.zfill(6) if digits else ""
 
 
+def split_codes_arg(value: str | None) -> list[str]:
+    parts = [part.strip() for part in re.split(r"[,，\s]+", value or "") if part.strip()]
+    codes: list[str] = []
+    for part in parts:
+        digits = re.sub(r"\D", "", part)
+        if len(digits) > 6 and len(digits) % 6 == 0:
+            codes.extend(digits[idx : idx + 6] for idx in range(0, len(digits), 6))
+        else:
+            codes.append(part)
+    return codes
+
+
 def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -700,13 +712,27 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     date, archive = load_archive(args.date)
-    codes = [part.strip() for part in (args.codes or "").split(",") if part.strip()]
+    codes = split_codes_arg(args.codes)
     iwencai_result = run_iwencai_stock_pool(args)
     iwencai_data = iwencai_result.get("data") if iwencai_result else None
     candidates = collect_candidates(archive, codes, args.theme, iwencai_data)
     rendered = [render_candidate(candidate) for candidate in candidates.values()]
     rendered.sort(key=lambda row: ({"core": 2, "watch": 1, "reject": 0}[row["bucket"]], row["score"]), reverse=True)
-    rendered = rendered[: max(1, args.max_candidates)]
+    max_candidates = max(1, args.max_candidates)
+    manual_rows = [row for row in rendered if "manual_codes" in row.get("source_tags", [])]
+    selected: list[dict[str, Any]] = []
+    seen_codes: set[str] = set()
+    for row in manual_rows + rendered:
+        code = row.get("code") or ""
+        if code in seen_codes:
+            continue
+        if len(selected) >= max_candidates and "manual_codes" not in row.get("source_tags", []):
+            continue
+        selected.append(row)
+        seen_codes.add(code)
+        if len(selected) >= max_candidates and len(seen_codes) >= len({item.get("code") for item in manual_rows}):
+            break
+    rendered = selected
     if args.refresh_quotes:
         refresh_quotes(rendered, args.quote_limit)
     committee_review = investment_committee_review(rendered)

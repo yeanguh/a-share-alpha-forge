@@ -1488,6 +1488,18 @@ def a_share_symbol(code: str) -> str:
     return code
 
 
+def normalize_codes_input(value: str) -> str:
+    parts = [part.strip() for part in re.split(r"[,，\s]+", value or "") if part.strip()]
+    codes: list[str] = []
+    for part in parts:
+        digits = re.sub(r"\D", "", part)
+        if len(digits) > 6 and len(digits) % 6 == 0:
+            codes.extend(digits[idx : idx + 6] for idx in range(0, len(digits), 6))
+        else:
+            codes.append(part)
+    return ",".join(codes)
+
+
 def vibe_committee_target(row: dict[str, Any]) -> str:
     quote = row.get("quote") or {}
     evidence = "；".join(str(item) for item in (row.get("reasons") or [])[:3])
@@ -1508,13 +1520,10 @@ def vibe_committee_target(row: dict[str, Any]) -> str:
 
 
 def apply_vibe_committee_review(payload: dict[str, Any], *, limit: int = 3, timeout: float = 900) -> dict[str, Any]:
-    rows = [
-        row
-        for row in payload.get("candidates", [])
-        if row.get("bucket") in {"core", "watch"}
-    ][: max(1, min(10, limit))]
+    rows = list(payload.get("candidates", []))[: max(1, min(30, limit))]
     reviews: list[dict[str, Any]] = []
     deadline = time.time() + timeout
+    pending: dict[str, tuple[dict[str, Any], dict[str, Any]]] = {}
     for row in rows:
         target = vibe_committee_target(row)
         review: dict[str, Any] = {
@@ -1534,7 +1543,17 @@ def apply_vibe_committee_review(payload: dict[str, Any], *, limit: int = 3, time
             )
             run_id = str(created.get("id") or "")
             review.update({"run_id": run_id, "status": str(created.get("status") or "running")})
-            while run_id and time.time() < deadline:
+            pending[run_id] = (row, review)
+        except Exception as exc:  # noqa: BLE001
+            review["status"] = "failed"
+            review["error"] = str(exc)
+        reviews.append(review)
+        row["vibe_committee_review"] = review
+
+    while pending and time.time() < deadline:
+        completed: list[str] = []
+        for run_id, (row, review) in list(pending.items()):
+            try:
                 detail = request_json(f"http://127.0.0.1:8899/swarm/runs/{urllib.parse.quote(run_id)}", timeout=20)
                 status = str(detail.get("status") or "")
                 review["status"] = status
@@ -1548,25 +1567,27 @@ def apply_vibe_committee_review(payload: dict[str, Any], *, limit: int = 3, time
                 ]
                 if status in {"completed", "failed", "cancelled"}:
                     review["final_report"] = detail.get("final_report") or ""
-                    break
-                time.sleep(5)
-            if review.get("status") not in {"completed", "failed", "cancelled"}:
-                review["status"] = "timeout"
-                review["error"] = "Vibe-Trading investment_committee did not finish before timeout."
-                if review.get("run_id"):
-                    try:
-                        post_json(
-                            f"http://127.0.0.1:8899/swarm/runs/{urllib.parse.quote(str(review['run_id']))}/cancel",
-                            {},
-                            timeout=10,
-                        )
-                    except Exception:
-                        pass
-        except Exception as exc:  # noqa: BLE001
-            review["status"] = "failed"
-            review["error"] = str(exc)
-        reviews.append(review)
-        row["vibe_committee_review"] = review
+                    completed.append(run_id)
+            except Exception as exc:  # noqa: BLE001
+                review["status"] = "failed"
+                review["error"] = str(exc)
+                completed.append(run_id)
+        for run_id in completed:
+            pending.pop(run_id, None)
+        if pending:
+            time.sleep(5)
+
+    for run_id, (_row, review) in list(pending.items()):
+        review["status"] = "timeout"
+        review["error"] = "Vibe-Trading investment_committee did not finish before timeout."
+        try:
+            post_json(
+                f"http://127.0.0.1:8899/swarm/runs/{urllib.parse.quote(run_id)}/cancel",
+                {},
+                timeout=10,
+            )
+        except Exception:
+            pass
 
     status = "completed" if reviews and all(item.get("status") == "completed" for item in reviews) else (
         "partial" if any(item.get("status") == "completed" for item in reviews) else "failed"
@@ -1617,7 +1638,7 @@ def run_integrated_selection(data: dict[str, Any]) -> dict[str, Any]:
     ]
     date = str(data.get("date") or "").strip()
     theme = str(data.get("theme") or "").strip()
-    codes = str(data.get("codes") or "").strip()
+    codes = normalize_codes_input(str(data.get("codes") or "").strip())
     if date:
         command.extend(["--date", date])
     if theme:

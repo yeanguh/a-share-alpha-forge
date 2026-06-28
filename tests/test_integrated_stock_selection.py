@@ -91,6 +91,17 @@ def test_explicit_codes_do_not_pull_all_industry_companies() -> None:
     assert "601138" not in candidates
 
 
+def test_split_codes_arg_repairs_missing_comma_between_six_digit_codes() -> None:
+    module = load_module()
+
+    assert module.split_codes_arg("301095,300041600459,603688") == [
+        "301095",
+        "300041",
+        "600459",
+        "603688",
+    ]
+
+
 def test_quote_refresh_can_downgrade_extreme_valuation(tmp_path: Path) -> None:
     module = load_module()
     snapshot = tmp_path / "quote.json"

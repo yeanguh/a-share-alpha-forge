@@ -109,3 +109,9 @@ def test_vibe_committee_target_formats_a_share_context() -> None:
     assert target.startswith("603986.SH 兆易创新")
     assert "bucket=core" in target
     assert "selection_evidence=已通过日报受益股门禁" in target
+
+
+def test_normalize_codes_input_splits_concatenated_codes() -> None:
+    module = load_module()
+
+    assert module.normalize_codes_input("301095,300041600459,603688") == "301095,300041,600459,603688"
