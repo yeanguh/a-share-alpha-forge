@@ -267,6 +267,7 @@ PORTAL_HTML = r"""<!doctype html>
     <main>
       <nav aria-label="工作台导航">
         <button class="active" data-view="home">总览</button>
+        <button data-view="selection">综合选股</button>
         <button data-view="reports">日期报告</button>
         <button data-view="stocks">股票分析</button>
         <button data-view="industries">产业链</button>
@@ -275,6 +276,7 @@ PORTAL_HTML = r"""<!doctype html>
       </nav>
       <section class="content">
         <section id="view-home" class="view grid"></section>
+        <section id="view-selection" class="view grid hidden"></section>
         <section id="view-reports" class="view grid hidden"></section>
         <section id="view-stocks" class="view grid hidden"></section>
         <section id="view-industries" class="view grid hidden"></section>
@@ -414,6 +416,7 @@ PORTAL_HTML = r"""<!doctype html>
             </div>
           </div>
           <div class="card third"><h2>日期报告</h2><p class="muted">查看日报、收盘复盘、周报和产业链报告。</p><button onclick="show('reports')">进入</button></div>
+          <div class="card third"><h2>综合选股</h2><p class="muted">一键运行 iWenCai 趋势池和综合选股，展示核心池、观察池与证据缺口。</p><button onclick="show('selection')">进入</button></div>
           <div class="card third"><h2>股票分析</h2><p class="muted">实时股价估值、基础数据抓取、财务分析入口。</p><button onclick="show('stocks')">进入</button></div>
           <div class="card third"><h2>新闻搜索</h2><p class="muted">刷新本地投资资讯，看最近赛道新闻。</p><button onclick="show('news')">进入</button></div>
         `;
@@ -461,6 +464,76 @@ PORTAL_HTML = r"""<!doctype html>
           $("reportPreview").innerHTML = md(data.markdown || "");
         } catch (err) {
           $("reportPreview").innerHTML = `<pre>${esc(err.message)}</pre>`;
+        } finally {
+          setBusy(btn, false);
+        }
+      }
+
+      async function renderSelection() {
+        const reports = state.reports.length ? state.reports : (await api("/api/reports")).days || [];
+        state.reports = reports;
+        const options = reports.map((r) => `<option value="${esc(r.date)}">${esc(r.date)}</option>`).join("");
+        $("view-selection").innerHTML = `
+          <div class="card full">
+            <h2>综合选股</h2>
+            <div class="row">
+              <label class="field small"><span>日期</span><select id="selectionDate">${options}</select></label>
+              <label class="field"><span>主题</span><input id="selectionTheme" placeholder="可选，例如 存储芯片" /></label>
+              <label class="field"><span>指定代码</span><input id="selectionCodes" placeholder="可选，例如 603986,600584" /></label>
+              <label class="field small"><span>候选数</span><input id="selectionMax" type="number" min="1" max="60" value="20" /></label>
+              <label class="field small"><span>行情复核</span><select id="selectionRefresh"><option value="true">开启</option><option value="false">关闭</option></select></label>
+              <label class="field small"><span>复核数量</span><input id="selectionQuoteLimit" type="number" min="0" max="20" value="3" /></label>
+            </div>
+            <div class="actions">
+              <button class="primary" onclick="runSelection(this)">一键选股</button>
+              <button onclick="loadLatestSelection(this)">查看最近结果</button>
+            </div>
+            <p class="muted">执行顺序：先运行 iwencai-trend-stock-pool，再叠加本地日报、产业链、估值和风险证据。输出保存在 tmp/workbench，不入库。</p>
+          </div>
+          <div class="card full"><h2>报告</h2><div id="selectionReport" class="markdown">等待运行。</div></div>
+          <div class="card full"><h2>结构化结果</h2><pre id="selectionJson">等待运行。</pre></div>
+        `;
+      }
+
+      function renderSelectionResult(data) {
+        $("selectionReport").innerHTML = md(data.markdown || "");
+        $("selectionJson").textContent = JSON.stringify({
+          output: data.output,
+          markdown_output: data.markdown_output,
+          summary: data.payload?.summary,
+          iwencai: data.payload?.iwencai,
+          generated_at: data.payload?.generated_at,
+        }, null, 2);
+      }
+
+      async function runSelection(btn) {
+        try {
+          setBusy(btn, true);
+          $("selectionReport").innerHTML = '<p class="muted">正在运行综合选股，首次拉取行情可能需要几分钟。</p>';
+          const data = await api("/api/selection/run", { method: "POST", body: JSON.stringify({
+            date: $("selectionDate").value,
+            theme: $("selectionTheme").value,
+            codes: $("selectionCodes").value,
+            max_candidates: Number($("selectionMax").value || 20),
+            refresh_quotes: $("selectionRefresh").value === "true",
+            quote_limit: Number($("selectionQuoteLimit").value || 0),
+          }) });
+          renderSelectionResult(data);
+          showToast(`选股完成：核心 ${data.payload?.summary?.core ?? 0}，观察 ${data.payload?.summary?.watch ?? 0}`);
+        } catch (err) {
+          $("selectionReport").innerHTML = `<pre>${esc(err.message)}</pre>`;
+        } finally {
+          setBusy(btn, false);
+        }
+      }
+
+      async function loadLatestSelection(btn) {
+        try {
+          setBusy(btn, true);
+          const data = await api("/api/selection/latest");
+          renderSelectionResult(data);
+        } catch (err) {
+          $("selectionReport").innerHTML = `<pre>${esc(err.message)}</pre>`;
         } finally {
           setBusy(btn, false);
         }
@@ -648,7 +721,7 @@ PORTAL_HTML = r"""<!doctype html>
 
       async function boot() {
         renderStocks();
-        await Promise.allSettled([refreshStatus(), loadReports(), loadIndustries(), renderNews(), loadSkills()]);
+        await Promise.allSettled([refreshStatus(), loadReports(), renderSelection(), loadIndustries(), renderNews(), loadSkills()]);
       }
       boot();
     </script>
@@ -1107,6 +1180,133 @@ def investment_news_summary() -> dict[str, Any]:
     }
 
 
+def render_selection_markdown(payload: dict[str, Any]) -> str:
+    summary = payload.get("summary") or {}
+    lines = [
+        f"# 综合选股报告 {payload.get('date') or ''}",
+        "",
+        f"- 生成时间: {payload.get('generated_at') or ''}",
+        f"- 主题: {payload.get('theme') or '全部'}",
+        f"- 候选数: {summary.get('total', 0)}，核心池: {summary.get('core', 0)}，观察池: {summary.get('watch', 0)}，排除: {summary.get('reject', 0)}",
+        f"- iWenCai 状态: {(payload.get('iwencai') or {}).get('status', 'unknown')}",
+        "",
+        "## 主线",
+    ]
+    mainlines = payload.get("mainlines") or []
+    if mainlines:
+        for item in mainlines[:8]:
+            title = item.get("title") or item.get("sector") or "-"
+            score = item.get("impact_score") or item.get("score") or ""
+            lines.append(f"- {title}: {score}")
+    else:
+        lines.append("- 未匹配到主题主线，按股票和产业链证据补充筛选。")
+
+    for bucket, title in (("core", "核心池"), ("watch", "观察池"), ("reject", "排除/待验证")):
+        rows = [row for row in payload.get("candidates", []) if row.get("bucket") == bucket]
+        lines.extend(
+            [
+                "",
+                f"## {title}",
+                "",
+                "| 代码 | 名称 | 主题/行业 | 分数 | 估值 | 证据 | 缺口 |",
+                "| --- | --- | --- | ---: | --- | --- | --- |",
+            ]
+        )
+        if not rows:
+            lines.append("| - | - | - | - | - | - | - |")
+            continue
+        for row in rows:
+            quote = row.get("quote") or {}
+            valuation = []
+            if quote.get("latest") is not None:
+                valuation.append(f"价 {quote.get('latest')}")
+            if quote.get("pe_ttm") is not None:
+                valuation.append(f"PE {quote.get('pe_ttm')}")
+            if quote.get("pb") is not None:
+                valuation.append(f"PB {quote.get('pb')}")
+            evidence = "；".join(str(item) for item in (row.get("reasons") or [])[:3]) or "-"
+            missing = "；".join(str(item) for item in (row.get("missing_evidence") or [])[:3]) or "无"
+            lines.append(
+                "| {code} | {name} | {sector} | {score} | {valuation} | {evidence} | {missing} |".format(
+                    code=row.get("code") or "",
+                    name=row.get("name") or "",
+                    sector=row.get("sector") or "",
+                    score=row.get("score") or "",
+                    valuation="；".join(valuation) or "-",
+                    evidence=evidence,
+                    missing=missing,
+                )
+            )
+    lines.extend(["", "> 仅用于研究和复盘校准，不构成买卖建议。"])
+    return "\n".join(lines) + "\n"
+
+
+def selection_output_paths() -> tuple[Path, Path, Path]:
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output = TMP / f"integrated_selection_{timestamp}.json"
+    markdown_output = TMP / f"integrated_selection_{timestamp}.md"
+    iwencai_output = TMP / f"iwencai_{timestamp}"
+    return output, markdown_output, iwencai_output
+
+
+def latest_selection_json() -> Path | None:
+    candidates = sorted(TMP.glob("integrated_selection_*.json"), key=lambda path: path.stat().st_mtime, reverse=True)
+    return candidates[0] if candidates else None
+
+
+def read_selection_result(path: Path) -> dict[str, Any]:
+    payload = read_json(path)
+    if not isinstance(payload, dict):
+        raise FileNotFoundError(f"selection result not found: {path}")
+    markdown_path = path.with_suffix(".md")
+    markdown = read_text(markdown_path) or render_selection_markdown(payload)
+    return {
+        "output": str(path.relative_to(ROOT)),
+        "markdown_output": str(markdown_path.relative_to(ROOT)) if markdown_path.exists() else "",
+        "payload": payload,
+        "markdown": markdown,
+    }
+
+
+def run_integrated_selection(data: dict[str, Any]) -> dict[str, Any]:
+    TMP.mkdir(parents=True, exist_ok=True)
+    output, markdown_output, iwencai_output = selection_output_paths()
+    command = [
+        "uv",
+        "run",
+        "python",
+        ".agents/skills/integrated-stock-selection/scripts/run_integrated_selection.py",
+        "--max-candidates",
+        str(max(1, min(60, int(data.get("max_candidates") or 20)))),
+        "--iwencai-output-dir",
+        str(iwencai_output),
+        "--output",
+        str(output),
+    ]
+    date = str(data.get("date") or "").strip()
+    theme = str(data.get("theme") or "").strip()
+    codes = str(data.get("codes") or "").strip()
+    if date:
+        command.extend(["--date", date])
+    if theme:
+        command.extend(["--theme", theme])
+    if codes:
+        command.extend(["--codes", codes])
+    if bool(data.get("refresh_quotes")):
+        command.append("--refresh-quotes")
+        command.extend(["--quote-limit", str(max(0, min(20, int(data.get("quote_limit") or 3))))])
+    result = run_command(command, timeout=1200)
+    if result.returncode != 0:
+        raise RuntimeError((result.stderr or result.stdout or "integrated selection failed").strip())
+    payload = read_json(output)
+    markdown = render_selection_markdown(payload)
+    markdown_output.write_text(markdown, encoding="utf-8")
+    response = read_selection_result(output)
+    response["command"] = shlex.join(command)
+    response["stdout"] = result.stdout[-4000:]
+    return response
+
+
 def json_response(handler: BaseHTTPRequestHandler, payload: Any, status: int = 200) -> None:
     body = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
     handler.send_response(status)
@@ -1302,6 +1502,11 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
             json_response(self, {"id": item_id, "markdown": markdown, "quality": read_json(report.parent / "quality_report.json")})
         elif path == "/api/news/summary":
             json_response(self, investment_news_summary())
+        elif path == "/api/selection/latest":
+            latest = latest_selection_json()
+            if not latest:
+                raise FileNotFoundError("no integrated selection result found in tmp/workbench")
+            json_response(self, read_selection_result(latest))
         elif path == "/api/skills":
             json_response(self, list_skills())
         else:
@@ -1319,6 +1524,8 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
             except urllib.error.URLError as exc:
                 raise RuntimeError(f"investment-news server unavailable: {exc}") from exc
             json_response(self, payload)
+        elif path == "/api/selection/run":
+            json_response(self, run_integrated_selection(data))
         elif path == "/api/stock/price":
             code = str(data.get("code") or "").strip()
             if not code:
