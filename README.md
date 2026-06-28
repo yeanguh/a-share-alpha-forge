@@ -101,7 +101,7 @@ uv run python scripts/stock_workbench.py --stop
 
 工作台运行股票分析或数据抓取时，输出文件写入 `tmp/workbench/`，不入库。
 
-工作台里的“综合选股”页支持一键触发 `integrated-stock-selection`：先运行 `iwencai-trend-stock-pool` 生成趋势承接候选，再叠加本地日报、产业链、估值和风险证据，最后在网页上展示核心池、观察池、排除项和证据缺口。选股 JSON 和 Markdown 报告会写入 `tmp/workbench/integrated_selection_*.json|md`，不入库。
+工作台里的“综合选股”页支持一键触发 `integrated-stock-selection`：先运行 `iwencai-trend-stock-pool` 生成趋势承接候选，再叠加本地日报、产业链、估值和风险证据，最后在网页上展示核心池、观察池、排除项和证据缺口。结果会先经过本地投委会规则初审；如果选择“Vibe 优先”且 Vibe-Trading 后端已配置 LLM API key，还会调用 `investment_committee` swarm 对前排候选做多智能体评审。选股 JSON 和 Markdown 报告会写入 `tmp/workbench/integrated_selection_*.json|md`，不入库。
 
 生成综合选股池：
 

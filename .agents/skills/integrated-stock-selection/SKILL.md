@@ -33,6 +33,10 @@ for research and review only, not trading instructions.
 7. Output four lists: core pool, watchlist, reject/exclusion list, and missing
    evidence. Keep generated files in `tmp/` unless the user explicitly asks to
    archive a report.
+8. Add an investment-committee review after ranking. The script always emits a
+   deterministic local committee review; the web workbench can additionally call
+   Vibe-Trading `investment_committee` when the Vibe backend and LLM key are
+   available.
 
 ## Quick Start
 

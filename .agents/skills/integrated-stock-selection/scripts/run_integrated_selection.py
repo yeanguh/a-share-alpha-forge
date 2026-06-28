@@ -523,6 +523,112 @@ def apply_quote_refresh(row: dict[str, Any], snapshot_path: Path) -> None:
         row["bucket"] = "watch"
 
 
+def _committee_member(name: str, score: float, stance: str, comment: str) -> dict[str, Any]:
+    return {
+        "name": name,
+        "score": round(max(0.0, min(5.0, score)), 2),
+        "stance": stance,
+        "comment": comment,
+    }
+
+
+def investment_committee_review(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Deterministic local investment-committee review for selected candidates."""
+
+    reviews: list[dict[str, Any]] = []
+    for row in rows:
+        dims = row.get("dimensions") or {}
+        quote = row.get("quote") or {}
+        pe = as_float(quote.get("pe_ttm"), 0.0)
+        source_count = len(row.get("source_tags") or [])
+        missing_count = len(row.get("missing_evidence") or [])
+        archive_backed = any(tag in row.get("source_tags", []) for tag in ("eligible_beneficiaries", "leading_stocks", "stocks"))
+
+        technical_score = (
+            as_float(dims.get("trend"), 2.5) * 0.34
+            + as_float(dims.get("volume"), 2.5) * 0.26
+            + as_float(dims.get("iwencai"), 0.0) * 0.40
+        )
+        fundamental_score = (
+            as_float(dims.get("event"), 2.0) * 0.28
+            + as_float(dims.get("beneficiary"), 2.5) * 0.26
+            + as_float(dims.get("institutional"), 2.2) * 0.20
+            + as_float(dims.get("industry"), 0.0) * 0.26
+        )
+        valuation_penalty = 1.0 if pe >= 200 else 0.6 if pe >= 120 else 0.25 if pe >= 80 else 0.0
+        risk_score = max(0.0, as_float(dims.get("risk_control"), 2.5) - valuation_penalty)
+        portfolio_score = min(5.0, as_float(row.get("score"), 0.0) / 20.0 + min(source_count, 4) * 0.18 - missing_count * 0.12)
+
+        members = [
+            _committee_member(
+                "趋势委员",
+                technical_score,
+                "支持" if technical_score >= 3.6 else "谨慎" if technical_score >= 2.8 else "反对",
+                "趋势和量能共振较好" if technical_score >= 3.6 else "趋势承接仍需确认",
+            ),
+            _committee_member(
+                "产业/基本面委员",
+                fundamental_score,
+                "支持" if fundamental_score >= 3.6 else "谨慎" if fundamental_score >= 2.6 else "反对",
+                "具备事件、受益股或产业链交叉证据" if fundamental_score >= 3.6 else "基本面或产业链证据不足",
+            ),
+            _committee_member(
+                "风险委员",
+                risk_score,
+                "支持" if risk_score >= 3.4 else "谨慎" if risk_score >= 2.4 else "反对",
+                "风险和估值约束可接受" if risk_score >= 3.4 else "估值、热度或证据缺口需要压低优先级",
+            ),
+            _committee_member(
+                "组合委员",
+                portfolio_score,
+                "支持" if portfolio_score >= 3.6 else "谨慎" if portfolio_score >= 2.8 else "反对",
+                "可作为组合观察仓候选" if portfolio_score >= 3.6 else "需要补齐证据或等待更优排序",
+            ),
+        ]
+        average = round(sum(member["score"] for member in members) / len(members), 2)
+        vetoes = [member["name"] for member in members if member["stance"] == "反对"]
+        if pe >= 200 and not archive_backed:
+            vetoes.append("估值高位且缺少日报/产业链交叉验证")
+
+        if vetoes:
+            action = "暂不进入核心池"
+            advice = "保留观察或剔除复核，先补估值、财务兑现和产业链证据。"
+        elif row.get("bucket") == "core" and average >= 3.7:
+            action = "核心观察"
+            advice = "允许进入核心观察池，但仅在回撤、量能和风险条件同步满足后再评估。"
+        elif average >= 3.0:
+            action = "观察等待"
+            advice = "保留在观察池，等待行情复核、产业链证据或机构趋势确认。"
+        else:
+            action = "剔除复核"
+            advice = "当前证据不足，不建议进入本轮重点名单。"
+
+        reviews.append(
+            {
+                "code": row.get("code") or "",
+                "name": row.get("name") or "",
+                "bucket": row.get("bucket") or "",
+                "committee_score": average,
+                "action": action,
+                "advice": advice,
+                "vetoes": vetoes,
+                "members": members,
+            }
+        )
+        row["committee_review"] = reviews[-1]
+
+    return {
+        "mode": "local_deterministic_committee",
+        "description": "趋势、产业/基本面、风险、组合四类委员基于已采集证据做本地规则评审；不调用 LLM，不构成买卖建议。",
+        "summary": {
+            "core_observe": sum(1 for item in reviews if item["action"] == "核心观察"),
+            "watch_wait": sum(1 for item in reviews if item["action"] == "观察等待"),
+            "defer_or_reject": sum(1 for item in reviews if item["action"] in {"暂不进入核心池", "剔除复核"}),
+        },
+        "reviews": reviews,
+    }
+
+
 def render_markdown(payload: dict[str, Any]) -> str:
     lines = [
         f"# 综合选股池 {payload['date']}",
@@ -547,6 +653,22 @@ def render_markdown(payload: dict[str, Any]) -> str:
             )
         if not rows:
             lines.append("| - | - | - | - | - | - |")
+    committee = payload.get("committee_review") or {}
+    if committee:
+        lines.extend(
+            [
+                "",
+                "## 投资委员会评审",
+                "",
+                "| 代码 | 名称 | 投委会评分 | 决议 | 建议 | 否决/待补 |",
+                "| --- | --- | ---: | --- | --- | --- |",
+            ]
+        )
+        for item in committee.get("reviews", []):
+            vetoes = "；".join(item.get("vetoes") or []) or "无"
+            lines.append(
+                f"| {item.get('code', '')} | {item.get('name', '')} | {item.get('committee_score', '')} | {item.get('action', '')} | {item.get('advice', '')} | {vetoes} |"
+            )
     lines.extend(["", "> 仅用于研究和复盘校准，不构成买卖建议。"])
     return "\n".join(lines) + "\n"
 
@@ -587,6 +709,7 @@ def main() -> int:
     rendered = rendered[: max(1, args.max_candidates)]
     if args.refresh_quotes:
         refresh_quotes(rendered, args.quote_limit)
+    committee_review = investment_committee_review(rendered)
     payload = {
         "date": date,
         "theme": args.theme,
@@ -604,6 +727,7 @@ def main() -> int:
             if key != "data"
         },
         "candidates": rendered,
+        "committee_review": committee_review,
     }
     text = render_markdown(payload) if args.format == "markdown" else json.dumps(payload, ensure_ascii=False, indent=2)
     if args.output:

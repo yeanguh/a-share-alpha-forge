@@ -80,6 +80,7 @@ def test_run_integrated_selection_writes_tmp_report(monkeypatch) -> None:
             "max_candidates": 7,
             "refresh_quotes": True,
             "quote_limit": 2,
+            "committee_mode": "local",
         }
     )
 
@@ -88,3 +89,23 @@ def test_run_integrated_selection_writes_tmp_report(monkeypatch) -> None:
     assert result["markdown_output"].endswith(".md")
     assert "--refresh-quotes" in result["command"]
     assert "--quote-limit 2" in result["command"]
+
+
+def test_vibe_committee_target_formats_a_share_context() -> None:
+    module = load_module()
+    target = module.vibe_committee_target(
+        {
+            "code": "603986",
+            "name": "兆易创新",
+            "sector": "存储芯片",
+            "bucket": "core",
+            "score": 74.81,
+            "quote": {"latest": 367.18, "pe_ttm": 88.2},
+            "reasons": ["已通过日报受益股门禁"],
+            "missing_evidence": ["缺少产业链/卡口映射"],
+        }
+    )
+
+    assert target.startswith("603986.SH 兆易创新")
+    assert "bucket=core" in target
+    assert "selection_evidence=已通过日报受益股门禁" in target

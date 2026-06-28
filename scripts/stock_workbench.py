@@ -644,12 +644,14 @@ PORTAL_HTML = r"""<!doctype html>
               <label class="field small"><span>候选数</span><input id="selectionMax" type="number" min="1" max="60" value="20" /></label>
               <label class="field small"><span>行情复核</span><select id="selectionRefresh"><option value="true">开启</option><option value="false">关闭</option></select></label>
               <label class="field small"><span>复核数量</span><input id="selectionQuoteLimit" type="number" min="0" max="20" value="3" /></label>
+              <label class="field small"><span>投委会</span><select id="selectionCommittee"><option value="vibe">Vibe 优先</option><option value="local">本地规则</option><option value="off">关闭</option></select></label>
+              <label class="field small"><span>投委会数量</span><input id="selectionCommitteeLimit" type="number" min="1" max="10" value="3" /></label>
             </div>
             <div class="actions">
               <button class="primary" onclick="runSelection(this)">一键选股</button>
               <button onclick="loadLatestSelection(this)">查看最近结果</button>
             </div>
-            <p class="muted">执行顺序：先运行 iwencai-trend-stock-pool，再叠加本地日报、产业链、估值和风险证据。输出保存在 tmp/workbench，不入库。</p>
+            <p class="muted">执行顺序：先运行 iwencai-trend-stock-pool，再叠加本地日报、产业链、估值和风险证据；开启 Vibe 优先时，会把前排候选送入 investment_committee 多智能体评审。输出保存在 tmp/workbench，不入库。</p>
           </div>
           <div class="card full"><h2>报告</h2><div id="selectionReport" class="markdown">等待运行。</div></div>
           <div class="card full"><h2>结构化结果</h2><pre id="selectionJson">等待运行。</pre></div>
@@ -663,6 +665,8 @@ PORTAL_HTML = r"""<!doctype html>
           markdown_output: data.markdown_output,
           summary: data.payload?.summary,
           iwencai: data.payload?.iwencai,
+          local_committee: data.payload?.committee_review?.summary,
+          vibe_committee: data.payload?.vibe_committee_review?.summary || data.payload?.vibe_committee_review?.status,
           generated_at: data.payload?.generated_at,
         }, null, 2);
       }
@@ -678,9 +682,11 @@ PORTAL_HTML = r"""<!doctype html>
             max_candidates: Number($("selectionMax").value || 20),
             refresh_quotes: $("selectionRefresh").value === "true",
             quote_limit: Number($("selectionQuoteLimit").value || 0),
+            committee_mode: $("selectionCommittee").value,
+            vibe_committee_limit: Number($("selectionCommitteeLimit").value || 3),
           }) });
           renderSelectionResult(data);
-          showToast(`选股完成：核心 ${data.payload?.summary?.core ?? 0}，观察 ${data.payload?.summary?.watch ?? 0}`);
+          showToast(`选股完成：核心 ${data.payload?.summary?.core ?? 0}，观察 ${data.payload?.summary?.watch ?? 0}，投委会 ${data.payload?.vibe_committee_review?.status || data.payload?.committee_review?.mode || "none"}`);
         } catch (err) {
           $("selectionReport").innerHTML = `<pre>${esc(err.message)}</pre>`;
         } finally {
@@ -928,6 +934,18 @@ def is_url_healthy(url: str, timeout: float = 2) -> tuple[bool, str]:
 
 def request_json(url: str, timeout: float = 10) -> dict[str, Any]:
     req = urllib.request.Request(url, headers={"User-Agent": "stock-workbench/1.0"})
+    with urllib.request.urlopen(req, timeout=timeout) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def post_json(url: str, payload: dict[str, Any], timeout: float = 10) -> dict[str, Any]:
+    body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    req = urllib.request.Request(
+        url,
+        data=body,
+        method="POST",
+        headers={"Content-Type": "application/json", "User-Agent": "stock-workbench/1.0"},
+    )
     with urllib.request.urlopen(req, timeout=timeout) as response:
         return json.loads(response.read().decode("utf-8"))
 
@@ -1398,6 +1416,50 @@ def render_selection_markdown(payload: dict[str, Any]) -> str:
                     missing=missing,
                 )
             )
+    local_committee = payload.get("committee_review") or {}
+    if local_committee:
+        lines.extend(
+            [
+                "",
+                "## 本地投委会初审",
+                "",
+                f"- 模式: {local_committee.get('mode', 'local')}",
+                f"- 说明: {local_committee.get('description', '')}",
+                "",
+                "| 代码 | 名称 | 投委会评分 | 决议 | 建议 | 否决/待补 |",
+                "| --- | --- | ---: | --- | --- | --- |",
+            ]
+        )
+        for item in local_committee.get("reviews", []):
+            vetoes = "；".join(item.get("vetoes") or []) or "无"
+            lines.append(
+                f"| {item.get('code', '')} | {item.get('name', '')} | {item.get('committee_score', '')} | {item.get('action', '')} | {item.get('advice', '')} | {vetoes} |"
+            )
+    vibe_committee = payload.get("vibe_committee_review") or {}
+    if vibe_committee:
+        lines.extend(
+            [
+                "",
+                "## Vibe-Trading 投资委员会评审",
+                "",
+                f"- 状态: {vibe_committee.get('status', 'unknown')}",
+                f"- 预设: {vibe_committee.get('preset', 'investment_committee')}",
+                f"- 评审数量: {len(vibe_committee.get('reviews', []))}",
+                "",
+            ]
+        )
+        for item in vibe_committee.get("reviews", []):
+            lines.extend(
+                [
+                    f"### {item.get('code', '')} {item.get('name', '')}",
+                    "",
+                    f"- 运行: {item.get('run_id', '')}",
+                    f"- 状态: {item.get('status', '')}",
+                    "",
+                    item.get("final_report") or item.get("error") or "暂无最终报告。",
+                    "",
+                ]
+            )
     lines.extend(["", "> 仅用于研究和复盘校准，不构成买卖建议。"])
     return "\n".join(lines) + "\n"
 
@@ -1413,6 +1475,115 @@ def selection_output_paths() -> tuple[Path, Path, Path]:
 def latest_selection_json() -> Path | None:
     candidates = sorted(TMP.glob("integrated_selection_*.json"), key=lambda path: path.stat().st_mtime, reverse=True)
     return candidates[0] if candidates else None
+
+
+def a_share_symbol(code: str) -> str:
+    code = re.sub(r"\D", "", str(code or "")).zfill(6)
+    if code.startswith(("6", "9")):
+        return f"{code}.SH"
+    if code.startswith(("0", "2", "3")):
+        return f"{code}.SZ"
+    if code.startswith(("4", "8")):
+        return f"{code}.BJ"
+    return code
+
+
+def vibe_committee_target(row: dict[str, Any]) -> str:
+    quote = row.get("quote") or {}
+    evidence = "；".join(str(item) for item in (row.get("reasons") or [])[:3])
+    missing = "；".join(str(item) for item in (row.get("missing_evidence") or [])[:3])
+    valuation = []
+    if quote.get("latest") is not None:
+        valuation.append(f"latest={quote.get('latest')}")
+    if quote.get("pe_ttm") is not None:
+        valuation.append(f"pe_ttm={quote.get('pe_ttm')}")
+    if quote.get("pb") is not None:
+        valuation.append(f"pb={quote.get('pb')}")
+    return (
+        f"{a_share_symbol(str(row.get('code') or ''))} {row.get('name') or ''}; "
+        f"sector={row.get('sector') or ''}; bucket={row.get('bucket') or ''}; "
+        f"score={row.get('score')}; valuation={'/'.join(valuation) or 'missing'}; "
+        f"selection_evidence={evidence or 'none'}; evidence_gaps={missing or 'none'}"
+    )
+
+
+def apply_vibe_committee_review(payload: dict[str, Any], *, limit: int = 3, timeout: float = 900) -> dict[str, Any]:
+    rows = [
+        row
+        for row in payload.get("candidates", [])
+        if row.get("bucket") in {"core", "watch"}
+    ][: max(1, min(10, limit))]
+    reviews: list[dict[str, Any]] = []
+    deadline = time.time() + timeout
+    for row in rows:
+        target = vibe_committee_target(row)
+        review: dict[str, Any] = {
+            "code": row.get("code") or "",
+            "name": row.get("name") or "",
+            "target": target,
+            "status": "pending",
+        }
+        try:
+            created = post_json(
+                "http://127.0.0.1:8899/swarm/runs",
+                {
+                    "preset_name": "investment_committee",
+                    "user_vars": {"target": target, "market": "A-shares"},
+                },
+                timeout=10,
+            )
+            run_id = str(created.get("id") or "")
+            review.update({"run_id": run_id, "status": str(created.get("status") or "running")})
+            while run_id and time.time() < deadline:
+                detail = request_json(f"http://127.0.0.1:8899/swarm/runs/{urllib.parse.quote(run_id)}", timeout=20)
+                status = str(detail.get("status") or "")
+                review["status"] = status
+                review["tasks"] = [
+                    {
+                        "id": task.get("id"),
+                        "agent_id": task.get("agent_id"),
+                        "status": task.get("status"),
+                    }
+                    for task in detail.get("tasks", [])
+                ]
+                if status in {"completed", "failed", "cancelled"}:
+                    review["final_report"] = detail.get("final_report") or ""
+                    break
+                time.sleep(5)
+            if review.get("status") not in {"completed", "failed", "cancelled"}:
+                review["status"] = "timeout"
+                review["error"] = "Vibe-Trading investment_committee did not finish before timeout."
+                if review.get("run_id"):
+                    try:
+                        post_json(
+                            f"http://127.0.0.1:8899/swarm/runs/{urllib.parse.quote(str(review['run_id']))}/cancel",
+                            {},
+                            timeout=10,
+                        )
+                    except Exception:
+                        pass
+        except Exception as exc:  # noqa: BLE001
+            review["status"] = "failed"
+            review["error"] = str(exc)
+        reviews.append(review)
+        row["vibe_committee_review"] = review
+
+    status = "completed" if reviews and all(item.get("status") == "completed" for item in reviews) else (
+        "partial" if any(item.get("status") == "completed" for item in reviews) else "failed"
+    )
+    payload["vibe_committee_review"] = {
+        "mode": "vibe_trading_swarm",
+        "preset": "investment_committee",
+        "status": status,
+        "summary": {
+            "requested": len(rows),
+            "completed": sum(1 for item in reviews if item.get("status") == "completed"),
+            "failed": sum(1 for item in reviews if item.get("status") == "failed"),
+            "timeout": sum(1 for item in reviews if item.get("status") == "timeout"),
+        },
+        "reviews": reviews,
+    }
+    return payload
 
 
 def read_selection_result(path: Path) -> dict[str, Any]:
@@ -1460,6 +1631,17 @@ def run_integrated_selection(data: dict[str, Any]) -> dict[str, Any]:
     if result.returncode != 0:
         raise RuntimeError((result.stderr or result.stdout or "integrated selection failed").strip())
     payload = read_json(output)
+    committee_mode = str(data.get("committee_mode") or "vibe").strip().lower()
+    if committee_mode == "vibe":
+        payload = apply_vibe_committee_review(
+            payload,
+            limit=int(data.get("vibe_committee_limit") or 3),
+            timeout=float(data.get("vibe_committee_timeout") or 900),
+        )
+        output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    elif committee_mode == "off":
+        payload.pop("committee_review", None)
+        output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     markdown = render_selection_markdown(payload)
     markdown_output.write_text(markdown, encoding="utf-8")
     response = read_selection_result(output)
@@ -1764,6 +1946,8 @@ class LocalThreadingHTTPServer(ThreadingHTTPServer):
 
     def server_bind(self) -> None:
         # Avoid BaseHTTPServer's reverse DNS lookup, which can hang on some local networks.
+        if self.allow_reuse_address:
+            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.bind(self.server_address)
         host, port = self.socket.getsockname()[:2]
         self.server_name = str(host)

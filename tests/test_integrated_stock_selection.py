@@ -116,3 +116,34 @@ def test_quote_refresh_can_downgrade_extreme_valuation(tmp_path: Path) -> None:
     assert "刷新行情显示估值显著偏高" in row["reasons"]
     assert "缺少本次归档行情/估值快照" not in row["missing_evidence"]
     assert "估值高位，需要盈利兑现复核" in row["missing_evidence"]
+
+
+def test_investment_committee_review_adds_action_to_rows() -> None:
+    module = load_module()
+    rows = [
+        {
+            "code": "603986",
+            "name": "兆易创新",
+            "bucket": "core",
+            "score": 74.81,
+            "dimensions": {
+                "trend": 4.0,
+                "volume": 3.8,
+                "iwencai": 4.0,
+                "event": 4.3,
+                "beneficiary": 4.0,
+                "institutional": 3.8,
+                "industry": 2.0,
+                "risk_control": 3.6,
+            },
+            "quote": {"pe_ttm": 80},
+            "source_tags": ["eligible_beneficiaries", "iwencai-trend-stock-pool"],
+            "missing_evidence": [],
+        }
+    ]
+
+    review = module.investment_committee_review(rows)
+
+    assert review["mode"] == "local_deterministic_committee"
+    assert review["reviews"][0]["code"] == "603986"
+    assert rows[0]["committee_review"]["action"] in {"核心观察", "观察等待"}
