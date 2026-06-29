@@ -1,0 +1,880 @@
+{
+  "window": {
+    "start": "2026-06-26T09:30:00+08:00",
+    "end": "2026-06-29T09:30:00+08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "fund_flow": {
+    "direction": "拥挤分化",
+    "pbc_open_market_operation_summary": "窗口内未单独抓取到新的公开市场操作公告，流动性判断主要依赖盘面资金流、行业净流入和跨市场风险偏好；公开信息仅显示央行在6月29日至6月30日阶段性增加隔夜逆回购操作品种。",
+    "turnover_summary": "截至2026-06-29 09:55，科创50涨约2.83%，沪深300涨约0.24%，上证指数涨约0.14%；科技成交集中，科创50成交额约806.7亿元，上证指数成交额约6081亿元。",
+    "main_flow_summary": "行业主力净流入集中在半导体、数字芯片设计、半导体设备、激光设备和分立器件；通信、通信设备、印制电路板、集成电路封测和电力设备净流出居前，属于科技主线内部强弱快速切换。",
+    "sector_flow_summary": "半导体(+38.94亿元)、数字芯片设计(+32.27亿元)、半导体设备(+18.60亿元)、激光设备(+17.01亿元)、分立器件(+15.69亿元)领涨或领净流入；印制电路板(-32.86亿元)、通信设备(-43.62亿元)、通信(-47.50亿元)、集成电路封测(-23.16亿元)承压。",
+    "breadth_summary": "截至2026-06-29 09:55，全市场上涨约1031家、下跌约4125家，涨停59家、跌停43家；沪股通口径上涨412家下跌1217家，深股通口径上涨413家下跌1443家，宽度明显弱于科技主线局部强势。",
+    "data_quality": "partial"
+  },
+  "candidates": [
+    {
+      "title": "韩国三星与SK海力士获批在蔚山投资逾3000万亿韩元，重点覆盖AI、半导体与数据中心制造项目",
+      "direction": "positive",
+      "magnitude": 4.6,
+      "breadth": 4.4,
+      "immediacy": 4.0,
+      "confidence": 4.1,
+      "novelty": 4.2,
+      "liquidity": 4.5,
+      "price_volume": 4.0,
+      "affected_sectors": [
+        "半导体设备",
+        "数字芯片设计",
+        "先进封装",
+        "激光设备"
+      ],
+      "logic": "海外大厂扩投资本开支强化AI数据中心与芯片制造链景气，A股半导体设备、先进封装与光通信景气预期同步受益。",
+      "short_impact": "利好科技制造主线，但更偏景气链强化而非全面扩散。",
+      "source": "Reuters/Bluewater 2026-06-29；Yonhap 2026-06-29"
+    },
+    {
+      "title": "行业资金流快照显示半导体板块主力净流入约38.94亿元，澜起科技居首",
+      "direction": "positive",
+      "magnitude": 4.4,
+      "breadth": 4.2,
+      "immediacy": 4.3,
+      "confidence": 4.4,
+      "novelty": 3.5,
+      "liquidity": 4.7,
+      "price_volume": 4.2,
+      "affected_sectors": [
+        "半导体"
+      ],
+      "logic": "早盘资金持续回流半导体，显示AI与芯片主线仍具备最强交易承接。",
+      "short_impact": "有助于科技风格继续占优，但指数扩散仍有限。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "数字芯片设计板块主力净流入约32.27亿元，澜起科技居首",
+      "direction": "positive",
+      "magnitude": 4.3,
+      "breadth": 3.9,
+      "immediacy": 4.2,
+      "confidence": 4.3,
+      "novelty": 3.6,
+      "liquidity": 4.4,
+      "price_volume": 4.1,
+      "affected_sectors": [
+        "数字芯片设计"
+      ],
+      "logic": "高端芯片设计获得主力增配，验证AI算力链景气预期向设计环节传导。",
+      "short_impact": "更适合继续作为强主线跟踪。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "半导体设备板块涨约3.24%，主力净流入约18.60亿元，中微公司居首",
+      "direction": "positive",
+      "magnitude": 4.5,
+      "breadth": 3.8,
+      "immediacy": 4.3,
+      "confidence": 4.4,
+      "novelty": 3.5,
+      "liquidity": 4.2,
+      "price_volume": 4.5,
+      "affected_sectors": [
+        "半导体设备"
+      ],
+      "logic": "设备链与海外扩产逻辑共振，资金直接追逐国产设备与零部件。",
+      "short_impact": "景气确认较强，量价更支持中短线主线地位。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "分立器件板块涨约4.78%，主力净流入约15.69亿元，士兰微居首",
+      "direction": "positive",
+      "magnitude": 4.1,
+      "breadth": 3.5,
+      "immediacy": 4.1,
+      "confidence": 4.0,
+      "novelty": 3.4,
+      "liquidity": 4.0,
+      "price_volume": 4.6,
+      "affected_sectors": [
+        "分立器件"
+      ],
+      "logic": "功率半导体与分立器件方向获得最强价量确认，说明科技风格并非仅限少数大票。",
+      "short_impact": "若午后资金不回落，可继续保持主线身份。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "激光设备板块主力净流入约17.01亿元，华工科技居首",
+      "direction": "positive",
+      "magnitude": 3.9,
+      "breadth": 3.4,
+      "immediacy": 4.0,
+      "confidence": 4.0,
+      "novelty": 3.3,
+      "liquidity": 4.1,
+      "price_volume": 4.0,
+      "affected_sectors": [
+        "激光设备"
+      ],
+      "logic": "资金选择激光与光通信链中的中盘票，说明AI基础设施交易仍在向设备端扩散。",
+      "short_impact": "偏结构活跃，强度略弱于半导体设备。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "先进封装龙头前一交易日仍处高位换手区，韩国扩产预期为封装链提供二次催化",
+      "direction": "positive",
+      "magnitude": 4.0,
+      "breadth": 3.6,
+      "immediacy": 3.9,
+      "confidence": 3.8,
+      "novelty": 3.7,
+      "liquidity": 4.1,
+      "price_volume": 4.0,
+      "affected_sectors": [
+        "先进封装"
+      ],
+      "logic": "先进封装自身当日行业分化明显，但事件侧仍有中期景气强化，适合作为主线内强弱切换观察。",
+      "short_impact": "日内可能震荡，仍应观察量能承接。",
+      "source": "Reuters/Bluewater 2026-06-29；长电科技近14日量价"
+    },
+    {
+      "title": "证券板块早盘主力净流入约4.82亿元，板块涨约1.41%",
+      "direction": "positive",
+      "magnitude": 3.2,
+      "breadth": 3.4,
+      "immediacy": 3.6,
+      "confidence": 3.9,
+      "novelty": 3.0,
+      "liquidity": 4.2,
+      "price_volume": 3.4,
+      "affected_sectors": [
+        "券商"
+      ],
+      "logic": "非银方向出现边际修复，但强度远弱于科技制造主线。",
+      "short_impact": "更偏辅助修复，不足以主导全市场。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "科创50早盘涨约2.83%，科技风格回流确认度高于宽基",
+      "direction": "positive",
+      "magnitude": 3.6,
+      "breadth": 3.8,
+      "immediacy": 4.0,
+      "confidence": 3.8,
+      "novelty": 3.2,
+      "liquidity": 4.4,
+      "price_volume": 3.9,
+      "affected_sectors": [
+        "半导体设备",
+        "数字芯片设计",
+        "分立器件"
+      ],
+      "logic": "指数侧确认科技成长继续获得相对收益。",
+      "short_impact": "结构性偏强，但不代表全面普涨。",
+      "source": "akshare/Eastmoney 指数快照 2026-06-29 09:55"
+    },
+    {
+      "title": "电子化学品与氟化工方向获得边际净流入，显示上游材料补涨意愿升温",
+      "direction": "positive",
+      "magnitude": 3.5,
+      "breadth": 3.1,
+      "immediacy": 3.6,
+      "confidence": 3.7,
+      "novelty": 3.2,
+      "liquidity": 3.7,
+      "price_volume": 3.8,
+      "affected_sectors": [
+        "电子化学品",
+        "氟化工"
+      ],
+      "logic": "上游材料获得边际承接，但更像主线内部扩散，确定性弱于设备和芯片设计。",
+      "short_impact": "观察为主。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "国际油价周一反弹，韩国市场因伊朗相关不确定性与油价抬升而承压",
+      "direction": "negative",
+      "magnitude": 4.2,
+      "breadth": 4.0,
+      "immediacy": 4.2,
+      "confidence": 4.0,
+      "novelty": 4.0,
+      "liquidity": 4.1,
+      "price_volume": 3.4,
+      "affected_sectors": [
+        "航空",
+        "风险偏好"
+      ],
+      "logic": "油价抬升直接压制航空成本预期，同时抑制高弹性市场风险偏好。",
+      "short_impact": "航空板块偏弱更可能延续。",
+      "source": "Reuters 2026-06-29；Yonhap 2026-06-29"
+    },
+    {
+      "title": "韩国芯片股与KOSDAQ在投资计划发布后仍大幅波动，说明半导体高贝塔交易拥挤度上升",
+      "direction": "negative",
+      "magnitude": 4.1,
+      "breadth": 3.7,
+      "immediacy": 4.1,
+      "confidence": 3.9,
+      "novelty": 3.9,
+      "liquidity": 4.2,
+      "price_volume": 3.8,
+      "affected_sectors": [
+        "高位半导体",
+        "高位科技拥挤"
+      ],
+      "logic": "基本面利好并未阻止韩股半导体大幅波动，说明A股同类高位科技也需防止冲高回落。",
+      "short_impact": "更适合作为主线风险提示，而非直接反转判断。",
+      "source": "Yonhap 2026-06-29；Reuters/Bluewater 2026-06-29"
+    },
+    {
+      "title": "09:55全市场上涨约1031家、下跌约4125家，科技主线强而全A宽度显著偏弱",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 4.5,
+      "immediacy": 4.3,
+      "confidence": 4.1,
+      "novelty": 3.4,
+      "liquidity": 4.3,
+      "price_volume": 3.8,
+      "affected_sectors": [
+        "全市场宽度分化"
+      ],
+      "logic": "赚钱效应集中在少数科技制造方向，绝大多数个股并未跟随。",
+      "short_impact": "指数更容易呈现结构分化而非普涨。",
+      "source": "akshare/legu 市场活跃度 2026-06-29 09:55"
+    },
+    {
+      "title": "沪股通和深股通样本内下跌家数显著高于上涨家数，外资口径宽度同步偏弱",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 4.0,
+      "immediacy": 4.1,
+      "confidence": 4.0,
+      "novelty": 3.3,
+      "liquidity": 4.2,
+      "price_volume": 3.5,
+      "affected_sectors": [
+        "外资口径宽度",
+        "权重股"
+      ],
+      "logic": "即使北向成交净买额盘中尚不完整，样本宽度仍显示权重和外资偏好票承接一般。",
+      "short_impact": "权重对指数的托举有限。",
+      "source": "akshare 沪深港通摘要 2026-06-29 09:55"
+    },
+    {
+      "title": "印制电路板板块跌约2.61%，主力净流出约32.86亿元",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.1,
+      "confidence": 4.2,
+      "novelty": 3.3,
+      "liquidity": 4.1,
+      "price_volume": 4.4,
+      "affected_sectors": [
+        "印制电路板"
+      ],
+      "logic": "PCB高位方向出现明显兑现，说明AI硬件链内部已进入高低切换。",
+      "short_impact": "高位PCB更适合作为风险跟踪。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "通信设备板块跌约1.83%，主力净流出约43.62亿元",
+      "direction": "negative",
+      "magnitude": 4.1,
+      "breadth": 4.0,
+      "immediacy": 4.2,
+      "confidence": 4.1,
+      "novelty": 3.4,
+      "liquidity": 4.2,
+      "price_volume": 4.0,
+      "affected_sectors": [
+        "通信设备"
+      ],
+      "logic": "资金从通信主设备流出，表明AI链并非全面同步走强。",
+      "short_impact": "设备通信票更容易继续分化。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "通信板块跌约1.69%，主力净流出约47.50亿元",
+      "direction": "negative",
+      "magnitude": 4.2,
+      "breadth": 4.2,
+      "immediacy": 4.1,
+      "confidence": 4.0,
+      "novelty": 3.3,
+      "liquidity": 4.2,
+      "price_volume": 4.0,
+      "affected_sectors": [
+        "通信"
+      ],
+      "logic": "更宽口径的通信板块同步承压，说明科技内部是“芯片强、通信弱”的分化结构。",
+      "short_impact": "通信方向以风险跟踪为主。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "集成电路封测板块跌约0.95%，主力净流出约23.16亿元",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.6,
+      "immediacy": 3.8,
+      "confidence": 3.9,
+      "novelty": 3.2,
+      "liquidity": 4.0,
+      "price_volume": 3.6,
+      "affected_sectors": [
+        "集成电路封测"
+      ],
+      "logic": "先进封装事件逻辑仍在，但同日资金更愿意追设备与设计，封测承接边际转弱。",
+      "short_impact": "更适合作为主线内轮动观察，而非单边追价。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "电力设备板块跌约1.01%，主力净流出约37.18亿元",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 4.0,
+      "immediacy": 3.9,
+      "confidence": 3.8,
+      "novelty": 3.1,
+      "liquidity": 4.1,
+      "price_volume": 3.4,
+      "affected_sectors": [
+        "电力设备"
+      ],
+      "logic": "新能源设备并未承接科技外溢资金，说明市场暂不愿切回大范围景气制造。",
+      "short_impact": "新能源设备短线仍偏弱。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    },
+    {
+      "title": "面板板块跌约1.09%，主力净流出约18.83亿元",
+      "direction": "negative",
+      "magnitude": 3.5,
+      "breadth": 3.7,
+      "immediacy": 3.7,
+      "confidence": 3.7,
+      "novelty": 3.0,
+      "liquidity": 3.8,
+      "price_volume": 3.3,
+      "affected_sectors": [
+        "面板"
+      ],
+      "logic": "电子内部非AI高弹性方向仍缺乏承接。",
+      "short_impact": "偏弱观察。",
+      "source": "akshare/Eastmoney 行业资金流 2026-06-29 09:55快照"
+    }
+  ],
+  "sector_candidates": [
+    {
+      "title": "半导体设备",
+      "direction": "positive",
+      "magnitude": 4.5,
+      "breadth": 3.8,
+      "immediacy": 4.3,
+      "confidence": 4.4,
+      "novelty": 3.5,
+      "liquidity": 4.2,
+      "price_volume": 4.5
+    },
+    {
+      "title": "数字芯片设计",
+      "direction": "positive",
+      "magnitude": 4.3,
+      "breadth": 3.9,
+      "immediacy": 4.2,
+      "confidence": 4.3,
+      "novelty": 3.6,
+      "liquidity": 4.4,
+      "price_volume": 4.1
+    },
+    {
+      "title": "分立器件",
+      "direction": "positive",
+      "magnitude": 4.3,
+      "breadth": 3.6,
+      "immediacy": 4.1,
+      "confidence": 4.1,
+      "novelty": 3.4,
+      "liquidity": 4.0,
+      "price_volume": 4.6
+    },
+    {
+      "title": "先进封装",
+      "direction": "positive",
+      "magnitude": 4.2,
+      "breadth": 3.7,
+      "immediacy": 3.9,
+      "confidence": 4.0,
+      "novelty": 3.7,
+      "liquidity": 4.2,
+      "price_volume": 4.1
+    },
+    {
+      "title": "激光设备",
+      "direction": "positive",
+      "magnitude": 4.3,
+      "breadth": 3.7,
+      "immediacy": 4.0,
+      "confidence": 4.1,
+      "novelty": 3.3,
+      "liquidity": 4.1,
+      "price_volume": 4.2
+    },
+    {
+      "title": "电子化学品",
+      "direction": "positive",
+      "magnitude": 3.7,
+      "breadth": 3.1,
+      "immediacy": 3.6,
+      "confidence": 3.7,
+      "novelty": 3.2,
+      "liquidity": 3.7,
+      "price_volume": 3.8
+    },
+    {
+      "title": "通信",
+      "direction": "negative",
+      "magnitude": 4.2,
+      "breadth": 4.2,
+      "immediacy": 4.1,
+      "confidence": 4.0,
+      "novelty": 3.3,
+      "liquidity": 4.2,
+      "price_volume": 4.0
+    },
+    {
+      "title": "通信设备",
+      "direction": "negative",
+      "magnitude": 4.1,
+      "breadth": 4.0,
+      "immediacy": 4.2,
+      "confidence": 4.1,
+      "novelty": 3.4,
+      "liquidity": 4.2,
+      "price_volume": 4.0
+    },
+    {
+      "title": "印制电路板",
+      "direction": "negative",
+      "magnitude": 4.0,
+      "breadth": 3.8,
+      "immediacy": 4.1,
+      "confidence": 4.2,
+      "novelty": 3.3,
+      "liquidity": 4.1,
+      "price_volume": 4.4
+    },
+    {
+      "title": "航空",
+      "direction": "negative",
+      "magnitude": 4.2,
+      "breadth": 4.0,
+      "immediacy": 4.2,
+      "confidence": 4.0,
+      "novelty": 4.0,
+      "liquidity": 4.1,
+      "price_volume": 3.4
+    },
+    {
+      "title": "集成电路封测",
+      "direction": "negative",
+      "magnitude": 3.8,
+      "breadth": 3.6,
+      "immediacy": 3.8,
+      "confidence": 3.9,
+      "novelty": 3.2,
+      "liquidity": 4.0,
+      "price_volume": 3.6
+    },
+    {
+      "title": "电力设备",
+      "direction": "negative",
+      "magnitude": 3.7,
+      "breadth": 4.0,
+      "immediacy": 3.9,
+      "confidence": 3.8,
+      "novelty": 3.1,
+      "liquidity": 4.1,
+      "price_volume": 3.4
+    }
+  ],
+  "stocks": [
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "sector": "先进封装",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1776.17,
+      "trend_score": 4.0,
+      "volume_score": 4.3,
+      "retail_sentiment": 4.3,
+      "retail_voc_summary": "先进封装热度偏高但仍有量价承接，追涨情绪升温。",
+      "capital_recognition": 3.9,
+      "event_alignment": 4.3,
+      "institutional_trend_score": 3.8,
+      "risk_score": 3.7,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 99.26,
+          "change_pct": -1.62,
+          "market_cap": 177617000000.0
+        },
+        "valuation_context": "PE约152.97倍、PB约6.21倍、PS约6.29倍，属于高景气估值而非低估。",
+        "fundamental_context": "2026Q1营收约91.71亿元、归母净利约2.90亿元，ROE约1.01%，资产负债率约43.01%；扩产后的折旧与回款质量需持续跟踪。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002409",
+      "name": "雅克科技",
+      "sector": "电子化学品",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 958.99,
+      "trend_score": 4.5,
+      "volume_score": 3.6,
+      "retail_sentiment": 4.8,
+      "retail_voc_summary": "电子化学品与材料链热度极高，异动后追涨情绪偏热。",
+      "capital_recognition": 3.7,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 3.9,
+      "risk_score": 4.0,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 201.5,
+          "change_pct": 6.84,
+          "market_cap": 95899000000.0
+        },
+        "valuation_context": "PE约89.90倍、PB约12.06倍、PS约6.06倍，估值抬升较快。",
+        "fundamental_context": "2026Q1营收约19.73亿元、归母净利约2.67亿元，ROE约3.34%，资产负债率约35.70%；财务稳健度尚可，但高估值与高热度并存。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "000988",
+      "name": "华工科技",
+      "sector": "激光设备",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1780.04,
+      "trend_score": 3.7,
+      "volume_score": 3.8,
+      "retail_sentiment": 4.2,
+      "retail_voc_summary": "光通信与激光设备热度回升，资金更偏机构主导。",
+      "capital_recognition": 4.0,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 4.1,
+      "risk_score": 3.5,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 177.03,
+          "change_pct": 10.0,
+          "market_cap": 178004000000.0
+        },
+        "valuation_context": "PE约69.70倍、PB约15.56倍、PS约3.47倍，估值不低但资金承接强。",
+        "fundamental_context": "2026Q1营收约42.66亿元、归母净利约6.38亿元，ROE约5.61%，资产负债率约48.75%；盈利质量和现金创造能力优于多数纯题材股。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600460",
+      "name": "士兰微",
+      "sector": "分立器件",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 922.23,
+      "trend_score": 4.2,
+      "volume_score": 4.2,
+      "retail_sentiment": 4.4,
+      "retail_voc_summary": "分立器件热度上升但尚未到极端一致，资金承接较好。",
+      "capital_recognition": 3.9,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 3.9,
+      "risk_score": 3.6,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 55.42,
+          "change_pct": 10.0,
+          "market_cap": 92223000000.0
+        },
+        "valuation_context": "PE约110.40倍、PB约7.56倍、PS约4.95倍，仍属高弹性估值区。",
+        "fundamental_context": "2026Q1营收约35.19亿元、归母净利约2.09亿元，ROE约1.73%，资产负债率约52.87%；基本面改善但盈利厚度仍需继续验证。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "sector": "数字芯片设计",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 5671.19,
+      "trend_score": 4.4,
+      "volume_score": 4.0,
+      "retail_sentiment": 4.6,
+      "retail_voc_summary": "芯片设计龙头热度极高，机构与散户共振，拥挤度明显。",
+      "capital_recognition": 4.2,
+      "event_alignment": 4.5,
+      "institutional_trend_score": 4.1,
+      "risk_score": 4.0,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 808.15,
+          "change_pct": 4.95,
+          "market_cap": 567119000000.0
+        },
+        "valuation_context": "PE约97.03倍、PB约22.88倍、PS约2.59倍，龙头溢价极高。",
+        "fundamental_context": "2026Q1营收约41.88亿元、归母净利约14.61亿元，ROE约6.12%，资产负债率约8.13%；基本面最扎实，但市值明显超出本轮参数区间。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "AI硬件/光模块",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 13708.02,
+      "trend_score": 3.0,
+      "volume_score": 3.4,
+      "retail_sentiment": 4.8,
+      "retail_voc_summary": "光模块龙头讨论热度极高，但短线资金更偏高低切换。",
+      "capital_recognition": 3.4,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 3.4,
+      "risk_score": 4.3,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 1229.16,
+          "change_pct": -1.97,
+          "market_cap": 1370802000000.0
+        },
+        "valuation_context": "PE约59.76倍、PB约39.57倍、PS约0.86倍，估值与拥挤度对持续超预期要求很高。",
+        "fundamental_context": "2026Q1营收约194.96亿元、归母净利约57.35亿元，ROE约17.54%，资产负债率约32.64%；基本面强，但市值与波动均远超本轮机会池口径。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "000063",
+      "name": "中兴通讯",
+      "sector": "通信设备",
+      "directional_role": "pressure",
+      "market_cap_billion": 1685.72,
+      "trend_score": 2.4,
+      "volume_score": 3.2,
+      "retail_sentiment": 3.0,
+      "retail_voc_summary": "通信设备分歧扩大，追涨情绪明显降温。",
+      "capital_recognition": 2.6,
+      "event_alignment": 3.7,
+      "institutional_trend_score": 2.7,
+      "risk_score": 3.6,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 35.24,
+          "change_pct": -1.21,
+          "market_cap": 168572000000.0
+        },
+        "valuation_context": "PE约32.16倍、PB约2.20倍、PS约1.06倍，估值不算极端但景气确认不足。",
+        "fundamental_context": "2026Q1营收约349.88亿元、归母净利约13.10亿元，ROE约1.72%，资产负债率约65.87%；财务韧性尚在，但短线承接偏弱。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002938",
+      "name": "鹏鼎控股",
+      "sector": "印制电路板",
+      "directional_role": "pressure",
+      "market_cap_billion": 2395.41,
+      "trend_score": 2.2,
+      "volume_score": 3.5,
+      "retail_sentiment": 3.6,
+      "retail_voc_summary": "PCB高位方向回撤，热度仍高但赚钱效应转弱。",
+      "capital_recognition": 2.4,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 2.5,
+      "risk_score": 4.1,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 103.36,
+          "change_pct": -6.87,
+          "market_cap": 239541000000.0
+        },
+        "valuation_context": "PE约129.41倍、PB约7.41倍、PS约0.80倍，高位回撤后估值仍不便宜。",
+        "fundamental_context": "2026Q1营收约79.86亿元、归母净利约4.63亿元，ROE约1.35%，资产负债率约30.36%；基本面稳健但短线强度明显回落。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600029",
+      "name": "南方航空",
+      "sector": "航空",
+      "directional_role": "pressure",
+      "market_cap_billion": 954.98,
+      "trend_score": 2.3,
+      "volume_score": 3.2,
+      "retail_sentiment": 3.0,
+      "retail_voc_summary": "航空股受油价扰动影响，情绪中性偏弱。",
+      "capital_recognition": 2.5,
+      "event_alignment": 4.2,
+      "institutional_trend_score": 2.4,
+      "risk_score": 3.9,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 5.27,
+          "change_pct": -2.59,
+          "market_cap": 95498000000.0
+        },
+        "valuation_context": "PE约16.12倍、PB约2.58倍、PS约0.35倍，估值不高但难抵成本端扰动。",
+        "fundamental_context": "2026Q1营收约477.82亿元、归母净利约14.81亿元，ROE约4.07%，资产负债率约83.97%；杠杆高、油价敏感度高。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "601111",
+      "name": "中国国航",
+      "sector": "航空",
+      "directional_role": "pressure",
+      "market_cap_billion": 1272.59,
+      "trend_score": 2.4,
+      "volume_score": 3.2,
+      "retail_sentiment": 3.0,
+      "retail_voc_summary": "航空板块整体承压，资金更偏防御。",
+      "capital_recognition": 2.6,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 2.5,
+      "risk_score": 3.8,
+      "external_data": {
+        "source": "eastmoney_single_quote+china-stock-analysis",
+        "data_time": "2026-06-29T10:11:38+08:00",
+        "quote": {
+          "latest": 6.21,
+          "change_pct": -2.51,
+          "market_cap": 127259000000.0
+        },
+        "valuation_context": "PE约18.56倍、PB约1.99倍、PS约0.24倍，低估值更多反映行业弹性不足。",
+        "fundamental_context": "2026Q1营收约445.36亿元、归母净利约17.14亿元，ROE约3.96%，资产负债率约88.17%；财务杠杆高于南航，成本扰动更敏感。",
+        "data_quality": "partial"
+      }
+    }
+  ],
+  "supplemental_stock_analysis": [
+    {
+      "stock": "600584 长电科技",
+      "latest_price": "99.26元，约-1.62%",
+      "valuation_metrics": "PE 152.97x / PB 6.21x / PS 6.29x",
+      "financial_health": "Q1营收91.71亿元、归母2.90亿元，ROE 1.01%，负债率43.01%",
+      "valuation_summary": "估值属于高景气封装交易，需订单与产能利用率消化。",
+      "risk_note": "封测当日资金分歧、扩产折旧、追涨拥挤",
+      "judgement": "事件证据较强，但更适合主线跟踪而非低估判断"
+    },
+    {
+      "stock": "600460 士兰微",
+      "latest_price": "55.42元，约+10.00%",
+      "valuation_metrics": "PE 110.40x / PB 7.56x / PS 4.95x",
+      "financial_health": "Q1营收35.19亿元、归母2.09亿元，ROE 1.73%，负债率52.87%",
+      "valuation_summary": "高弹性分立器件估值不便宜，但量价确认最强。",
+      "risk_note": "分立器件热度抬升后波动可能加大",
+      "judgement": "具备更强事件和量价证据，可作为强主线样本观察"
+    },
+    {
+      "stock": "000988 华工科技",
+      "latest_price": "177.03元，约+10.00%",
+      "valuation_metrics": "PE 69.70x / PB 15.56x / PS 3.47x",
+      "financial_health": "Q1营收42.66亿元、归母6.38亿元，ROE 5.61%，负债率48.75%",
+      "valuation_summary": "估值偏高但盈利与资金承接好于多数纯题材股。",
+      "risk_note": "通信主设备整体仍弱，需继续确认扩散而非单点拉升",
+      "judgement": "证据较强，但仍需后续量能持续"
+    },
+    {
+      "stock": "002409 雅克科技",
+      "latest_price": "201.50元，约+6.84%",
+      "valuation_metrics": "PE 89.90x / PB 12.06x / PS 6.06x",
+      "financial_health": "Q1营收19.73亿元、归母2.67亿元，ROE 3.34%，负债率35.70%",
+      "valuation_summary": "材料链估值抬升很快，安全边际弱于事件弹性。",
+      "risk_note": "散户情绪过热、异动后回撤风险高",
+      "judgement": "仅作观察，不列入更强证据"
+    },
+    {
+      "stock": "603986 兆易创新",
+      "latest_price": "808.15元，约+4.95%",
+      "valuation_metrics": "PE 97.03x / PB 22.88x / PS 2.59x",
+      "financial_health": "Q1营收41.88亿元、归母14.61亿元，ROE 6.12%，负债率8.13%",
+      "valuation_summary": "基本面最扎实但龙头溢价极高。",
+      "risk_note": "市值显著超出本轮100-2000亿元参数区间",
+      "judgement": "主线龙头观察，不进入机会列"
+    },
+    {
+      "stock": "300308 中际旭创",
+      "latest_price": "1229.16元，约-1.97%",
+      "valuation_metrics": "PE 59.76x / PB 39.57x / PS 0.86x",
+      "financial_health": "Q1营收194.96亿元、归母57.35亿元，ROE 17.54%，负债率32.64%",
+      "valuation_summary": "基本面很强，但高市值与高拥挤限制其纳入本轮机会池。",
+      "risk_note": "散户热度极高，波动放大",
+      "judgement": "只做主线观察，不做机会列"
+    },
+    {
+      "stock": "600029 南方航空",
+      "latest_price": "5.27元，约-2.59%",
+      "valuation_metrics": "PE 16.12x / PB 2.58x / PS 0.35x",
+      "financial_health": "Q1营收477.82亿元、归母14.81亿元，ROE 4.07%，负债率83.97%",
+      "valuation_summary": "低估值更多反映行业弹性不足，难抵成本扰动。",
+      "risk_note": "油价与高杠杆共振，风险更直接",
+      "judgement": "承压证据较清晰，适合风险跟踪"
+    },
+    {
+      "stock": "601111 中国国航",
+      "latest_price": "6.21元，约-2.51%",
+      "valuation_metrics": "PE 18.56x / PB 1.99x / PS 0.24x",
+      "financial_health": "Q1营收445.36亿元、归母17.14亿元，ROE 3.96%，负债率88.17%",
+      "valuation_summary": "低估值与高杠杆并存，行业成本敏感度高。",
+      "risk_note": "油价回升与宽度偏弱下，承压更明显",
+      "judgement": "承压证据较强，偏风险跟踪"
+    }
+  ],
+  "supplemental_conclusion": {
+    "as_of": "2026-06-29T10:11:38+08:00",
+    "method_note": "先按 daily-a-share-news-impact 做窗口内事件与板块门槛筛选，再用 china-stock-analysis 的财务摘要与日线数据补充基本面/财务健康，并用 china-stock-price-analysis 的 JSON 输入模式补充 PE/PB/PS 相对估值；本次未调用 QVeris 等付费源。",
+    "stronger_evidence": [
+      "600460 士兰微、000988 华工科技：所在分立器件/激光设备方向既有主力净流入，也有较好的量价确认，证据相对更完整。",
+      "600584 长电科技：事件关联最直接，但封测当日资金分歧明显，仍应放在主线跟踪而非低估结论。",
+      "600029 南方航空、601111 中国国航：油价扰动与高杠杆约束明确，承压逻辑比大多数泛科技负面更直接。"
+    ],
+    "observation_only": [
+      "002409 雅克科技：趋势最强之一，但散户热度过高且估值抬升过快，暂列观察。",
+      "603986 兆易创新、300308 中际旭创：主线龙头地位明确，但市值显著超出100-2000亿元筛选区间，只作板块方向观察。",
+      "002938 鹏鼎控股、000063 中兴通讯：对应PCB/通信方向净流出显著，但前者市值超出参数区间，后者更适合谨慎风险观察。"
+    ],
+    "notes": [
+      "本日报避免直接给出买卖、仓位、止损或目标价指令，所有结论仅作非个性化研究分层。",
+      "行业资金流、指数和宽度确认主要采用2026-06-29 09:55左右的免费快照，严格来说略晚于09:30窗口结束时点，已在数据质量中降为 partial。",
+      "概念资金流、完整ETF申赎、融资融券与北向逐笔净买入未稳定获取，本轮以行业主力净流入、宽度和跨市场消息替代。"
+    ]
+  },
+  "optional_data_sources": {
+    "akshare_hist": "available",
+    "eastmoney_single_quote": "available_with_insecure_ssl",
+    "concept_fund_flow": "fetch_failed",
+    "full_a_spot_snapshot": "unstable",
+    "paid_qveris": "not_used"
+  },
+  "evidence_gaps": [
+    "行业资金流、市场宽度和指数确认使用了2026-06-29 09:55左右的免费快照，略晚于09:30窗口结束时点，因此整体数据质量维持 partial。",
+    "概念资金流接口在本轮抓取中返回断连，报告以行业资金流为主。",
+    "全市场 spot_em 全量分页在网络层不稳定，个股估值改用 Eastmoney 单股接口逐只抓取。",
+    "完整 ETF 申赎、融资融券和北向逐笔净买入未稳定获取，资金判断更依赖行业主力净流入和宽度。",
+    "china-stock-analysis 的部分 basic/valuation 辅助接口已发生返回结构变化，基本面补充主要使用 stock_financial_abstract 与日线数据。"
+  ]
+}

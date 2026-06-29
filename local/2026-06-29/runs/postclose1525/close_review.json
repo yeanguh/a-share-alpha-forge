@@ -1,0 +1,332 @@
+{
+  "report_date": "2026-06-29",
+  "review_time": "2026-06-29T15:25:00+08:00",
+  "review_type": "post_close_daily_review",
+  "source_files": {
+    "report": "local/2026-06-29/report.md",
+    "assembled": "local/2026-06-29/assembled.json",
+    "input_bundle": "local/2026-06-29/input_bundle.json"
+  },
+  "direction_forecast": {
+    "early_direction": "震荡",
+    "early_fund_flow": "拥挤分化",
+    "actual_direction": "指数偏强但资金拥挤分化，科技和医药强、宽度一般",
+    "hit_level": "部分命中"
+  },
+  "direction_hit": true,
+  "average_stock_error": 0.47,
+  "actual_market_summary": "上证指数+1.16%、沪深300+1.21%、科创50+4.61%，但中证1000-0.04%；上涨2393家、下跌2689家，主力净流出约495.34亿元，小单净流入约513.72亿元，实际为指数偏强但资金分化。",
+  "market_indices": [
+    {
+      "code": "000001",
+      "name": "上证指数",
+      "close": 4073.9,
+      "pct_change": 1.16,
+      "amount_yuan": 1666220369467.3
+    },
+    {
+      "code": "399001",
+      "name": "深证成指",
+      "close": 15812.87,
+      "pct_change": 0.19,
+      "amount_yuan": 1851533400000.0
+    },
+    {
+      "code": "399006",
+      "name": "创业板指",
+      "close": 4216.7,
+      "pct_change": 0.54,
+      "amount_yuan": 916359640000.0
+    },
+    {
+      "code": "000300",
+      "name": "沪深300",
+      "close": 4926.92,
+      "pct_change": 1.21,
+      "amount_yuan": 1053723822552.5
+    },
+    {
+      "code": "000688",
+      "name": "科创50",
+      "close": 2126.01,
+      "pct_change": 4.61,
+      "amount_yuan": 230072493023.0
+    },
+    {
+      "code": "000852",
+      "name": "中证1000",
+      "close": 8597.89,
+      "pct_change": -0.04,
+      "amount_yuan": 750058629128.5
+    },
+    {
+      "code": "399905",
+      "name": "中证500",
+      "close": 8821.09,
+      "pct_change": 1.35,
+      "amount_yuan": 741568080000.0
+    }
+  ],
+  "market_breadth": {
+    "up": 2393,
+    "down": 2689,
+    "flat": 107,
+    "limit_up": 126,
+    "real_limit_up": 116,
+    "limit_down": 75,
+    "real_limit_down": 68,
+    "activity_pct": 45.98
+  },
+  "fund_flow_review": {
+    "early_judgement": "拥挤分化",
+    "actual": "主力净流出约495.34亿元，超大单和大单均净流出，小单净流入；半导体设备、数字芯片设计、分立器件仍有正向主力净流入，通信、通信设备、PCB继续大幅净流出，医药/CRO成为收盘新增强方向。",
+    "bias": "方向命中，但早盘低估了宽基指数修复和医药资金迁移，也低估了大单流出与小单接力的背离。",
+    "data_quality": "partial_public_sources"
+  },
+  "sector_hits": [
+    {
+      "sector": "半导体设备",
+      "expected": "positive",
+      "hit": true,
+      "hit_level": "强命中",
+      "actual_move": "+7.41%，主力净流入约33.81亿元，19涨2跌，行业排名第3",
+      "reason": "早盘设备链强主线延续到收盘，且资金确认仍为正。"
+    },
+    {
+      "sector": "数字芯片设计",
+      "expected": "positive",
+      "hit": true,
+      "hit_level": "部分命中",
+      "actual_move": "+1.15%，主力净流入约44.20亿元，29涨22跌，行业排名第114",
+      "reason": "资金方向命中，但涨幅和宽度弱于早盘主线排序，主要由龙头承接支撑。"
+    },
+    {
+      "sector": "分立器件",
+      "expected": "positive",
+      "hit": true,
+      "hit_level": "命中",
+      "actual_move": "+4.45%，主力净流入约16.55亿元，14涨4跌，行业排名第15",
+      "reason": "方向和量价均延续，但士兰微自身冲高回落，显示追高承接不足。"
+    },
+    {
+      "sector": "先进封装",
+      "expected": "positive",
+      "hit": false,
+      "hit_level": "部分命中",
+      "actual_move": "概念涨约+0.52%，概念资金净额约-57.13；27涨22跌",
+      "reason": "价格方向小幅为正但资金未形成收盘主线，弱于半导体设备和生物医药。"
+    },
+    {
+      "sector": "激光设备",
+      "expected": "positive",
+      "hit": false,
+      "hit_level": "个股命中、板块未命中",
+      "actual_move": "行业-3.38%，主力净流入约20.17亿元但1涨9跌；华工科技涨停",
+      "reason": "华工科技单股强势不能代表板块普遍命中，板块宽度明显失真。"
+    }
+  ],
+  "stock_hits": [
+    {
+      "ticker": "600460",
+      "name": "士兰微",
+      "role": "beneficiary",
+      "hit": false,
+      "hit_level": "未达有效收益阈值",
+      "actual_move": "日涨+4.39%，开盘至收盘-0.57%，换手15.53%，量能约1.93倍14日均量",
+      "price_volume_context": "早盘涨停价附近冲高后回落，说明分立器件方向虽命中，但个股追高承接不足。",
+      "fundamental_valuation_context": "PE TTM约190.73倍、PB约7.18倍；早盘补充显示2026Q1营收约35.19亿元、归母净利约2.09亿元、负债率约52.87%，高弹性估值需要更强持续资金消化。"
+    },
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "role": "beneficiary",
+      "hit": false,
+      "hit_level": "部分命中",
+      "actual_move": "日涨+2.34%，开盘至收盘+0.24%，换手18.23%，量能约1.63倍14日均量",
+      "price_volume_context": "先进封装事件方向未完全失效，但高换手和概念资金净流出削弱有效收益。",
+      "fundamental_valuation_context": "PE TTM约111.83倍、PB约6.46倍；早盘补充显示2026Q1营收约91.71亿元、归母净利约2.90亿元，高景气估值仍受扩产折旧和兑现压力约束。"
+    },
+    {
+      "ticker": "000988",
+      "name": "华工科技",
+      "role": "beneficiary",
+      "hit": true,
+      "hit_level": "命中",
+      "actual_move": "日涨+10.00%，开盘至收盘+2.92%，换手11.36%，量能约1.67倍14日均量",
+      "price_volume_context": "激光设备板块整体弱，但个股获得涨停和主力资金确认，是单股强于板块的样本。",
+      "fundamental_valuation_context": "PE TTM约104.75倍、PB约15.56倍；早盘补充显示2026Q1营收约42.66亿元、归母净利约6.38亿元，盈利质量较强但估值不低。"
+    },
+    {
+      "ticker": "601111",
+      "name": "中国国航",
+      "role": "pressure",
+      "hit": true,
+      "hit_level": "命中",
+      "actual_move": "日跌-2.51%，开盘至收盘-1.58%，换手0.83%，量能约0.82倍14日均量",
+      "price_volume_context": "航空成本扰动与板块弱势延续，低量下跌更像风险偏好回落。",
+      "fundamental_valuation_context": "PE TTM约64.02倍、PB约1.99倍；早盘补充显示资产负债率约88.17%，油价和汇率扰动下财务杠杆敏感度较高。"
+    },
+    {
+      "ticker": "000063",
+      "name": "中兴通讯",
+      "role": "pressure",
+      "hit": false,
+      "hit_level": "方向对但幅度不足",
+      "actual_move": "日跌-1.32%，开盘至收盘-0.42%，换手2.93%，量能约0.50倍14日均量",
+      "price_volume_context": "通信设备板块承压判断有效，但该股收盘跌幅未达到0.5%有效阈值，空头强度被低估为板块而非个股层面。",
+      "fundamental_valuation_context": "PE TTM约37.63倍、PB约2.20倍；早盘补充显示财务韧性仍在，导致承压幅度弱于通信设备板块。"
+    },
+    {
+      "ticker": "600029",
+      "name": "南方航空",
+      "role": "pressure",
+      "hit": true,
+      "hit_level": "命中",
+      "actual_move": "日跌-2.03%，开盘至收盘-0.93%，换手0.94%，量能约0.95倍14日均量",
+      "price_volume_context": "航空板块-1.06%，油价扰动与高杠杆压力继续反映到价格。",
+      "fundamental_valuation_context": "PE TTM约31.13倍、PB约2.59倍；早盘补充显示资产负债率约83.97%，低估值不足以抵消成本扰动。"
+    }
+  ],
+  "selected_stock_quotes": [
+    {
+      "ticker": "600460",
+      "name": "士兰微",
+      "role": "beneficiary",
+      "hit": false,
+      "hit_level": "未达有效收益阈值",
+      "actual_move": "日涨+4.39%，开盘至收盘-0.57%，换手15.53%，量能约1.93倍14日均量",
+      "price_volume_context": "早盘涨停价附近冲高后回落，说明分立器件方向虽命中，但个股追高承接不足。",
+      "fundamental_valuation_context": "PE TTM约190.73倍、PB约7.18倍；早盘补充显示2026Q1营收约35.19亿元、归母净利约2.09亿元、负债率约52.87%，高弹性估值需要更强持续资金消化。"
+    },
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "role": "beneficiary",
+      "hit": false,
+      "hit_level": "部分命中",
+      "actual_move": "日涨+2.34%，开盘至收盘+0.24%，换手18.23%，量能约1.63倍14日均量",
+      "price_volume_context": "先进封装事件方向未完全失效，但高换手和概念资金净流出削弱有效收益。",
+      "fundamental_valuation_context": "PE TTM约111.83倍、PB约6.46倍；早盘补充显示2026Q1营收约91.71亿元、归母净利约2.90亿元，高景气估值仍受扩产折旧和兑现压力约束。"
+    },
+    {
+      "ticker": "000988",
+      "name": "华工科技",
+      "role": "beneficiary",
+      "hit": true,
+      "hit_level": "命中",
+      "actual_move": "日涨+10.00%，开盘至收盘+2.92%，换手11.36%，量能约1.67倍14日均量",
+      "price_volume_context": "激光设备板块整体弱，但个股获得涨停和主力资金确认，是单股强于板块的样本。",
+      "fundamental_valuation_context": "PE TTM约104.75倍、PB约15.56倍；早盘补充显示2026Q1营收约42.66亿元、归母净利约6.38亿元，盈利质量较强但估值不低。"
+    },
+    {
+      "ticker": "601111",
+      "name": "中国国航",
+      "role": "pressure",
+      "hit": true,
+      "hit_level": "命中",
+      "actual_move": "日跌-2.51%，开盘至收盘-1.58%，换手0.83%，量能约0.82倍14日均量",
+      "price_volume_context": "航空成本扰动与板块弱势延续，低量下跌更像风险偏好回落。",
+      "fundamental_valuation_context": "PE TTM约64.02倍、PB约1.99倍；早盘补充显示资产负债率约88.17%，油价和汇率扰动下财务杠杆敏感度较高。"
+    },
+    {
+      "ticker": "000063",
+      "name": "中兴通讯",
+      "role": "pressure",
+      "hit": false,
+      "hit_level": "方向对但幅度不足",
+      "actual_move": "日跌-1.32%，开盘至收盘-0.42%，换手2.93%，量能约0.50倍14日均量",
+      "price_volume_context": "通信设备板块承压判断有效，但该股收盘跌幅未达到0.5%有效阈值，空头强度被低估为板块而非个股层面。",
+      "fundamental_valuation_context": "PE TTM约37.63倍、PB约2.20倍；早盘补充显示财务韧性仍在，导致承压幅度弱于通信设备板块。"
+    },
+    {
+      "ticker": "600029",
+      "name": "南方航空",
+      "role": "pressure",
+      "hit": true,
+      "hit_level": "命中",
+      "actual_move": "日跌-2.03%，开盘至收盘-0.93%，换手0.94%，量能约0.95倍14日均量",
+      "price_volume_context": "航空板块-1.06%，油价扰动与高杠杆压力继续反映到价格。",
+      "fundamental_valuation_context": "PE TTM约31.13倍、PB约2.59倍；早盘补充显示资产负债率约83.97%，低估值不足以抵消成本扰动。"
+    }
+  ],
+  "observation_stock_bias": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "early_status": "未入选，主线龙头观察；市值超100-2000亿元且风险过高",
+      "actual_move": "日涨+9.09%，开盘至收盘+7.83%，换手8.10%",
+      "bias": "显著偏离。基本面质量与芯片设计龙头溢价在收盘阶段继续获得资金追逐，但PE TTM约205.06倍、PB约23.82倍，仍不支持直接放宽机会栏市值/风险门槛。"
+    },
+    {
+      "ticker": "002409",
+      "name": "雅克科技",
+      "early_status": "未入选；电子化学品未通过主线筛选，散户热度和风险偏高",
+      "actual_move": "日涨+10.00%，开盘至收盘+4.18%，换手13.08%",
+      "bias": "显著偏离。材料链弹性强于早盘门槛判断，但PE TTM约98.08倍、PB约12.41倍且换手偏高，更适合作为强主线弹性观察层样本。"
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "early_status": "未入选；市值过大、资金认可不足、拥挤风险高",
+      "actual_move": "日跌-2.70%，开盘至收盘-1.53%",
+      "bias": "排除有效。高市值光模块龙头继续弱于半导体设备/芯片设计，拥挤惩罚发挥保护作用。"
+    },
+    {
+      "ticker": "002938",
+      "name": "鹏鼎控股",
+      "early_status": "未入选承压；市值超参数区间",
+      "actual_move": "日跌-8.99%，开盘至收盘-7.06%",
+      "bias": "方向判断强命中但未进入承压栏。市值门槛避免了正式压力栏外溢，但PCB风险观察层应保留更醒目标记。"
+    }
+  ],
+  "major_deviations": [
+    {
+      "item": "未入选强势股",
+      "detail": "兆易创新和雅克科技均收至大涨或涨停，说明芯片设计/材料链的弹性超出早盘筛选；但二者估值、热度或市值约束明确，偏差不等于放松机会栏门槛。"
+    },
+    {
+      "item": "单股强于板块",
+      "detail": "华工科技涨停但激光设备行业-3.38%、1涨9跌，早盘把单股资金承接映射为板块主线的权重偏高。"
+    },
+    {
+      "item": "资金结构偏差",
+      "detail": "全市场主力净流出约495.34亿元，小单净流入约513.72亿元；早盘“拥挤分化”方向命中，但低估了收盘阶段小单接力和大单流出的背离。"
+    },
+    {
+      "item": "收盘主线迁移",
+      "detail": "医药生物+4.94%、医疗研发外包+8.59%、其他生物制品+8.72%成为收盘强方向，早盘Top 5未覆盖这条资金迁移。"
+    }
+  ],
+  "bias_reasons": [
+    "早盘把半导体链资金快照外推为全日主线，未充分处理午后医药/CRO资金迁移。",
+    "对“单股涨停代表板块强度”的惩罚不足，激光设备出现典型单股强、板块弱。",
+    "早盘机会栏用日内强势价格作为量价确认，但开盘至收盘有效收益显示士兰微、长电科技承接弱于日涨幅。",
+    "市值和风险门槛排除了兆易创新这类强势龙头，属于预期内的机会成本；但观察层需要更清楚标记。",
+    "资金方向只判断到拥挤分化，未把主力净流出和小单净流入背离拆分为独立风险信号。"
+  ],
+  "next_day_weight_adjustments": {
+    "raise_weight_conditions": [
+      "半导体设备、分立器件这类板块涨幅、上涨家数和主力净流入同时为正的强主线确认。",
+      "收盘行业排名进入前20且主力净流入为正，优先于早盘单股涨停或单一海外事件催化。",
+      "观察层中若高估值个股同时满足开盘至收盘有效收益、量能不极端放大、板块资金同步流入，可提高次日观察权重。",
+      "承压方向中，行业净流出与个股开盘至收盘跌幅同时达到有效阈值时，提高风险跟踪权重。"
+    ],
+    "lower_weight_conditions": [
+      "单股涨停但板块上涨家数不足、行业涨幅为负或资金宽度不足的映射权重。",
+      "早盘资金快照中强、但收盘主力净流转负的概念，如先进封装的短线确定性。",
+      "高估值高热度且只靠小单接力的个股进入正式机会栏的权重。",
+      "对“震荡”结论的宽泛容忍度；若宽基上涨但主力净流出，应拆成“指数偏强、资金分化”而非简单提高大盘方向置信度。"
+    ]
+  },
+  "data_sources": [
+    "akshare: stock_zh_index_spot_em",
+    "akshare: stock_market_activity_legu",
+    "akshare: stock_market_fund_flow",
+    "akshare: stock_board_industry_name_em",
+    "akshare: stock_sector_fund_flow_rank",
+    "akshare: stock_board_concept_name_em / stock_fund_flow_concept",
+    "Tencent public quote and qfq daily kline via scripts.a_share_data"
+  ],
+  "lesson": "今日复盘的核心是方向判断部分有效但主线排序需要修正：半导体设备、分立器件和航空承压命中较好，先进封装与激光设备出现资金/宽度偏差；未入选的兆易创新、雅克科技体现高估值科技弹性机会成本，但不应单日放松市值和风险门槛。次日应提高收盘行业资金、板块宽度和开盘至收盘有效收益权重，降低单股涨停、早盘快照和小单接力对正式机会栏的影响。",
+  "compliance_note": "本复盘仅用于研究流程校准，不构成个性化投资建议，不包含直接买卖、仓位、止损或目标价指令。"
+}
