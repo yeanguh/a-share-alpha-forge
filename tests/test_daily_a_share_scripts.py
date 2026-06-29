@@ -394,12 +394,24 @@ def test_institutional_trend_score_defaults_to_unconfirmed(tmp_path: Path) -> No
 
 def test_market_cap_does_not_gate_beneficiary_recommendations(tmp_path: Path) -> None:
     path = write_json(tmp_path / "stocks.json", [stock(market_cap_billion=9000.0)])
+    thresholds = load_thresholds()
+    thresholds["market_cap_billion"]["used_for_eligibility"] = False
 
-    observation = load_observations(path, MarketCapRange())[0]
+    observation = load_observations(path, MarketCapRange(), thresholds)[0]
 
     assert observation.market_cap_in_range is False
     assert observation.eligible_for_recommendation is True
     assert "市值不在" not in observation.exclusion_reason
+
+
+def test_market_cap_gates_when_enabled(tmp_path: Path) -> None:
+    path = write_json(tmp_path / "stocks.json", [stock(market_cap_billion=9000.0)])
+
+    observation = load_observations(path, MarketCapRange())[0]
+
+    assert observation.market_cap_in_range is False
+    assert observation.eligible_for_recommendation is False
+    assert "市值不在100-2000亿元区间" in observation.exclusion_reason
 
 
 def test_star_bse_and_st_stocks_are_excluded(tmp_path: Path) -> None:

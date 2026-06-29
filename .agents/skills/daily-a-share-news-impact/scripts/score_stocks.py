@@ -342,6 +342,9 @@ class StockObservation:
 
     @property
     def eligible_for_recommendation(self) -> bool:
+        if self.threshold_config.get("market_cap_billion", {}).get("used_for_eligibility", False):
+            if not self.market_cap_in_range:
+                return False
         return not self.gate_failures
 
     @property
@@ -350,7 +353,14 @@ class StockObservation:
 
     @property
     def exclusion_reason(self) -> str:
-        return "、".join(failure.reason for failure in self.gate_failures)
+        reasons: list[str] = []
+        if self.threshold_config.get("market_cap_billion", {}).get("used_for_eligibility", False):
+            if self.market_cap_billion is None:
+                reasons.append("未获取市值")
+            elif not self.market_cap_in_range:
+                reasons.append(f"市值不在{self.market_cap_range.description}区间")
+        reasons.extend(failure.reason for failure in self.gate_failures)
+        return "、".join(reasons)
 
     def to_dict(self) -> dict[str, Any]:
         payload: dict[str, Any] = {

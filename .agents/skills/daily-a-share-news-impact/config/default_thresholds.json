@@ -1,7 +1,7 @@
 {
   "version": "2026-06-board-st-exclusion-v2",
   "market_cap_billion": {
-    "used_for_eligibility": false,
+    "used_for_eligibility": true,
     "min": 100.0,
     "max": 2000.0
   },

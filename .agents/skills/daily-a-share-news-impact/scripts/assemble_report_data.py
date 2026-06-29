@@ -331,11 +331,11 @@ def assemble_command(args: argparse.Namespace) -> None:
             "min_billion": market_cap_range.minimum_billion,
             "max_billion": market_cap_range.maximum_billion,
             "description": market_cap_range.description,
-            "used_for_eligibility": False,
+            "used_for_eligibility": bool(threshold_config.get("market_cap_billion", {}).get("used_for_eligibility", False)),
         },
         "market_cap_context": {
             "description": "display_only",
-            "used_for_eligibility": False,
+            "used_for_eligibility": bool(threshold_config.get("market_cap_billion", {}).get("used_for_eligibility", False)),
         },
         "threshold_config": {
             "version": threshold_version(threshold_config),
