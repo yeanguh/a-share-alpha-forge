@@ -11,6 +11,8 @@ def init(context):
     set_volume_limit(0.25, 0.50)
     context.cyb = '159915.SZ'
     context.zz500 = '510500.SH'
+    context.zz1000 = '512100.SH'
+    context.zzhl = '515080.SH'
     context.hs300 = '510310.SH'
     context.rebalance_days = 20
     context.trade_days = 0
@@ -36,17 +38,22 @@ def is_trend_up(security):
 def rebalance(context):
     cyb_up = is_trend_up(context.cyb)
     zz500_up = is_trend_up(context.zz500)
+    zz1000_up = is_trend_up(context.zz1000)
 
-    cyb_weight = 0.50 if cyb_up else 0.15
-    zz500_weight = 0.30 if zz500_up else 0.20
-    hs300_weight = max(0.0, 1.0 - cyb_weight - zz500_weight)
+    cyb_weight = 0.40 if cyb_up else 0.15
+    zz500_weight = 0.25 if zz500_up else 0.20
+    zz1000_weight = 0.10 if zz1000_up else 0.05
+    zzhl_weight = 0.10
+    hs300_weight = max(0.0, 1.0 - cyb_weight - zz500_weight - zz1000_weight - zzhl_weight)
 
     log.info(
-        '趋势权重 cyb_up=%s zz500_up=%s weights: cyb=%.2f zz500=%.2f hs300=%.2f' %
-        (cyb_up, zz500_up, cyb_weight, zz500_weight, hs300_weight)
+        '趋势权重 cyb_up=%s zz500_up=%s zz1000_up=%s weights: cyb=%.2f zz500=%.2f zz1000=%.2f zzhl=%.2f hs300=%.2f' %
+        (cyb_up, zz500_up, zz1000_up, cyb_weight, zz500_weight, zz1000_weight, zzhl_weight, hs300_weight)
     )
     order_target_percent(context.cyb, cyb_weight)
     order_target_percent(context.zz500, zz500_weight)
+    order_target_percent(context.zz1000, zz1000_weight)
+    order_target_percent(context.zzhl, zzhl_weight)
     order_target_percent(context.hs300, hs300_weight)
 
 
