@@ -17,3 +17,7 @@ __pycache__/
 # Local generated data
 tmp/
 local/stock_pools/*/cache/
+
+# 全局 ~/.gitignore 忽略了 .agents，本项目 skill 链路需纳入版本控制，显式取消忽略
+!.agents/
+!.agents/**
