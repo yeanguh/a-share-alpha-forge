@@ -12,11 +12,25 @@ import argparse
 import concurrent.futures
 import json
 import math
+import re
 import sys
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 import pandas as pd
+
+
+ROOT = Path(__file__).resolve().parents[4]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts import local_hist
+
+A_DATA_STOCK_LIST = ROOT.parent / "a-data" / "stock_list.csv"
+A_DATA_THEME_CACHE = (
+    ROOT
+    / "local/reviews/backtests/iwencai_trend_stock_pool_2026-06-01_2026-06-23/theme_codes.json"
+)
 
 
 CORE_THEME_CONCEPTS = [
@@ -222,7 +236,9 @@ def import_akshare():
 
 
 def normalize_code(code: str) -> str:
-    code = str(code).zfill(6)
+    text = str(code).strip().upper()
+    digits = re.sub(r"\D", "", text)
+    code = digits[-6:].zfill(6) if digits else text.zfill(6)
     if code.startswith(("5", "6", "9")):
         return f"{code}.SH"
     return f"{code}.SZ"
@@ -250,8 +266,26 @@ def to_float(value, default: float = math.nan) -> float:
         return default
 
 
-def fetch_spot(ak, include_star: bool) -> pd.DataFrame:
-    df = ak.stock_zh_a_spot_em()
+def fetch_spot(ak, include_star: bool, spot_csv: str | None = None) -> pd.DataFrame:
+    local_spot = Path(spot_csv) if spot_csv else A_DATA_STOCK_LIST
+    if local_spot.exists():
+        df = pd.read_csv(local_spot, dtype={"代码": str}, encoding="utf-8-sig")
+    else:
+        try:
+            df = ak.stock_zh_a_spot_em()
+        except Exception as exc:  # noqa: BLE001
+            if A_DATA_STOCK_LIST.exists():
+                print(
+                    f"stock_zh_a_spot_em failed ({exc}); using local snapshot {A_DATA_STOCK_LIST}",
+                    file=sys.stderr,
+                )
+                df = pd.read_csv(A_DATA_STOCK_LIST, dtype={"代码": str}, encoding="utf-8-sig")
+            else:
+                print(
+                    f"stock_zh_a_spot_em failed ({exc}); falling back to stock_zh_a_spot",
+                    file=sys.stderr,
+                )
+                df = ak.stock_zh_a_spot()
     df = df.rename(
         columns={
             "代码": "code",
@@ -301,27 +335,33 @@ def fetch_theme_codes(
     return theme_codes, code_concepts, code_theme_tier, failed
 
 
-def fetch_hist(ak, code: str, cache_dir: Path, use_cache: bool) -> pd.DataFrame | None:
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    cache_file = cache_dir / f"{raw_code(code)}.csv"
-    if use_cache and cache_file.exists():
-        try:
-            df = pd.read_csv(cache_file)
-            if len(df) >= 80:
-                return df
-        except Exception:
-            pass
+def load_theme_codes_cache(path: str) -> tuple[set[str], dict[str, list[str]], dict[str, str], list[str]]:
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    theme_codes = set(data.get("theme_codes", []))
+    code_concepts = {str(k): list(v) for k, v in data.get("code_concepts", {}).items()}
+    code_theme_tier = {str(k): str(v) for k, v in data.get("code_theme_tier", {}).items()}
+    failed = list(data.get("failed_concepts", []))
+    return theme_codes, code_concepts, code_theme_tier, failed
+
+
+def fetch_hist(_ak, code: str, _cache_dir: Path, use_cache: bool) -> pd.DataFrame | None:
+    """Load history from a-data first and only top up the missing tail.
+
+    ``use_cache`` is kept for CLI compatibility. When false, the function still
+    reads ``a-data/hist`` but does not persist any network tail top-up.
+    """
 
     try:
-        df = ak.stock_zh_a_hist(symbol=raw_code(code), period="daily", adjust="qfq")
+        df = local_hist.get_hist(
+            raw_code(code),
+            allow_network=True,
+            persist=use_cache,
+        )
     except Exception:
         return None
     if df is None or df.empty:
         return None
-    try:
-        df.to_csv(cache_file, index=False)
-    except Exception:
-        pass
     return df
 
 
@@ -569,8 +609,14 @@ def build_pools(args: argparse.Namespace) -> dict:
     if unknown:
         raise SystemExit(f"Unknown strategies: {', '.join(unknown)}")
 
-    spot = fetch_spot(ak, include_star=args.include_star)
-    theme_codes, code_concepts, code_theme_tier, failed_concepts = fetch_theme_codes(ak, CORE_CONCEPTS)
+    spot = fetch_spot(ak, include_star=args.include_star, spot_csv=args.spot_csv)
+    theme_cache_json = args.theme_cache_json
+    if not theme_cache_json and A_DATA_THEME_CACHE.exists():
+        theme_cache_json = str(A_DATA_THEME_CACHE)
+    if theme_cache_json:
+        theme_codes, code_concepts, code_theme_tier, failed_concepts = load_theme_codes_cache(theme_cache_json)
+    else:
+        theme_codes, code_concepts, code_theme_tier, failed_concepts = fetch_theme_codes(ak, CORE_CONCEPTS)
     candidates = coarse_filter(spot, strategy_keys, theme_codes)
     if args.max_stocks:
         candidates = candidates.head(args.max_stocks)
@@ -621,14 +667,17 @@ def build_pools(args: argparse.Namespace) -> dict:
 
     result = {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
-        "data_note": "akshare public data; main fund inflow is approximated by liquidity/volume/trend conditions; ETF overlay mirrors v73 broad-index trend weights.",
+        "data_note": "local a-data first; missing daily-history tails are incrementally topped up; main fund inflow is approximated by liquidity/volume/trend conditions.",
         "strategies": {key: STRATEGIES[key].name for key in strategy_keys},
         "failed_concepts": failed_concepts,
         "theme_design": {
             "core": CORE_THEME_CONCEPTS,
             "satellite": SATELLITE_THEME_CONCEPTS,
         },
-        "market_overlay": build_etf_overlay(ak),
+        "market_overlay": {
+            "available": False,
+            "note": "ETF trend overlay skipped in local-first mode; stock-pool ranking uses a-data stock snapshots and local/incremental stock histories.",
+        },
         "input_counts": {
             "spot": int(len(spot)),
             "theme_codes": int(len(theme_codes)),
@@ -907,6 +956,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--workers", type=int, default=8, help="Concurrent history fetch workers.")
     parser.add_argument("--include-star", action="store_true", help="Include STAR market stocks.")
     parser.add_argument("--no-cache", action="store_true", help="Disable local history cache.")
+    parser.add_argument("--spot-csv", help="Use a local A-share spot CSV instead of fetching stock_zh_a_spot_em.")
+    parser.add_argument("--theme-cache-json", help="Use cached theme constituents instead of fetching concept boards.")
     return parser.parse_args(argv)
 
 

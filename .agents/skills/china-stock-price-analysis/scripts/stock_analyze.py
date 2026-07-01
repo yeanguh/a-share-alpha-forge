@@ -13,9 +13,11 @@ source fails, the report records the failure and continues with the next source.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import sys
 from dataclasses import asdict, dataclass, field
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -31,6 +33,8 @@ from scripts.a_share_data import (
     safe_float,
 )
 
+
+LOCAL_STOCK_LIST = PROJECT_ROOT.parent / "a-data" / "stock_list.csv"
 
 INDUSTRY_PE_RANGES = {
     "消费电子龙头": (20, 30),
@@ -170,7 +174,23 @@ def load_quote(code: str, json_path: str | None = None) -> QuoteSnapshot:
             source=str(data.get("source") or "json"),
         )
 
+    local_snapshot = load_local_stock_list_quote(code)
+    if local_snapshot and local_snapshot.latest is not None:
+        local_snapshot.sources.append(
+            SourceStatus("local_stock_list", "available", f"loaded from {LOCAL_STOCK_LIST}")
+        )
+        return local_snapshot
+
     snapshot = QuoteSnapshot(code=raw_code(code))
+    if local_snapshot:
+        snapshot = local_snapshot
+        snapshot.sources.append(
+            SourceStatus("local_stock_list", "partial", f"missing latest price in {LOCAL_STOCK_LIST}")
+        )
+    else:
+        snapshot.sources.append(
+            SourceStatus("local_stock_list", "missing", f"not found in {LOCAL_STOCK_LIST}")
+        )
     for fetcher in (apply_mootdx_quote, apply_tencent_quote, apply_eastmoney_quote):
         status = fetcher(snapshot)
         snapshot.sources.append(status)
@@ -178,6 +198,46 @@ def load_quote(code: str, json_path: str | None = None) -> QuoteSnapshot:
         details = "; ".join(f"{s.source}: {s.detail}" for s in snapshot.sources)
         raise RuntimeError(f"No quote source available for {code}: {details}")
     return snapshot
+
+
+def first_present(row: dict[str, str], *names: str) -> str:
+    for name in names:
+        value = row.get(name)
+        if value not in (None, "", "--"):
+            return value
+    return ""
+
+
+def load_local_stock_list_quote(code: str) -> QuoteSnapshot | None:
+    """Build a quote snapshot from ``a-data/stock_list.csv`` when available."""
+
+    if not LOCAL_STOCK_LIST.exists():
+        return None
+    target = raw_code(code)
+    try:
+        with LOCAL_STOCK_LIST.open("r", encoding="utf-8-sig", newline="") as f:
+            for row in csv.DictReader(f):
+                if raw_code(str(row.get("代码") or row.get("code") or "")) != target:
+                    continue
+                snapshot = QuoteSnapshot(
+                    code=target,
+                    name=first_present(row, "名称", "name"),
+                    latest=safe_float(first_present(row, "最新价", "latest", "latest_price")),
+                    previous_close=safe_float(first_present(row, "昨收", "previous_close")),
+                    change_pct=safe_float(first_present(row, "涨跌幅", "change_pct")),
+                    volume=safe_float(first_present(row, "成交量", "volume")),
+                    amount=safe_float(first_present(row, "成交额", "amount")),
+                    market_cap=safe_float(first_present(row, "总市值", "market_cap")),
+                    float_market_cap=safe_float(first_present(row, "流通市值", "float_market_cap")),
+                    pe_ttm=safe_float(first_present(row, "市盈率-动态", "pe_ttm", "pe")),
+                    pb=safe_float(first_present(row, "市净率", "pb")),
+                    timestamp=datetime.fromtimestamp(LOCAL_STOCK_LIST.stat().st_mtime).isoformat(timespec="seconds"),
+                    source="local_stock_list",
+                )
+                return snapshot
+    except OSError:
+        return None
+    return None
 
 
 def judge_multiple(value: float | None, industry: str, ranges: dict[str, tuple[float, float]], label: str) -> str:
