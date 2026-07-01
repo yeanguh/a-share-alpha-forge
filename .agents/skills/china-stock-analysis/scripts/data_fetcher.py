@@ -21,6 +21,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.a_share_data import fetch_tencent_quote, safe_float as shared_safe_float
+from scripts import local_hist
 
 try:
     import akshare as ak
@@ -29,6 +30,26 @@ except ImportError:
     print("错误: 请先安装依赖库")
     print("pip install akshare pandas")
     sys.exit(1)
+
+
+# 设 A_STOCK_OFFLINE=1 禁止任何联网下载：缺数据时直接抛错而非静默联网+写缓存，避免磁盘被占满。
+OFFLINE = os.environ.get("A_STOCK_OFFLINE") == "1"
+# 设 A_STOCK_NO_CACHE=1 全局关闭本地 .cache 写盘。
+NO_CACHE = os.environ.get("A_STOCK_NO_CACHE") == "1"
+
+
+class OfflineError(RuntimeError):
+    """在 A_STOCK_OFFLINE=1 下尝试联网时抛出。"""
+
+
+# 语义约定：A_STOCK_OFFLINE 仅限制历史价格补齐（get_hist 等增量补数），
+# 不限制 info/财务/股东/分红/全A列表等其它联网数据；这些函数不调用 _guard_online()。
+def _guard_online(what: str = "股票数据") -> None:
+    if OFFLINE:
+        raise OfflineError(
+            f"离线模式(A_STOCK_OFFLINE=1)下禁止联网获取「{what}」。"
+            f"请确认本地归档 a-data 已挂载且包含所需数据；如确需联网请取消该环境变量。"
+        )
 
 
 def retry_on_failure(max_retries: int = 3, delay: float = 1.0):
@@ -101,6 +122,8 @@ def get_cache_path(code: str, data_type: str) -> str:
 
 def load_cache(code: str, data_type: str) -> Optional[dict]:
     """加载缓存数据（当天有效）"""
+    if NO_CACHE:
+        return None
     cache_path = get_cache_path(code, data_type)
     if os.path.exists(cache_path):
         try:
@@ -113,6 +136,8 @@ def load_cache(code: str, data_type: str) -> Optional[dict]:
 
 def save_cache(code: str, data_type: str, data: dict):
     """保存缓存数据"""
+    if NO_CACHE:
+        return
     cache_path = get_cache_path(code, data_type)
     try:
         with open(cache_path, 'w', encoding='utf-8') as f:
@@ -307,27 +332,28 @@ def get_dividend_data(code: str) -> dict:
 
 @retry_on_failure(max_retries=2, delay=1.0)
 def get_price_data(code: str, days: int = 60) -> dict:
-    """获取价格数据"""
-    try:
-        end_date = datetime.now().strftime('%Y%m%d')
-        start_date = (datetime.now() - timedelta(days=days)).strftime('%Y%m%d')
+    """获取价格数据（本地优先：先读 a-data/hist，缺失时增量补拉后写回归档）
 
-        df = ak.stock_zh_a_hist(symbol=code, period="daily",
-                                start_date=start_date, end_date=end_date, adjust="qfq")
-        if df is not None and not df.empty:
-            latest = df.iloc[-1]
-            return {
-                "latest_price": safe_float(latest['收盘']),
-                "latest_date": str(latest['日期']),
-                "price_change_pct": safe_float(latest['涨跌幅']),
-                "volume": safe_float(latest['成交量']),
-                "turnover": safe_float(latest['成交额']),
-                "high_60d": safe_float(df['最高'].max()),
-                "low_60d": safe_float(df['最低'].min()),
-                "avg_volume_20d": safe_float(df.tail(20)['成交量'].mean()),
-                "price_data": df.tail(30).to_dict(orient='records')  # 只保留30天
-            }
-        return {}
+    归档为不复权(day)口径，因此增量同样以 adjust="" 拉取并直接尾部追加，
+    不会引入前复权(qfq)基准漂移问题。离线模式(A_STOCK_OFFLINE=1)下只读本地、绝不联网。
+    """
+    try:
+        df = local_hist.get_hist(code, allow_network=not OFFLINE)
+        if df is None or df.empty:
+            return {}
+        window = df.tail(days)
+        latest = window.iloc[-1]
+        return {
+            "latest_price": safe_float(latest["收盘"]),
+            "latest_date": str(latest["日期"]),
+            "price_change_pct": safe_float(latest["涨跌幅"]),
+            "volume": safe_float(latest["成交量"]),
+            "turnover": safe_float(latest["成交额"]),
+            "high_60d": safe_float(pd.to_numeric(window["最高"], errors="coerce").max()),
+            "low_60d": safe_float(pd.to_numeric(window["最低"], errors="coerce").min()),
+            "avg_volume_20d": safe_float(pd.to_numeric(window.tail(20)["成交量"], errors="coerce").mean()),
+            "price_data": window.tail(30).to_dict(orient="records"),  # 只保留30天
+        }
     except Exception as e:
         return {"error": str(e)}
 
@@ -371,8 +397,9 @@ def get_all_a_stocks() -> list:
 
 def fetch_stock_data(code: str, data_type: str = "all", years: int = 3, use_cache: bool = True) -> dict:
     """获取单只股票的数据"""
+    effective_use_cache = use_cache and not NO_CACHE
     # 尝试加载缓存
-    if use_cache:
+    if effective_use_cache:
         cached = load_cache(code, data_type)
         if cached:
             print(f"使用缓存数据: {code}")
@@ -409,7 +436,7 @@ def fetch_stock_data(code: str, data_type: str = "all", years: int = 3, use_cach
         result["dividend"] = get_dividend_data(code)
 
     # 保存缓存
-    if use_cache:
+    if effective_use_cache:
         save_cache(code, data_type, result)
 
     print(f"数据获取完成: {code}")

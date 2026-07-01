@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import argparse
+import subprocess
 import sys
 from pathlib import Path
 
@@ -158,3 +160,47 @@ def test_investment_committee_review_adds_action_to_rows() -> None:
     assert review["mode"] == "local_deterministic_committee"
     assert review["reviews"][0]["code"] == "603986"
     assert rows[0]["committee_review"]["action"] in {"核心观察", "观察等待"}
+
+
+def test_run_iwencai_stock_pool_passes_local_fallback_inputs(tmp_path, monkeypatch) -> None:
+    module = load_module()
+    spot_csv = tmp_path / "stock_list.csv"
+    theme_cache = tmp_path / "theme_codes.json"
+    output_dir = module.ROOT / "tmp" / "pytest-iwencai-fallback"
+    spot_csv.write_text("代码,名称\n300042,朗科科技\n", encoding="utf-8")
+    theme_cache.write_text(
+        '{"theme_codes":["300042.SZ"],"code_concepts":{"300042.SZ":["存储芯片"]},"code_theme_tier":{"300042.SZ":"core"}}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(module, "IWENCAI_DEFAULT_SPOT_CSV", spot_csv)
+    monkeypatch.setattr(module, "IWENCAI_DEFAULT_THEME_CACHE", theme_cache)
+    captured: dict[str, list[str]] = {}
+
+    def fake_run(command, **_kwargs):  # noqa: ANN001
+        captured["command"] = command
+        output_dir.mkdir(parents=True, exist_ok=True)
+        (output_dir / "stock_pools.json").write_text('{"pools":{}}', encoding="utf-8")
+        return subprocess.CompletedProcess(command, 0, stdout="", stderr="")
+
+    monkeypatch.setattr(module.subprocess, "run", fake_run)
+    args = argparse.Namespace(
+        skip_iwencai=False,
+        iwencai_json=None,
+        iwencai_output_dir=str(output_dir),
+        iwencai_strategies=module.IWENCAI_DEFAULT_STRATEGIES,
+        iwencai_max_stocks=300,
+        iwencai_top=20,
+        iwencai_recommend_top=8,
+        iwencai_high_confidence_top=8,
+        iwencai_workers=8,
+        iwencai_timeout=900,
+        iwencai_no_cache=False,
+        iwencai_spot_csv=None,
+        iwencai_theme_cache_json=None,
+    )
+
+    result = module.run_iwencai_stock_pool(args)
+
+    assert result and result["status"] == "generated"
+    assert captured["command"][captured["command"].index("--spot-csv") + 1] == str(spot_csv)
+    assert captured["command"][captured["command"].index("--theme-cache-json") + 1] == str(theme_cache)

@@ -4,11 +4,17 @@
 from __future__ import annotations
 
 import json
+import logging
+import time
 from dataclasses import dataclass
 from typing import Any
-from urllib import request
+from urllib import error, request
+
+logger = logging.getLogger(__name__)
 
 DEFAULT_TIMEOUT_SECONDS = 10
+DEFAULT_RETRIES = 3
+DEFAULT_BACKOFF_SECONDS = 0.5
 TENCENT_QUOTE_URL = "https://qt.gtimg.cn/q={symbol}"
 TENCENT_KLINE_URL = "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param={symbol},day,,,{days},qfq"
 EASTMONEY_QUOTE_URL = "https://push2.eastmoney.com/api/qt/stock/get?secid={secid}&fields={fields}"
@@ -82,7 +88,7 @@ def safe_float(value: Any) -> float | None:
     if value in (None, "", "--"):
         return None
     try:
-        return float(str(value).replace(",", "").replace("%", "").replace("亿", ""))
+        return float(str(value).strip().replace(",", "").replace("%", "").replace("亿", ""))
     except (TypeError, ValueError):
         return None
 
@@ -105,19 +111,35 @@ def a_share_symbol(code: str) -> str:
 
 def eastmoney_secid(code: str) -> str:
     normalized = raw_code(code)
-    if normalized.startswith(("6", "9")):
-        market_id = "1"
-    elif normalized.startswith(("4", "8")):
-        market_id = "0"
-    else:
-        market_id = "0"
+    market_id = "1" if normalized.startswith(("6", "9")) else "0"
     return f"{market_id}.{normalized}"
 
 
-def http_get_text(url: str, *, encoding: str = "utf-8", timeout: float = DEFAULT_TIMEOUT_SECONDS) -> str:
+def http_get_text(
+    url: str,
+    *,
+    encoding: str = "utf-8",
+    timeout: float = DEFAULT_TIMEOUT_SECONDS,
+    retries: int = DEFAULT_RETRIES,
+    backoff_seconds: float = DEFAULT_BACKOFF_SECONDS,
+) -> str:
     req = request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with request.urlopen(req, timeout=timeout) as response:
-        return response.read().decode(encoding, errors="replace")
+    last_exc: Exception | None = None
+    for attempt in range(max(1, retries)):
+        try:
+            with request.urlopen(req, timeout=timeout) as response:
+                return response.read().decode(encoding, errors="replace")
+        except error.HTTPError:
+            raise
+        except (TimeoutError, OSError, error.URLError) as exc:
+            last_exc = exc
+            if attempt >= max(1, retries) - 1:
+                break
+            sleep_for = backoff_seconds * (attempt + 1)
+            logger.warning("HTTP fetch failed (%s), retrying in %.2fs: %s", type(exc).__name__, sleep_for, url)
+            time.sleep(sleep_for)
+    assert last_exc is not None
+    raise last_exc
 
 
 def parse_tencent_quote(text: str, symbol: str) -> TencentQuote:
@@ -164,18 +186,31 @@ def fetch_tencent_quote(code: str, *, timeout: float = DEFAULT_TIMEOUT_SECONDS) 
 
 def parse_tencent_kline(text: str, symbol: str) -> list[DailyBar]:
     payload = json.loads(text)
-    rows = payload["data"][symbol].get("qfqday") or payload["data"][symbol].get("day") or []
-    return [
-        DailyBar(
-            trade_date=str(row[0]),
-            open_price=float(row[1]),
-            close_price=float(row[2]),
-            high_price=float(row[3]),
-            low_price=float(row[4]),
-            volume=float(row[5]),
-        )
-        for row in rows
-    ]
+    series = payload.get("data", {}).get(symbol, {})
+    # The K-line URL requests qfq (forward-adjusted) data, so only qfqday is
+    # dimensionally consistent. Falling back to the unadjusted `day` series would
+    # silently mix price scales and corrupt backtests.
+    rows = series.get("qfqday")
+    if rows is None:
+        raise ValueError(f"Tencent kline response for `{symbol}` is missing forward-adjusted (qfqday) data")
+    bars: list[DailyBar] = []
+    for index, row in enumerate(rows):
+        if len(row) < 6:
+            raise ValueError(f"Tencent kline row {index} for `{symbol}` has too few fields")
+        try:
+            bars.append(
+                DailyBar(
+                    trade_date=str(row[0]),
+                    open_price=float(row[1]),
+                    close_price=float(row[2]),
+                    high_price=float(row[3]),
+                    low_price=float(row[4]),
+                    volume=float(row[5]),
+                )
+            )
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"Tencent kline row {index} for `{symbol}` is not numeric") from exc
+    return bars
 
 
 def fetch_tencent_kline(code: str, days: int, *, timeout: float = DEFAULT_TIMEOUT_SECONDS) -> list[DailyBar]:

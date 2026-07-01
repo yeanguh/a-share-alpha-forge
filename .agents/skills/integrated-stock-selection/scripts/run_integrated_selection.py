@@ -23,6 +23,11 @@ ROOT = Path(__file__).resolve().parents[4]
 TMP = ROOT / "tmp" / "integrated-selection"
 IWENCAI_SCRIPT = ROOT / ".agents/skills/iwencai-trend-stock-pool/scripts/build_stock_pools.py"
 IWENCAI_DEFAULT_STRATEGIES = "main_theme,broad_trend,fund_flow,quality_trend,breakout_theme"
+IWENCAI_DEFAULT_SPOT_CSV = ROOT.parent / "a-data" / "stock_list.csv"
+IWENCAI_DEFAULT_THEME_CACHE = (
+    ROOT
+    / "local/reviews/backtests/iwencai_trend_stock_pool_2026-06-01_2026-06-23/theme_codes.json"
+)
 
 
 def raw_code(value: object) -> str:
@@ -163,6 +168,15 @@ def load_iwencai_data(path: Path) -> dict[str, Any]:
     return payload
 
 
+def resolve_existing_path(value: str | None, default: Path | None = None) -> Path | None:
+    path = Path(value) if value else default
+    if path is None:
+        return None
+    if not path.is_absolute():
+        path = ROOT / path
+    return path if path.exists() else None
+
+
 def run_iwencai_stock_pool(args: argparse.Namespace) -> dict[str, Any] | None:
     if args.skip_iwencai:
         return None
@@ -203,6 +217,12 @@ def run_iwencai_stock_pool(args: argparse.Namespace) -> dict[str, Any] | None:
     ]
     if args.iwencai_no_cache:
         command.append("--no-cache")
+    spot_csv = resolve_existing_path(args.iwencai_spot_csv, IWENCAI_DEFAULT_SPOT_CSV)
+    if spot_csv:
+        command.extend(["--spot-csv", str(spot_csv)])
+    theme_cache = resolve_existing_path(args.iwencai_theme_cache_json, IWENCAI_DEFAULT_THEME_CACHE)
+    if theme_cache:
+        command.extend(["--theme-cache-json", str(theme_cache)])
     try:
         result = subprocess.run(
             command,
@@ -706,6 +726,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--iwencai-workers", type=int, default=8)
     parser.add_argument("--iwencai-timeout", type=int, default=900)
     parser.add_argument("--iwencai-no-cache", action="store_true")
+    parser.add_argument("--iwencai-spot-csv", help="Local spot snapshot CSV to pass to the iWenCai pool builder.")
+    parser.add_argument("--iwencai-theme-cache-json", help="Cached theme constituents JSON for the iWenCai pool builder.")
+    parser.add_argument(
+        "--skip-fresh-check",
+        action="store_true",
+        help="跳过执行时的候选数据新鲜度检查/补齐闸门。",
+    )
+    parser.add_argument(
+        "--no-fresh-backfill",
+        action="store_true",
+        help="闸门仍检查新鲜度，但缺失/过期时不联网补数（仅告警，降级到磁盘现有数据）。",
+    )
     return parser.parse_args()
 
 
@@ -716,6 +748,8 @@ def main() -> int:
     iwencai_result = run_iwencai_stock_pool(args)
     iwencai_data = iwencai_result.get("data") if iwencai_result else None
     candidates = collect_candidates(archive, codes, args.theme, iwencai_data)
+    if not getattr(args, "skip_fresh_check", False):
+        _ensure_candidate_data_fresh(list(candidates.keys()), args)
     rendered = [render_candidate(candidate) for candidate in candidates.values()]
     rendered.sort(key=lambda row: ({"core": 2, "watch": 1, "reject": 0}[row["bucket"]], row["score"]), reverse=True)
     max_candidates = max(1, args.max_candidates)
@@ -766,6 +800,35 @@ def main() -> int:
     else:
         print(text)
     return 0
+
+
+def _ensure_candidate_data_fresh(candidate_codes: list[str], args: argparse.Namespace) -> None:
+    """执行时新鲜度闸门：对候选码检查本地档案，缺失/过期先补数再继续。
+
+    作用范围（重要）：本闸门在 collect_candidates 之后运行，只保证后续
+    本地取价/估值环节（如 --refresh-quotes 调用的 refresh_quotes）用到的
+    数据新鲜。它【不覆盖】上游 iWenCai 子进程——iWenCai 由 build_stock_pools.py
+    自身的 local-first 增量补齐负责，本轮其评分/候选不会因这里补数而重算。
+    复用 scripts/ensure_fresh.py；任何失败只告警、绝不阻断选股（降级到磁盘现有数据）。
+    """
+    scripts_dir = ROOT / "scripts"
+    if str(scripts_dir) not in sys.path:
+        sys.path.insert(0, str(scripts_dir))
+    try:
+        from ensure_fresh import ensure_fresh
+    except Exception as exc:  # pragma: no cover - defensive import guard
+        print(f"[integrated-selection] freshness gate unavailable: {exc}", flush=True)
+        return
+    codes = [code for code in (candidate_codes or []) if code]
+    if not codes:
+        return
+    # 联网补数由独立开关控制，不再复用 skip_iwencai：
+    # 跳过 iWenCai 不等于要离线，缺失历史增量仍可能需要补齐。
+    allow_network = not getattr(args, "no_fresh_backfill", False)
+    try:
+        ensure_fresh(codes, end_date=getattr(args, "date", None), allow_network=allow_network)
+    except Exception as exc:  # pragma: no cover
+        print(f"[integrated-selection] freshness backfill skipped: {exc}", flush=True)
 
 
 if __name__ == "__main__":

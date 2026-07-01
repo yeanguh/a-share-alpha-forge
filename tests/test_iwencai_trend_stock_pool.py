@@ -72,3 +72,23 @@ def test_not_allowed_excludes_bj_and_star_by_default() -> None:
     assert not module.is_allowed_code("430001.BJ", include_star=False)
     assert not module.is_allowed_code("688001.SH", include_star=False)
     assert module.is_allowed_code("688001.SH", include_star=True)
+
+
+def test_fetch_spot_falls_back_to_local_snapshot(tmp_path, monkeypatch) -> None:
+    module = load_module()
+    snapshot = tmp_path / "stock_list.csv"
+    snapshot.write_text(
+        "代码,名称,最新价,涨跌幅,成交额,换手率,市盈率-动态,市净率,总市值\n"
+        "300042,朗科科技,69.88,-6.69,1891639035.96,13.35,80.1,5.2,14000000000\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(module, "A_DATA_STOCK_LIST", snapshot)
+
+    class FakeAk:
+        def stock_zh_a_spot_em(self):  # noqa: ANN201
+            raise ConnectionError("remote closed")
+
+    df = module.fetch_spot(FakeAk(), include_star=False)
+
+    assert df.iloc[0]["code"] == "300042.SZ"
+    assert df.iloc[0]["turnover"] == 13.35
