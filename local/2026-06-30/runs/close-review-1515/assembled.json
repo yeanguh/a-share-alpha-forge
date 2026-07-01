@@ -1,0 +1,1407 @@
+{
+  "window": {
+    "timezone": "Asia/Shanghai",
+    "start": "2026-06-29T09:30:00+08:00",
+    "end": "2026-06-30T09:30:00+08:00"
+  },
+  "market_cap_filter": {
+    "min_billion": 100.0,
+    "max_billion": 2000.0,
+    "description": "100-2000亿元",
+    "used_for_eligibility": true
+  },
+  "market_cap_context": {
+    "description": "display_only",
+    "used_for_eligibility": true
+  },
+  "threshold_config": {
+    "version": "2026-06-board-st-exclusion-v2",
+    "path": "default",
+    "beneficiary_sector_gate": {
+      "impact_score_min": 4.0,
+      "price_volume_min": 4.0,
+      "liquidity_min": 4.0
+    },
+    "market_direction_gaps": {
+      "strong_min": 8,
+      "moderate_strong_min": 2,
+      "moderate_weak_max": -2,
+      "weak_max": -8
+    }
+  },
+  "fund_flow": {
+    "direction": "结构性流入",
+    "pbc_open_market_operation_summary": "2026-06-29 中国人民银行开展1575亿元7天期逆回购，并首次实际运用3000亿元隔夜逆回购，操作利率分别为1.40%和1.25%，短端流动性呵护明显。",
+    "turnover_summary": "6月29日沪深京三市成交约3.50万亿元，较上日放量约1888亿元；4426股上涨、752股下跌，创新药与半导体链领涨。",
+    "main_flow_summary": "6月30日09:40左右免费行业快照显示，电子、光学光电子、通信设备、PCB与计算机获主力净流入；医药生物、有色金属、半导体材料方向出现资金兑现，体现为高弹性科技主线的结构性流入。",
+    "sector_flow_summary": "流入居前行业为电子、光学光电子、通信网络设备及器件、印制电路板；流出居前行业为有色金属、医药生物、半导体材料与工业金属。",
+    "breadth_summary": "6月29日收盘全市场4426股上涨、752股下跌；6月30日开盘后资金进一步向电子和通信集中，医药与资源方向出现分化。",
+    "data_quality": "partial"
+  },
+  "sector_rankings": {
+    "positive": [
+      {
+        "rank": 1,
+        "title": "AI硬件",
+        "direction": "positive",
+        "impact_score": 4.34,
+        "magnitude": 4.5,
+        "breadth": 4.3,
+        "immediacy": 4.2,
+        "confidence": 4.3,
+        "novelty": 3.9,
+        "liquidity": 4.8,
+        "price_volume": 4.2
+      },
+      {
+        "rank": 2,
+        "title": "半导体先进封装/存储",
+        "direction": "positive",
+        "impact_score": 4.17,
+        "magnitude": 4.3,
+        "breadth": 4.0,
+        "immediacy": 4.0,
+        "confidence": 4.3,
+        "novelty": 3.8,
+        "liquidity": 4.6,
+        "price_volume": 4.1
+      },
+      {
+        "rank": 3,
+        "title": "创新药",
+        "direction": "positive",
+        "impact_score": 4.14,
+        "magnitude": 4.2,
+        "breadth": 3.9,
+        "immediacy": 4.1,
+        "confidence": 4.7,
+        "novelty": 4.3,
+        "liquidity": 4.0,
+        "price_volume": 3.6
+      },
+      {
+        "rank": 4,
+        "title": "锂电资源",
+        "direction": "positive",
+        "impact_score": 3.67,
+        "magnitude": 3.8,
+        "breadth": 3.7,
+        "immediacy": 3.4,
+        "confidence": 4.0,
+        "novelty": 3.5,
+        "liquidity": 4.0,
+        "price_volume": 3.0
+      },
+      {
+        "rank": 5,
+        "title": "出口家电",
+        "direction": "positive",
+        "impact_score": 3.6,
+        "magnitude": 3.7,
+        "breadth": 3.6,
+        "immediacy": 3.4,
+        "confidence": 3.8,
+        "novelty": 3.5,
+        "liquidity": 3.9,
+        "price_volume": 3.1
+      }
+    ],
+    "negative": [
+      {
+        "rank": 1,
+        "title": "地缘油价风险",
+        "direction": "negative",
+        "impact_score": 3.99,
+        "magnitude": 4.1,
+        "breadth": 3.8,
+        "immediacy": 4.2,
+        "confidence": 4.5,
+        "novelty": 3.9,
+        "liquidity": 4.0,
+        "price_volume": 3.1
+      },
+      {
+        "rank": 2,
+        "title": "半导体竞争加剧",
+        "direction": "negative",
+        "impact_score": 3.89,
+        "magnitude": 3.9,
+        "breadth": 4.2,
+        "immediacy": 3.4,
+        "confidence": 4.0,
+        "novelty": 4.1,
+        "liquidity": 4.4,
+        "price_volume": 3.2
+      },
+      {
+        "rank": 3,
+        "title": "有色金属",
+        "direction": "negative",
+        "impact_score": 3.74,
+        "magnitude": 3.6,
+        "breadth": 3.8,
+        "immediacy": 4.1,
+        "confidence": 4.1,
+        "novelty": 3.1,
+        "liquidity": 4.0,
+        "price_volume": 3.4
+      },
+      {
+        "rank": 4,
+        "title": "半导体材料兑现",
+        "direction": "negative",
+        "impact_score": 3.6,
+        "magnitude": 3.5,
+        "breadth": 3.5,
+        "immediacy": 4.0,
+        "confidence": 4.0,
+        "novelty": 3.2,
+        "liquidity": 4.1,
+        "price_volume": 3.0
+      },
+      {
+        "rank": 5,
+        "title": "医药兑现分化",
+        "direction": "negative",
+        "impact_score": 3.55,
+        "magnitude": 3.4,
+        "breadth": 3.6,
+        "immediacy": 4.0,
+        "confidence": 4.0,
+        "novelty": 3.0,
+        "liquidity": 4.0,
+        "price_volume": 2.8
+      }
+    ]
+  },
+  "daily_mainlines": [
+    {
+      "rank": 1,
+      "title": "AI硬件",
+      "direction": "positive",
+      "impact_score": 4.34,
+      "magnitude": 4.5,
+      "breadth": 4.3,
+      "immediacy": 4.2,
+      "confidence": 4.3,
+      "novelty": 3.9,
+      "liquidity": 4.8,
+      "price_volume": 4.2
+    },
+    {
+      "rank": 2,
+      "title": "半导体先进封装/存储",
+      "direction": "positive",
+      "impact_score": 4.17,
+      "magnitude": 4.3,
+      "breadth": 4.0,
+      "immediacy": 4.0,
+      "confidence": 4.3,
+      "novelty": 3.8,
+      "liquidity": 4.6,
+      "price_volume": 4.1
+    },
+    {
+      "rank": 3,
+      "title": "创新药",
+      "direction": "positive",
+      "impact_score": 4.14,
+      "magnitude": 4.2,
+      "breadth": 3.9,
+      "immediacy": 4.1,
+      "confidence": 4.7,
+      "novelty": 4.3,
+      "liquidity": 4.0,
+      "price_volume": 3.6
+    },
+    {
+      "rank": 4,
+      "title": "锂电资源",
+      "direction": "positive",
+      "impact_score": 3.67,
+      "magnitude": 3.8,
+      "breadth": 3.7,
+      "immediacy": 3.4,
+      "confidence": 4.0,
+      "novelty": 3.5,
+      "liquidity": 4.0,
+      "price_volume": 3.0
+    },
+    {
+      "rank": 5,
+      "title": "出口家电",
+      "direction": "positive",
+      "impact_score": 3.6,
+      "magnitude": 3.7,
+      "breadth": 3.6,
+      "immediacy": 3.4,
+      "confidence": 3.8,
+      "novelty": 3.5,
+      "liquidity": 3.9,
+      "price_volume": 3.1
+    }
+  ],
+  "leading_stocks": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "sector": "半导体先进封装/存储",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 568.3,
+      "research_score": 3.19,
+      "beneficiary_quality_score": 3.28,
+      "research_rating": "中性观察",
+      "operation_tendency": "回撤后再评估",
+      "eligible_for_recommendation": "yes",
+      "exclusion_reason": "",
+      "trend_score": 4.6,
+      "volume_score": 4.1,
+      "retail_sentiment": 4.5,
+      "retail_voc_quality_score": 2.2,
+      "capital_recognition": 3.9,
+      "event_alignment": 4.2,
+      "institutional_trend_score": 3.9,
+      "risk_score": 3.8,
+      "retail_voc_summary": "存储芯片热度非常高，追涨情绪升温，但14日趋势和量能仍保持主线上行。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 809.9,
+          "change_pct": -3.58,
+          "market_cap": 568300000000
+        },
+        "valuation_context": "PE约97.2x、PB约22.9x，显著偏贵，属于景气和涨价预期驱动。",
+        "fundamental_context": "2025年营收同比约+25%，净利同比约+49%，负债率仅约10%，流动性充足。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      },
+      "leader_role": "eligible_leader"
+    },
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "sector": "半导体先进封装/存储",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 180.2,
+      "research_score": 3.16,
+      "beneficiary_quality_score": 3.22,
+      "research_rating": "中性观察",
+      "operation_tendency": "趋势跟踪观察",
+      "eligible_for_recommendation": "yes",
+      "exclusion_reason": "",
+      "trend_score": 4.2,
+      "volume_score": 4.0,
+      "retail_sentiment": 4.1,
+      "retail_voc_quality_score": 2.68,
+      "capital_recognition": 3.8,
+      "event_alignment": 4.3,
+      "institutional_trend_score": 3.8,
+      "risk_score": 3.6,
+      "retail_voc_summary": "先进封装热度持续升温，量价与景气主线匹配，但扩产逻辑已被较多资金预判。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 100.72,
+          "change_pct": -2.45,
+          "market_cap": 180200000000
+        },
+        "valuation_context": "PE约155.2x、PB约6.3x，估值对后续订单和利用率要求较高。",
+        "fundamental_context": "2025年营收同比约+8%，净利小幅回落，负债率约43.6%，经营现金流仍较稳。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      },
+      "leader_role": "eligible_leader"
+    },
+    {
+      "ticker": "002475",
+      "name": "立讯精密",
+      "sector": "AI硬件",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 506.7,
+      "research_score": 2.9,
+      "beneficiary_quality_score": 2.85,
+      "research_rating": "中性观察",
+      "operation_tendency": "事件落地后再评估",
+      "eligible_for_recommendation": "yes",
+      "exclusion_reason": "",
+      "trend_score": 3.1,
+      "volume_score": 3.5,
+      "retail_sentiment": 3.6,
+      "retail_voc_quality_score": 3.28,
+      "capital_recognition": 3.7,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 3.6,
+      "risk_score": 3.5,
+      "retail_voc_summary": "回购公告后情绪明显修复，但整体讨论强度仍低于最拥挤的光模块与算力链。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 69.24,
+          "change_pct": 6.03,
+          "market_cap": 506700000000
+        },
+        "valuation_context": "PE约34.6x、PB约5.7x，处于消费电子龙头偏高但可解释区间。",
+        "fundamental_context": "2025年营收和净利均同比约+24%，但资产负债率约66%、速动比率约0.87，现金周转需要持续跟踪。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      },
+      "leader_role": "eligible_leader"
+    }
+  ],
+  "rankings": {
+    "positive": [
+      {
+        "rank": 1,
+        "title": "国务院常务会议部署人工智能健康有序发展工作，算力与AI基础设施政策预期继续抬升",
+        "direction": "positive",
+        "impact_score": 4.33,
+        "magnitude": 4.4,
+        "breadth": 4.2,
+        "immediacy": 4.0,
+        "confidence": 4.7,
+        "novelty": 4.0,
+        "liquidity": 4.8,
+        "price_volume": 4.1,
+        "affected_sectors": [
+          "AI硬件"
+        ],
+        "logic": "政策层面明确推进人工智能发展，强化算力、服务器、光模块和PCB链条的景气预期。",
+        "short_impact": "有利于AI硬件和通信链维持高关注。",
+        "source": "中国政府网《李强主持召开国务院常务会议》；腾讯财经盘前要闻 2026-06-30"
+      },
+      {
+        "rank": 2,
+        "title": "央行开展1575亿元7天期逆回购并投放3000亿元隔夜逆回购，短端流动性呵护增强",
+        "direction": "positive",
+        "impact_score": 4.29,
+        "magnitude": 4.2,
+        "breadth": 4.2,
+        "immediacy": 4.2,
+        "confidence": 5.0,
+        "novelty": 4.1,
+        "liquidity": 4.5,
+        "price_volume": 3.8,
+        "affected_sectors": [
+          "AI硬件",
+          "半导体先进封装/存储"
+        ],
+        "logic": "短端流动性改善有助于维持高成交科技主线和大盘风险偏好。",
+        "short_impact": "对高弹性科技和指数情绪偏正面。",
+        "source": "中国人民银行《公开市场业务交易公告[2026]第123号》；新华社/中新网公开摘要"
+      },
+      {
+        "rank": 3,
+        "title": "2026年国家医保目录调整初步形式审查结果公示，创新药目录推进继续落地",
+        "direction": "positive",
+        "impact_score": 4.27,
+        "magnitude": 4.4,
+        "breadth": 4.0,
+        "immediacy": 4.2,
+        "confidence": 4.8,
+        "novelty": 4.4,
+        "liquidity": 4.2,
+        "price_volume": 3.6,
+        "affected_sectors": [
+          "创新药"
+        ],
+        "logic": "医保目录和审查进度推进，提升创新药品种进入支付体系的确定性。",
+        "short_impact": "利好创新药主线，但短线需观察资金承接。",
+        "source": "国家医保局《2026年国家基本医疗保险、工伤保险和生育保险药品目录调整初步形式审查结果公示》；腾讯新闻6月29日收评"
+      },
+      {
+        "rank": 4,
+        "title": "2026年商业健康保险创新药品目录调整初步形式审查结果公示，商保支付预期延伸",
+        "direction": "positive",
+        "impact_score": 4.08,
+        "magnitude": 4.1,
+        "breadth": 3.8,
+        "immediacy": 4.0,
+        "confidence": 4.5,
+        "novelty": 4.6,
+        "liquidity": 4.0,
+        "price_volume": 3.6,
+        "affected_sectors": [
+          "创新药"
+        ],
+        "logic": "商保创新药目录拓宽支付场景，强化创新药板块估值想象空间。",
+        "short_impact": "利好创新药估值扩张，但更偏结构性。",
+        "source": "国家医保局《2026年商业健康保险创新药品目录调整初步形式审查结果公示》；腾讯新闻6月29日收评"
+      },
+      {
+        "rank": 5,
+        "title": "立讯精密截至6月29日累计回购约10亿元，资本运作继续释放底部信号",
+        "direction": "positive",
+        "impact_score": 3.97,
+        "magnitude": 3.9,
+        "breadth": 3.5,
+        "immediacy": 3.9,
+        "confidence": 4.7,
+        "novelty": 4.1,
+        "liquidity": 4.3,
+        "price_volume": 3.7,
+        "affected_sectors": [
+          "AI硬件"
+        ],
+        "logic": "大额回购有助于稳定消费电子与连接器龙头估值，改善市场对订单和资本开支的预期。",
+        "short_impact": "偏利好消费电子龙头情绪修复。",
+        "source": "立讯精密《关于股份回购进展情况的公告》；腾讯财经盘前要闻 2026-06-30"
+      },
+      {
+        "rank": 6,
+        "title": "鹏鼎控股泰国园区投资计划进入执行期，AI服务器与端侧PCB产能布局继续扩张",
+        "direction": "positive",
+        "impact_score": 3.91,
+        "magnitude": 4.0,
+        "breadth": 3.5,
+        "immediacy": 3.8,
+        "confidence": 4.1,
+        "novelty": 4.0,
+        "liquidity": 4.2,
+        "price_volume": 4.0,
+        "affected_sectors": [
+          "AI硬件"
+        ],
+        "logic": "AI服务器PCB和全球化产能建设继续推进，强化AI硬件产业链景气。",
+        "short_impact": "偏利好PCB和AI硬件链。",
+        "source": "鹏鼎控股《关于公司2026年泰国园区投资计划的公告》；腾讯财经盘前要闻 2026-06-30"
+      },
+      {
+        "rank": 7,
+        "title": "国务院常务会议部署外贸高质量发展措施，出口制造与全球化龙头风险偏好改善",
+        "direction": "positive",
+        "impact_score": 3.88,
+        "magnitude": 4.0,
+        "breadth": 3.8,
+        "immediacy": 3.6,
+        "confidence": 4.5,
+        "novelty": 3.8,
+        "liquidity": 4.0,
+        "price_volume": 3.1,
+        "affected_sectors": [
+          "出口家电"
+        ],
+        "logic": "外贸稳增长预期改善出海家电与制造龙头订单和渠道扩张预期。",
+        "short_impact": "偏利好出口家电和全球制造链，但需订单验证。",
+        "source": "中国政府网《李强主持召开国务院常务会议》；腾讯财经盘前要闻 2026-06-30"
+      },
+      {
+        "rank": 8,
+        "title": "国务院常务会议研究做强国内大循环重点政策举措并审议新阶段电力体制改革有关文件",
+        "direction": "positive",
+        "impact_score": 3.76,
+        "magnitude": 3.8,
+        "breadth": 3.9,
+        "immediacy": 3.4,
+        "confidence": 4.3,
+        "novelty": 3.6,
+        "liquidity": 4.0,
+        "price_volume": 3.0,
+        "affected_sectors": [
+          "锂电资源"
+        ],
+        "logic": "电力系统建设与低碳转型政策继续托底储能、电池和资源链中期需求。",
+        "short_impact": "偏中期利多，短线仍需量价确认。",
+        "source": "中国政府网《李强主持召开国务院常务会议》；腾讯财经盘前要闻 2026-06-30"
+      },
+      {
+        "rank": 9,
+        "title": "宁德时代枧下窝锂矿获安全生产许可，赣锋锂电增资完成，资源保障预期边际改善",
+        "direction": "positive",
+        "impact_score": 3.67,
+        "magnitude": 3.8,
+        "breadth": 3.5,
+        "immediacy": 3.5,
+        "confidence": 4.0,
+        "novelty": 3.7,
+        "liquidity": 4.1,
+        "price_volume": 3.0,
+        "affected_sectors": [
+          "锂电资源"
+        ],
+        "logic": "上游资源和电池环节资本开支推进，有助于锂电龙头中期供给与成本端稳定。",
+        "short_impact": "偏利多锂电资源链，但短线交易确认仍弱。",
+        "source": "腾讯财经盘前要闻 2026-06-30；同花顺/财联社公开摘要"
+      },
+      {
+        "rank": 10,
+        "title": "欧洲高温和出海渠道扩张带动中国家电龙头海外新品热销，出口家电景气延续",
+        "direction": "positive",
+        "impact_score": 3.58,
+        "magnitude": 3.7,
+        "breadth": 3.6,
+        "immediacy": 3.4,
+        "confidence": 3.7,
+        "novelty": 3.5,
+        "liquidity": 3.9,
+        "price_volume": 3.1,
+        "affected_sectors": [
+          "出口家电"
+        ],
+        "logic": "海外需求偏强叠加渠道扩张，家电龙头出海收入与利润韧性获得支撑。",
+        "short_impact": "有利于出口家电维持稳健，但弹性弱于科技主线。",
+        "source": "美的集团投资者关系活动记录表 2026-06-25；腾讯财经盘前要闻 2026-06-30"
+      }
+    ],
+    "negative": [
+      {
+        "rank": 1,
+        "title": "伊朗称未来几天无与美方谈判计划，以方称准备独立军事行动，油价与航运风险再起",
+        "direction": "negative",
+        "impact_score": 3.99,
+        "magnitude": 4.1,
+        "breadth": 3.8,
+        "immediacy": 4.2,
+        "confidence": 4.5,
+        "novelty": 3.9,
+        "liquidity": 4.0,
+        "price_volume": 3.1,
+        "affected_sectors": [
+          "地缘油价风险"
+        ],
+        "logic": "中东地缘局势升温抬升油价与运价波动，对航空、航运和部分化工下游构成压力。",
+        "short_impact": "利空油价敏感行业，提升市场避险情绪。",
+        "source": "新华社/中新网 2026-06-30；腾讯财经盘前要闻 2026-06-30"
+      },
+      {
+        "rank": 2,
+        "title": "韩国宣布史上最大规模半导体和AI投资计划，五年内DRAM产能翻倍预期压缩国产替代溢价",
+        "direction": "negative",
+        "impact_score": 3.89,
+        "magnitude": 3.9,
+        "breadth": 4.2,
+        "immediacy": 3.4,
+        "confidence": 4.0,
+        "novelty": 4.1,
+        "liquidity": 4.4,
+        "price_volume": 3.2,
+        "affected_sectors": [
+          "半导体竞争加剧"
+        ],
+        "logic": "海外龙头扩产强化中长期竞争，可能压制国内存储与部分设备材料链的估值溢价。",
+        "short_impact": "更多体现为估值约束和竞争压力。",
+        "source": "腾讯新闻/新浪科技关于韩国半导体投资计划的报道 2026-06-29"
+      },
+      {
+        "rank": 3,
+        "title": "6月30日开盘后有色金属和工业金属主力合计净流出居前，资源股阶段性回撤压力增大",
+        "direction": "negative",
+        "impact_score": 3.74,
+        "magnitude": 3.6,
+        "breadth": 3.8,
+        "immediacy": 4.1,
+        "confidence": 4.1,
+        "novelty": 3.1,
+        "liquidity": 4.0,
+        "price_volume": 3.4,
+        "affected_sectors": [
+          "有色金属"
+        ],
+        "logic": "资源股资金流出与金银价格回撤共振，短线更偏风险释放。",
+        "short_impact": "利空资源和小金属方向。",
+        "source": "东方财富行业主力流向快照 2026-06-30 09:40；中国白银网 2026-06-29"
+      },
+      {
+        "rank": 4,
+        "title": "高位AI硬件14日累计涨幅可观但资金高度集中，主线内部拥挤交易风险抬升",
+        "direction": "negative",
+        "impact_score": 3.63,
+        "magnitude": 3.6,
+        "breadth": 3.4,
+        "immediacy": 3.8,
+        "confidence": 3.6,
+        "novelty": 3.0,
+        "liquidity": 4.5,
+        "price_volume": 3.9,
+        "affected_sectors": [
+          "AI硬件拥挤风险"
+        ],
+        "logic": "AI硬件仍是最强主线，但高位拥挤意味着波动加剧，需区分强者恒强和跟风脉冲。",
+        "short_impact": "不是趋势反转信号，更像高波动风险提示。",
+        "source": "腾讯新闻6月29日收评；腾讯/Eastmoney 14日K线与行业流向快照"
+      },
+      {
+        "rank": 5,
+        "title": "6月30日开盘后半导体材料行业主力净流出约22.4亿元，强主线内部出现材料环节兑现",
+        "direction": "negative",
+        "impact_score": 3.6,
+        "magnitude": 3.5,
+        "breadth": 3.5,
+        "immediacy": 4.0,
+        "confidence": 4.0,
+        "novelty": 3.2,
+        "liquidity": 4.1,
+        "price_volume": 3.0,
+        "affected_sectors": [
+          "半导体材料兑现"
+        ],
+        "logic": "电子和通信链继续强势，但半导体材料分支资金承接不足，显示主线内部已开始分层。",
+        "short_impact": "利空跟涨但缺基本面支撑的材料分支。",
+        "source": "东方财富行业主力流向快照 2026-06-30 09:40"
+      },
+      {
+        "rank": 6,
+        "title": "长盈通澄清未向金山谷贤、泰维审计供应产品且未供应CPO/光模块，光通信传闻热度被证伪",
+        "direction": "negative",
+        "impact_score": 3.56,
+        "magnitude": 3.3,
+        "breadth": 2.8,
+        "immediacy": 4.0,
+        "confidence": 4.8,
+        "novelty": 4.5,
+        "liquidity": 3.3,
+        "price_volume": 2.8,
+        "affected_sectors": [
+          "光通信传闻证伪"
+        ],
+        "logic": "传闻澄清压制小票跟风热度，也提醒光通信分支需区分真实订单与题材脉冲。",
+        "short_impact": "利空纯题材光通信分支。",
+        "source": "长盈通澄清公告；腾讯财经盘前要闻 2026-06-30"
+      },
+      {
+        "rank": 7,
+        "title": "6月30日开盘后医药生物行业主力净流出约18.7亿元，政策利好后出现兑现分化",
+        "direction": "negative",
+        "impact_score": 3.55,
+        "magnitude": 3.4,
+        "breadth": 3.6,
+        "immediacy": 4.0,
+        "confidence": 4.0,
+        "novelty": 3.0,
+        "liquidity": 4.0,
+        "price_volume": 2.8,
+        "affected_sectors": [
+          "医药兑现分化"
+        ],
+        "logic": "医保目录利好落地后部分资金兑现，说明创新药板块短线承接力仍需验证。",
+        "short_impact": "短线更适合强弱分化而非全面追价。",
+        "source": "东方财富行业主力流向快照 2026-06-30 09:40"
+      },
+      {
+        "rank": 8,
+        "title": "锂电资源事件催化偏中期，板块14日量价和资金尚未形成同步共振",
+        "direction": "negative",
+        "impact_score": 3.32,
+        "magnitude": 3.2,
+        "breadth": 3.3,
+        "immediacy": 3.5,
+        "confidence": 3.8,
+        "novelty": 2.8,
+        "liquidity": 3.7,
+        "price_volume": 2.9,
+        "affected_sectors": [
+          "锂电跟随不足"
+        ],
+        "logic": "上游矿证和增资进展改善中期供给预期，但短线交易仍缺少资金放量确认。",
+        "short_impact": "更偏观察而非立即扩散。",
+        "source": "腾讯财经盘前要闻 2026-06-30；腾讯14日K线快照"
+      },
+      {
+        "rank": 9,
+        "title": "出口家电景气偏稳健但并非最强增量方向，资金更愿意追逐电子通信而非低弹性白电",
+        "direction": "negative",
+        "impact_score": 3.27,
+        "magnitude": 3.1,
+        "breadth": 3.3,
+        "immediacy": 3.4,
+        "confidence": 3.7,
+        "novelty": 2.8,
+        "liquidity": 3.8,
+        "price_volume": 2.9,
+        "affected_sectors": [
+          "出口家电跟随不足"
+        ],
+        "logic": "外贸利好更多体现在中期基本面，短线资金偏好仍明显倾向科技成长。",
+        "short_impact": "家电股更多承担防御和配置属性。",
+        "source": "中国政府网《李强主持召开国务院常务会议》；东方财富行业主力流向快照 2026-06-30 09:40"
+      },
+      {
+        "rank": 10,
+        "title": "创新药主线虽有政策催化，但龙头未形成同步放量上攻，短线更可能走分化而非普涨",
+        "direction": "negative",
+        "impact_score": 3.25,
+        "magnitude": 3.2,
+        "breadth": 3.0,
+        "immediacy": 3.7,
+        "confidence": 3.5,
+        "novelty": 2.9,
+        "liquidity": 3.8,
+        "price_volume": 2.8,
+        "affected_sectors": [
+          "医药兑现分化"
+        ],
+        "logic": "支付预期改善并不等于短线全面加速，板块更可能围绕龙头和真创新品种分化。",
+        "short_impact": "对追高行为形成约束。",
+        "source": "腾讯新闻6月29日收评；东方财富行业主力流向快照 2026-06-30 09:40"
+      }
+    ]
+  },
+  "stocks": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "sector": "半导体先进封装/存储",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 568.3,
+      "research_score": 3.19,
+      "beneficiary_quality_score": 3.28,
+      "research_rating": "中性观察",
+      "operation_tendency": "回撤后再评估",
+      "eligible_for_recommendation": "yes",
+      "exclusion_reason": "",
+      "trend_score": 4.6,
+      "volume_score": 4.1,
+      "retail_sentiment": 4.5,
+      "retail_voc_quality_score": 2.2,
+      "capital_recognition": 3.9,
+      "event_alignment": 4.2,
+      "institutional_trend_score": 3.9,
+      "risk_score": 3.8,
+      "retail_voc_summary": "存储芯片热度非常高，追涨情绪升温，但14日趋势和量能仍保持主线上行。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 809.9,
+          "change_pct": -3.58,
+          "market_cap": 568300000000
+        },
+        "valuation_context": "PE约97.2x、PB约22.9x，显著偏贵，属于景气和涨价预期驱动。",
+        "fundamental_context": "2025年营收同比约+25%，净利同比约+49%，负债率仅约10%，流动性充足。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "sector": "半导体先进封装/存储",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 180.2,
+      "research_score": 3.16,
+      "beneficiary_quality_score": 3.22,
+      "research_rating": "中性观察",
+      "operation_tendency": "趋势跟踪观察",
+      "eligible_for_recommendation": "yes",
+      "exclusion_reason": "",
+      "trend_score": 4.2,
+      "volume_score": 4.0,
+      "retail_sentiment": 4.1,
+      "retail_voc_quality_score": 2.68,
+      "capital_recognition": 3.8,
+      "event_alignment": 4.3,
+      "institutional_trend_score": 3.8,
+      "risk_score": 3.6,
+      "retail_voc_summary": "先进封装热度持续升温，量价与景气主线匹配，但扩产逻辑已被较多资金预判。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 100.72,
+          "change_pct": -2.45,
+          "market_cap": 180200000000
+        },
+        "valuation_context": "PE约155.2x、PB约6.3x，估值对后续订单和利用率要求较高。",
+        "fundamental_context": "2025年营收同比约+8%，净利小幅回落，负债率约43.6%，经营现金流仍较稳。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002475",
+      "name": "立讯精密",
+      "sector": "AI硬件",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 506.7,
+      "research_score": 2.9,
+      "beneficiary_quality_score": 2.85,
+      "research_rating": "中性观察",
+      "operation_tendency": "事件落地后再评估",
+      "eligible_for_recommendation": "yes",
+      "exclusion_reason": "",
+      "trend_score": 3.1,
+      "volume_score": 3.5,
+      "retail_sentiment": 3.6,
+      "retail_voc_quality_score": 3.28,
+      "capital_recognition": 3.7,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 3.6,
+      "risk_score": 3.5,
+      "retail_voc_summary": "回购公告后情绪明显修复，但整体讨论强度仍低于最拥挤的光模块与算力链。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 69.24,
+          "change_pct": 6.03,
+          "market_cap": 506700000000
+        },
+        "valuation_context": "PE约34.6x、PB约5.7x，处于消费电子龙头偏高但可解释区间。",
+        "fundamental_context": "2025年营收和净利均同比约+24%，但资产负债率约66%、速动比率约0.87，现金周转需要持续跟踪。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600276",
+      "name": "恒瑞医药",
+      "sector": "创新药",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 347.9,
+      "research_score": 2.78,
+      "beneficiary_quality_score": 2.81,
+      "research_rating": "中性观察",
+      "operation_tendency": "事件落地后再评估",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "资金认可度不足、未通过资讯板块筛选",
+      "trend_score": 3.5,
+      "volume_score": 3.6,
+      "retail_sentiment": 4.0,
+      "retail_voc_quality_score": 2.8,
+      "capital_recognition": 3.0,
+      "event_alignment": 4.4,
+      "institutional_trend_score": 3.1,
+      "risk_score": 3.2,
+      "retail_voc_summary": "医保目录催化带来讨论升温，但今日开盘后板块资金承接一般，热度与增量资金未完全同步。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 52.41,
+          "change_pct": -0.98,
+          "market_cap": 347900000000
+        },
+        "valuation_context": "PE约38.1x、PB约5.6x，属于创新药龙头合理偏高估值。",
+        "fundamental_context": "2025年营收同比约+13%，净利同比约+22%，毛利率约86%，负债率约11.6%，财务质量稳健。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600690",
+      "name": "海尔智家",
+      "sector": "出口家电",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 190.0,
+      "research_score": 2.7,
+      "beneficiary_quality_score": 2.68,
+      "research_rating": "中性观察",
+      "operation_tendency": "事件落地后再评估",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "trend_score": 3.0,
+      "volume_score": 3.1,
+      "retail_sentiment": 2.8,
+      "retail_voc_quality_score": 3.76,
+      "capital_recognition": 3.1,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 3.2,
+      "risk_score": 2.8,
+      "retail_voc_summary": "家电出海讨论偏稳健，属于中低热度配置型关注，不是高弹性主题。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 20.26,
+          "change_pct": -0.78,
+          "market_cap": 190000000000
+        },
+        "valuation_context": "PE约10.2x、PB约1.5x，估值偏低但短线弹性弱于科技主线。",
+        "fundamental_context": "2025年营收同比约+5.7%，净利同比约+4.4%，现金流稳定，但速动比率约0.74。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "AI硬件",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1399.3,
+      "research_score": 2.66,
+      "beneficiary_quality_score": 2.61,
+      "research_rating": "风险回避",
+      "operation_tendency": "风险回避观察",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "量能确认不足、资金认可度不足、散户情绪过热但主力/量能确认不足、风险过高、综合评级为风险回避",
+      "trend_score": 3.4,
+      "volume_score": 3.3,
+      "retail_sentiment": 4.8,
+      "retail_voc_quality_score": 1.84,
+      "capital_recognition": 3.5,
+      "event_alignment": 4.2,
+      "institutional_trend_score": 3.5,
+      "risk_score": 4.2,
+      "retail_voc_summary": "光模块龙头讨论热度极高，趋势仍强但拥挤度显著，短线追价情绪偏热。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 1254.7,
+          "change_pct": 2.84,
+          "market_cap": 1399300000000
+        },
+        "valuation_context": "PE约61x、PB约40x，属于高景气高拥挤估值。",
+        "fundamental_context": "2025年营收同比约+60%，归母净利同比约+109%，ROE约43.8%，但估值和拥挤度都很高。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300750",
+      "name": "宁德时代",
+      "sector": "锂电资源",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1813.9,
+      "research_score": 2.61,
+      "beneficiary_quality_score": 2.55,
+      "research_rating": "中性观察",
+      "operation_tendency": "事件落地后再评估",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "14日走势不足、量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "trend_score": 2.8,
+      "volume_score": 3.0,
+      "retail_sentiment": 3.2,
+      "retail_voc_quality_score": 3.76,
+      "capital_recognition": 3.0,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 3.1,
+      "risk_score": 3.1,
+      "retail_voc_summary": "锂矿与电池供给端消息偏正面，但板块整体关注度和交易拥挤度都明显低于科技主线。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 392.05,
+          "change_pct": -0.08,
+          "market_cap": 1813900000000
+        },
+        "valuation_context": "PE约21.9x、PB约5.6x，龙头估值不贵，但主题驱动并不强。",
+        "fundamental_context": "2025年营收同比约+17%，净利同比约+42%，ROE约24.9%，财务质量强，但14日趋势偏横盘。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002460",
+      "name": "赣锋锂业",
+      "sector": "锂电资源",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 135.9,
+      "research_score": 2.41,
+      "beneficiary_quality_score": 2.29,
+      "research_rating": "谨慎观察",
+      "operation_tendency": "等待放量确认",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "14日走势不足、量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "trend_score": 2.4,
+      "volume_score": 2.9,
+      "retail_sentiment": 3.1,
+      "retail_voc_quality_score": 3.88,
+      "capital_recognition": 2.8,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 2.9,
+      "risk_score": 3.6,
+      "retail_voc_summary": "增资事件带来局部关注，但资源链整体承接不足，情绪未形成有效扩散。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 64.84,
+          "change_pct": 1.2,
+          "market_cap": 135900000000
+        },
+        "valuation_context": "PE约18.5x、PB约2.9x，估值不高，但周期与流动性风险更大。",
+        "fundamental_context": "2025年净利润从亏损修复至盈利，但流动比率约0.92、速动比率约0.58，财务安全边际仍需跟踪。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    }
+  ],
+  "eligible_beneficiaries": [
+    {
+      "ticker": "603986",
+      "name": "兆易创新",
+      "sector": "半导体先进封装/存储",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 568.3,
+      "research_score": 3.19,
+      "beneficiary_quality_score": 3.28,
+      "research_rating": "中性观察",
+      "operation_tendency": "回撤后再评估",
+      "eligible_for_recommendation": "yes",
+      "exclusion_reason": "",
+      "trend_score": 4.6,
+      "volume_score": 4.1,
+      "retail_sentiment": 4.5,
+      "retail_voc_quality_score": 2.2,
+      "capital_recognition": 3.9,
+      "event_alignment": 4.2,
+      "institutional_trend_score": 3.9,
+      "risk_score": 3.8,
+      "retail_voc_summary": "存储芯片热度非常高，追涨情绪升温，但14日趋势和量能仍保持主线上行。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 809.9,
+          "change_pct": -3.58,
+          "market_cap": 568300000000
+        },
+        "valuation_context": "PE约97.2x、PB约22.9x，显著偏贵，属于景气和涨价预期驱动。",
+        "fundamental_context": "2025年营收同比约+25%，净利同比约+49%，负债率仅约10%，流动性充足。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600584",
+      "name": "长电科技",
+      "sector": "半导体先进封装/存储",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 180.2,
+      "research_score": 3.16,
+      "beneficiary_quality_score": 3.22,
+      "research_rating": "中性观察",
+      "operation_tendency": "趋势跟踪观察",
+      "eligible_for_recommendation": "yes",
+      "exclusion_reason": "",
+      "trend_score": 4.2,
+      "volume_score": 4.0,
+      "retail_sentiment": 4.1,
+      "retail_voc_quality_score": 2.68,
+      "capital_recognition": 3.8,
+      "event_alignment": 4.3,
+      "institutional_trend_score": 3.8,
+      "risk_score": 3.6,
+      "retail_voc_summary": "先进封装热度持续升温，量价与景气主线匹配，但扩产逻辑已被较多资金预判。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 100.72,
+          "change_pct": -2.45,
+          "market_cap": 180200000000
+        },
+        "valuation_context": "PE约155.2x、PB约6.3x，估值对后续订单和利用率要求较高。",
+        "fundamental_context": "2025年营收同比约+8%，净利小幅回落，负债率约43.6%，经营现金流仍较稳。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002475",
+      "name": "立讯精密",
+      "sector": "AI硬件",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 506.7,
+      "research_score": 2.9,
+      "beneficiary_quality_score": 2.85,
+      "research_rating": "中性观察",
+      "operation_tendency": "事件落地后再评估",
+      "eligible_for_recommendation": "yes",
+      "exclusion_reason": "",
+      "trend_score": 3.1,
+      "volume_score": 3.5,
+      "retail_sentiment": 3.6,
+      "retail_voc_quality_score": 3.28,
+      "capital_recognition": 3.7,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 3.6,
+      "risk_score": 3.5,
+      "retail_voc_summary": "回购公告后情绪明显修复，但整体讨论强度仍低于最拥挤的光模块与算力链。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 69.24,
+          "change_pct": 6.03,
+          "market_cap": 506700000000
+        },
+        "valuation_context": "PE约34.6x、PB约5.7x，处于消费电子龙头偏高但可解释区间。",
+        "fundamental_context": "2025年营收和净利均同比约+24%，但资产负债率约66%、速动比率约0.87，现金周转需要持续跟踪。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    }
+  ],
+  "eligible_pressure": [],
+  "excluded_stocks": [
+    {
+      "ticker": "600276",
+      "name": "恒瑞医药",
+      "sector": "创新药",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 347.9,
+      "research_score": 2.78,
+      "beneficiary_quality_score": 2.81,
+      "research_rating": "中性观察",
+      "operation_tendency": "事件落地后再评估",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "资金认可度不足、未通过资讯板块筛选",
+      "trend_score": 3.5,
+      "volume_score": 3.6,
+      "retail_sentiment": 4.0,
+      "retail_voc_quality_score": 2.8,
+      "capital_recognition": 3.0,
+      "event_alignment": 4.4,
+      "institutional_trend_score": 3.1,
+      "risk_score": 3.2,
+      "retail_voc_summary": "医保目录催化带来讨论升温，但今日开盘后板块资金承接一般，热度与增量资金未完全同步。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 52.41,
+          "change_pct": -0.98,
+          "market_cap": 347900000000
+        },
+        "valuation_context": "PE约38.1x、PB约5.6x，属于创新药龙头合理偏高估值。",
+        "fundamental_context": "2025年营收同比约+13%，净利同比约+22%，毛利率约86%，负债率约11.6%，财务质量稳健。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "600690",
+      "name": "海尔智家",
+      "sector": "出口家电",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 190.0,
+      "research_score": 2.7,
+      "beneficiary_quality_score": 2.68,
+      "research_rating": "中性观察",
+      "operation_tendency": "事件落地后再评估",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "trend_score": 3.0,
+      "volume_score": 3.1,
+      "retail_sentiment": 2.8,
+      "retail_voc_quality_score": 3.76,
+      "capital_recognition": 3.1,
+      "event_alignment": 3.8,
+      "institutional_trend_score": 3.2,
+      "risk_score": 2.8,
+      "retail_voc_summary": "家电出海讨论偏稳健，属于中低热度配置型关注，不是高弹性主题。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 20.26,
+          "change_pct": -0.78,
+          "market_cap": 190000000000
+        },
+        "valuation_context": "PE约10.2x、PB约1.5x，估值偏低但短线弹性弱于科技主线。",
+        "fundamental_context": "2025年营收同比约+5.7%，净利同比约+4.4%，现金流稳定，但速动比率约0.74。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300308",
+      "name": "中际旭创",
+      "sector": "AI硬件",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1399.3,
+      "research_score": 2.66,
+      "beneficiary_quality_score": 2.61,
+      "research_rating": "风险回避",
+      "operation_tendency": "风险回避观察",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "量能确认不足、资金认可度不足、散户情绪过热但主力/量能确认不足、风险过高、综合评级为风险回避",
+      "trend_score": 3.4,
+      "volume_score": 3.3,
+      "retail_sentiment": 4.8,
+      "retail_voc_quality_score": 1.84,
+      "capital_recognition": 3.5,
+      "event_alignment": 4.2,
+      "institutional_trend_score": 3.5,
+      "risk_score": 4.2,
+      "retail_voc_summary": "光模块龙头讨论热度极高，趋势仍强但拥挤度显著，短线追价情绪偏热。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 1254.7,
+          "change_pct": 2.84,
+          "market_cap": 1399300000000
+        },
+        "valuation_context": "PE约61x、PB约40x，属于高景气高拥挤估值。",
+        "fundamental_context": "2025年营收同比约+60%，归母净利同比约+109%，ROE约43.8%，但估值和拥挤度都很高。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "300750",
+      "name": "宁德时代",
+      "sector": "锂电资源",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 1813.9,
+      "research_score": 2.61,
+      "beneficiary_quality_score": 2.55,
+      "research_rating": "中性观察",
+      "operation_tendency": "事件落地后再评估",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "14日走势不足、量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "trend_score": 2.8,
+      "volume_score": 3.0,
+      "retail_sentiment": 3.2,
+      "retail_voc_quality_score": 3.76,
+      "capital_recognition": 3.0,
+      "event_alignment": 4.0,
+      "institutional_trend_score": 3.1,
+      "risk_score": 3.1,
+      "retail_voc_summary": "锂矿与电池供给端消息偏正面，但板块整体关注度和交易拥挤度都明显低于科技主线。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 392.05,
+          "change_pct": -0.08,
+          "market_cap": 1813900000000
+        },
+        "valuation_context": "PE约21.9x、PB约5.6x，龙头估值不贵，但主题驱动并不强。",
+        "fundamental_context": "2025年营收同比约+17%，净利同比约+42%，ROE约24.9%，财务质量强，但14日趋势偏横盘。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    },
+    {
+      "ticker": "002460",
+      "name": "赣锋锂业",
+      "sector": "锂电资源",
+      "directional_role": "beneficiary",
+      "market_cap_billion": 135.9,
+      "research_score": 2.41,
+      "beneficiary_quality_score": 2.29,
+      "research_rating": "谨慎观察",
+      "operation_tendency": "等待放量确认",
+      "eligible_for_recommendation": "no",
+      "exclusion_reason": "14日走势不足、量能确认不足、资金认可度不足、未通过资讯板块筛选",
+      "trend_score": 2.4,
+      "volume_score": 2.9,
+      "retail_sentiment": 3.1,
+      "retail_voc_quality_score": 3.88,
+      "capital_recognition": 2.8,
+      "event_alignment": 4.1,
+      "institutional_trend_score": 2.9,
+      "risk_score": 3.6,
+      "retail_voc_summary": "增资事件带来局部关注，但资源链整体承接不足，情绪未形成有效扩散。",
+      "external_data": {
+        "source": "eastmoney_quote",
+        "data_time": "2026-06-30T09:40:00+08:00",
+        "quote": {
+          "latest": 64.84,
+          "change_pct": 1.2,
+          "market_cap": 135900000000
+        },
+        "valuation_context": "PE约18.5x、PB约2.9x，估值不高，但周期与流动性风险更大。",
+        "fundamental_context": "2025年净利润从亏损修复至盈利，但流动比率约0.92、速动比率约0.58，财务安全边际仍需跟踪。",
+        "holder_context": "未抓取股东户数，沿用公开财务摘要。",
+        "data_quality": "partial"
+      }
+    }
+  ],
+  "warnings": [
+    "Fund-flow data quality is `partial`; lower confidence in market-direction judgment.",
+    "窗口按2026-06-29 09:30至2026-06-30 09:30构建，但免费行业主力流向只能取得09:40左右开盘后快照，因此资金确认口径记为partial。",
+    "akshare的basic、估值历史和三大报表接口间歇失败，本次基本面主要依赖china-stock-analysis可访问的stock_financial_abstract公开摘要；股东数据未补抓。",
+    "未取得统一的北向、ETF申赎和融资融券实时快照，市场方向判断以央行操作、成交额、行业流向和宽度数据为主。"
+  ],
+  "supplemental_stock_analysis": [
+    {
+      "stock": "603986 兆易创新",
+      "latest_price": "809.90元（2026-06-30 09:40）",
+      "valuation_metrics": "PE约97.2x / PB约22.9x / PS未稳定取得",
+      "financial_health": "2025营收约+25%，净利约+49%；负债率约10.2%，流动比率约6.9，财务结构稳健。",
+      "valuation_summary": "高景气高估值，核心支撑来自存储景气与国产替代预期，不属于低估型机会。",
+      "risk_note": "高位拥挤、估值偏贵、半导体材料分支已有兑现压力。",
+      "judgement": "证据较强"
+    },
+    {
+      "stock": "600584 长电科技",
+      "latest_price": "100.72元（2026-06-30 09:40）",
+      "valuation_metrics": "PE约155.2x / PB约6.3x / PS未稳定取得",
+      "financial_health": "2025营收约+8%，净利小幅回落；负债率约43.6%，速动比率约1.05，经营现金流仍较稳。",
+      "valuation_summary": "估值已经显著前置封装景气，后续更依赖订单兑现和利用率上行。",
+      "risk_note": "扩产回报周期、估值抬升较快、短线波动加大。",
+      "judgement": "证据较强"
+    },
+    {
+      "stock": "002475 立讯精密",
+      "latest_price": "69.24元（2026-06-30 09:40）",
+      "valuation_metrics": "PE约34.6x / PB约5.7x / PS未稳定取得",
+      "financial_health": "2025营收与净利均约+24%；资产负债率约66.1%，速动比率约0.87，增长强但营运约束仍在。",
+      "valuation_summary": "龙头溢价可解释，回购对估值底部有支撑，但并非显著低估。",
+      "risk_note": "趋势修复刚启动，若订单兑现不及预期，回购催化的持续性会下降。",
+      "judgement": "关注但仍需确认"
+    },
+    {
+      "stock": "300308 中际旭创",
+      "latest_price": "1254.70元（2026-06-30 09:40）",
+      "valuation_metrics": "PE约61.0x / PB约40.4x / PS未稳定取得",
+      "financial_health": "2025营收约+60%，净利约+109%，ROE约43.8%，现金流与周转指标都很强。",
+      "valuation_summary": "基本面极强，但估值和拥挤度同样极高，更适合作为主线温度计。",
+      "risk_note": "高波动、高拥挤、短线追涨性价比偏低。",
+      "judgement": "仅作观察"
+    },
+    {
+      "stock": "600276 恒瑞医药",
+      "latest_price": "52.41元（2026-06-30 09:40）",
+      "valuation_metrics": "PE约38.1x / PB约5.6x / PS未稳定取得",
+      "financial_health": "2025营收约+13%，净利约+22%；毛利率约86%，负债率约11.6%，财务质量稳健。",
+      "valuation_summary": "创新药龙头估值合理偏高，但今日资金承接未与政策催化同步。",
+      "risk_note": "板块兑现分化、短线增量资金不足。",
+      "judgement": "仅作观察"
+    },
+    {
+      "stock": "300750 宁德时代",
+      "latest_price": "392.05元（2026-06-30 09:40）",
+      "valuation_metrics": "PE约21.9x / PB约5.6x / PS未稳定取得",
+      "financial_health": "2025营收约+17%，净利约+42%，ROE约24.9%，现金流强；负债率约61.9%但流动性尚可。",
+      "valuation_summary": "基本面证据很强，但本轮资源与电池事件对股价的边际驱动有限。",
+      "risk_note": "主题跟随不足，短线更像基本面配置而非事件弹性。",
+      "judgement": "仅作观察"
+    },
+    {
+      "stock": "600690 海尔智家",
+      "latest_price": "20.26元（2026-06-30 09:40）",
+      "valuation_metrics": "PE约10.2x / PB约1.5x / PS未稳定取得",
+      "financial_health": "2025营收约+5.7%，净利约+4.4%，经营现金流稳定；速动比率约0.74。",
+      "valuation_summary": "估值偏低，适合防御配置视角，但短线弹性弱于科技主线。",
+      "risk_note": "资金偏好不足，出口利好更多体现为中期而非短线爆发。",
+      "judgement": "仅作观察"
+    },
+    {
+      "stock": "002460 赣锋锂业",
+      "latest_price": "64.84元（2026-06-30 09:40）",
+      "valuation_metrics": "PE约18.5x / PB约2.9x / PS未稳定取得",
+      "financial_health": "2025盈利由亏转盈，但流动比率约0.92、速动比率约0.58，流动性约束仍需复核。",
+      "valuation_summary": "估值不贵，但行业趋势和资金承接不足以支撑其升级为强证据。",
+      "risk_note": "资源价格波动、板块跟随不足、财务安全边际一般。",
+      "judgement": "仅作观察"
+    }
+  ],
+  "supplemental_conclusion": {
+    "as_of": "2026-06-30T10:15:42+08:00",
+    "method_note": "先按daily-a-share-news-impact完成新闻-板块-股票门槛筛选，再用china-stock-analysis可访问的stock_financial_abstract提取ROE、负债率、毛利率、经营现金流和营收/利润趋势，用china-stock-price-analysis的相对估值框架配合Eastmoney/Tencent免费行情补充最新价、PE/PB；未使用QVeris等付费源。",
+    "stronger_evidence": [
+      "603986 兆易创新：存储/自主可控主线最强之一，14日趋势、量能和资金认可度相对最好，但估值已明显前置。",
+      "600584 长电科技：先进封装与AI硬件主线共振，量价和主线逻辑较完整，但后续更依赖订单和利用率兑现。",
+      "002475 立讯精密：回购带来短线修复信号，若后续量能与订单预期继续跟进，可维持较高关注。"
+    ],
+    "observation_only": [
+      "300308 中际旭创：基本面极强，但拥挤度和估值都很高，更适合作为主线温度计而非新增强证据。",
+      "600276 恒瑞医药：政策催化真实，但开盘后医药资金兑现明显，先看龙头承接再决定是否升级。",
+      "300750 宁德时代、002460 赣锋锂业：事件偏中期，短线量价和资金跟随不足。",
+      "600690 海尔智家：估值不高、基本面稳，但更偏防御配置和中期出海逻辑。"
+    ],
+    "notes": [
+      "本日报明确区分“观察”和“证据更强”，避免把高景气高估值直接等同于低风险。",
+      "不提供买卖、仓位、止损或目标价指令；所有个股结论仅用于非个性化研究分层。"
+    ]
+  }
+}
