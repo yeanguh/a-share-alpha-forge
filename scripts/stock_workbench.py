@@ -1531,6 +1531,23 @@ def render_selection_markdown(payload: dict[str, Any]) -> str:
     candidates = payload.get("candidates") or []
     vibe_committee = payload.get("vibe_committee_review") or {}
     vibe_summary = vibe_committee.get("summary") or {}
+    local_committee = payload.get("committee_review") or {}
+    local_summary = local_committee.get("summary") or {}
+    if vibe_committee:
+        committee_status = (
+            f"{status_label(str(vibe_committee.get('status', 'not_requested')))}；"
+            f"完成 {vibe_summary.get('completed', 0)} / {vibe_summary.get('requested', 0)}。"
+        )
+    elif local_committee:
+        committee_status = (
+            "本地规则；"
+            f"核心观察 {local_summary.get('core_observe', 0)}，"
+            f"观察等待 {local_summary.get('watch_wait', 0)}，"
+            f"暂缓/剔除 {local_summary.get('defer_or_reject', 0)}。"
+        )
+    else:
+        committee_status = "未启用。"
+    market_context = payload.get("market_context") or {}
     lines = [
         f"# 综合选股报告 {payload.get('date') or ''}",
         "",
@@ -1539,18 +1556,23 @@ def render_selection_markdown(payload: dict[str, Any]) -> str:
         f"- 生成时间: {payload.get('generated_at') or ''}",
         f"- 主题: {payload.get('theme') or '全部'}",
         f"- 初筛结果: 共 {summary.get('total', 0)} 只，核心 {summary.get('core', 0)} 只，观察 {summary.get('watch', 0)} 只，暂缓/剔除 {summary.get('reject', 0)} 只。",
+        f"- 市场上下文: {market_context.get('source') or 'archive'}；请求日期 {market_context.get('requested_date') or payload.get('date') or ''}；归档日期 {market_context.get('archive_date') or payload.get('date') or ''}。",
         f"- 趋势池状态: {status_label(str((payload.get('iwencai') or {}).get('status', 'unknown')))}",
-        f"- 投委会状态: {status_label(str(vibe_committee.get('status', 'not_requested')))}；完成 {vibe_summary.get('completed', 0)} / {vibe_summary.get('requested', 0)}。",
+        f"- 投委会状态: {committee_status}",
         "",
         "## 二、主线背景",
         "",
     ]
+    if market_context.get("warning"):
+        lines.append(f"- {market_context['warning']}")
     mainlines = payload.get("mainlines") or []
     if mainlines:
         for item in mainlines[:5]:
             title = item.get("title") or item.get("sector") or "-"
             score = item.get("impact_score") or item.get("score") or ""
-            lines.append(f"- {title}: {score}")
+            summary_text = item.get("summary") or ""
+            suffix = f"；{summary_text}" if summary_text else ""
+            lines.append(f"- {title}: {score}{suffix}")
     else:
         lines.append("- 未匹配到主题主线，按股票和产业链证据补充筛选。")
 

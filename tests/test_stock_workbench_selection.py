@@ -27,6 +27,12 @@ def test_render_selection_markdown_groups_candidates() -> None:
             "theme": "存储芯片",
             "summary": {"total": 1, "core": 1, "watch": 0, "reject": 0},
             "iwencai": {"status": "generated"},
+            "market_context": {
+                "source": "close_review_fallback",
+                "requested_date": "2026-07-01",
+                "archive_date": "2026-06-30",
+                "warning": "未找到 2026-07-01 的 assembled 主线，已退回 2026-06-30 归档。",
+            },
             "mainlines": [{"title": "存储芯片", "impact_score": 4.46}],
             "candidates": [
                 {
@@ -64,6 +70,8 @@ def test_render_selection_markdown_groups_candidates() -> None:
 
     assert "# 综合选股报告 2026-06-26" in markdown
     assert "## 一、结论概览" in markdown
+    assert "市场上下文: close_review_fallback；请求日期 2026-07-01；归档日期 2026-06-30。" in markdown
+    assert "未找到 2026-07-01 的 assembled 主线" in markdown
     assert "## 三、最终名单" in markdown
     assert "| 核心观察 | 603986 | 兆易创新 | 74.81 | 现价 128；市盈率 88 | 最终决定：只批准观察仓，不批准核心仓。" in markdown
     assert "## 五、执行说明" in markdown
@@ -71,6 +79,27 @@ def test_render_selection_markdown_groups_candidates() -> None:
     assert "swarm-test" not in markdown
     assert "NAV" not in markdown
     assert "WAIT" not in markdown
+
+
+def test_render_selection_markdown_labels_local_committee() -> None:
+    module = load_module()
+    markdown = module.render_selection_markdown(
+        {
+            "date": "2026-06-30",
+            "generated_at": "2026-07-01T19:11:39",
+            "summary": {"total": 1, "core": 0, "watch": 1, "reject": 0},
+            "iwencai": {"status": "generated"},
+            "mainlines": [],
+            "candidates": [],
+            "committee_review": {
+                "summary": {"core_observe": 0, "watch_wait": 1, "defer_or_reject": 0},
+                "reviews": [],
+            },
+        }
+    )
+
+    assert "投委会状态: 本地规则；核心观察 0，观察等待 1，暂缓/剔除 0。" in markdown
+    assert "投委会状态: 未启用" not in markdown
 
 
 def test_run_integrated_selection_writes_tmp_report(monkeypatch) -> None:

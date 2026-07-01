@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -102,6 +103,95 @@ def test_split_codes_arg_repairs_missing_comma_between_six_digit_codes() -> None
         "600459",
         "603688",
     ]
+
+
+def test_missing_current_archive_uses_close_review_context(tmp_path: Path, monkeypatch) -> None:
+    module = load_module()
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setenv("A_STOCK_SELECTION_TODAY", "2026-07-01")
+    latest_dir = tmp_path / "local" / "2026-06-30"
+    today_dir = tmp_path / "local" / "2026-07-01"
+    latest_dir.mkdir(parents=True)
+    today_dir.mkdir(parents=True)
+    (latest_dir / "assembled.json").write_text(
+        json.dumps({"daily_mainlines": [{"title": "旧主线", "impact_score": 3.0}]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (today_dir / "close_review.json").write_text(
+        json.dumps(
+            {
+                "review_time": "2026-07-01T15:20:00+08:00",
+                "actual_market_summary": "科技成长转强，先进封装资金回流。",
+                "fund_flow_review": {"actual": "电子和半导体主力净流入。"},
+                "sector_hits": [{"sector": "先进封装", "hit": True, "hit_level": "强命中", "actual_move": "+5%"}],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    date, archive, context = module.load_archive_for_selection(None)
+    mainlines = module.close_review_mainlines(context, None)
+
+    assert date == "2026-06-30"
+    assert archive["daily_mainlines"][0]["title"] == "旧主线"
+    assert context["source"] == "close_review_fallback"
+    assert context["requested_date"] == "2026-07-01"
+    assert context["archive_date"] == "2026-06-30"
+    assert context["close_review_used"] is True
+    assert any(item["title"] == "收盘复盘：先进封装" for item in mainlines)
+
+
+def test_missing_current_archive_without_close_review_warns_stale_context(tmp_path: Path, monkeypatch) -> None:
+    module = load_module()
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setenv("A_STOCK_SELECTION_TODAY", "2026-07-01")
+    latest_dir = tmp_path / "local" / "2026-06-30"
+    latest_dir.mkdir(parents=True)
+    (latest_dir / "assembled.json").write_text(
+        json.dumps({"daily_mainlines": [{"title": "旧主线", "impact_score": 3.0}]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    date, _archive, context = module.load_archive_for_selection(None)
+
+    assert date == "2026-06-30"
+    assert context["source"] == "latest_archive_fallback"
+    assert context["close_review_used"] is False
+    assert "未找到 2026-07-01 的 assembled 主线或收盘复盘" in context["warning"]
+
+
+def test_market_context_adjusts_rows_from_close_review(tmp_path: Path, monkeypatch) -> None:
+    module = load_module()
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    review_dir = tmp_path / "local" / "2026-07-01"
+    review_dir.mkdir(parents=True)
+    (review_dir / "close_review.json").write_text(
+        json.dumps(
+            {
+                "stock_hits": [
+                    {"ticker": "600584", "name": "长电科技", "hit": True, "hit_level": "强命中", "actual_move": "+4%"},
+                    {"ticker": "600276", "name": "恒瑞医药", "hit": False, "hit_level": "未命中", "actual_move": "-2%"},
+                ],
+                "sector_hits": [{"sector": "先进封装", "hit": True, "hit_level": "强命中", "actual_move": "+5%"}],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    rows = [
+        {"code": "600584", "name": "长电科技", "sector": "先进封装", "bucket": "watch", "score": 72.0, "reasons": [], "source_tags": [], "iwencai_matches": []},
+        {"code": "600276", "name": "恒瑞医药", "sector": "创新药", "bucket": "watch", "score": 55.0, "reasons": [], "source_tags": [], "iwencai_matches": []},
+    ]
+
+    module.apply_market_context(
+        rows,
+        {"close_review_used": True, "close_review_date": "2026-07-01", "requested_date": "2026-07-01"},
+    )
+
+    assert rows[0]["score"] > 72.0
+    assert rows[0]["market_context_evidence"]
+    assert rows[1]["score"] < 55.0
 
 
 def test_quote_refresh_can_downgrade_extreme_valuation(tmp_path: Path) -> None:

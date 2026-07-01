@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -69,6 +70,96 @@ def load_archive(date: str | None) -> tuple[str, dict[str, Any]]:
     return selected, read_json(path)
 
 
+def selection_today() -> str:
+    return os.environ.get("A_STOCK_SELECTION_TODAY") or datetime.now().strftime("%Y-%m-%d")
+
+
+def close_review_path(date: str) -> Path:
+    return ROOT / "local" / date / "close_review.json"
+
+
+def load_close_review(date: str) -> dict[str, Any] | None:
+    path = close_review_path(date)
+    if not path.exists():
+        return None
+    try:
+        payload = read_json(path)
+    except Exception:
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def load_archive_for_selection(requested_date: str | None) -> tuple[str, dict[str, Any], dict[str, Any]]:
+    """Load the best archive plus market context for the requested/current date.
+
+    If today's or requested day's full assembled mainline is absent, use the
+    newest assembled archive but attach that day's close review when available.
+    This keeps one-click selection from silently relying on stale market
+    direction after the close review has already recorded what actually changed.
+    """
+
+    target_date = requested_date or selection_today()
+    exact_path = ROOT / "local" / target_date / "assembled.json"
+    if exact_path.exists():
+        selected = target_date
+        archive = read_json(exact_path)
+        context_source = "requested_archive" if requested_date else "current_archive"
+    else:
+        selected = latest_archive_date()
+        archive = read_json(ROOT / "local" / selected / "assembled.json")
+        context_source = "latest_archive_fallback"
+
+    close_review = load_close_review(target_date)
+    archive_has_mainlines = bool(mainline_matches(archive, None))
+    use_close_review = bool(close_review) and (selected != target_date or not archive_has_mainlines)
+    if use_close_review and selected != target_date:
+        warning = f"未找到 {target_date} 的 assembled 主线，已退回 {selected} 归档，并使用 {target_date} 收盘复盘校准。"
+    elif selected != target_date:
+        warning = f"未找到 {target_date} 的 assembled 主线或收盘复盘，已退回 {selected} 归档；当前市场状态可能滞后。"
+    elif not archive_has_mainlines and not close_review:
+        warning = f"{target_date} 归档缺少主线，且未找到收盘复盘；结果主要依赖趋势池和股票级证据。"
+    else:
+        warning = ""
+
+    market_context = {
+        "requested_date": target_date,
+        "archive_date": selected,
+        "source": "close_review_fallback" if use_close_review else context_source,
+        "close_review_used": use_close_review,
+        "close_review_date": target_date if close_review else "",
+        "warning": warning,
+    }
+    if close_review:
+        market_context["close_review"] = summarize_close_review(close_review)
+    return selected, archive, market_context
+
+
+def summarize_close_review(review: dict[str, Any]) -> dict[str, Any]:
+    forecast = review.get("direction_forecast") or {}
+    fund_flow = review.get("fund_flow_review") or {}
+    if isinstance(forecast, str):
+        forecast_summary = forecast
+    else:
+        forecast_summary = str(forecast.get("actual_direction") or forecast.get("early_direction") or "")
+    return {
+        "review_time": review.get("review_time") or "",
+        "actual_market_summary": review.get("actual_market_summary") or "",
+        "direction_hit": review.get("direction_hit"),
+        "direction": forecast_summary,
+        "fund_flow": fund_flow.get("actual") or fund_flow.get("post_close_judgment") or "",
+        "sector_hits": [
+            {
+                "sector": item.get("sector") or "",
+                "hit": item.get("hit"),
+                "hit_level": item.get("hit_level") or "",
+                "actual_move": item.get("actual_move") or item.get("reason") or "",
+            }
+            for item in (review.get("sector_hits") or [])[:10]
+            if isinstance(item, dict)
+        ],
+    }
+
+
 def as_float(value: object, default: float = 0.0) -> float:
     try:
         if value in (None, ""):
@@ -104,6 +195,47 @@ def mainline_matches(archive: dict[str, Any], theme: str | None) -> list[dict[st
             if contains_theme(title, theme) and key not in seen:
                 seen.add(key)
                 rows.append(item)
+    return rows
+
+
+def close_review_mainlines(market_context: dict[str, Any], theme: str | None) -> list[dict[str, Any]]:
+    if not market_context.get("close_review_used"):
+        return []
+    review = market_context.get("close_review") or {}
+    rows: list[dict[str, Any]] = []
+    summary = str(review.get("actual_market_summary") or "")
+    if summary and contains_theme(summary, theme):
+        rows.append(
+            {
+                "title": "收盘复盘市场状态",
+                "impact_score": "close-review",
+                "direction": review.get("direction") or "",
+                "summary": summary,
+            }
+        )
+    fund_flow = str(review.get("fund_flow") or "")
+    if fund_flow and contains_theme(fund_flow, theme):
+        rows.append(
+            {
+                "title": "收盘复盘资金流",
+                "impact_score": "close-review",
+                "direction": "fund_flow",
+                "summary": fund_flow,
+            }
+        )
+    for item in review.get("sector_hits") or []:
+        sector = str(item.get("sector") or "")
+        text = " ".join(str(item.get(key) or "") for key in ("sector", "hit_level", "actual_move"))
+        if sector and contains_theme(text, theme):
+            rows.append(
+                {
+                    "title": f"收盘复盘：{sector}",
+                    "sector": sector,
+                    "impact_score": item.get("hit_level") or ("命中" if item.get("hit") else "未命中"),
+                    "direction": "positive" if item.get("hit") else "negative",
+                    "summary": item.get("actual_move") or "",
+                }
+            )
     return rows
 
 
@@ -555,6 +687,93 @@ def apply_quote_refresh(row: dict[str, Any], snapshot_path: Path) -> None:
         row["bucket"] = "watch"
 
 
+def _close_review_hit_bonus(hit: object, hit_level: str) -> float:
+    text = str(hit_level or "")
+    if hit is True:
+        if "强" in text:
+            return 3.0
+        if "部分" in text or "边缘" in text:
+            return 1.5
+        return 2.0
+    if hit is False:
+        if "部分" in text or "个股" in text:
+            return -1.5
+        return -3.0
+    return 0.0
+
+
+def apply_market_context(rows: list[dict[str, Any]], market_context: dict[str, Any]) -> None:
+    """Use post-close review signals to calibrate candidate ranking.
+
+    The close review is intentionally a modest overlay: it should correct stale
+    mainline assumptions when today's assembled report is missing, while not
+    overruling hard stock-level trend/valuation gates.
+    """
+
+    if not market_context.get("close_review_used"):
+        return
+    review_date = str(market_context.get("close_review_date") or market_context.get("requested_date") or "")
+    close_review = load_close_review(review_date) if review_date else None
+    if not close_review:
+        return
+
+    stock_hits: dict[str, dict[str, Any]] = {
+        raw_code(item.get("ticker") or item.get("code")): item
+        for item in close_review.get("stock_hits", []) or []
+        if isinstance(item, dict) and raw_code(item.get("ticker") or item.get("code"))
+    }
+    sector_hits = [
+        item
+        for item in close_review.get("sector_hits", []) or []
+        if isinstance(item, dict) and item.get("sector")
+    ]
+
+    for row in rows:
+        adjustments: list[str] = []
+        delta = 0.0
+        code = raw_code(row.get("code"))
+        stock_hit = stock_hits.get(code)
+        if stock_hit:
+            hit_level = str(stock_hit.get("hit_level") or "")
+            stock_delta = _close_review_hit_bonus(stock_hit.get("hit"), hit_level)
+            delta += stock_delta
+            actual = stock_hit.get("actual_move") or stock_hit.get("reason") or ""
+            label = "个股命中" if stock_delta > 0 else "个股未命中" if stock_delta < 0 else "个股复盘"
+            adjustments.append(f"{review_date}收盘复盘{label}：{hit_level or actual}")
+
+        sector_text = " ".join(
+            str(value or "")
+            for value in [row.get("sector"), row.get("name"), " ".join(row.get("reasons") or [])]
+        )
+        for item in sector_hits:
+            sector = str(item.get("sector") or "")
+            if not sector or not contains_theme(sector_text, sector):
+                continue
+            sector_delta = _close_review_hit_bonus(item.get("hit"), str(item.get("hit_level") or "")) * 0.7
+            delta += sector_delta
+            label = "板块确认" if sector_delta > 0 else "板块转弱" if sector_delta < 0 else "板块复盘"
+            adjustments.append(f"{review_date}收盘复盘{label}：{sector} {item.get('hit_level') or ''}".strip())
+            break
+
+        if not adjustments:
+            continue
+        row["market_context_evidence"] = adjustments[:4]
+        row["score"] = round(max(0.0, min(100.0, as_float(row.get("score"), 0.0) + delta)), 2)
+        row.setdefault("reasons", [])
+        for adjustment in adjustments[:2]:
+            if adjustment not in row["reasons"]:
+                row["reasons"].append(adjustment)
+        if row["bucket"] == "core" and row["score"] < 70:
+            row["bucket"] = "watch"
+        elif row["bucket"] == "reject" and row["score"] >= 50:
+            row["bucket"] = "watch"
+        elif row["bucket"] == "watch" and row["score"] >= 75 and (
+            "eligible_beneficiaries" in row.get("source_tags", [])
+            or any(entry.get("source") == "high_confidence" for entry in row.get("iwencai_matches", []))
+        ):
+            row["bucket"] = "core"
+
+
 def _committee_member(name: str, score: float, stance: str, comment: str) -> dict[str, Any]:
     return {
         "name": name,
@@ -662,16 +881,22 @@ def investment_committee_review(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def render_markdown(payload: dict[str, Any]) -> str:
+    market_context = payload.get("market_context") or {}
     lines = [
         f"# 综合选股池 {payload['date']}",
         "",
         f"- 主题: {payload.get('theme') or '全部'}",
         f"- 候选数: {payload['summary']['total']}，核心池: {payload['summary']['core']}，观察池: {payload['summary']['watch']}，排除: {payload['summary']['reject']}",
+        f"- 市场上下文: {market_context.get('source') or 'archive'}；请求日期 {market_context.get('requested_date') or payload['date']}；归档日期 {market_context.get('archive_date') or payload['date']}",
         "",
         "## 当日主线",
     ]
+    if market_context.get("warning"):
+        lines.append(f"- {market_context['warning']}")
     for item in payload.get("mainlines", [])[:8]:
-        lines.append(f"- {item.get('title') or item.get('sector')}: {item.get('impact_score', '')}")
+        summary = item.get("summary")
+        suffix = f"；{summary}" if summary else ""
+        lines.append(f"- {item.get('title') or item.get('sector')}: {item.get('impact_score', '')}{suffix}")
     if not payload.get("mainlines"):
         lines.append("- 未匹配到主题主线，按股票/产业链证据补充筛选。")
     for bucket, title in (("core", "核心池"), ("watch", "观察池"), ("reject", "排除/待验证")):
@@ -743,7 +968,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    date, archive = load_archive(args.date)
+    date, archive, market_context = load_archive_for_selection(args.date)
     codes = split_codes_arg(args.codes)
     iwencai_result = run_iwencai_stock_pool(args)
     iwencai_data = iwencai_result.get("data") if iwencai_result else None
@@ -751,6 +976,7 @@ def main() -> int:
     if not getattr(args, "skip_fresh_check", False):
         _ensure_candidate_data_fresh(list(candidates.keys()), args)
     rendered = [render_candidate(candidate) for candidate in candidates.values()]
+    apply_market_context(rendered, market_context)
     rendered.sort(key=lambda row: ({"core": 2, "watch": 1, "reject": 0}[row["bucket"]], row["score"]), reverse=True)
     max_candidates = max(1, args.max_candidates)
     manual_rows = [row for row in rendered if "manual_codes" in row.get("source_tags", [])]
@@ -774,13 +1000,14 @@ def main() -> int:
         "date": date,
         "theme": args.theme,
         "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "market_context": market_context,
         "summary": {
             "total": len(rendered),
             "core": sum(1 for row in rendered if row["bucket"] == "core"),
             "watch": sum(1 for row in rendered if row["bucket"] == "watch"),
             "reject": sum(1 for row in rendered if row["bucket"] == "reject"),
         },
-        "mainlines": mainline_matches(archive, args.theme),
+        "mainlines": close_review_mainlines(market_context, args.theme) + mainline_matches(archive, args.theme),
         "iwencai": {
             key: value
             for key, value in (iwencai_result or {"status": "skipped"}).items()
